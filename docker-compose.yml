@@ -36,3 +36,24 @@ services:
       options:
         max-size: 5m
         max-file: "2"
+
+  # One-time historical download (docs/03 section 2.2). Safe to stop and start again.
+  # Not restarted automatically: a block must stay stopped until the owner has reviewed it.
+  backfill:
+    build:
+      context: ./services
+      target: collector
+    image: hoopsedge-backfill
+    command: ["python", "-m", "hoopsedge.ingest.backfill", "fetch"]
+    restart: "no"
+    mem_limit: 512m
+    volumes:
+      - ./data:/workspace/data
+    environment:
+      HOOPSEDGE_ENV: local
+      DRY_RUN: "true"
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"

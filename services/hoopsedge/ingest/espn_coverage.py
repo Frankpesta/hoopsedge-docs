@@ -93,7 +93,7 @@ def check_scoreboard_event(event: dict[str, Any], league: str) -> GameCheck:
         periods_present=complete,
         periods_match_score=complete
         and all(
-            _to_number(c.get("score")) == sum(side)
+            to_number(c.get("score")) == sum(side)
             for c, side in zip(competitors, periods, strict=True)
         ),
         half_available=complete and all(len(side) >= half_periods for side in periods),
@@ -139,7 +139,7 @@ def check_summary(summary: dict[str, Any], league: str) -> SummaryCheck:
 def check_core_odds(document: dict[str, Any]) -> OddsCheck:
     items = document.get("items", [])
     names = [str(item.get("provider", {}).get("name")) for item in items]
-    books = [item for item in items if _is_book_line(item)]
+    books = [item for item in items if is_book_line(item)]
     return OddsCheck(
         all_providers=tuple(names),
         book_providers=tuple(str(item["provider"]["name"]) for item in books),
@@ -156,7 +156,7 @@ def _is_exhibition(competition: dict[str, Any]) -> bool:
     return any(marker in text for text in headlines for marker in EXHIBITION_HEADLINES)
 
 
-def _is_book_line(item: dict[str, Any]) -> bool:
+def is_book_line(item: dict[str, Any]) -> bool:
     name = str(item.get("provider", {}).get("name")).lower()
     return (
         name not in NON_BOOK_PROVIDERS
@@ -182,7 +182,7 @@ def _missing_fields(team_stats: list[dict[str, Any]], header: dict[str, Any]) ->
         if len(team_stats) != 2 or any(not stats.get(name) for stats in team_stats)
     ]
     competitors = header.get("competitors", [])
-    if len(competitors) != 2 or any(_to_number(c.get("score")) is None for c in competitors):
+    if len(competitors) != 2 or any(to_number(c.get("score")) is None for c in competitors):
         missing.append("PTS")
     return tuple(missing)
 
@@ -197,7 +197,7 @@ def _players_have_minutes(groups: list[dict[str, Any]]) -> bool:
             return False
         index = keys.index("minutes")
         played = [a for a in block.get("athletes", []) if a.get("stats")]
-        if not played or not any(_to_number(a["stats"][index]) for a in played):
+        if not played or not any(to_number(a["stats"][index]) for a in played):
             return False
     return True
 
@@ -237,20 +237,20 @@ def _possessions(stats: dict[str, Any], group: dict[str, Any]) -> float | None:
     TOV is player turnovers plus team turnovers, because the reported team total is wrong
     in some 2017-18 NBA games.
     """
-    fga = _attempts(stats.get("fieldGoalsMade-fieldGoalsAttempted"))
-    fta = _attempts(stats.get("freeThrowsMade-freeThrowsAttempted"))
-    oreb = _to_number(stats.get("offensiveRebounds"))
-    players = _player_turnovers(group)
-    team = _to_number(stats.get("teamTurnovers"))
+    fga = attempts(stats.get("fieldGoalsMade-fieldGoalsAttempted"))
+    fta = attempts(stats.get("freeThrowsMade-freeThrowsAttempted"))
+    oreb = to_number(stats.get("offensiveRebounds"))
+    players = player_turnovers(group)
+    team = to_number(stats.get("teamTurnovers"))
     if fga is None or fta is None or oreb is None or players is None or team is None:
         return None
     return fga - oreb + players + team + 0.44 * fta
 
 
 def _turnover_relation(stats: dict[str, Any], group: dict[str, Any]) -> str:
-    team = _to_number(stats.get("teamTurnovers"))
-    total = _to_number(stats.get("totalTurnovers"))
-    players = _player_turnovers(group)
+    team = to_number(stats.get("teamTurnovers"))
+    total = to_number(stats.get("totalTurnovers"))
+    players = player_turnovers(group)
     if team is None or total is None or players is None:
         return "unknown"
     if team == 0 and total == players:
@@ -262,14 +262,14 @@ def _turnover_relation(stats: dict[str, Any], group: dict[str, Any]) -> str:
     return "other"
 
 
-def _player_turnovers(group: dict[str, Any]) -> float | None:
+def player_turnovers(group: dict[str, Any]) -> float | None:
     block = (group.get("statistics") or [{}])[0]
     keys = block.get("keys") or []
     if "turnovers" not in keys:
         return None
     index = keys.index("turnovers")
     return sum(
-        _to_number(a["stats"][index]) or 0 for a in block.get("athletes", []) if a.get("stats")
+        to_number(a["stats"][index]) or 0 for a in block.get("athletes", []) if a.get("stats")
     )
 
 
@@ -283,13 +283,13 @@ def _spread_sign(item: dict[str, Any]) -> str | None:
     return "positive_means_home_favored"
 
 
-def _attempts(made_attempted: Any) -> float | None:
+def attempts(made_attempted: Any) -> float | None:
     if not isinstance(made_attempted, str) or "-" not in made_attempted:
         return None
-    return _to_number(made_attempted.split("-")[1])
+    return to_number(made_attempted.split("-")[1])
 
 
-def _to_number(value: Any) -> float | None:
+def to_number(value: Any) -> float | None:
     if isinstance(value, bool) or value is None:
         return None
     try:
