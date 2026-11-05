@@ -34,3 +34,16 @@ docker compose stop collector                                                # s
 ```
 
 If `status` shows `HALTED`, a source returned a block and the collector has stopped calling it. Review what happened before running `docker compose run --rm dev python -m hoopsedge.ingest.collector resume <source>`.
+
+## Historical backfill
+
+A one-time download of past games from ESPN, then odds, into `data/raw/`. It's safe to stop and start again, and it doesn't restart by itself after a reboot. Starting it again resumes where it stopped.
+
+```sh
+docker compose up -d backfill                                                # start or resume
+docker compose run --rm dev python -m hoopsedge.ingest.backfill status       # progress
+docker compose stop backfill                                                 # stop
+docker compose run --rm dev python -m hoopsedge.ingest.backfill build        # build tables and docs/reports/phase2-coverage.md
+```
+
+`build` can run at any time and rebuilds all curated tables from the raw files. If `status` shows `HALTED`, ESPN returned a block, so review it before running `resume` in place of `status`.
