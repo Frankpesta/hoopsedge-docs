@@ -1,0 +1,1041 @@
+{
+ "count": 13,
+ "items": [
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/18?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+103",
+      "american": "+103"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1",
+      "american": "+1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-103",
+      "american": "-103"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 103,
+    "spreadOdds": -103.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-107",
+     "american": "-107"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-103",
+     "american": "-103"
+    }
+   },
+   "details": "KSU -1",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-113",
+      "american": "-113"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1",
+      "american": "-1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-107",
+      "american": "-107"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -113,
+    "spreadOdds": -107.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -107.0,
+   "overUnder": 128.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/18?lang=en&region=us",
+    "id": "18",
+    "name": "5Dimes.eu",
+    "priority": 0
+   },
+   "spread": -1.0,
+   "spreadWinner": false,
+   "underOdds": -103.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/26?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+103",
+      "american": "+103"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1",
+      "american": "+1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-103",
+      "american": "-103"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 103,
+    "spreadOdds": -103.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-107",
+     "american": "-107"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-103",
+     "american": "-103"
+    }
+   },
+   "details": "KSU -1",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-113",
+      "american": "-113"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1",
+      "american": "-1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-107",
+      "american": "-107"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -113,
+    "spreadOdds": -107.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -107.0,
+   "overUnder": 128.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/26?lang=en&region=us",
+    "id": "26",
+    "name": "BETNOW.eu",
+    "priority": 0
+   },
+   "spread": -1.0,
+   "spreadWinner": false,
+   "underOdds": -103.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/19?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-102",
+      "american": "-102"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1",
+      "american": "+1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": -102,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "KSU -1",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-118",
+      "american": "-118"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1",
+      "american": "-1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -118,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 128.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/19?lang=en&region=us",
+    "id": "19",
+    "name": "BETONLINE.ag",
+    "priority": 0
+   },
+   "spread": -1.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/20?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1",
+      "american": "+1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-115",
+      "american": "-115"
+     }
+    },
+    "favorite": false,
+    "moneyLine": -110,
+    "spreadOdds": -115.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "129",
+     "american": "129"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "KSU -1",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1",
+      "american": "-1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -110,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 129.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/20?lang=en&region=us",
+    "id": "20",
+    "name": "BOVADA.lv",
+    "priority": 0
+   },
+   "spread": -1.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/4?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+100",
+      "american": "+100"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1.5",
+      "american": "+1.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 100,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "128",
+     "american": "128"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "KSU -1.5",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-120",
+      "american": "-120"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1.5",
+      "american": "-1.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -120,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 128.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/4?lang=en&region=us",
+    "id": "4",
+    "name": "BetUS.COM",
+    "priority": 0
+   },
+   "spread": -1.5,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/23?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+105",
+      "american": "+105"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+2",
+      "american": "+2"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 105,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "129.5",
+     "american": "129.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "KSU -2",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-125",
+      "american": "-125"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-2",
+      "american": "-2"
+     },
+     "spread": {
+      "alternateDisplayValue": "-115",
+      "american": "-115"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -125,
+    "spreadOdds": -115.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 129.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/23?lang=en&region=us",
+    "id": "23",
+    "name": "Opening",
+    "priority": 0
+   },
+   "spread": -2.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/15?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-102",
+      "american": "-102"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1",
+      "american": "+1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": -102,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "KSU -1",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-118",
+      "american": "-118"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1",
+      "american": "-1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -118,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 128.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/15?lang=en&region=us",
+    "id": "15",
+    "name": "SportsBetting.ag",
+    "priority": 0
+   },
+   "spread": -1.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+105",
+      "american": "+105"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+2",
+      "american": "+2"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 105,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "129.5",
+     "american": "129.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "KSU -2",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-125",
+      "american": "-125"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-2",
+      "american": "-2"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -125,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 129.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/1?lang=en&region=us",
+    "id": "1",
+    "name": "SportsInteraction.com",
+    "priority": 0
+   },
+   "spread": -2.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/3?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1",
+      "american": "+1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": -105,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "KSU -1",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-115",
+      "american": "-115"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1",
+      "american": "-1"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -115,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 128.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/3?lang=en&region=us",
+    "id": "3",
+    "name": "Sportsbook.com",
+    "priority": 0
+   },
+   "spread": -1.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/25?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "PK",
+      "american": "PK"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": -110,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "EVEN",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "PK",
+      "american": "PK"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": -110,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 128.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/25?lang=en&region=us",
+    "id": "25",
+    "name": "Westgate",
+    "priority": 0
+   },
+   "spread": 0.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1004?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "pointSpread": {
+      "alternateDisplayValue": "+2",
+      "american": "+2"
+     }
+    },
+    "favorite": false,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true,
+    "winPercentage": 54.0
+   },
+   "details": "KSU -2",
+   "homeTeamOdds": {
+    "current": {
+     "pointSpread": {
+      "alternateDisplayValue": "-2",
+      "american": "-2"
+     }
+    },
+    "favorite": true,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false,
+    "winPercentage": 46.0
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/1004?lang=en&region=us",
+    "id": "1004",
+    "name": "consensus",
+    "priority": 0
+   },
+   "spread": -2.0,
+   "spreadWinner": false
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1003?lang=en&region=us",
+   "awayTeamOdds": {
+    "averageScore": 66.96,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-102",
+      "american": "-102"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1",
+      "american": "+1"
+     },
+     "spread": {
+      "alternateDisplayValue": "+44",
+      "american": "+44"
+     }
+    },
+    "favorite": false,
+    "moneyLine": -102,
+    "moneyLineOdds": 37.66,
+    "moneyLineReturn": -0.254,
+    "similarities": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/competitors/239/odds/1003/similarities?lang=en&region=us"
+    },
+    "spreadOdds": 43.98,
+    "spreadReturn": -0.16,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true,
+    "winPercentage": 37.66
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "+67",
+     "american": "+67"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "+33",
+     "american": "+33"
+    }
+   },
+   "details": "KSU -1",
+   "headToHeads": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1003/head-to-heads?lang=en&region=us"
+   },
+   "homeTeamOdds": {
+    "averageScore": 69.9,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-118",
+      "american": "-118"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1",
+      "american": "-1"
+     },
+     "spread": {
+      "alternateDisplayValue": "+53",
+      "american": "+53"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -118,
+    "moneyLineOdds": 62.34,
+    "moneyLineReturn": 0.152,
+    "similarities": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/competitors/2306/odds/1003/similarities?lang=en&region=us"
+    },
+    "spreadOdds": 53.24,
+    "spreadReturn": 0.016,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false,
+    "winPercentage": 62.34
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneylineWinner": false,
+   "overOdds": 67.19,
+   "overUnder": 128.5,
+   "predictors": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1003/predictors?lang=en&region=us"
+   },
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/1003?lang=en&region=us",
+    "id": "1003",
+    "name": "numberfire",
+    "priority": 0
+   },
+   "spread": -1.0,
+   "spreadWinner": false,
+   "underOdds": 32.81
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1002?lang=en&region=us",
+   "awayTeamOdds": {
+    "averageScore": 63.3,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+104",
+      "american": "+104"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+1.5",
+      "american": "+1.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 104,
+    "pastPerformances": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/teams/239/odds/1002/past-performances?lang=en&region=us"
+    },
+    "spreadOdds": -110.0,
+    "spreadRecord": {
+     "losses": 15,
+     "pushes": 1,
+     "summary": "17-15-1",
+     "wins": 17
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/239?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-108",
+     "american": "-108"
+    },
+    "total": {
+     "alternateDisplayValue": "128.5",
+     "american": "128.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-108",
+     "american": "-108"
+    }
+   },
+   "details": "KSU -1.5",
+   "headToHeads": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1002/head-to-heads?lang=en&region=us"
+   },
+   "homeTeamOdds": {
+    "averageScore": 65.1,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-117",
+      "american": "-117"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-1.5",
+      "american": "-1.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-102",
+      "american": "-102"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -117,
+    "pastPerformances": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/teams/2306/odds/1002/past-performances?lang=en&region=us"
+    },
+    "spreadOdds": -102.0,
+    "spreadRecord": {
+     "losses": 11,
+     "pushes": 0,
+     "summary": "24-11-0",
+     "wins": 24
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2017/teams/2306?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "initialOverUnder": 129.5,
+   "initialSpread": -2.0,
+   "moneyLineHistory": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1002/history/0?lang=en&region=us"
+   },
+   "moneylineWinner": false,
+   "overOdds": -108.0,
+   "overUnder": 128.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/1002?lang=en&region=us",
+    "id": "1002",
+    "name": "teamrankings",
+    "priority": 0
+   },
+   "spread": -1.5,
+   "spreadHistory": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1002/history/1?lang=en&region=us"
+   },
+   "spreadWinner": false,
+   "totalHistory": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/400916211/competitions/400916211/odds/1002/history/2?lang=en&region=us"
+   },
+   "underOdds": -108.0
+  }
+ ],
+ "pageCount": 1,
+ "pageIndex": 1,
+ "pageSize": 50
+}

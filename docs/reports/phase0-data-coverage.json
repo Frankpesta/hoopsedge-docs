@@ -1,0 +1,1762 @@
+{
+ "NBA": {
+  "depth": {
+   "2015-16": {
+    "exhibitions_excluded": 0,
+    "final_games": 13,
+    "games_seen": 13,
+    "odds": {
+     "book_providers": {
+      "5Dimes.eu": 13,
+      "BETONLINE.ag": 13,
+      "BOVADA.lv": 13,
+      "PinnacleSports.com": 9,
+      "SportsBetting.ag": 13,
+      "Westgate": 13
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "5Dimes.eu": 13,
+      "BETONLINE.ag": 13,
+      "BOVADA.lv": 13,
+      "Opening": 13,
+      "PinnacleSports.com": 9,
+      "SportsBetting.ag": 13,
+      "Westgate": 13,
+      "consensus": 13,
+      "numberfire": 13,
+      "teamrankings": 13
+     },
+     "sampled": 13,
+     "spread_sign": {
+      "negative_means_home_favored": 13
+     }
+    },
+    "overtime_games": 1,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 13,
+     "injury_rows": 78,
+     "injury_rows_after_tip": 78,
+     "missing_fields": {
+      "3P": 2,
+      "DREB": 2,
+      "FG": 2,
+      "FT": 2,
+      "OREB": 2,
+      "PF": 2,
+      "TOV": 2
+     },
+     "pct_box_complete": 84.62,
+     "pct_player_minutes": 84.62,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 13,
+      "numberfire": 13,
+      "teamrankings": 13
+     },
+     "sampled": 13,
+     "turnover_relations": {
+      "no_team_turnovers": 8,
+      "total_is_players_plus_team": 14,
+      "unknown": 4
+     }
+    }
+   },
+   "2016-17": {
+    "exhibitions_excluded": 0,
+    "final_games": 26,
+    "games_seen": 26,
+    "odds": {
+     "book_providers": {
+      "5Dimes.eu": 15,
+      "BETNOW.eu": 15,
+      "BETONLINE.ag": 15,
+      "BOVADA.lv": 15,
+      "BetUS.COM": 15,
+      "SportsBetting.ag": 15,
+      "SportsInteraction.com": 15,
+      "Sportsbook.com": 15,
+      "Westgate": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "5Dimes.eu": 15,
+      "BETNOW.eu": 15,
+      "BETONLINE.ag": 15,
+      "BOVADA.lv": 15,
+      "BetUS.COM": 15,
+      "Opening": 15,
+      "SportsBetting.ag": 15,
+      "SportsInteraction.com": 15,
+      "Sportsbook.com": 15,
+      "Westgate": 15,
+      "consensus": 15,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 0,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 15,
+     "injury_rows": 84,
+     "injury_rows_after_tip": 84,
+     "missing_fields": {
+      "3P": 2,
+      "DREB": 2,
+      "FG": 2,
+      "FT": 2,
+      "OREB": 2,
+      "PF": 2,
+      "TOV": 2
+     },
+     "pct_box_complete": 86.67,
+     "pct_player_minutes": 86.67,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 15,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 15,
+      "total_is_players_plus_team": 11,
+      "unknown": 4
+     }
+    }
+   },
+   "2017-18": {
+    "exhibitions_excluded": 0,
+    "final_games": 24,
+    "games_seen": 24,
+    "odds": {
+     "book_providers": {
+      "CG Technology": 15,
+      "Caesar's": 14,
+      "Caesars Sportsbook": 15,
+      "Unibet": 15,
+      "Westgate": 15,
+      "Wynn": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "Bet 365": 1,
+      "CG Technology": 15,
+      "Caesar's": 14,
+      "Caesars Sportsbook": 15,
+      "Unibet": 15,
+      "Westgate": 15,
+      "Wynn": 15,
+      "accuscore": 15,
+      "consensus": 15,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 2,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 15,
+     "injury_rows": 90,
+     "injury_rows_after_tip": 90,
+     "missing_fields": {
+      "3P": 2,
+      "DREB": 2,
+      "FG": 2,
+      "FT": 2,
+      "OREB": 2,
+      "PF": 2,
+      "TOV": 2
+     },
+     "pct_box_complete": 86.67,
+     "pct_player_minutes": 86.67,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 15,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "other": 26,
+      "unknown": 4
+     }
+    }
+   },
+   "2018-19": {
+    "exhibitions_excluded": 1,
+    "final_games": 13,
+    "games_seen": 13,
+    "odds": {
+     "book_providers": {
+      "Caesar's": 13,
+      "Caesars": 13,
+      "Caesars Sportsbook": 13,
+      "Unibet": 13,
+      "Westgate": 13,
+      "Wynn": 13
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "Caesar's": 13,
+      "Caesars": 13,
+      "Caesars Sportsbook": 13,
+      "Unibet": 13,
+      "Westgate": 13,
+      "Wynn": 13,
+      "accuscore": 12,
+      "consensus": 7,
+      "numberfire": 13,
+      "teamrankings": 13
+     },
+     "sampled": 13,
+     "spread_sign": {
+      "negative_means_home_favored": 13
+     }
+    },
+    "overtime_games": 0,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 13,
+     "injury_rows": 76,
+     "injury_rows_after_tip": 76,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 7,
+      "numberfire": 13,
+      "teamrankings": 13
+     },
+     "sampled": 13,
+     "turnover_relations": {
+      "no_team_turnovers": 16,
+      "total_is_players_plus_team": 10
+     }
+    }
+   },
+   "2019-20": {
+    "exhibitions_excluded": 0,
+    "final_games": 16,
+    "games_seen": 16,
+    "odds": {
+     "book_providers": {
+      "CG Technology": 15,
+      "Caesars": 15,
+      "Caesars Sportsbook": 15,
+      "DraftKings": 15,
+      "SugarHouse": 15,
+      "Unibet": 15,
+      "Westgate": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "CG Technology": 15,
+      "Caesars": 15,
+      "Caesars Sportsbook": 15,
+      "DraftKings": 15,
+      "SugarHouse": 15,
+      "Unibet": 15,
+      "Westgate": 15,
+      "accuscore": 15,
+      "consensus": 15,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 14
+     }
+    },
+    "overtime_games": 0,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 15,
+     "injury_rows": 93,
+     "injury_rows_after_tip": 93,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 15,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 18,
+      "total_is_players_plus_team": 12
+     }
+    }
+   },
+   "2020-21": {
+    "exhibitions_excluded": 0,
+    "final_games": 14,
+    "games_seen": 17,
+    "odds": {
+     "book_providers": {
+      "BetfairSportsbook": 14,
+      "Caesars": 14,
+      "Caesars Sportsbook": 12,
+      "Caesars Sportsbook (New Jersey)": 14,
+      "Caesars Sportsbook (Pennsylvania)": 14,
+      "DraftKings": 13,
+      "MGM": 14,
+      "PointsBet": 10,
+      "SugarHouse": 13,
+      "Unibet": 14,
+      "Westgate": 14
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "BetfairSportsbook": 14,
+      "Caesars": 14,
+      "Caesars (New Jersey) - Live Odds": 14,
+      "Caesars Sportsbook": 13,
+      "Caesars Sportsbook (New Jersey)": 14,
+      "Caesars Sportsbook (New Jersey) - Live Odds": 14,
+      "Caesars Sportsbook (Pennsylvania)": 14,
+      "DraftKings": 13,
+      "MGM": 14,
+      "PointsBet": 10,
+      "SugarHouse": 13,
+      "Unibet": 14,
+      "Westgate": 14,
+      "accuscore": 14,
+      "consensus": 14,
+      "numberfire": 14,
+      "teamrankings": 14
+     },
+     "sampled": 14,
+     "spread_sign": {
+      "negative_means_home_favored": 14
+     }
+    },
+    "overtime_games": 2,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 14,
+     "injury_rows": 92,
+     "injury_rows_after_tip": 92,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 14,
+      "numberfire": 14,
+      "teamrankings": 14
+     },
+     "sampled": 14,
+     "turnover_relations": {
+      "no_team_turnovers": 16,
+      "total_is_players_plus_team": 12
+     }
+    }
+   },
+   "2021-22": {
+    "exhibitions_excluded": 0,
+    "final_games": 28,
+    "games_seen": 28,
+    "odds": {
+     "book_providers": {
+      "Caesars Sportsbook": 15,
+      "Caesars Sportsbook (Colorado)": 9,
+      "Caesars Sportsbook (New Jersey)": 15,
+      "Caesars Sportsbook (Pennsylvania)": 15,
+      "DraftKings": 15,
+      "Holland Casino": 10,
+      "MGM": 15,
+      "PointsBet": 4,
+      "SugarHouse": 15,
+      "Titanbets": 15,
+      "Unibet": 15,
+      "Westgate": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "Caesars Sportsbook": 15,
+      "Caesars Sportsbook (Colorado)": 9,
+      "Caesars Sportsbook (New Jersey)": 15,
+      "Caesars Sportsbook (New Jersey) - Live Odds": 15,
+      "Caesars Sportsbook (Pennsylvania)": 15,
+      "DraftKings": 15,
+      "Holland Casino": 10,
+      "MGM": 15,
+      "PointsBet": 8,
+      "SugarHouse": 15,
+      "Titanbets": 15,
+      "Unibet": 15,
+      "Westgate": 15,
+      "accuscore": 15,
+      "consensus": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 2,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 15,
+     "injury_rows": 93,
+     "injury_rows_after_tip": 93,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 11,
+      "total_is_players_plus_team": 19
+     }
+    }
+   },
+   "2022-23": {
+    "exhibitions_excluded": 0,
+    "final_games": 22,
+    "games_seen": 22,
+    "odds": {
+     "book_providers": {
+      "BetfairSportsbook": 15,
+      "Caesars Sportsbook": 15,
+      "Caesars Sportsbook (Colorado)": 15,
+      "Caesars Sportsbook (New Jersey)": 15,
+      "Caesars Sportsbook (Tennessee)": 6,
+      "DraftKings": 15,
+      "ESPN BET": 15,
+      "Holland Casino": 15,
+      "MGM": 15,
+      "PointsBet": 14,
+      "SugarHouse": 14,
+      "Titanbets": 15,
+      "Unibet": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "BetfairSportsbook": 15,
+      "Caesars Sportsbook": 15,
+      "Caesars Sportsbook (Colorado)": 15,
+      "Caesars Sportsbook (New Jersey)": 15,
+      "Caesars Sportsbook (New Jersey) - Live Odds": 15,
+      "Caesars Sportsbook (Tennessee)": 6,
+      "DraftKings": 15,
+      "ESPN BET": 15,
+      "Holland Casino": 15,
+      "MGM": 15,
+      "PointsBet": 14,
+      "SugarHouse": 14,
+      "Titanbets": 15,
+      "Unibet": 15,
+      "accuscore": 15,
+      "consensus": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 1,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 15,
+     "injury_rows": 79,
+     "injury_rows_after_tip": 79,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 14,
+      "total_is_players_plus_team": 16
+     }
+    }
+   },
+   "2023-24": {
+    "exhibitions_excluded": 0,
+    "final_games": 22,
+    "games_seen": 22,
+    "odds": {
+     "book_providers": {
+      "BetfairSportsbook": 15,
+      "Caesars Sportsbook (Colorado)": 15,
+      "Caesars Sportsbook (New Jersey)": 15,
+      "Caesars Sportsbook (Tennessee)": 15,
+      "DraftKings": 15,
+      "ESPN BET": 15,
+      "MGM": 15,
+      "SugarHouse": 15,
+      "Titanbets": 15,
+      "Unibet": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 100.0,
+     "providers": {
+      "BetfairSportsbook": 15,
+      "Caesars Sportsbook (Colorado)": 15,
+      "Caesars Sportsbook (New Jersey)": 15,
+      "Caesars Sportsbook (New Jersey) - Live Odds": 9,
+      "Caesars Sportsbook (Tennessee)": 15,
+      "DraftKings": 15,
+      "ESPN BET": 15,
+      "ESPN Bet - Live Odds": 6,
+      "MGM": 15,
+      "SugarHouse": 15,
+      "Titanbets": 15,
+      "Unibet": 15,
+      "accuscore": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 1,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 15,
+     "injury_rows": 91,
+     "injury_rows_after_tip": 91,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {},
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 12,
+      "total_is_players_plus_team": 18
+     }
+    }
+   },
+   "2024-25": {
+    "exhibitions_excluded": 0,
+    "final_games": 18,
+    "games_seen": 18,
+    "odds": {
+     "book_providers": {
+      "ESPN BET": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 100.0,
+     "providers": {
+      "ESPN BET": 15,
+      "ESPN Bet - Live Odds": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 1,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 15,
+     "injury_rows": 92,
+     "injury_rows_after_tip": 92,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {},
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 17,
+      "total_is_players_plus_team": 13
+     }
+    }
+   },
+   "2025-26": {
+    "exhibitions_excluded": 4,
+    "final_games": 14,
+    "games_seen": 14,
+    "odds": {
+     "book_providers": {
+      "DraftKings": 12
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 100.0,
+     "providers": {
+      "DraftKings": 12
+     },
+     "sampled": 12,
+     "spread_sign": {
+      "negative_means_home_favored": 12
+     }
+    },
+    "overtime_games": 2,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 12,
+     "injury_rows": 69,
+     "injury_rows_after_tip": 69,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "DraftKings": 12
+     },
+     "sampled": 12,
+     "turnover_relations": {
+      "no_team_turnovers": 10,
+      "total_is_players_plus_team": 14
+     }
+    }
+   },
+   "2026-27": {
+    "exhibitions_excluded": 0,
+    "final_games": 14,
+    "games_seen": 14,
+    "odds": {
+     "book_providers": {
+      "DraftKings": 14
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 100.0,
+     "providers": {
+      "DraftKings": 14
+     },
+     "sampled": 14,
+     "spread_sign": {
+      "negative_means_home_favored": 14
+     }
+    },
+    "overtime_games": 2,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 14,
+     "injury_rows": 81,
+     "injury_rows_after_tip": 13,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "DraftKings": 14
+     },
+     "sampled": 14,
+     "turnover_relations": {
+      "no_team_turnovers": 12,
+      "total_is_players_plus_team": 16
+     }
+    }
+   }
+  },
+  "scans": {
+   "2015-16": {
+    "busiest_day_games": 14,
+    "exhibitions_excluded": 1,
+    "final_games": 1316,
+    "games_by_season_type": {
+     "1": 48,
+     "2": 1233,
+     "3": 86
+    },
+    "games_seen": 1318,
+    "odds": {
+     "book_providers": {
+      "5Dimes.eu": 60,
+      "BETNOW.eu": 3,
+      "BETONLINE.ag": 60,
+      "BOVADA.lv": 65,
+      "BetUS.COM": 15,
+      "PinnacleSports.com": 47,
+      "SportsBetting.ag": 50,
+      "SportsInteraction.com": 14,
+      "Sportsbook.com": 15,
+      "Westgate": 53
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "5Dimes.eu": 60,
+      "BETNOW.eu": 3,
+      "BETONLINE.ag": 60,
+      "BOVADA.lv": 65,
+      "BetUS.COM": 15,
+      "Fantasy911.com": 4,
+      "Opening": 60,
+      "PinnacleSports.com": 47,
+      "SportsBetting.ag": 50,
+      "SportsInteraction.com": 14,
+      "Sportsbook.com": 15,
+      "Westgate": 53,
+      "consensus": 60,
+      "numberfire": 58,
+      "teamrankings": 60
+     },
+     "sampled": 60,
+     "spread_sign": {
+      "negative_means_home_favored": 60
+     }
+    },
+    "overtime_games": 82,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 149,
+     "injury_rows": 864,
+     "injury_rows_after_tip": 864,
+     "missing_fields": {
+      "3P": 21,
+      "DREB": 21,
+      "FG": 21,
+      "FT": 21,
+      "OREB": 21,
+      "PF": 21,
+      "TOV": 21
+     },
+     "pct_box_complete": 85.91,
+     "pct_player_minutes": 85.91,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 149,
+      "numberfire": 142,
+      "teamrankings": 149
+     },
+     "sampled": 149,
+     "turnover_relations": {
+      "no_team_turnovers": 132,
+      "total_is_players_plus_team": 124,
+      "unknown": 42
+     }
+    }
+   },
+   "2024-25": {
+    "busiest_day_games": 15,
+    "exhibitions_excluded": 3,
+    "final_games": 1321,
+    "games_by_season_type": {
+     "1": 26,
+     "2": 1239,
+     "3": 84,
+     "5": 6
+    },
+    "games_seen": 1326,
+    "odds": {
+     "book_providers": {
+      "ESPN BET": 60
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 100.0,
+     "providers": {
+      "ESPN BET": 60,
+      "ESPN Bet - Live Odds": 60
+     },
+     "sampled": 60,
+     "spread_sign": {
+      "negative_means_home_favored": 60
+     }
+    },
+    "overtime_games": 66,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 149,
+     "injury_rows": 927,
+     "injury_rows_after_tip": 927,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {},
+     "sampled": 149,
+     "turnover_relations": {
+      "no_team_turnovers": 125,
+      "other": 1,
+      "total_excludes_team": 1,
+      "total_is_players_plus_team": 171
+     }
+    }
+   }
+  }
+ },
+ "NCAA": {
+  "depth": {
+   "2015-16": {
+    "exhibitions_excluded": 0,
+    "final_games": 68,
+    "games_seen": 69,
+    "odds": {
+     "book_providers": {
+      "5Dimes.eu": 10,
+      "BETONLINE.ag": 10,
+      "BOVADA.lv": 6,
+      "PinnacleSports.com": 3,
+      "SportsBetting.ag": 10,
+      "Westgate": 10
+     },
+     "pct_with_book_line": 66.67,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "5Dimes.eu": 10,
+      "BETONLINE.ag": 10,
+      "BOVADA.lv": 10,
+      "Opening": 10,
+      "PinnacleSports.com": 6,
+      "SportsBetting.ag": 10,
+      "Westgate": 10,
+      "consensus": 9,
+      "numberfire": 10,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 10
+     }
+    },
+    "overtime_games": 2,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 93.33,
+     "pickcenter_providers": {
+      "consensus": 5,
+      "numberfire": 5,
+      "teamrankings": 13
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 24,
+      "total_is_players_plus_team": 6
+     }
+    }
+   },
+   "2016-17": {
+    "exhibitions_excluded": 0,
+    "final_games": 80,
+    "games_seen": 80,
+    "odds": {
+     "book_providers": {
+      "5Dimes.eu": 12,
+      "BETNOW.eu": 12,
+      "BETONLINE.ag": 12,
+      "BOVADA.lv": 12,
+      "BetUS.COM": 12,
+      "SportsBetting.ag": 12,
+      "SportsInteraction.com": 12,
+      "Sportsbook.com": 12,
+      "Westgate": 12
+     },
+     "pct_with_book_line": 80.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "5Dimes.eu": 12,
+      "BETNOW.eu": 12,
+      "BETONLINE.ag": 12,
+      "BOVADA.lv": 12,
+      "BetUS.COM": 12,
+      "Opening": 13,
+      "SportsBetting.ag": 12,
+      "SportsInteraction.com": 12,
+      "Sportsbook.com": 12,
+      "Westgate": 12,
+      "consensus": 12,
+      "numberfire": 12,
+      "teamrankings": 14
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 12
+     }
+    },
+    "overtime_games": 1,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 10,
+      "numberfire": 10,
+      "teamrankings": 14
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 23,
+      "total_is_players_plus_team": 7
+     }
+    }
+   },
+   "2017-18": {
+    "exhibitions_excluded": 0,
+    "final_games": 122,
+    "games_seen": 122,
+    "odds": {
+     "book_providers": {
+      "CG Technology": 8,
+      "Caesar's": 6,
+      "Caesars Sportsbook": 8,
+      "Unibet": 8,
+      "Westgate": 8,
+      "Wynn": 2
+     },
+     "pct_with_book_line": 53.33,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "CG Technology": 8,
+      "Caesar's": 8,
+      "Caesars Sportsbook": 8,
+      "Unibet": 8,
+      "Westgate": 8,
+      "Wynn": 8,
+      "accuscore": 9,
+      "consensus": 8,
+      "numberfire": 8,
+      "teamrankings": 13
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 8
+     }
+    },
+    "overtime_games": 14,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 11,
+      "numberfire": 11,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 24,
+      "other": 1,
+      "total_is_players_plus_team": 5
+     }
+    }
+   },
+   "2018-19": {
+    "exhibitions_excluded": 0,
+    "final_games": 130,
+    "games_seen": 130,
+    "odds": {
+     "book_providers": {
+      "Caesar's": 9,
+      "Caesars (New Jersey)": 9,
+      "Caesars Sportsbook": 12,
+      "Unibet": 14,
+      "Westgate": 14,
+      "Wynn": 7
+     },
+     "pct_with_book_line": 93.33,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "Caesar's": 12,
+      "Caesars (New Jersey)": 12,
+      "Caesars Sportsbook": 12,
+      "Unibet": 14,
+      "Westgate": 14,
+      "Wynn": 12,
+      "accuscore": 14,
+      "consensus": 5,
+      "numberfire": 14,
+      "teamrankings": 13
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 14
+     }
+    },
+    "overtime_games": 8,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 11,
+      "numberfire": 14,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 18,
+      "other": 1,
+      "total_is_players_plus_team": 11
+     }
+    }
+   },
+   "2019-20": {
+    "exhibitions_excluded": 0,
+    "final_games": 232,
+    "games_seen": 233,
+    "odds": {
+     "book_providers": {
+      "CG Technology": 3,
+      "Caesars (New Jersey)": 12,
+      "Caesars Sportsbook": 5,
+      "DraftKings": 14,
+      "SugarHouse": 14,
+      "Unibet": 15,
+      "Westgate": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "CG Technology": 3,
+      "Caesars (New Jersey)": 12,
+      "Caesars Sportsbook": 15,
+      "DraftKings": 14,
+      "SugarHouse": 14,
+      "Unibet": 15,
+      "Westgate": 15,
+      "accuscore": 15,
+      "consensus": 15,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 17,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 14,
+      "numberfire": 15,
+      "teamrankings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 16,
+      "other": 3,
+      "total_is_players_plus_team": 11
+     }
+    }
+   },
+   "2020-21": {
+    "exhibitions_excluded": 0,
+    "final_games": 103,
+    "games_seen": 130,
+    "odds": {
+     "book_providers": {
+      "BetfairSportsbook": 6,
+      "Caesars (New Jersey)": 10,
+      "Caesars Sportsbook": 13,
+      "Caesars Sportsbook (New Jersey)": 13,
+      "Caesars Sportsbook (Pennsylvania)": 10,
+      "DraftKings": 9,
+      "MGM": 6,
+      "PointsBet": 5,
+      "SugarHouse": 5,
+      "Unibet": 13,
+      "Westgate": 12
+     },
+     "pct_with_book_line": 86.67,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "BetfairSportsbook": 6,
+      "Caesars (New Jersey)": 10,
+      "Caesars (New Jersey) - Live Odds": 4,
+      "Caesars Sportsbook": 13,
+      "Caesars Sportsbook (New Jersey)": 13,
+      "Caesars Sportsbook (Pennsylvania)": 10,
+      "DraftKings": 9,
+      "MGM": 6,
+      "PointsBet": 6,
+      "SugarHouse": 5,
+      "Unibet": 13,
+      "Westgate": 12,
+      "accuscore": 13,
+      "consensus": 13,
+      "numberfire": 13,
+      "teamrankings": 12
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 13
+     }
+    },
+    "overtime_games": 4,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 12,
+      "numberfire": 12,
+      "teamrankings": 12
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 13,
+      "other": 1,
+      "total_is_players_plus_team": 16
+     }
+    }
+   },
+   "2021-22": {
+    "exhibitions_excluded": 0,
+    "final_games": 202,
+    "games_seen": 219,
+    "odds": {
+     "book_providers": {
+      "Caesars Sportsbook": 12,
+      "Caesars Sportsbook (Colorado)": 10,
+      "Caesars Sportsbook (New Jersey)": 14,
+      "Caesars Sportsbook (Pennsylvania)": 14,
+      "DraftKings": 14,
+      "MGM": 14,
+      "PointsBet": 2,
+      "SugarHouse": 14,
+      "Titanbets": 14,
+      "Unibet": 14,
+      "Westgate": 14
+     },
+     "pct_with_book_line": 93.33,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "Caesars Sportsbook": 12,
+      "Caesars Sportsbook (Colorado)": 10,
+      "Caesars Sportsbook (New Jersey)": 14,
+      "Caesars Sportsbook (Pennsylvania)": 14,
+      "DraftKings": 14,
+      "MGM": 14,
+      "PointsBet": 3,
+      "SugarHouse": 14,
+      "Titanbets": 14,
+      "Unibet": 14,
+      "Westgate": 14,
+      "accuscore": 14,
+      "consensus": 13,
+      "teamrankings": 14
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 14
+     }
+    },
+    "overtime_games": 11,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 11,
+      "teamrankings": 13
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 18,
+      "other": 2,
+      "total_is_players_plus_team": 10
+     }
+    }
+   },
+   "2022-23": {
+    "exhibitions_excluded": 0,
+    "final_games": 82,
+    "games_seen": 84,
+    "odds": {
+     "book_providers": {
+      "BetfairSportsbook": 11,
+      "Caesars Sportsbook": 10,
+      "Caesars Sportsbook (Colorado)": 14,
+      "Caesars Sportsbook (New Jersey)": 12,
+      "Caesars Sportsbook (Tennessee)": 9,
+      "DraftKings": 12,
+      "ESPN BET": 14,
+      "MGM": 10,
+      "PointsBet": 14,
+      "SugarHouse": 12,
+      "Titanbets": 14,
+      "Unibet": 14
+     },
+     "pct_with_book_line": 93.33,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "BetfairSportsbook": 11,
+      "Caesars Sportsbook": 10,
+      "Caesars Sportsbook (Colorado)": 14,
+      "Caesars Sportsbook (New Jersey)": 12,
+      "Caesars Sportsbook (Tennessee)": 9,
+      "DraftKings": 12,
+      "ESPN BET": 14,
+      "MGM": 10,
+      "PointsBet": 14,
+      "SugarHouse": 12,
+      "Titanbets": 14,
+      "Unibet": 14,
+      "accuscore": 14,
+      "consensus": 14,
+      "teamrankings": 14
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 14
+     }
+    },
+    "overtime_games": 2,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 14,
+      "teamrankings": 14
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 15,
+      "other": 2,
+      "total_is_players_plus_team": 13
+     }
+    }
+   },
+   "2023-24": {
+    "exhibitions_excluded": 0,
+    "final_games": 109,
+    "games_seen": 110,
+    "odds": {
+     "book_providers": {
+      "BetfairSportsbook": 12,
+      "Caesars Sportsbook (Colorado)": 13,
+      "Caesars Sportsbook (New Jersey)": 11,
+      "Caesars Sportsbook (Tennessee)": 13,
+      "DraftKings": 11,
+      "ESPN BET": 14,
+      "MGM": 11,
+      "SugarHouse": 11,
+      "Titanbets": 13,
+      "Unibet": 13
+     },
+     "pct_with_book_line": 93.33,
+     "pct_with_open_close": 86.67,
+     "providers": {
+      "BetfairSportsbook": 12,
+      "Caesars Sportsbook (Colorado)": 13,
+      "Caesars Sportsbook (New Jersey)": 11,
+      "Caesars Sportsbook (Tennessee)": 13,
+      "DraftKings": 11,
+      "ESPN BET": 14,
+      "ESPN Bet - Live Odds": 7,
+      "MGM": 11,
+      "SugarHouse": 11,
+      "Titanbets": 13,
+      "Unibet": 13,
+      "accuscore": 13
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 14
+     }
+    },
+    "overtime_games": 5,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {},
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 11,
+      "other": 2,
+      "total_is_players_plus_team": 17
+     }
+    }
+   },
+   "2024-25": {
+    "exhibitions_excluded": 0,
+    "final_games": 234,
+    "games_seen": 234,
+    "odds": {
+     "book_providers": {
+      "ESPN BET": 15
+     },
+     "pct_with_book_line": 100.0,
+     "pct_with_open_close": 100.0,
+     "providers": {
+      "ESPN BET": 15,
+      "ESPN Bet - Live Odds": 15
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 15
+     }
+    },
+    "overtime_games": 19,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {
+      "3P": 1,
+      "DREB": 1,
+      "FG": 1,
+      "FT": 1,
+      "OREB": 1,
+      "PF": 1,
+      "TOV": 1
+     },
+     "pct_box_complete": 93.33,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {},
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 17,
+      "total_is_players_plus_team": 11,
+      "unknown": 2
+     }
+    }
+   },
+   "2025-26": {
+    "exhibitions_excluded": 0,
+    "final_games": 94,
+    "games_seen": 95,
+    "odds": {
+     "book_providers": {
+      "DraftKings": 13
+     },
+     "pct_with_book_line": 86.67,
+     "pct_with_open_close": 86.67,
+     "providers": {
+      "DraftKings": 13
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 13
+     }
+    },
+    "overtime_games": 8,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "DraftKings": 15
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 16,
+      "total_is_players_plus_team": 14
+     }
+    }
+   },
+   "2026-27": {
+    "exhibitions_excluded": 0,
+    "final_games": 54,
+    "games_seen": 55,
+    "odds": {
+     "book_providers": {
+      "DraftKings": 9
+     },
+     "pct_with_book_line": 60.0,
+     "pct_with_open_close": 60.0,
+     "providers": {
+      "DraftKings": 9
+     },
+     "sampled": 15,
+     "spread_sign": {
+      "negative_means_home_favored": 9
+     }
+    },
+    "overtime_games": 0,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "DraftKings": 8
+     },
+     "sampled": 15,
+     "turnover_relations": {
+      "no_team_turnovers": 16,
+      "total_is_players_plus_team": 14
+     }
+    }
+   }
+  },
+  "scans": {
+   "2015-16": {
+    "busiest_day_games": 155,
+    "exhibitions_excluded": 0,
+    "final_games": 5951,
+    "games_by_season_type": {
+     "2": 5844,
+     "3": 147
+    },
+    "games_seen": 5991,
+    "odds": {
+     "book_providers": {
+      "5Dimes.eu": 41,
+      "BETONLINE.ag": 41,
+      "BOVADA.lv": 17,
+      "PinnacleSports.com": 18,
+      "SportsBetting.ag": 41,
+      "Westgate": 37
+     },
+     "pct_with_book_line": 68.33,
+     "pct_with_open_close": 0.0,
+     "providers": {
+      "5Dimes.eu": 41,
+      "BETONLINE.ag": 41,
+      "BOVADA.lv": 41,
+      "Opening": 41,
+      "PinnacleSports.com": 31,
+      "SportsBetting.ag": 41,
+      "Westgate": 37,
+      "consensus": 36,
+      "numberfire": 40,
+      "teamrankings": 57,
+      "unknown": 5
+     },
+     "sampled": 60,
+     "spread_sign": {
+      "negative_means_home_favored": 41
+     }
+    },
+    "overtime_games": 343,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 99.33,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {
+      "consensus": 93,
+      "numberfire": 100,
+      "teamrankings": 128
+     },
+     "sampled": 150,
+     "turnover_relations": {
+      "no_team_turnovers": 233,
+      "other": 1,
+      "total_is_players_plus_team": 66
+     }
+    }
+   },
+   "2024-25": {
+    "busiest_day_games": 199,
+    "exhibitions_excluded": 0,
+    "final_games": 6292,
+    "games_by_season_type": {
+     "2": 6176,
+     "3": 123
+    },
+    "games_seen": 6299,
+    "odds": {
+     "book_providers": {
+      "ESPN BET": 53
+     },
+     "pct_with_book_line": 88.33,
+     "pct_with_open_close": 88.33,
+     "providers": {
+      "ESPN BET": 54,
+      "ESPN Bet - Live Odds": 54
+     },
+     "sampled": 60,
+     "spread_sign": {
+      "negative_means_home_favored": 53
+     }
+    },
+    "overtime_games": 325,
+    "pct_half_available": 100.0,
+    "pct_neutral_known": 100.0,
+    "pct_on_requested_et_date": 100.0,
+    "pct_periods_match_score": 100.0,
+    "pct_periods_present": 100.0,
+    "pct_venue_known": 100.0,
+    "summaries": {
+     "games_with_injury_rows": 0,
+     "injury_rows": 0,
+     "injury_rows_after_tip": 0,
+     "missing_fields": {},
+     "pct_box_complete": 100.0,
+     "pct_player_minutes": 100.0,
+     "pct_possessions_plausible": 100.0,
+     "pct_starter_flag": 100.0,
+     "pickcenter_providers": {},
+     "sampled": 150,
+     "turnover_relations": {
+      "no_team_turnovers": 167,
+      "total_is_players_plus_team": 133
+     }
+    }
+   }
+  }
+ },
+ "client": {
+  "by_status": {},
+  "cache_hits": 2462,
+  "median_latency_seconds": null,
+  "network_requests": 0,
+  "retries": 0
+ },
+ "generated_at": "2026-11-05T13:30:32.612522+00:00",
+ "nba_injuries": {
+  "fantasy_statuses": {
+   "GTD": 11,
+   "OFS": 3,
+   "OUT": 77
+  },
+  "rows": 91,
+  "rows_with_athlete_id": 91,
+  "statuses": {
+   "Day-To-Day": 10,
+   "Out": 81
+  },
+  "teams": 29,
+  "type_names": {
+   "INJURY_STATUS_DAYTODAY": 10,
+   "INJURY_STATUS_OUT": 81
+  }
+ }
+}

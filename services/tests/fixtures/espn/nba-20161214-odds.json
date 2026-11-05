@@ -1,0 +1,1041 @@
+{
+ "count": 13,
+ "items": [
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/18?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-360",
+      "american": "-360"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -360,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-105",
+     "american": "-105"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-105",
+     "american": "-105"
+    }
+   },
+   "details": "TOR -8",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+325",
+      "american": "+325"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 325,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -105.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/18?lang=en&region=us",
+    "id": "18",
+    "name": "5Dimes.eu",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": -105.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/26?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-360",
+      "american": "-360"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -360,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-105",
+     "american": "-105"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-105",
+     "american": "-105"
+    }
+   },
+   "details": "TOR -8",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+325",
+      "american": "+325"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 325,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -105.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/26?lang=en&region=us",
+    "id": "26",
+    "name": "BETNOW.eu",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": -105.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/19?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-370",
+      "american": "-370"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "+100",
+      "american": "+100"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -370,
+    "spreadOdds": 100.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -8",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+310",
+      "american": "+310"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-120",
+      "american": "-120"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 310,
+    "spreadOdds": -120.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/19?lang=en&region=us",
+    "id": "19",
+    "name": "BETONLINE.ag",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/20?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-400",
+      "american": "-400"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-9",
+      "american": "-9"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -400,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -9",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+300",
+      "american": "+300"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+9",
+      "american": "+9"
+     },
+     "spread": {
+      "alternateDisplayValue": "-115",
+      "american": "-115"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 300,
+    "spreadOdds": -115.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/20?lang=en&region=us",
+    "id": "20",
+    "name": "BOVADA.lv",
+    "priority": 0
+   },
+   "spread": 9.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/4?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-370",
+      "american": "-370"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -370,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -8",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+310",
+      "american": "+310"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 310,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/4?lang=en&region=us",
+    "id": "4",
+    "name": "BetUS.COM",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/23?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-385",
+      "american": "-385"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8.5",
+      "american": "-8.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -385,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "208",
+     "american": "208"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -8.5",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+315",
+      "american": "+315"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8.5",
+      "american": "+8.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 315,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 208.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/23?lang=en&region=us",
+    "id": "23",
+    "name": "Opening",
+    "priority": 0
+   },
+   "spread": 8.5,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/15?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-370",
+      "american": "-370"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "+100",
+      "american": "+100"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -370,
+    "spreadOdds": 100.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -8",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+310",
+      "american": "+310"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-120",
+      "american": "-120"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 310,
+    "spreadOdds": -120.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/15?lang=en&region=us",
+    "id": "15",
+    "name": "SportsBetting.ag",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-475",
+      "american": "-475"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-9",
+      "american": "-9"
+     },
+     "spread": {
+      "alternateDisplayValue": "-115",
+      "american": "-115"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -475,
+    "spreadOdds": -115.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205.5",
+     "american": "205.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -9",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+365",
+      "american": "+365"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+9",
+      "american": "+9"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 365,
+    "spreadOdds": -105.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/1?lang=en&region=us",
+    "id": "1",
+    "name": "SportsInteraction.com",
+    "priority": 0
+   },
+   "spread": 9.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/3?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-390",
+      "american": "-390"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -390,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205.5",
+     "american": "205.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -8",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+310",
+      "american": "+310"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 310,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/3?lang=en&region=us",
+    "id": "3",
+    "name": "Sportsbook.com",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/25?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-380",
+      "american": "-380"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -380,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    }
+   },
+   "details": "TOR -8",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+320",
+      "american": "+320"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 320,
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/25?lang=en&region=us",
+    "id": "25",
+    "name": "Westgate",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1004?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "pointSpread": {
+      "alternateDisplayValue": "-8.5",
+      "american": "-8.5"
+     }
+    },
+    "favorite": true,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false,
+    "winPercentage": 64.0
+   },
+   "details": "TOR -8.5",
+   "homeTeamOdds": {
+    "current": {
+     "pointSpread": {
+      "alternateDisplayValue": "+8.5",
+      "american": "+8.5"
+     }
+    },
+    "favorite": false,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true,
+    "winPercentage": 36.0
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/1004?lang=en&region=us",
+    "id": "1004",
+    "name": "consensus",
+    "priority": 0
+   },
+   "spread": 8.5,
+   "spreadWinner": false
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1003?lang=en&region=us",
+   "awayTeamOdds": {
+    "averageScore": 106.67,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-370",
+      "american": "-370"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "+56",
+      "american": "+56"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -370,
+    "moneyLineOdds": 81.86,
+    "moneyLineReturn": 0.04,
+    "similarities": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/competitors/28/odds/1003/similarities?lang=en&region=us"
+    },
+    "spreadOdds": 56.49,
+    "spreadReturn": 0.078,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false,
+    "winPercentage": 81.86
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "+45",
+     "american": "+45"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "+53",
+     "american": "+53"
+    }
+   },
+   "details": "TOR -8",
+   "headToHeads": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1003/head-to-heads?lang=en&region=us"
+   },
+   "homeTeamOdds": {
+    "averageScore": 96.74,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+310",
+      "american": "+310"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "+41",
+      "american": "+41"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 310,
+    "moneyLineOdds": 18.14,
+    "moneyLineReturn": -0.256,
+    "similarities": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/competitors/20/odds/1003/similarities?lang=en&region=us"
+    },
+    "spreadOdds": 40.51,
+    "spreadReturn": -0.227,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true,
+    "winPercentage": 18.14
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneylineWinner": false,
+   "overOdds": 45.27,
+   "overUnder": 205.0,
+   "predictors": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1003/predictors?lang=en&region=us"
+   },
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/1003?lang=en&region=us",
+    "id": "1003",
+    "name": "numberfire",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadWinner": false,
+   "underOdds": 52.82
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1002?lang=en&region=us",
+   "awayTeamOdds": {
+    "averageScore": 106.0,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-350",
+      "american": "-350"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-8",
+      "american": "-8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-102",
+      "american": "-102"
+     }
+    },
+    "favorite": true,
+    "moneyLine": -350,
+    "pastPerformances": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/teams/28/odds/1002/past-performances?lang=en&region=us"
+    },
+    "spreadOdds": -102.0,
+    "spreadRecord": {
+     "losses": 39,
+     "pushes": 2,
+     "summary": "41-39-2",
+     "wins": 41
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/28?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110"
+    },
+    "total": {
+     "alternateDisplayValue": "205",
+     "american": "205"
+    },
+    "under": {
+     "alternateDisplayValue": "-100",
+     "american": "-100"
+    }
+   },
+   "details": "TOR -8",
+   "headToHeads": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1002/head-to-heads?lang=en&region=us"
+   },
+   "homeTeamOdds": {
+    "averageScore": 97.3,
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+305",
+      "american": "+305"
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+8",
+      "american": "+8"
+     },
+     "spread": {
+      "alternateDisplayValue": "-108",
+      "american": "-108"
+     }
+    },
+    "favorite": false,
+    "moneyLine": 305,
+    "pastPerformances": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/teams/20/odds/1002/past-performances?lang=en&region=us"
+    },
+    "spreadOdds": -108.0,
+    "spreadRecord": {
+     "losses": 38,
+     "pushes": 2,
+     "summary": "53-38-2",
+     "wins": 53
+    },
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/2017/teams/20?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "initialOverUnder": 208.0,
+   "initialSpread": 8.5,
+   "moneyLineHistory": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1002/history/0?lang=en&region=us"
+   },
+   "moneylineWinner": false,
+   "overOdds": -110.0,
+   "overUnder": 205.0,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/providers/1002?lang=en&region=us",
+    "id": "1002",
+    "name": "teamrankings",
+    "priority": 0
+   },
+   "spread": 8.0,
+   "spreadHistory": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1002/history/1?lang=en&region=us"
+   },
+   "spreadWinner": false,
+   "totalHistory": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/400899816/competitions/400899816/odds/1002/history/2?lang=en&region=us"
+   },
+   "underOdds": -100.0
+  }
+ ],
+ "pageCount": 1,
+ "pageIndex": 1,
+ "pageSize": 50
+}

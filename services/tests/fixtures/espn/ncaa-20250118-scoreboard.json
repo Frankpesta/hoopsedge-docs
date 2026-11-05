@@ -1,0 +1,3793 @@
+{
+ "events": [
+  {
+   "competitions": [
+    {
+     "attendance": 10523,
+     "broadcast": "SEC Network",
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "SEC Network"
+       ]
+      }
+     ],
+     "competitors": [
+      {
+       "curatedRank": {
+        "current": 23
+       },
+       "homeAway": "home",
+       "id": "61",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Asa Newell",
+            "fullName": "Asa Newell",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4873201.png",
+            "id": "4873201",
+            "jersey": "14",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4873201/asa-newell",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "A. Newell",
+            "team": {
+             "id": "61"
+            }
+           },
+           "displayValue": "16",
+           "team": {
+            "id": "61"
+           },
+           "value": 16.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Asa Newell",
+            "fullName": "Asa Newell",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4873201.png",
+            "id": "4873201",
+            "jersey": "14",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4873201/asa-newell",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "A. Newell",
+            "team": {
+             "id": "61"
+            }
+           },
+           "displayValue": "10",
+           "team": {
+            "id": "61"
+           },
+           "value": 10.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": true,
+            "displayName": "Blue Cain",
+            "fullName": "Blue Cain",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5174661.png",
+            "id": "5174661",
+            "jersey": "0",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/5174661/blue-cain",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "B. Cain",
+            "team": {
+             "id": "61"
+            }
+           },
+           "displayValue": "2",
+           "team": {
+            "id": "61"
+           },
+           "value": 2.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Asa Newell",
+            "fullName": "Asa Newell",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4873201.png",
+            "id": "4873201",
+            "jersey": "14",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4873201/asa-newell",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "A. Newell",
+            "team": {
+             "id": "61"
+            }
+           },
+           "displayValue": "16 PTS, 10 REB",
+           "team": {
+            "id": "61"
+           },
+           "value": 29.100000381469727
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "27",
+         "period": 1,
+         "value": 27.0
+        },
+        {
+         "displayValue": "41",
+         "period": 2,
+         "value": 41.0
+        }
+       ],
+       "order": 0,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "14-4",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "11-1",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "1-2",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "2-3",
+         "type": "vsconf"
+        }
+       ],
+       "score": "68",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "38",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "38.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "8",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "57",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "26",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "45.6",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "45.0",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "20",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "9",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "68",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "20",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "7",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "68.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "8.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "35.0",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "UGA",
+        "alternateColor": "2c2a29",
+        "color": "ba0c2f",
+        "conferenceId": "23",
+        "displayName": "Georgia Bulldogs",
+        "id": "61",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/61/georgia-bulldogs",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/61",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:61&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/61",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:61&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/61",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:61&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Georgia",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/61.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/61.png",
+        "name": "Bulldogs",
+        "shortDisplayName": "Georgia",
+        "uid": "s:40~l:41~t:61",
+        "venue": {
+         "id": "2088"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:61",
+       "winner": false
+      },
+      {
+       "curatedRank": {
+        "current": 1
+       },
+       "homeAway": "away",
+       "id": "2",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": true,
+            "displayName": "Tahaad Pettiford",
+            "fullName": "Tahaad Pettiford",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4873089.png",
+            "id": "4873089",
+            "jersey": "0",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4873089/tahaad-pettiford",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "T. Pettiford",
+            "team": {
+             "id": "2"
+            }
+           },
+           "displayValue": "24",
+           "team": {
+            "id": "2"
+           },
+           "value": 24.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Dylan Cardwell",
+            "fullName": "Dylan Cardwell",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4433174.png",
+            "id": "4433174",
+            "jersey": "44",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4433174/dylan-cardwell",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "C"
+            },
+            "shortName": "D. Cardwell",
+            "team": {
+             "id": "2"
+            }
+           },
+           "displayValue": "7",
+           "team": {
+            "id": "2"
+           },
+           "value": 7.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Dylan Cardwell",
+            "fullName": "Dylan Cardwell",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4433174.png",
+            "id": "4433174",
+            "jersey": "44",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4433174/dylan-cardwell",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "C"
+            },
+            "shortName": "D. Cardwell",
+            "team": {
+             "id": "2"
+            }
+           },
+           "displayValue": "3",
+           "team": {
+            "id": "2"
+           },
+           "value": 3.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": true,
+            "displayName": "Tahaad Pettiford",
+            "fullName": "Tahaad Pettiford",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4873089.png",
+            "id": "4873089",
+            "jersey": "0",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4873089/tahaad-pettiford",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "T. Pettiford",
+            "team": {
+             "id": "2"
+            }
+           },
+           "displayValue": "24 PTS",
+           "team": {
+            "id": "2"
+           },
+           "value": 33.95000076293945
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "33",
+         "period": 1,
+         "value": 33.0
+        },
+        {
+         "displayValue": "37",
+         "period": 2,
+         "value": 37.0
+        }
+       ],
+       "order": 1,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "17-1",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "8-0",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "3-1",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "5-0",
+         "type": "vsconf"
+        }
+       ],
+       "score": "70",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "39",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "39.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "7",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "61",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "24",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "39.3",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "60.0",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "20",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "12",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "70",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "23",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "10",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "70.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "7.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "43.5",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "AUB",
+        "alternateColor": "f26522",
+        "color": "002b5c",
+        "conferenceId": "23",
+        "displayName": "Auburn Tigers",
+        "id": "2",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/2/auburn-tigers",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/2",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/2",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/2",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Auburn",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2.png",
+        "name": "Tigers",
+        "shortDisplayName": "Auburn",
+        "uid": "s:40~l:41~t:2",
+        "venue": {
+         "id": "1953"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:2",
+       "winner": true
+      }
+     ],
+     "conferenceCompetition": true,
+     "date": "2025-01-18T18:00Z",
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "geoBroadcasts": [
+      {
+       "lang": "en",
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "darkLogo": "",
+        "logo": "https://a.espncdn.com/guid/4658b4d2-a8e1-3630-9475-13af31514cfe/logos/default.png",
+        "shortName": "SEC Network"
+       },
+       "region": "us",
+       "type": {
+        "id": "1",
+        "shortName": "TV"
+       }
+      }
+     ],
+     "groups": {
+      "id": "23",
+      "isConference": true,
+      "name": "Southeastern Conference",
+      "shortName": "SEC"
+     },
+     "headlines": [
+      {
+       "description": "\u2014 Tahaad Pettiford hit 5 of 7 shots from 3-point range, scoring 24 off the bench to help No. 1 Auburn escape No. 23 Georgia with a 70-68 win on Saturday.",
+       "shortLinkText": "No. 1 Auburn escapes No. 23 Georgia with 70-68 win",
+       "type": "Recap",
+       "video": [
+        {
+         "deviceRestrictions": {
+          "devices": [
+           "settop",
+           "tablet",
+           "handset",
+           "ipad",
+           "desktop"
+          ],
+          "type": "whitelist"
+         },
+         "duration": 37,
+         "headline": "Georgia misses with 0.3 seconds left as Auburn prevail",
+         "id": 43467914,
+         "links": {
+          "api": {
+           "artwork": {
+            "href": "https://artwork.api.espn.com/artwork/collections/media/27170925-743d-44c4-9987-9722ad0697f3"
+           },
+           "self": {
+            "href": "https://content.core.api.espn.com/v1/video/clips/43467914"
+           }
+          },
+          "mobile": {
+           "alert": {
+            "href": "https://m.espn.com/general/video/videoAlert?vid=43467914"
+           },
+           "href": "https://watch.auth.api.espn.com/video/auth/brightcove/27170925-743d-44c4-9987-9722ad0697f3/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43467914",
+           "progressiveDownload": {
+            "href": "https://watch.auth.api.espn.com/video/auth/brightcove/27170925-743d-44c4-9987-9722ad0697f3/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43467914"
+           },
+           "source": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+           },
+           "streaming": {
+            "href": "https://watch.auth.api.espn.com/video/auth/brightcove/27170925-743d-44c4-9987-9722ad0697f3/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43467914"
+           }
+          },
+          "source": {
+           "HD": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+           },
+           "HLS": {
+            "HD": {
+             "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020/playlist.m3u8"
+            },
+            "cmaf": {
+             "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020/playlist.m3u8"
+            },
+            "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020/playlist.m3u8",
+            "shield": {
+             "href": "https://watch.auth.api.espn.com/video/auth/media/27170925-743d-44c4-9987-9722ad0697f3/asset"
+            }
+           },
+           "flash": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+           },
+           "full": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+           },
+           "hds": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+           },
+           "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4",
+           "mezzanine": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+           }
+          },
+          "sportscenter": {
+           "href": "sportscenter://x-callback-url/showVideo?videoID=43467914&videoDSI=19ed9f365b499"
+          },
+          "web": {
+           "href": "https://www.espn.com/video/clip?id=43467914",
+           "self": {
+            "dsi": {
+             "href": "https://www.espn.com/video/clip?id=19ed9f365b499"
+            },
+            "href": "https://www.espn.com/video/clip?id=43467914"
+           }
+          }
+         },
+         "source": "espn",
+         "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/2025/0118/ss_20250118_153526128_27530201345/ss_20250118_153526128_27530201345.jpg",
+         "tracking": {
+          "coverageType": "Final Game Highlight",
+          "leagueName": "NCAA Men's Basketball",
+          "program": "SEC Network",
+          "sportName": "basketball",
+          "trackingId": "dm_20250118_NCB_georgia_misses_with_03_seconds_left_as_auburn_prevail",
+          "trackingName": "NCB_One-Play (Georgia misses with 0.3 seconds left as Auburn prevail) 2025/01/18 ESHEET"
+         }
+        }
+       ]
+      }
+     ],
+     "highlights": [
+      {
+       "ad": {
+        "bundle": "ncb_instant_replay",
+        "sport": "ncb"
+       },
+       "cerebroId": "678bf6c174be102367984544",
+       "description": "Chaney Johnson rocks the rim for Auburn vs. Georgia.\n\n\n\n",
+       "deviceRestrictions": {
+        "devices": [
+         "settop",
+         "tablet",
+         "handset",
+         "ipad",
+         "desktop"
+        ],
+        "type": "whitelist"
+       },
+       "duration": 23,
+       "headline": "Chaney Johnson with the massive Auburn slam",
+       "id": 43466903,
+       "lastModified": "2025-01-18T20:24:09Z",
+       "links": {
+        "api": {
+         "artwork": {
+          "href": "https://artwork.api.espn.com/artwork/collections/media/b3cccb0c-b9da-452c-856a-741193fe214b"
+         },
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/43466903"
+         }
+        },
+        "mobile": {
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=43466903"
+         },
+         "href": "https://watch.auth.api.espn.com/video/auth/brightcove/b3cccb0c-b9da-452c-856a-741193fe214b/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43466903",
+         "progressiveDownload": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/b3cccb0c-b9da-452c-856a-741193fe214b/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43466903"
+         },
+         "source": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.mp4"
+         },
+         "streaming": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/b3cccb0c-b9da-452c-856a-741193fe214b/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43466903"
+         }
+        },
+        "source": {
+         "HD": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.mp4"
+         },
+         "HLS": {
+          "HD": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774/playlist.m3u8"
+          },
+          "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774/playlist.m3u8",
+          "shield": {
+           "href": "https://watch.auth.api.espn.com/video/auth/media/b3cccb0c-b9da-452c-856a-741193fe214b/asset"
+          }
+         },
+         "flash": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.mp4"
+         },
+         "full": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.mp4"
+         },
+         "hds": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.mp4"
+         },
+         "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.mp4",
+         "mezzanine": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=43466903&videoDSI=42003e0b0de19"
+        },
+        "web": {
+         "href": "https://www.espn.com/video/clip?id=43466903",
+         "self": {
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=42003e0b0de19"
+          },
+          "href": "https://www.espn.com/video/clip?id=43466903"
+         }
+        }
+       },
+       "originalPublishDate": "2025-01-18T18:45:22Z",
+       "source": "espn",
+       "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/2025/0118/ss_20250118_134522680_2752774/ss_20250118_134522680_2752774.jpg",
+       "timeRestrictions": {
+        "embargoDate": "2025-01-18T18:45:20Z",
+        "expirationDate": "2038-01-01T04:59:59Z"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "NCAA Men's Basketball",
+        "program": "SEC Network",
+        "sportName": "basketball",
+        "trackingId": "dm_20250118_NCB_chaney_johnson_with_the_massive_auburn_slam",
+        "trackingName": "NCB_One-Play (Chaney Johnson with the massive Auburn slam) 2025/01/18 ESHEET"
+       }
+      },
+      {
+       "ad": {
+        "bundle": "ncb_instant_replay",
+        "sport": "ncb"
+       },
+       "cerebroId": "678c108db40ab7169fb4ee5c",
+       "description": "Georgia misses the chance to send the game into overtime off an inbounds pass, handing Auburn a 70-68 win.",
+       "deviceRestrictions": {
+        "devices": [
+         "desktop",
+         "ipad",
+         "settop",
+         "handset",
+         "tablet"
+        ],
+        "type": "whitelist"
+       },
+       "duration": 37,
+       "headline": "Georgia misses with 0.3 seconds left as Auburn prevail",
+       "id": 43467914,
+       "lastModified": "2025-01-19T03:26:54Z",
+       "links": {
+        "api": {
+         "artwork": {
+          "href": "https://artwork.api.espn.com/artwork/collections/media/27170925-743d-44c4-9987-9722ad0697f3"
+         },
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/43467914"
+         }
+        },
+        "mobile": {
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=43467914"
+         },
+         "href": "https://watch.auth.api.espn.com/video/auth/brightcove/27170925-743d-44c4-9987-9722ad0697f3/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43467914",
+         "progressiveDownload": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/27170925-743d-44c4-9987-9722ad0697f3/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43467914"
+         },
+         "source": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+         },
+         "streaming": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/27170925-743d-44c4-9987-9722ad0697f3/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43467914"
+         }
+        },
+        "source": {
+         "HD": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020_720p30_2896k.mp4"
+         },
+         "HLS": {
+          "HD": {
+           "href": "https://service-pkgespn.akamaized.net/opp/hls/espn/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://service-pkgespn.akamaized.net/opp/cmaf/espn/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020/playlist.m3u8"
+          },
+          "href": "https://service-pkgespn.akamaized.net/opp/hls/espn/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020/playlist.m3u8",
+          "shield": {
+           "href": "https://watch.auth.api.espn.com/video/auth/media/27170925-743d-44c4-9987-9722ad0697f3/asset"
+          }
+         },
+         "flash": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.smil"
+         },
+         "full": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020_360p30_1464k.mp4"
+         },
+         "hds": {
+          "href": "https://hds.video-cdn.espn.com/z/motion/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020_rel.smil/manifest.f4m"
+         },
+         "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020_360p30_1464k.mp4",
+         "mezzanine": {
+          "href": "https://media.video-origin.espn.com/espnvideo/2025/0118/ss_20250118_153526128_2753020/ss_20250118_153526128_2753020.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=43467914&videoDSI=19ed9f365b499"
+        },
+        "web": {
+         "href": "https://www.espn.com/video/clip?id=43467914",
+         "self": {
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=19ed9f365b499"
+          },
+          "href": "https://www.espn.com/video/clip?id=43467914"
+         },
+         "seo": {
+          "href": "https://www.espn.com/video/clip/_/id/43467914"
+         }
+        }
+       },
+       "originalPublishDate": "2025-01-18T20:35:24Z",
+       "source": "espn",
+       "thumbnail": "https://a.espncdn.com/media/motion/2025/0118/ss_20250118_153526128_27530201345/ss_20250118_153526128_27530201345.jpg",
+       "timeRestrictions": {
+        "embargoDate": "2025-01-18T20:35:24Z",
+        "expirationDate": "2038-01-01T04:59:59Z"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "No League",
+        "sportName": "ncb",
+        "trackingId": "dm_20250118_NCB_georgia_misses_with_03_seconds_left_as_auburn_prevail",
+        "trackingName": "NCB_One-Play (Georgia misses with 0.3 seconds left as Auburn prevail) 2025/01/18 ESHEET"
+       }
+      }
+     ],
+     "id": "401708333",
+     "neutralSite": false,
+     "notes": [],
+     "playByPlayAvailable": true,
+     "recent": false,
+     "startDate": "2025-01-18T18:00Z",
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "shortDetail": "Final",
+       "state": "post"
+      }
+     },
+     "timeValid": true,
+     "type": {
+      "abbreviation": "STD",
+      "id": "1"
+     },
+     "uid": "s:40~l:41~e:401708333~c:401708333",
+     "venue": {
+      "address": {
+       "city": "Athens",
+       "state": "GA"
+      },
+      "fullName": "Stegeman Coliseum",
+      "id": "2088",
+      "indoor": true
+     }
+    }
+   ],
+   "date": "2025-01-18T18:00Z",
+   "id": "401708333",
+   "links": [
+    {
+     "href": "https://www.espn.com/mens-college-basketball/game/_/gameId/401708333/auburn-georgia",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "summary",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Gamecast",
+     "text": "Gamecast"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/boxscore/_/gameId/401708333",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "boxscore",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Box Score",
+     "text": "Box Score"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/video?gameId=401708333",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "highlights",
+      "desktop"
+     ],
+     "shortText": "Highlights",
+     "text": "Highlights"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/playbyplay/_/gameId/401708333",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "pbp",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Play-by-Play",
+     "text": "Play-by-Play"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/recap?gameId=401708333",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "recap",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Recap",
+     "text": "Recap"
+    }
+   ],
+   "name": "Auburn Tigers at Georgia Bulldogs",
+   "season": {
+    "slug": "regular-season",
+    "type": 2,
+    "year": 2025
+   },
+   "shortName": "AUB @ UGA",
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 2,
+    "type": {
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "shortDetail": "Final",
+     "state": "post"
+    }
+   },
+   "uid": "s:40~l:41~e:401708333"
+  },
+  {
+   "competitions": [
+    {
+     "attendance": 14444,
+     "broadcast": "ESPN+",
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "ESPN+"
+       ]
+      }
+     ],
+     "competitors": [
+      {
+       "curatedRank": {
+        "current": 99
+       },
+       "homeAway": "home",
+       "id": "277",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Javon Small",
+            "fullName": "Javon Small",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4781746.png",
+            "id": "4781746",
+            "jersey": "7",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4781746/javon-small",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Small",
+            "team": {
+             "id": "277"
+            }
+           },
+           "displayValue": "27",
+           "team": {
+            "id": "277"
+           },
+           "value": 27.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Javon Small",
+            "fullName": "Javon Small",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4781746.png",
+            "id": "4781746",
+            "jersey": "7",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4781746/javon-small",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Small",
+            "team": {
+             "id": "277"
+            }
+           },
+           "displayValue": "7",
+           "team": {
+            "id": "277"
+           },
+           "value": 7.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Javon Small",
+            "fullName": "Javon Small",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4781746.png",
+            "id": "4781746",
+            "jersey": "7",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4781746/javon-small",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Small",
+            "team": {
+             "id": "277"
+            }
+           },
+           "displayValue": "5",
+           "team": {
+            "id": "277"
+           },
+           "value": 5.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Javon Small",
+            "fullName": "Javon Small",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4781746.png",
+            "id": "4781746",
+            "jersey": "7",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4781746/javon-small",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Small",
+            "team": {
+             "id": "277"
+            }
+           },
+           "displayValue": "27 PTS, 7 REB, 4 STL",
+           "team": {
+            "id": "277"
+           },
+           "value": 48.349998474121094
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "25",
+         "period": 1,
+         "value": 25.0
+        },
+        {
+         "displayValue": "39",
+         "period": 2,
+         "value": 39.0
+        }
+       ],
+       "order": 0,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "13-4",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "9-1",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "2-2",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "4-2",
+         "type": "vsconf"
+        }
+       ],
+       "score": "64",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "28",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "28.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "9",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "56",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "22",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "39.3",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "78.6",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "14",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "11",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "64",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "27",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "9",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "64.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "9.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "33.3",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "WVU",
+        "alternateColor": "002855",
+        "color": "eaaa00",
+        "conferenceId": "8",
+        "displayName": "West Virginia Mountaineers",
+        "id": "277",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/277/west-virginia-mountaineers",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/277",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:277&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/277",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:277&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/277",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:277&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "West Virginia",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/277.png",
+        "name": "Mountaineers",
+        "shortDisplayName": "West Virginia",
+        "uid": "s:40~l:41~t:277",
+        "venue": {
+         "id": "2199"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:277",
+       "winner": true
+      },
+      {
+       "curatedRank": {
+        "current": 2
+       },
+       "homeAway": "away",
+       "id": "66",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Curtis Jones",
+            "fullName": "Curtis Jones",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4898369.png",
+            "id": "4898369",
+            "jersey": "5",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4898369/curtis-jones",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "C. Jones",
+            "team": {
+             "id": "66"
+            }
+           },
+           "displayValue": "18",
+           "team": {
+            "id": "66"
+           },
+           "value": 18.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Joshua Jefferson",
+            "fullName": "Joshua Jefferson",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4870564.png",
+            "id": "4870564",
+            "jersey": "5",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4870564/joshua-jefferson",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "J. Jefferson",
+            "team": {
+             "id": "66"
+            }
+           },
+           "displayValue": "10",
+           "team": {
+            "id": "66"
+           },
+           "value": 10.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Keshon Gilbert",
+            "fullName": "Keshon Gilbert",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4585618.png",
+            "id": "4585618",
+            "jersey": "10",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4585618/keshon-gilbert",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "K. Gilbert",
+            "team": {
+             "id": "66"
+            }
+           },
+           "displayValue": "2",
+           "team": {
+            "id": "66"
+           },
+           "value": 2.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Curtis Jones",
+            "fullName": "Curtis Jones",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4898369.png",
+            "id": "4898369",
+            "jersey": "5",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4898369/curtis-jones",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "C. Jones",
+            "team": {
+             "id": "66"
+            }
+           },
+           "displayValue": "18 PTS, 8 REB",
+           "team": {
+            "id": "66"
+           },
+           "value": 25.549999237060547
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "24",
+         "period": 1,
+         "value": 24.0
+        },
+        {
+         "displayValue": "33",
+         "period": 2,
+         "value": 33.0
+        }
+       ],
+       "order": 1,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "15-2",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "10-0",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "3-1",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "5-1",
+         "type": "vsconf"
+        }
+       ],
+       "score": "57",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "38",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "38.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "4",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "57",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "25",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "43.9",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "85.7",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "7",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "6",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "57",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "17",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "1",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "57.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "4.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "5.9",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "ISU",
+        "alternateColor": "ffc72a",
+        "color": "ae192d",
+        "conferenceId": "8",
+        "displayName": "Iowa State Cyclones",
+        "id": "66",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/66/iowa-state-cyclones",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/66",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:66&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/66",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:66&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/66",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:66&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Iowa State",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/66.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/66.png",
+        "name": "Cyclones",
+        "shortDisplayName": "Iowa State",
+        "uid": "s:40~l:41~t:66",
+        "venue": {
+         "id": "432"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:66",
+       "winner": false
+      }
+     ],
+     "conferenceCompetition": true,
+     "date": "2025-01-18T22:00Z",
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "geoBroadcasts": [
+      {
+       "lang": "en",
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "darkLogo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default-dark.png",
+        "logo": "https://a.espncdn.com/guid/322a7e47-3cdb-3b5c-ab1b-678e1f2c27e5/logos/default.png",
+        "shortName": "ESPN+"
+       },
+       "region": "us",
+       "type": {
+        "id": "4",
+        "shortName": "Streaming"
+       }
+      }
+     ],
+     "groups": {
+      "id": "8",
+      "isConference": true,
+      "name": "Big 12 Conference",
+      "shortName": "Big 12"
+     },
+     "headlines": [
+      {
+       "description": "\u2014 Javon Small scored 12 of his 27 points in the final two minutes to lead West Virginia to a 64-57 win over No. 2 Iowa State on Saturday night, ending the Cyclones' national-best 12-game winning streak.",
+       "shortLinkText": "Javon Small scores 27 and West Virginia beats No. 2 Iowa State 64-57",
+       "type": "Recap",
+       "video": [
+        {
+         "deviceRestrictions": {
+          "devices": [
+           "settop",
+           "tablet",
+           "handset",
+           "ipad",
+           "desktop"
+          ],
+          "type": "whitelist"
+         },
+         "duration": 25,
+         "headline": "Fans rush the court as West Virginia upsets No. 2 Iowa State",
+         "id": 43470351,
+         "links": {
+          "api": {
+           "artwork": {
+            "href": "https://artwork.api.espn.com/artwork/collections/media/0cdb0601-2464-4da8-bf6b-abdc851e8347"
+           },
+           "self": {
+            "href": "https://content.core.api.espn.com/v1/video/clips/43470351"
+           }
+          },
+          "mobile": {
+           "alert": {
+            "href": "https://m.espn.com/general/video/videoAlert?vid=43470351"
+           },
+           "href": "https://watch.auth.api.espn.com/video/auth/brightcove/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43470351",
+           "progressiveDownload": {
+            "href": "https://watch.auth.api.espn.com/video/auth/brightcove/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43470351"
+           },
+           "source": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+           },
+           "streaming": {
+            "href": "https://watch.auth.api.espn.com/video/auth/brightcove/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43470351"
+           }
+          },
+          "source": {
+           "HD": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+           },
+           "HLS": {
+            "HD": {
+             "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/dm_250118_WVU/dm_250118_WVU/playlist.m3u8"
+            },
+            "cmaf": {
+             "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/2025/0118/dm_250118_WVU/dm_250118_WVU/playlist.m3u8"
+            },
+            "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/dm_250118_WVU/dm_250118_WVU/playlist.m3u8",
+            "shield": {
+             "href": "https://watch.auth.api.espn.com/video/auth/media/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset"
+            }
+           },
+           "flash": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+           },
+           "full": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+           },
+           "hds": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+           },
+           "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4",
+           "mezzanine": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+           }
+          },
+          "sportscenter": {
+           "href": "sportscenter://x-callback-url/showVideo?videoID=43470351&videoDSI=ac0dd9a4032c9"
+          },
+          "web": {
+           "href": "https://www.espn.com/video/clip?id=43470351",
+           "self": {
+            "dsi": {
+             "href": "https://www.espn.com/video/clip?id=ac0dd9a4032c9"
+            },
+            "href": "https://www.espn.com/video/clip?id=43470351"
+           }
+          }
+         },
+         "source": "espn",
+         "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/2025/0118/dm_250118_WVU1182/dm_250118_WVU1182.jpg",
+         "tracking": {
+          "coverageType": "Final Game Highlight",
+          "leagueName": "NCAA Men's Basketball",
+          "program": "espn",
+          "sportName": "basketball",
+          "trackingId": "dm_250118_WVU",
+          "trackingName": "NCB_One-Play (Fans rush the court as West Virginia upsets No.2 Iowa State) 2025/01/18 ESHEET"
+         }
+        }
+       ]
+      }
+     ],
+     "highlights": [
+      {
+       "ad": {
+        "bundle": "ncb_instant_replay",
+        "sport": "ncb"
+       },
+       "cerebroId": "678c421d6dbf784a05d3a92d",
+       "description": "West Virginia defeats No. 2 Iowa State 64-57, snapping their 12-game win streak.",
+       "deviceRestrictions": {
+        "devices": [
+         "desktop",
+         "ipad",
+         "settop",
+         "handset",
+         "tablet"
+        ],
+        "type": "whitelist"
+       },
+       "duration": 25,
+       "headline": "Fans rush the court as West Virginia upsets No. 2 Iowa State",
+       "id": 43470351,
+       "lastModified": "2025-01-19T00:43:54Z",
+       "links": {
+        "api": {
+         "artwork": {
+          "href": "https://artwork.api.espn.com/artwork/collections/media/0cdb0601-2464-4da8-bf6b-abdc851e8347"
+         },
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/43470351"
+         }
+        },
+        "mobile": {
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=43470351"
+         },
+         "href": "https://watch.auth.api.espn.com/video/auth/brightcove/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43470351",
+         "progressiveDownload": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43470351"
+         },
+         "source": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+         },
+         "streaming": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43470351"
+         }
+        },
+        "source": {
+         "HD": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/dm_250118_WVU/dm_250118_WVU_720p30_2896k.mp4"
+         },
+         "HLS": {
+          "HD": {
+           "href": "https://service-pkgespn.akamaized.net/opp/hls/espn/2025/0118/dm_250118_WVU/dm_250118_WVU/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://service-pkgespn.akamaized.net/opp/cmaf/espn/2025/0118/dm_250118_WVU/dm_250118_WVU/playlist.m3u8"
+          },
+          "href": "https://service-pkgespn.akamaized.net/opp/hls/espn/2025/0118/dm_250118_WVU/dm_250118_WVU/playlist.m3u8",
+          "shield": {
+           "href": "https://watch.auth.api.espn.com/video/auth/media/0cdb0601-2464-4da8-bf6b-abdc851e8347/asset"
+          }
+         },
+         "flash": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/dm_250118_WVU/dm_250118_WVU.smil"
+         },
+         "full": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/dm_250118_WVU/dm_250118_WVU_360p30_1464k.mp4"
+         },
+         "hds": {
+          "href": "https://hds.video-cdn.espn.com/z/motion/2025/0118/dm_250118_WVU/dm_250118_WVU_rel.smil/manifest.f4m"
+         },
+         "href": "https://media.video-cdn.espn.com/motion/2025/0118/dm_250118_WVU/dm_250118_WVU_360p30_1464k.mp4",
+         "mezzanine": {
+          "href": "https://media.video-origin.espn.com/espnvideo/2025/0118/dm_250118_WVU/dm_250118_WVU.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=43470351&videoDSI=ac0dd9a4032c9"
+        },
+        "web": {
+         "href": "https://www.espn.com/video/clip?id=43470351",
+         "self": {
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=ac0dd9a4032c9"
+          },
+          "href": "https://www.espn.com/video/clip?id=43470351"
+         },
+         "seo": {
+          "href": "https://www.espn.com/video/clip/_/id/43470351"
+         }
+        }
+       },
+       "originalPublishDate": "2025-01-19T00:04:55Z",
+       "source": "espn",
+       "thumbnail": "https://a.espncdn.com/media/motion/2025/0118/dm_250118_WVU1182/dm_250118_WVU1182.jpg",
+       "timeRestrictions": {
+        "embargoDate": "2025-01-19T00:04:55Z",
+        "expirationDate": "2037-04-30T23:04:55Z"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "No League",
+        "sportName": "ncb",
+        "trackingId": "dm_250118_WVU",
+        "trackingName": "NCB_One-Play (Fans rush the court as West Virginia upsets No.2 Iowa State) 2025/01/18 ESHEET"
+       }
+      }
+     ],
+     "id": "401725674",
+     "neutralSite": false,
+     "notes": [],
+     "playByPlayAvailable": true,
+     "recent": false,
+     "startDate": "2025-01-18T22:00Z",
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "shortDetail": "Final",
+       "state": "post"
+      }
+     },
+     "timeValid": true,
+     "type": {
+      "abbreviation": "STD",
+      "id": "1"
+     },
+     "uid": "s:40~l:41~e:401725674~c:401725674",
+     "venue": {
+      "address": {
+       "city": "Morgantown",
+       "state": "WV"
+      },
+      "fullName": "Hope Coliseum",
+      "id": "2199",
+      "indoor": true
+     }
+    }
+   ],
+   "date": "2025-01-18T22:00Z",
+   "id": "401725674",
+   "links": [
+    {
+     "href": "https://www.espn.com/mens-college-basketball/game/_/gameId/401725674/iowa-state-west-virginia",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "summary",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Gamecast",
+     "text": "Gamecast"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/boxscore/_/gameId/401725674",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "boxscore",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Box Score",
+     "text": "Box Score"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/video?gameId=401725674",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "highlights",
+      "desktop"
+     ],
+     "shortText": "Highlights",
+     "text": "Highlights"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/playbyplay/_/gameId/401725674",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "pbp",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Play-by-Play",
+     "text": "Play-by-Play"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/recap?gameId=401725674",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "recap",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Recap",
+     "text": "Recap"
+    }
+   ],
+   "name": "Iowa State Cyclones at West Virginia Mountaineers",
+   "season": {
+    "slug": "regular-season",
+    "type": 2,
+    "year": 2025
+   },
+   "shortName": "ISU @ WVU",
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 2,
+    "type": {
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "shortDetail": "Final",
+     "state": "post"
+    }
+   },
+   "uid": "s:40~l:41~e:401725674"
+  },
+  {
+   "competitions": [
+    {
+     "attendance": 8606,
+     "broadcast": "ESPN",
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "ESPN"
+       ]
+      }
+     ],
+     "competitors": [
+      {
+       "curatedRank": {
+        "current": 99
+       },
+       "homeAway": "home",
+       "id": "103",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Chad Venning",
+            "fullName": "Chad Venning",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4711312.png",
+            "id": "4711312",
+            "jersey": "32",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4711312/chad-venning",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "C. Venning",
+            "team": {
+             "id": "103"
+            }
+           },
+           "displayValue": "19",
+           "team": {
+            "id": "103"
+           },
+           "value": 19.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Dion Brown",
+            "fullName": "Dion Brown",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5107242.png",
+            "id": "5107242",
+            "jersey": "13",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/5107242/dion-brown",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "D. Brown",
+            "team": {
+             "id": "139"
+            }
+           },
+           "displayValue": "4",
+           "team": {
+            "id": "103"
+           },
+           "value": 4.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Dion Brown",
+            "fullName": "Dion Brown",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5107242.png",
+            "id": "5107242",
+            "jersey": "13",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/5107242/dion-brown",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "D. Brown",
+            "team": {
+             "id": "139"
+            }
+           },
+           "displayValue": "2",
+           "team": {
+            "id": "103"
+           },
+           "value": 2.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Chad Venning",
+            "fullName": "Chad Venning",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4711312.png",
+            "id": "4711312",
+            "jersey": "32",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4711312/chad-venning",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "C. Venning",
+            "team": {
+             "id": "103"
+            }
+           },
+           "displayValue": "19 PTS, 3 BLK",
+           "team": {
+            "id": "103"
+           },
+           "value": 28.75
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "34",
+         "period": 1,
+         "value": 34.0
+        },
+        {
+         "displayValue": "29",
+         "period": 2,
+         "value": 29.0
+        }
+       ],
+       "order": 0,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "9-9",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "6-5",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "0-3",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "1-6",
+         "type": "vsconf"
+        }
+       ],
+       "score": "63",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "22",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "22.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "7",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "49",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "22",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "44.9",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "53.8",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "26",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "14",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "63",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "15",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "5",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "63.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "7.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "33.3",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "BC",
+        "alternateColor": "dbcca6",
+        "color": "8c2232",
+        "conferenceId": "2",
+        "displayName": "Boston College Eagles",
+        "id": "103",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/103/boston-college-eagles",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/103",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:103&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/103",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:103&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/103",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:103&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Boston College",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/103.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/103.png",
+        "name": "Eagles",
+        "shortDisplayName": "Boston College",
+        "uid": "s:40~l:41~t:103",
+        "venue": {
+         "id": "135"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:103",
+       "winner": false
+      },
+      {
+       "curatedRank": {
+        "current": 3
+       },
+       "homeAway": "away",
+       "id": "150",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Cooper Flagg",
+            "fullName": "Cooper Flagg",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5041939.png",
+            "id": "5041939",
+            "jersey": "2",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/5041939/cooper-flagg",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "C. Flagg",
+            "team": {
+             "id": "150"
+            }
+           },
+           "displayValue": "28",
+           "team": {
+            "id": "150"
+           },
+           "value": 28.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Sion James",
+            "fullName": "Sion James",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4602025.png",
+            "id": "4602025",
+            "jersey": "14",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4602025/sion-james",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "S. James",
+            "team": {
+             "id": "150"
+            }
+           },
+           "displayValue": "7",
+           "team": {
+            "id": "150"
+           },
+           "value": 7.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Sion James",
+            "fullName": "Sion James",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4602025.png",
+            "id": "4602025",
+            "jersey": "14",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4602025/sion-james",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "S. James",
+            "team": {
+             "id": "150"
+            }
+           },
+           "displayValue": "6",
+           "team": {
+            "id": "150"
+           },
+           "value": 6.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Cooper Flagg",
+            "fullName": "Cooper Flagg",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5041939.png",
+            "id": "5041939",
+            "jersey": "2",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/5041939/cooper-flagg",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "C. Flagg",
+            "team": {
+             "id": "150"
+            }
+           },
+           "displayValue": "28 PTS",
+           "team": {
+            "id": "150"
+           },
+           "value": 48.150001525878906
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "40",
+         "period": 1,
+         "value": 40.0
+        },
+        {
+         "displayValue": "48",
+         "period": 2,
+         "value": 48.0
+        }
+       ],
+       "order": 1,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "16-2",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "11-0",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "5-0",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "8-0",
+         "type": "vsconf"
+        }
+       ],
+       "score": "88",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "36",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "36.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "18",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "57",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "30",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "52.6",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "80.0",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "25",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "20",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "88",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "24",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "8",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "88.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "18.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "33.3",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "DUKE",
+        "alternateColor": "ffffff",
+        "color": "00539b",
+        "conferenceId": "2",
+        "displayName": "Duke Blue Devils",
+        "id": "150",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/150/duke-blue-devils",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/150",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:150&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/150",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:150&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/150",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:150&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Duke",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/150.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/150.png",
+        "name": "Blue Devils",
+        "shortDisplayName": "Duke",
+        "uid": "s:40~l:41~t:150",
+        "venue": {
+         "id": "1914"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:150",
+       "winner": true
+      }
+     ],
+     "conferenceCompetition": true,
+     "date": "2025-01-19T01:00Z",
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "geoBroadcasts": [
+      {
+       "lang": "en",
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "darkLogo": "",
+        "logo": "https://a.espncdn.com/guid/335fd2d2-97b9-336b-81ee-573eb6bdcffc/logos/default.png",
+        "shortName": "ESPN"
+       },
+       "region": "us",
+       "type": {
+        "id": "1",
+        "shortName": "TV"
+       }
+      }
+     ],
+     "groups": {
+      "id": "2",
+      "isConference": true,
+      "name": "Atlantic Coast Conference",
+      "shortName": "ACC"
+     },
+     "headlines": [
+      {
+       "description": "\u2014 Cooper Flagg scored 28 points, settling down after missing four of his first five shots on Saturday night to lead No. 3 Duke to its 12th straight victory, 88-63 over Boston College.",
+       "shortLinkText": "Cooper Flagg returns to New England and leads No. 3 Duke past Boston College 88-63",
+       "type": "Recap",
+       "video": [
+        {
+         "deviceRestrictions": {
+          "devices": [
+           "settop",
+           "tablet",
+           "handset",
+           "ipad",
+           "desktop"
+          ],
+          "type": "whitelist"
+         },
+         "duration": 66,
+         "headline": "Cooper Flagg's 28 points power Duke past BC",
+         "id": 43472978,
+         "links": {
+          "api": {
+           "artwork": {
+            "href": "https://artwork.api.espn.com/artwork/collections/media/de3008b3-de2b-4473-a3d6-87e4aac25e90"
+           },
+           "self": {
+            "href": "https://content.core.api.espn.com/v1/video/clips/43472978"
+           }
+          },
+          "mobile": {
+           "alert": {
+            "href": "https://m.espn.com/general/video/videoAlert?vid=43472978"
+           },
+           "href": "https://watch.auth.api.espn.com/video/auth/brightcove/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43472978",
+           "progressiveDownload": {
+            "href": "https://watch.auth.api.espn.com/video/auth/brightcove/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43472978"
+           },
+           "source": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+           },
+           "streaming": {
+            "href": "https://watch.auth.api.espn.com/video/auth/brightcove/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43472978"
+           }
+          },
+          "source": {
+           "HD": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+           },
+           "HLS": {
+            "HD": {
+             "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662/playlist.m3u8"
+            },
+            "cmaf": {
+             "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662/playlist.m3u8"
+            },
+            "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662/playlist.m3u8",
+            "shield": {
+             "href": "https://watch.auth.api.espn.com/video/auth/media/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset"
+            }
+           },
+           "flash": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+           },
+           "full": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+           },
+           "hds": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+           },
+           "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4",
+           "mezzanine": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+           }
+          },
+          "sportscenter": {
+           "href": "sportscenter://x-callback-url/showVideo?videoID=43472978&videoDSI=ef8bc3079720e"
+          },
+          "web": {
+           "href": "https://www.espn.com/video/clip?id=43472978",
+           "self": {
+            "dsi": {
+             "href": "https://www.espn.com/video/clip?id=ef8bc3079720e"
+            },
+            "href": "https://www.espn.com/video/clip?id=43472978"
+           }
+          }
+         },
+         "source": "espn",
+         "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.jpg",
+         "tracking": {
+          "coverageType": "Final Game Highlight",
+          "leagueName": "NCAA Men's Basketball",
+          "program": "ESPN",
+          "sportName": "basketball",
+          "trackingId": "dm_20250119_NCB_cooper_flaggs_28_points_power_duke_past_bc",
+          "trackingName": "COM_NCB Highlight (Cooper Flagg\u2019s 28 points power Duke past BC) 2025/01/19 ESHEET"
+         }
+        }
+       ]
+      }
+     ],
+     "highlights": [
+      {
+       "ad": {
+        "bundle": "ncbgamehighlights",
+        "sport": "ncb"
+       },
+       "cerebroId": "678c744b6dbf784a05d3c740",
+       "description": "Cooper Flagg leads Duke with 28 points, helping the Blue Devils to a dominant win over Boston College.\n\n\n\n\n",
+       "deviceRestrictions": {
+        "devices": [
+         "desktop",
+         "ipad",
+         "settop",
+         "handset",
+         "tablet"
+        ],
+        "type": "whitelist"
+       },
+       "duration": 66,
+       "headline": "Cooper Flagg's 28 points power Duke past BC",
+       "id": 43472978,
+       "lastModified": "2025-01-19T04:53:32Z",
+       "links": {
+        "api": {
+         "artwork": {
+          "href": "https://artwork.api.espn.com/artwork/collections/media/de3008b3-de2b-4473-a3d6-87e4aac25e90"
+         },
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/43472978"
+         }
+        },
+        "mobile": {
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=43472978"
+         },
+         "href": "https://watch.auth.api.espn.com/video/auth/brightcove/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43472978",
+         "progressiveDownload": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43472978"
+         },
+         "source": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+         },
+         "streaming": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset?UMADPARAMreferer=https://www.espn.com/video/clip?id=43472978"
+         }
+        },
+        "source": {
+         "HD": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662_720p30_2896k.mp4"
+         },
+         "HLS": {
+          "HD": {
+           "href": "https://service-pkgespn.akamaized.net/opp/hls/espn/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://service-pkgespn.akamaized.net/opp/cmaf/espn/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662/playlist.m3u8"
+          },
+          "href": "https://service-pkgespn.akamaized.net/opp/hls/espn/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662/playlist.m3u8",
+          "shield": {
+           "href": "https://watch.auth.api.espn.com/video/auth/media/de3008b3-de2b-4473-a3d6-87e4aac25e90/asset"
+          }
+         },
+         "flash": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.smil"
+         },
+         "full": {
+          "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662_360p30_1464k.mp4"
+         },
+         "hds": {
+          "href": "https://hds.video-cdn.espn.com/z/motion/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662_rel.smil/manifest.f4m"
+         },
+         "href": "https://media.video-cdn.espn.com/motion/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662_360p30_1464k.mp4",
+         "mezzanine": {
+          "href": "https://media.video-origin.espn.com/espnvideo/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=43472978&videoDSI=ef8bc3079720e"
+        },
+        "web": {
+         "href": "https://www.espn.com/video/clip?id=43472978",
+         "self": {
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=ef8bc3079720e"
+          },
+          "href": "https://www.espn.com/video/clip?id=43472978"
+         },
+         "seo": {
+          "href": "https://www.espn.com/video/clip/_/id/43472978"
+         }
+        }
+       },
+       "originalPublishDate": "2025-01-19T03:40:58Z",
+       "source": "espn",
+       "thumbnail": "https://a.espncdn.com/media/motion/2025/0118/ss_20250118_224100360_2753662/ss_20250118_224100360_2753662.jpg",
+       "timeRestrictions": {
+        "embargoDate": "2025-01-19T03:40:58Z",
+        "expirationDate": "2038-01-01T04:59:59Z"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "No League",
+        "sportName": "ncb",
+        "trackingId": "dm_20250119_NCB_cooper_flaggs_28_points_power_duke_past_bc",
+        "trackingName": "COM_NCB Highlight (Cooper Flagg\u2019s 28 points power Duke past BC) 2025/01/19 ESHEET"
+       }
+      }
+     ],
+     "id": "401724812",
+     "neutralSite": false,
+     "notes": [],
+     "playByPlayAvailable": true,
+     "recent": false,
+     "startDate": "2025-01-19T01:00Z",
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "shortDetail": "Final",
+       "state": "post"
+      }
+     },
+     "timeValid": true,
+     "type": {
+      "abbreviation": "STD",
+      "id": "1"
+     },
+     "uid": "s:40~l:41~e:401724812~c:401724812",
+     "venue": {
+      "address": {
+       "city": "Chestnut Hill",
+       "state": "MA"
+      },
+      "fullName": "Conte Forum",
+      "id": "135",
+      "indoor": true
+     }
+    }
+   ],
+   "date": "2025-01-19T01:00Z",
+   "id": "401724812",
+   "links": [
+    {
+     "href": "https://www.espn.com/mens-college-basketball/game/_/gameId/401724812/duke-boston-college",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "summary",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Gamecast",
+     "text": "Gamecast"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/boxscore/_/gameId/401724812",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "boxscore",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Box Score",
+     "text": "Box Score"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/video?gameId=401724812",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "highlights",
+      "desktop"
+     ],
+     "shortText": "Highlights",
+     "text": "Highlights"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/playbyplay/_/gameId/401724812",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "pbp",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Play-by-Play",
+     "text": "Play-by-Play"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/recap?gameId=401724812",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "recap",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Recap",
+     "text": "Recap"
+    }
+   ],
+   "name": "Duke Blue Devils at Boston College Eagles",
+   "season": {
+    "slug": "regular-season",
+    "type": 2,
+    "year": 2025
+   },
+   "shortName": "DUKE @ BC",
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 2,
+    "type": {
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "shortDetail": "Final",
+     "state": "post"
+    }
+   },
+   "uid": "s:40~l:41~e:401724812"
+  }
+ ],
+ "eventsDate": {
+  "date": "2025-01-18T18:00Z",
+  "seasonType": 2
+ },
+ "groups": [
+  "50"
+ ],
+ "leagues": [
+  {
+   "abbreviation": "NCAAM",
+   "calendar": [
+    "2024-11-04T08:00Z",
+    "2024-11-05T08:00Z",
+    "2024-11-06T08:00Z",
+    "2024-11-07T08:00Z",
+    "2024-11-08T08:00Z",
+    "2024-11-09T08:00Z",
+    "2024-11-10T08:00Z",
+    "2024-11-11T08:00Z",
+    "2024-11-12T08:00Z",
+    "2024-11-13T08:00Z",
+    "2024-11-14T08:00Z",
+    "2024-11-15T08:00Z",
+    "2024-11-16T08:00Z",
+    "2024-11-17T08:00Z",
+    "2024-11-18T08:00Z",
+    "2024-11-19T08:00Z",
+    "2024-11-20T08:00Z",
+    "2024-11-21T08:00Z",
+    "2024-11-22T08:00Z",
+    "2024-11-23T08:00Z",
+    "2024-11-24T08:00Z",
+    "2024-11-25T08:00Z",
+    "2024-11-26T08:00Z",
+    "2024-11-27T08:00Z",
+    "2024-11-28T08:00Z",
+    "2024-11-29T08:00Z",
+    "2024-11-30T08:00Z",
+    "2024-12-01T08:00Z",
+    "2024-12-02T08:00Z",
+    "2024-12-03T08:00Z",
+    "2024-12-04T08:00Z",
+    "2024-12-05T08:00Z",
+    "2024-12-06T08:00Z",
+    "2024-12-07T08:00Z",
+    "2024-12-08T08:00Z",
+    "2024-12-09T08:00Z",
+    "2024-12-10T08:00Z",
+    "2024-12-11T08:00Z",
+    "2024-12-12T08:00Z",
+    "2024-12-13T08:00Z",
+    "2024-12-14T08:00Z",
+    "2024-12-15T08:00Z",
+    "2024-12-16T08:00Z",
+    "2024-12-17T08:00Z",
+    "2024-12-18T08:00Z",
+    "2024-12-19T08:00Z",
+    "2024-12-20T08:00Z",
+    "2024-12-21T08:00Z",
+    "2024-12-22T08:00Z",
+    "2024-12-23T08:00Z",
+    "2024-12-24T08:00Z",
+    "2024-12-25T08:00Z",
+    "2024-12-27T08:00Z",
+    "2024-12-28T08:00Z",
+    "2024-12-29T08:00Z",
+    "2024-12-30T08:00Z",
+    "2024-12-31T08:00Z",
+    "2025-01-01T08:00Z",
+    "2025-01-02T08:00Z",
+    "2025-01-03T08:00Z",
+    "2025-01-04T08:00Z",
+    "2025-01-05T08:00Z",
+    "2025-01-06T08:00Z",
+    "2025-01-07T08:00Z",
+    "2025-01-08T08:00Z",
+    "2025-01-09T08:00Z",
+    "2025-01-10T08:00Z",
+    "2025-01-11T08:00Z",
+    "2025-01-12T08:00Z",
+    "2025-01-13T08:00Z",
+    "2025-01-14T08:00Z",
+    "2025-01-15T08:00Z",
+    "2025-01-16T08:00Z",
+    "2025-01-17T08:00Z",
+    "2025-01-18T08:00Z",
+    "2025-01-19T08:00Z",
+    "2025-01-20T08:00Z",
+    "2025-01-21T08:00Z",
+    "2025-01-22T08:00Z",
+    "2025-01-23T08:00Z",
+    "2025-01-24T08:00Z",
+    "2025-01-25T08:00Z",
+    "2025-01-26T08:00Z",
+    "2025-01-27T08:00Z",
+    "2025-01-28T08:00Z",
+    "2025-01-29T08:00Z",
+    "2025-01-30T08:00Z",
+    "2025-01-31T08:00Z",
+    "2025-02-01T08:00Z",
+    "2025-02-02T08:00Z",
+    "2025-02-03T08:00Z",
+    "2025-02-04T08:00Z",
+    "2025-02-05T08:00Z",
+    "2025-02-06T08:00Z",
+    "2025-02-07T08:00Z",
+    "2025-02-08T08:00Z",
+    "2025-02-09T08:00Z",
+    "2025-02-10T08:00Z",
+    "2025-02-11T08:00Z",
+    "2025-02-12T08:00Z",
+    "2025-02-13T08:00Z",
+    "2025-02-14T08:00Z",
+    "2025-02-15T08:00Z",
+    "2025-02-16T08:00Z",
+    "2025-02-17T08:00Z",
+    "2025-02-18T08:00Z",
+    "2025-02-19T08:00Z",
+    "2025-02-20T08:00Z",
+    "2025-02-21T08:00Z",
+    "2025-02-22T08:00Z",
+    "2025-02-23T08:00Z",
+    "2025-02-24T08:00Z",
+    "2025-02-25T08:00Z",
+    "2025-02-26T08:00Z",
+    "2025-02-27T08:00Z",
+    "2025-02-28T08:00Z",
+    "2025-03-01T08:00Z",
+    "2025-03-02T08:00Z",
+    "2025-03-03T08:00Z",
+    "2025-03-04T08:00Z",
+    "2025-03-05T08:00Z",
+    "2025-03-06T08:00Z",
+    "2025-03-07T08:00Z",
+    "2025-03-08T08:00Z",
+    "2025-03-09T08:00Z",
+    "2025-03-10T07:00Z",
+    "2025-03-11T07:00Z",
+    "2025-03-12T07:00Z",
+    "2025-03-13T07:00Z",
+    "2025-03-14T07:00Z",
+    "2025-03-15T07:00Z",
+    "2025-03-16T07:00Z",
+    "2025-03-18T07:00Z",
+    "2025-03-19T07:00Z",
+    "2025-03-20T07:00Z",
+    "2025-03-21T07:00Z",
+    "2025-03-22T07:00Z",
+    "2025-03-23T07:00Z",
+    "2025-03-24T07:00Z",
+    "2025-03-25T07:00Z",
+    "2025-03-26T07:00Z",
+    "2025-03-27T07:00Z",
+    "2025-03-28T07:00Z",
+    "2025-03-29T07:00Z",
+    "2025-03-30T07:00Z",
+    "2025-03-31T07:00Z",
+    "2025-04-01T07:00Z",
+    "2025-04-02T07:00Z",
+    "2025-04-03T07:00Z",
+    "2025-04-05T07:00Z",
+    "2025-04-06T07:00Z",
+    "2025-04-07T07:00Z"
+   ],
+   "calendarEndDate": "2025-04-09T06:59Z",
+   "calendarIsWhitelist": true,
+   "calendarStartDate": "2024-07-13T07:00Z",
+   "calendarType": "day",
+   "id": "41",
+   "logos": [
+    {
+     "alt": "",
+     "height": 500,
+     "href": "https://a.espncdn.com/redesign/assets/img/icons/NCAASports_MensBasketball.png",
+     "lastUpdated": "2026-09-17T20:36Z",
+     "rel": [
+      "full",
+      "default"
+     ],
+     "width": 500
+    },
+    {
+     "alt": "",
+     "height": 500,
+     "href": "https://a.espncdn.com/redesign/assets/img/icons/NCAASports_MensBasketball.png",
+     "lastUpdated": "2026-09-17T20:36Z",
+     "rel": [
+      "full",
+      "dark"
+     ],
+     "width": 500
+    }
+   ],
+   "midsizeName": "NCAAM Basketball",
+   "name": "NCAA Men's Basketball",
+   "season": {
+    "displayName": "2024-25",
+    "endDate": "2025-04-09T06:59Z",
+    "startDate": "2024-07-13T07:00Z",
+    "type": {
+     "abbreviation": "post",
+     "id": "3",
+     "name": "Postseason",
+     "type": 3
+    },
+    "year": 2025
+   },
+   "slug": "mens-college-basketball",
+   "uid": "s:40~l:41"
+  }
+ ],
+ "provider": {
+  "displayName": "Draft Kings",
+  "id": "100",
+  "name": "Draft Kings",
+  "priority": 1
+ }
+}

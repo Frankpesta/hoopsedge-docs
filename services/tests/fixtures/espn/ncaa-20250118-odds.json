@@ -1,0 +1,616 @@
+{
+ "count": 2,
+ "items": [
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/401708333/competitions/401708333/odds/58?lang=en&region=us",
+   "awayTeamOdds": {
+    "close": {
+     "moneyLine": {
+      "alternateDisplayValue": "-250",
+      "american": "-250",
+      "decimal": 1.4,
+      "displayValue": "2/5",
+      "fraction": "2/5",
+      "value": 1.4
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-5.5",
+      "american": "-5.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110",
+      "decimal": 1.909,
+      "displayValue": "10/11",
+      "fraction": "10/11",
+      "value": 1.909
+     }
+    },
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-250",
+      "american": "-250",
+      "decimal": 1.4,
+      "displayValue": "2/5",
+      "fraction": "2/5",
+      "value": 1.4
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-5.5",
+      "american": "-5.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110",
+      "decimal": 1.909,
+      "displayValue": "10/11",
+      "fraction": "10/11",
+      "value": 1.909
+     }
+    },
+    "favorite": true,
+    "moneyLine": -250,
+    "open": {
+     "favorite": true,
+     "moneyLine": {
+      "alternateDisplayValue": "-270",
+      "american": "-270",
+      "decimal": 1.37,
+      "displayValue": "10/27",
+      "fraction": "10/27",
+      "value": 1.37
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-6.5",
+      "american": "-6.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105",
+      "decimal": 1.952,
+      "displayValue": "20/21",
+      "fraction": "20/21",
+      "value": 1.952
+     }
+    },
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2025/teams/2?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "close": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    },
+    "total": {
+     "alternateDisplayValue": "146.5",
+     "american": "146.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    }
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    },
+    "total": {
+     "alternateDisplayValue": "146.5",
+     "american": "146.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    }
+   },
+   "details": "AUB -5.5",
+   "homeTeamOdds": {
+    "close": {
+     "moneyLine": {
+      "alternateDisplayValue": "+210",
+      "american": "+210",
+      "decimal": 3.1,
+      "displayValue": "21/10",
+      "fraction": "21/10",
+      "value": 3.1
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+5.5",
+      "american": "+5.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110",
+      "decimal": 1.909,
+      "displayValue": "10/11",
+      "fraction": "10/11",
+      "value": 1.909
+     }
+    },
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+210",
+      "american": "+210",
+      "decimal": 3.1,
+      "displayValue": "21/10",
+      "fraction": "21/10",
+      "value": 3.1
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+5.5",
+      "american": "+5.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-110",
+      "american": "-110",
+      "decimal": 1.909,
+      "displayValue": "10/11",
+      "fraction": "10/11",
+      "value": 1.909
+     }
+    },
+    "favorite": false,
+    "moneyLine": 210,
+    "open": {
+     "favorite": false,
+     "moneyLine": {
+      "alternateDisplayValue": "+220",
+      "american": "+220",
+      "decimal": 3.2,
+      "displayValue": "11/5",
+      "fraction": "11/5",
+      "value": 3.2
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+6.5",
+      "american": "+6.5",
+      "decimal": 1.87,
+      "displayValue": "20/23",
+      "fraction": "20/23",
+      "value": 1.87
+     },
+     "spread": {
+      "alternateDisplayValue": "-115",
+      "american": "-115",
+      "decimal": 1.87,
+      "displayValue": "20/23",
+      "fraction": "20/23",
+      "value": 1.87
+     }
+    },
+    "spreadOdds": -110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2025/teams/61?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "links": [
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=9a8d5762-8894-4cea-baec-6e94c4148545&odds_numerator[0]=31&odds_denominator[0]=10",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "home",
+      "desktop",
+      "bets",
+      "espn-bet"
+     ],
+     "shortText": "Home Bet",
+     "text": "Home Bet"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=44b6087c-da95-4e36-b5ed-43b48ce7b0c3&odds_numerator[0]=7&odds_denominator[0]=5",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "away",
+      "desktop",
+      "bets",
+      "espn-bet"
+     ],
+     "shortText": "Away Bet",
+     "text": "Away Bet"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=fb2ffb69-bec0-4ad4-879a-582639ff9f48&odds_numerator[0]=21&odds_denominator[0]=11",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "homeSpread",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Home Point Spread",
+     "text": "Home Point Spread"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=911ee727-f5ae-48ae-bd55-5d309eff1683&odds_numerator[0]=21&odds_denominator[0]=11",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "awaySpread",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Away Point Spread",
+     "text": "Away Point Spread"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=3c8d9f01-2041-43a1-a93b-09368542da9a&odds_numerator[0]=21&odds_denominator[0]=11",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "over",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Over Odds",
+     "text": "Over Odds"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=48adfb6e-7812-4930-94b2-b7cdb9006e93&odds_numerator[0]=21&odds_denominator[0]=11",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "under",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Under Odds",
+     "text": "Under Odds"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "game",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Game",
+     "text": "Game"
+    }
+   ],
+   "moneylineWinner": false,
+   "open": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    },
+    "total": {
+     "alternateDisplayValue": "146.5",
+     "american": "146.5",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    }
+   },
+   "overOdds": -110.0,
+   "overUnder": 146.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/58?lang=en&region=us",
+    "id": "58",
+    "name": "ESPN BET",
+    "priority": 0
+   },
+   "spread": 5.5,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  },
+  {
+   "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/401708333/competitions/401708333/odds/59?lang=en&region=us",
+   "awayTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "-4000",
+      "american": "-4000",
+      "decimal": 1.025,
+      "displayValue": "1/40",
+      "fraction": "1/40",
+      "value": 1.025
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-6.5",
+      "american": "-6.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-140",
+      "american": "-140",
+      "decimal": 1.714,
+      "displayValue": "5/7",
+      "fraction": "5/7",
+      "value": 1.714
+     }
+    },
+    "favorite": true,
+    "moneyLine": -4000,
+    "open": {
+     "favorite": true,
+     "moneyLine": {
+      "alternateDisplayValue": "-270",
+      "american": "-270",
+      "decimal": 1.37,
+      "displayValue": "10/27",
+      "fraction": "10/27",
+      "value": 1.37
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "-6.5",
+      "american": "-6.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "-105",
+      "american": "-105",
+      "decimal": 1.952,
+      "displayValue": "20/21",
+      "fraction": "20/21",
+      "value": 1.952
+     }
+    },
+    "spreadOdds": -140.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2025/teams/2?lang=en&region=us"
+    },
+    "underdog": false
+   },
+   "current": {
+    "over": {
+     "alternateDisplayValue": "-120",
+     "american": "-120",
+     "decimal": 1.833,
+     "displayValue": "5/6",
+     "fraction": "5/6",
+     "value": 1.833
+    },
+    "total": {
+     "alternateDisplayValue": "134.5",
+     "american": "134.5"
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    }
+   },
+   "details": "AUB -6.5",
+   "homeTeamOdds": {
+    "current": {
+     "moneyLine": {
+      "alternateDisplayValue": "+1500",
+      "american": "+1500",
+      "decimal": 16.0,
+      "displayValue": "15/1",
+      "fraction": "15/1",
+      "value": 16.0
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+6.5",
+      "american": "+6.5"
+     },
+     "spread": {
+      "alternateDisplayValue": "+110",
+      "american": "+110",
+      "decimal": 2.1,
+      "displayValue": "11/10",
+      "fraction": "11/10",
+      "value": 2.1
+     }
+    },
+    "favorite": false,
+    "moneyLine": 1500,
+    "open": {
+     "favorite": false,
+     "moneyLine": {
+      "alternateDisplayValue": "+220",
+      "american": "+220",
+      "decimal": 3.2,
+      "displayValue": "11/5",
+      "fraction": "11/5",
+      "value": 3.2
+     },
+     "pointSpread": {
+      "alternateDisplayValue": "+6.5",
+      "american": "+6.5",
+      "decimal": 1.87,
+      "displayValue": "20/23",
+      "fraction": "20/23",
+      "value": 1.87
+     },
+     "spread": {
+      "alternateDisplayValue": "-115",
+      "american": "-115",
+      "decimal": 1.87,
+      "displayValue": "20/23",
+      "fraction": "20/23",
+      "value": 1.87
+     }
+    },
+    "spreadOdds": 110.0,
+    "team": {
+     "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2025/teams/61?lang=en&region=us"
+    },
+    "underdog": true
+   },
+   "links": [
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=9a8d5762-8894-4cea-baec-6e94c4148545&odds_numerator[0]=16&odds_denominator[0]=1",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "home",
+      "desktop",
+      "bets",
+      "espn-bet---live-odds"
+     ],
+     "shortText": "Home Bet",
+     "text": "Home Bet"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=44b6087c-da95-4e36-b5ed-43b48ce7b0c3&odds_numerator[0]=41&odds_denominator[0]=40",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "away",
+      "desktop",
+      "bets",
+      "espn-bet---live-odds"
+     ],
+     "shortText": "Away Bet",
+     "text": "Away Bet"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=2da301b9-919d-4a79-8dee-9e6b8ed1c8b2&odds_numerator[0]=21&odds_denominator[0]=10",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "homeSpread",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Home Point Spread",
+     "text": "Home Point Spread"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=d3eeae26-6600-49b9-80dd-0ccf131ada06&odds_numerator[0]=12&odds_denominator[0]=7",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "awaySpread",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Away Point Spread",
+     "text": "Away Point Spread"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=aeab0b3f-b956-416c-bbf5-565e3841479c&odds_numerator[0]=11&odds_denominator[0]=6",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "over",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Over Odds",
+     "text": "Over Odds"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db&market_selection_id[0]=f1f69895-eda7-43fc-bcff-3b8956456123&odds_numerator[0]=21&odds_denominator[0]=11",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "under",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Under Odds",
+     "text": "Under Odds"
+    },
+    {
+     "href": "https://espnbet.app.link?%243p=a_espn&clr=espnbettingintegration&$canonical_url=/sport/basketball/organization/united-states/competition/ncaab/event/26773c9a-928d-4df1-a31c-999b3a6a57db",
+     "isExternal": true,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "game",
+      "desktop",
+      "bets"
+     ],
+     "shortText": "Game",
+     "text": "Game"
+    }
+   ],
+   "moneylineWinner": false,
+   "open": {
+    "over": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    },
+    "total": {
+     "alternateDisplayValue": "146.5",
+     "american": "146.5",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    },
+    "under": {
+     "alternateDisplayValue": "-110",
+     "american": "-110",
+     "decimal": 1.909,
+     "displayValue": "10/11",
+     "fraction": "10/11",
+     "value": 1.909
+    }
+   },
+   "overOdds": -120.0,
+   "overUnder": 134.5,
+   "provider": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/providers/59?lang=en&region=us",
+    "id": "59",
+    "name": "ESPN Bet - Live Odds",
+    "priority": 0
+   },
+   "spread": 6.5,
+   "spreadWinner": false,
+   "underOdds": -110.0
+  }
+ ],
+ "pageCount": 1,
+ "pageIndex": 1,
+ "pageSize": 50
+}
