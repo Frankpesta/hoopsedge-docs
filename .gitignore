@@ -1,0 +1,52 @@
+# Secrets and credentials: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+
+# Browser captures can contain cookies. Scrub them into services/tests/fixtures first.
+*.har
+
+# Local data (backfill output, HTTP cache, checkpoints, collector snapshots)
+/data/
+*.parquet
+!services/tests/fixtures/**/*.parquet
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.hypothesis/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Node, Next.js and CDK
+node_modules/
+.next/
+out/
+coverage/
+cdk.out/
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+playwright-report/
+test-results/
+
+# Local tool state
+.claude/settings.local.json
+.idea/
+.vscode/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

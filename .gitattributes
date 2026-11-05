@@ -1,0 +1,12 @@
+# Store and check out as LF, including on Windows, so Dockerfiles and shell
+# scripts work inside Linux containers.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.parquet binary
+*.gz binary
+*.zip binary
