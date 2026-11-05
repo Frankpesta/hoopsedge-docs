@@ -2,11 +2,12 @@
 
 Written 2026-11-05 from `CLAUDE.md` and docs 00–12. This plan says how the build is sequenced and what the docs leave unresolved. The numbered docs remain the spec, and this file does not repeat them.
 
-**Status:** draft for owner review. The conflicts in §4 are proposals. They go into `docs/DECISIONS.md` once the owner approves them.
+**Status:** owner reviewed on 2026-11-05. C1–C5, C14 and Q1–Q3 are decided and logged in `docs/DECISIONS.md` as D12–D19. The other items in §4 are still proposals, to be logged when the phase that needs them starts.
 
 ## 1. How we will work
 
-- **Commits:** the owner makes all of them. Claude Code leaves changes uncommitted, and at each checkpoint gives a summary, the test results and a suggested commit message.
+- **Local first (D20):** everything is built and run in Docker on the owner's machine. AWS deployment comes last, so the effective order is Phase 0 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 1 → 10. Phase 2 and later use local stand-ins for S3 and DynamoDB. Soak checks that say `dev` run locally first, then again after deployment.
+- **Branches and commits (D21):** each feature gets its own branch from `main`. The owner makes all commits. Claude Code stops at the end of each feature with a summary, the test results and a suggested commit message, and starts the next feature only after the owner has committed.
 - **Phase gates:** phases run in order. A phase starts only when the previous Definition of Done (DoD) is met. Anything the owner must do is listed as a gate.
 - **Tests first:** tests for each invariant are written before the code they protect.
 - **Git-dependent steps:** these only work once the owner has committed and pushed:
@@ -24,7 +25,7 @@ Written 2026-11-05 from `CLAUDE.md` and docs 00–12. This plan says how the bui
 | `uv`, `cdk`, `gh` | Not installed | `uv` and `cdk` run in containers. `gh` is optional; the GitHub web UI also works |
 | Node | Local version is 26, not an LTS release | Pin an LTS version for `infra/` and `web/` that CDK and Vercel both support |
 | CPU | AMD64; Lambda targets arm64 | See §3 |
-| AWS CLI | Signed in as `frank-fps-deploy`, default region `eu-west-1` | **Not used until the owner decides (§6, Q1).** CDK pins its region explicitly so the CLI default cannot apply |
+| AWS CLI | Signed in as `frank-fps-deploy`, default region `eu-west-1` | **Not used for HoopsEdge (D12).** Owner sets up a new account and `hoopsedge` profile. CDK pins its region explicitly so the CLI default cannot apply |
 | Lambda limits | Could not be read: this user lacks `lambda:GetAccountSettings` | Check in the chosen account (see Phase 1) |
 
 ## 3. Docker strategy
@@ -37,7 +38,7 @@ Docker provides the same pinned toolchain on the owner's machine and in CI. It s
 | `services/Dockerfile`, target `dev` | Python 3.12, `uv` and dev extras (Optuna, plotting) on the native architecture. Used for pytest, ruff, mypy, `scripts/`, backfill and tuning |
 | `docker-compose.yml`, `dev` | Interactive toolchain with the repo and `./data` mounted |
 | `docker-compose.yml`, `aws-mock` | `moto_server` for S3, DynamoDB, SSM and SNS, so a full pipeline can run locally with no AWS access or cost |
-| `docker-compose.yml`, `collector` | The early data collector from §5, Phase 0 (needs owner approval) |
+| `docker-compose.yml`, `collector` | The early data collector from §5, Phase 0 (approved, D13) |
 | `docker-compose.yml`, `node` | LTS Node for CDK synth, Vitest, Playwright and `next dev` |
 
 Notes:
@@ -71,7 +72,7 @@ Severity: **High** can produce misleading evidence or break an invariant. **Med*
 | C11 | Med | **`grade-and-ingest` has no orchestrator.** It chains ingest, grade and ratings, but the docs define only the slate state machine. | Add a small `maintenance` state machine. At about 6,600 transitions a month in total, the cost is about $0.07 over the free tier. |
 | C12 | Med | **Dry-run settings conflict.** Doc 00 defaults config to `dry_run: false`, while invariant 8 requires true in local and dev. Doc 07 also needs one live booking in `dev`. | Booking happens only if both the environment and config allow it, so either one can force dry-run. The `dev` live test uses a one-time, owner-approved override that expires, limited to one 2-leg ticket. |
 | C13 | Med | **Superseded tickets could double-count.** Legs stay in `PENDINGLEG`, so re-runs would inflate the track record. | Grade every leg, but count only legs on the latest non-superseded version in `AGG#`. |
-| C14 | Med | **Open dashboard controls.** Under D8 the API secret is safe, but anyone who finds the Vercel URL can use Run now, change config, turn off dry-run or roll back a model. | Owner decision, §6 Q3. |
+| C14 | Med | **Open dashboard controls.** Under D8 the API secret is safe, but anyone who finds the Vercel URL can use Run now, change config, turn off dry-run or roll back a model. | Decided: stays open, per D8. Risk accepted by the owner (D19). |
 | C15 | Low | **NBA promotion threshold is borderline.** 21 days yields about 150 NBA games, and the requirement is n ≥ 150, so the All-Star break alone would block promotion. | Use a 28-day NBA holdout, or keep the rule and accept fewer promotions. Decide in Phase 7. |
 | C16 | Low | **Missing entities in doc 12:** team records, the ingest cursor, idempotency keys and a mutation rate counter. An in-memory limit won't work across 5 concurrent Lambdas. | Add `TEAM#`, `CURSOR#`, `IDEMP#` and `RATE#` items, with TTL where appropriate. |
 | C17 | Low | **`/health` contradiction.** Doc 09 says it returns "no data" but lists champion versions and recent runs, without a secret. | Without the secret, return only `{ok}`. Move the details behind the secret. |
@@ -91,7 +92,7 @@ The most likely way this project fails is that SportyBet blocks automation or it
 4. **Geo test:** owner's machine first, then a throwaway Lambda in `us-east-1`, deleted afterwards. If there is a JS challenge, **stop and report**, as doc 01 requires. We will not try to defeat one.
 5. **ESPN probe:** half-score and box-score coverage, depth to 2015-16, how `dates=` treats late games, sustainable request rate, D1 count on a busy day.
 6. **Historical lines:** `pickcenter` coverage per league and season, which directly affects C4 and C5.
-7. **Early collector (proposed addition, needs owner approval):** injuries, SportyBet offers and ESPN lines cannot be recovered later, and both seasons are underway. A small Docker service on the owner's machine would snapshot them to `./data/` until AWS ingest takes over. It uses the same rate limits and the same client code.
+7. **Early collector (approved, D13):** injuries, SportyBet offers and ESPN lines cannot be recovered later, and both seasons are underway. A small Docker service on the owner's machine would snapshot them to `./data/` until AWS ingest takes over. It uses the same rate limits and the same client code.
 
 **Outputs:** `markets.yaml`, `endpoints.yaml`, scrubbed fixtures, `docs/reports/phase0-data-coverage.md`, DECISIONS entries.
 **Owner gate:** approve test bookings and the throwaway Lambda, then review the DECISIONS entries.
@@ -170,12 +171,12 @@ The most likely way this project fails is that SportyBet blocks automation or it
 
 ## 6. Decisions needed from the owner
 
-| # | Decision | Recommendation | Needed by |
-|---|----------|----------------|-----------|
-| Q1 | Which AWS account and credentials? The current CLI user `frank-fps-deploy` looks like it belongs to another project. | A dedicated `hoopsedge` CLI profile, ideally in a separate account, so credits, budgets and permissions stay isolated | Phase 0 geo test |
-| Q2 | Run the early collector (§5, Phase 0, step 7)? | Yes. This data can't be recovered later, and collection only runs while the machine and Docker are on | Phase 0 |
-| Q3 | Protect the dashboard URL (C14)? | Turn on Vercel's built-in Deployment Protection, which adds no app code. This refines D8, so it is the owner's call | Phase 9 |
-| Q4 | Approve C1–C5 for the model design? | Yes, especially C1 and C3 | Before Phase 3 |
+| # | Decision | Answer or recommendation | Needed by |
+|---|----------|--------------------------|-----------|
+| Q1 | Which AWS account and credentials? | **Decided (D12):** new separate account with a `hoopsedge` CLI profile | Phase 0 geo test |
+| Q2 | Run the early collector (§5, Phase 0, step 7)? | **Decided (D13):** yes | Phase 0 |
+| Q3 | Protect the dashboard URL (C14)? | **Decided (D19):** leave open, per D8 | Phase 9 |
+| Q4 | Approve C1–C5 for the model design? | **Decided (D14–D18):** all approved | Before Phase 3 |
 | Q5 | Which email receives alerts and budget notices? | Owner's choice | Phase 1 |
 | Q6 | GitHub repo for CI and OIDC, and is it private? | Private. It will contain SportyBet integration details | Phase 1 |
 
@@ -205,6 +206,11 @@ The bookmaker's margin also compounds with every leg. The dashboard shows these 
 
 ## 8. Immediate next steps
 
-1. Owner reviews this plan and answers Q1, Q2 and Q4.
-2. Owner starts Docker Desktop and makes the first commit.
-3. Claude Code logs the approved §4 items in `docs/DECISIONS.md` and begins Phase 0.
+Phase 0 feature branches, in order:
+
+1. `feature/dev-environment`: pinned Docker toolchain
+2. `feature/espn-probe`: ESPN coverage proof and historical-lines check
+3. `feature/sportybet-discovery`: endpoints, markets and fixtures
+4. `feature/data-collector`: the early collector (D13)
+
+The owner is creating the new AWS account and `hoopsedge` profile. It is needed for the geo test and for deployment, not for the local build.
