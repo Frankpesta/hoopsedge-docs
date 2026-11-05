@@ -1,0 +1,19 @@
+name: hoopsedge
+
+services:
+  dev:
+    build:
+      context: ./services
+      target: dev
+    image: hoopsedge-dev
+    working_dir: /workspace/services
+    volumes:
+      - .:/workspace
+    environment:
+      HOOPSEDGE_ENV: local
+      # Invariant 8: dry-run is the default in local environments.
+      DRY_RUN: "true"
+      # Tool caches stay out of the mounted repo.
+      RUFF_CACHE_DIR: /tmp/ruff
+      MYPY_CACHE_DIR: /tmp/mypy
+    # No AWS credentials are passed in, so local work cannot reach a real account.

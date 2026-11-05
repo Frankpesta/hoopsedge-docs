@@ -1,0 +1,42 @@
+[project]
+name = "hoopsedge"
+version = "0.1.0"
+description = "Private basketball prediction system for the NBA and NCAA Men's D1"
+requires-python = "==3.12.*"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=1.11",
+    "pytest>=8.3",
+    "ruff>=0.6",
+]
+
+# The source tree is mounted into the container and found through PYTHONPATH,
+# so uv only needs to install dependencies, not build this project.
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "BLE"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["hoopsedge", "tests"]
+warn_unused_ignores = true
+
+# CLAUDE.md section 5: strict typing on services/common.
+[[tool.mypy.overrides]]
+module = "hoopsedge.common.*"
+strict = true
