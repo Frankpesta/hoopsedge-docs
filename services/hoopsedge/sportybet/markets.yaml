@@ -1,0 +1,45 @@
+# SportyBet IDs for HoopsEdge, verified on 2026-11-05 from live responses.
+# Evidence: docs/reports/phase0-sportybet-discovery.md.
+leagues:
+  NBA:
+    tournament_ids: ["sr:tournament:132"]
+  NCAA:
+    # Only the regular season is listed so far. Postseason tournaments may get new IDs.
+    tournament_ids: ["sr:tournament:648"]
+
+families:
+  handicap:
+    specifier_key: hcp # The home team's handicap: hcp=-1.5 is Home (-1.5), Away (+1.5).
+    includes_overtime: true
+    markets:
+      - { market_id: "223", name: "Handicap (incl. overtime)" }
+    outcomes: { "1714": home, "1715": away }
+  total_ft:
+    specifier_key: total
+    includes_overtime: true
+    markets:
+      - { market_id: "225", name: "Over/Under (incl. overtime)" }
+    outcomes: { "12": over, "13": under }
+  total_1h:
+    specifier_key: total
+    includes_overtime: false # First half only, so overtime can't affect it.
+    markets:
+      - { market_id: "68", name: "1st half - total" }
+    outcomes: { "12": over, "13": under }
+  team_total:
+    specifier_key: total
+    includes_overtime: true
+    markets:
+      - { market_id: "227", name: "Home O/U (incl. overtime)", team: home }
+      - { market_id: "228", name: "Away O/U (incl. overtime)", team: away }
+    outcomes: { "12": over, "13": under }
+
+booking:
+  tested_legs: 20 # A 20-leg code was booked and verified.
+  site_config_max_selections: 50 # From `selectionsCfg` on the site. A 50-leg code wasn't tested.
+  same_event_rejected: false # SportyBet accepts it, so D10 is enforced only by our code.
+
+status:
+  market_bookable: 0 # With every outcome isActive == 1. The site's UI locks anything else.
+  event_not_started: 0 # matchStatus "Not start".
+  event_live: 1 # Observed: matchStatus Q1-Q4 and similar.

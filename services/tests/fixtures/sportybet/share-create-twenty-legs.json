@@ -1,0 +1,1439 @@
+{
+ "bizCode": 10000,
+ "data": {
+  "deadline": 1794787200000,
+  "operId": "2",
+  "outcomes": [
+   {
+    "awayTeamName": "Chattanooga Mocs",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793919600000,
+    "eventId": "sr:match:73716386",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73716386",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73716386",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "39533",
+    "homeTeamName": "Penn State Nittany Lions",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "1st Half - Over/Under",
+      "favourite": 1,
+      "group": "Half",
+      "id": "68",
+      "lastOddsChangeTime": 1793892729972,
+      "marketGuide": "Predict whether the total number of points scored in the 1st Half is over/under a given line.",
+      "outcomes": [
+       {
+        "desc": "Over 75.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.82",
+        "probability": "0.5109230000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=75.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Vermont Catamounts",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:73245602",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73245602",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73245602",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "50279",
+    "homeTeamName": "Fairfield Stags",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Fairfield Stags Over/Under (incl. overtime) 70.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "227",
+      "lastOddsChangeTime": 1793891528286,
+      "marketGuide": "Predict whether the total number of points scored by Home team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 70.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.87",
+        "probability": "0.4810280000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=70.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Chicago State Cougars",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:75212216",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "75212216",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "75212216",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "34030",
+    "homeTeamName": "Incarnate Word Cardinals",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Chicago State Cougars Over/Under (incl. overtime) 67.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "228",
+      "lastOddsChangeTime": 1793888477605,
+      "marketGuide": "Predict whether the total number of points scored by Away team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 67.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.75",
+        "probability": "0.5229570000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=67.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Howard Bison",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:74828260",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74828260",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74828260",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "20853",
+    "homeTeamName": "Alcorn State Braves",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Handicap (incl. overtime) 9.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "223",
+      "lastOddsChangeTime": 1793890468667,
+      "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Home (+9.5)",
+        "id": "1714",
+        "isActive": 1,
+        "odds": "1.81",
+        "probability": "0.5129130000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "hcp=9.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "UMBC Retrievers",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Unavailable",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:73809066",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73809066",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73809066",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "50494",
+    "homeTeamName": "Marist Red Foxes",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Marist Red Foxes Over/Under (incl. overtime) 71.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "227",
+      "lastOddsChangeTime": 1793888631368,
+      "marketGuide": "Predict whether the total number of points scored by Home team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 71.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.87",
+        "probability": "0.4837060000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=71.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Bellarmine Knights",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793919600000,
+    "eventId": "sr:match:74064584",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74064584",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74064584",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "35636",
+    "homeTeamName": "Indiana Hoosiers",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Over/Under (incl. overtime) 153.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "225",
+      "lastOddsChangeTime": 1793891831400,
+      "marketGuide": "Predict whether the total number of points scored in the match is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 153.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.85",
+        "probability": "0.4991120000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=153.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "NJIT Highlanders",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:73905004",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73905004",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73905004",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "50445",
+    "homeTeamName": "Iona Gaels",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Handicap (incl. overtime) -9.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "223",
+      "lastOddsChangeTime": 1793891788662,
+      "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Home (-9.5)",
+        "id": "1714",
+        "isActive": 1,
+        "odds": "1.82",
+        "probability": "0.5082090000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "hcp=-9.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Bryant Bulldogs",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:74829452",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74829452",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74829452",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "50581",
+    "homeTeamName": "Quinnipiac Bobcats",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Bryant Bulldogs Over/Under (incl. overtime) 71.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "228",
+      "lastOddsChangeTime": 1793892433101,
+      "marketGuide": "Predict whether the total number of points scored by Away team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 71.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.82",
+        "probability": "0.5004600000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=71.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Delaware State Hornets",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:73120692",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73120692",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73120692",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "40075",
+    "homeTeamName": "Navy Midshipmen",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Handicap (incl. overtime) -7.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "223",
+      "lastOddsChangeTime": 1793891813067,
+      "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Home (-7.5)",
+        "id": "1714",
+        "isActive": 1,
+        "odds": "1.78",
+        "probability": "0.5196540000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "hcp=-7.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Wake Forest Demon Deacons",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793919600000,
+    "eventId": "sr:match:73837346",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73837346",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73837346",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "34538",
+    "homeTeamName": "Vanderbilt Commodores",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Vanderbilt Commodores Over/Under (incl. overtime) 87.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "227",
+      "lastOddsChangeTime": 1793890965404,
+      "marketGuide": "Predict whether the total number of points scored by Home team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 87.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.87",
+        "probability": "0.4826200000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=87.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Cornell Big Red",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:75115882",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "75115882",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "75115882",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "50458",
+    "homeTeamName": "Lehigh Mountain Hawks",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Over/Under (incl. overtime) 160.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "225",
+      "lastOddsChangeTime": 1793890064557,
+      "marketGuide": "Predict whether the total number of points scored in the match is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 160.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.90",
+        "probability": "0.4900560000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=160.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Georgia State Panthers",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:75020834",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "75020834",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "75020834",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "41914",
+    "homeTeamName": "Charlotte 49ers",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Over/Under (incl. overtime) 142.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "225",
+      "lastOddsChangeTime": 1793891962128,
+      "marketGuide": "Predict whether the total number of points scored in the match is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 142.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.83",
+        "probability": "0.5068400000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=142.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Mercyhurst Lakers",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:74803168",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74803168",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74803168",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "50497",
+    "homeTeamName": "Notre Dame Fighting Irish",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Over/Under (incl. overtime) 139.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "225",
+      "lastOddsChangeTime": 1793891797991,
+      "marketGuide": "Predict whether the total number of points scored in the match is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 139.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.81",
+        "probability": "0.5135233991",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=139.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "McNeese State Cowboys",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793916000000,
+    "eventId": "sr:match:74803372",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74803372",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74803372",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "33306",
+    "homeTeamName": "North Texas Mean Green",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Handicap (incl. overtime) 2.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "223",
+      "lastOddsChangeTime": 1793890469271,
+      "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Home (+2.5)",
+        "id": "1714",
+        "isActive": 1,
+        "odds": "1.91",
+        "probability": "0.4840220000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "hcp=2.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "LIU Sharks",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793921400000,
+    "eventId": "sr:match:73933100",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73933100",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73933100",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "39559",
+    "homeTeamName": "Seton Hall Pirates",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "LIU Sharks Over/Under (incl. overtime) 58.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "228",
+      "lastOddsChangeTime": 1793890191996,
+      "marketGuide": "Predict whether the total number of points scored by Away team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 58.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.75",
+        "probability": "0.5204820000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=58.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Wisconsin Green Bay Phoenix",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:73935406",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73935406",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73935406",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "17187",
+    "homeTeamName": "Cincinnati Bearcats",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "1st Half - Over/Under",
+      "favourite": 1,
+      "group": "Half",
+      "id": "68",
+      "lastOddsChangeTime": 1793891215725,
+      "marketGuide": "Predict whether the total number of points scored in the 1st Half is over/under a given line.",
+      "outcomes": [
+       {
+        "desc": "Over 72.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.87",
+        "probability": "0.4916270000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=72.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Hofstra Pride",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:74747038",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74747038",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74747038",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "38212",
+    "homeTeamName": "Princeton Tigers",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Princeton Tigers Over/Under (incl. overtime) 71.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "227",
+      "lastOddsChangeTime": 1793886149382,
+      "marketGuide": "Predict whether the total number of points scored by Home team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 71.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.90",
+        "probability": "0.4774040000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=71.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "UMass Lowell River Hawks",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Unavailable",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:74803492",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74803492",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74803492",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "43897",
+    "homeTeamName": "Merrimack Warriors",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "UMass Lowell River Hawks Over/Under (incl. overtime) 65.5",
+      "favourite": 1,
+      "group": "Points",
+      "id": "228",
+      "lastOddsChangeTime": 1793887537572,
+      "marketGuide": "Predict whether the total number of points scored by Away team is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 65.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.77",
+        "probability": "0.5148870000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=65.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Buffalo Bulls",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:73241590",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73241590",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73241590",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "43047",
+    "homeTeamName": "Pittsburgh Panthers",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "1st Half - Over/Under",
+      "favourite": 1,
+      "group": "Half",
+      "id": "68",
+      "lastOddsChangeTime": 1793892550423,
+      "marketGuide": "Predict whether the total number of points scored in the 1st Half is over/under a given line.",
+      "outcomes": [
+       {
+        "desc": "Over 72.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.85",
+        "probability": "0.5006630000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=72.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "University At Albany Great Danes",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793923200000,
+    "eventId": "sr:match:73498440",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73498440",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73498440",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "50513",
+    "homeTeamName": "Manhattan Jaspers",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "1st Half - Over/Under",
+      "favourite": 1,
+      "group": "Half",
+      "id": "68",
+      "lastOddsChangeTime": 1793892628327,
+      "marketGuide": "Predict whether the total number of points scored in the 1st Half is over/under a given line.",
+      "outcomes": [
+       {
+        "desc": "Over 68.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.80",
+        "probability": "0.5183034602",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=68.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   }
+  ],
+  "shareCode": "Q8L2JC",
+  "shareURL": "http://www.sportybet.com/ng/?shareCode=Q8L2JC",
+  "ticket": {
+   "selections": [
+    {
+     "estimateStartTime": 1793916000000,
+     "eventId": "sr:match:74803372",
+     "marketId": "223",
+     "outcomeId": "1714",
+     "parentBetBuilderMarketId": "",
+     "specifier": "hcp=2.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793919600000,
+     "eventId": "sr:match:74064584",
+     "marketId": "225",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=153.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793919600000,
+     "eventId": "sr:match:73716386",
+     "marketId": "68",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=75.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793919600000,
+     "eventId": "sr:match:73837346",
+     "marketId": "227",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=87.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793921400000,
+     "eventId": "sr:match:73933100",
+     "marketId": "228",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=58.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:74828260",
+     "marketId": "223",
+     "outcomeId": "1714",
+     "parentBetBuilderMarketId": "",
+     "specifier": "hcp=9.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:75020834",
+     "marketId": "225",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=142.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:73935406",
+     "marketId": "68",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=72.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:73245602",
+     "marketId": "227",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=70.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:75212216",
+     "marketId": "228",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=67.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:73905004",
+     "marketId": "223",
+     "outcomeId": "1714",
+     "parentBetBuilderMarketId": "",
+     "specifier": "hcp=-9.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:75115882",
+     "marketId": "225",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=160.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:73498440",
+     "marketId": "68",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=68.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:73809066",
+     "marketId": "227",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=71.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:74803492",
+     "marketId": "228",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=65.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:73120692",
+     "marketId": "223",
+     "outcomeId": "1714",
+     "parentBetBuilderMarketId": "",
+     "specifier": "hcp=-7.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:74803168",
+     "marketId": "225",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=139.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:73241590",
+     "marketId": "68",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=72.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:74747038",
+     "marketId": "227",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=71.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793923200000,
+     "eventId": "sr:match:74829452",
+     "marketId": "228",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=71.5",
+     "sportId": "sr:sport:2"
+    }
+   ]
+  },
+  "unavailableOutcomes": [],
+  "userId": ""
+ },
+ "isAvailable": true,
+ "message": "Success"
+}

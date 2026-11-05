@@ -1,0 +1,326 @@
+{
+ "NBA": {
+  "booking_status": {
+   "Booked": 2,
+   "Unavailable": 5
+  },
+  "coverage_all_listed": {
+   "events": 7,
+   "events_all_markets_bookable": 2,
+   "markets": {
+    "223": {
+     "events_bookable": 2,
+     "events_listed": 7,
+     "favourite_suspended": 0,
+     "lines_listed": 113,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "225": {
+     "events_bookable": 7,
+     "events_listed": 7,
+     "favourite_suspended": 0,
+     "lines_listed": 130,
+     "main_is_favourite": 7,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "227": {
+     "events_bookable": 2,
+     "events_listed": 7,
+     "favourite_suspended": 0,
+     "lines_listed": 38,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "228": {
+     "events_bookable": 2,
+     "events_listed": 7,
+     "favourite_suspended": 0,
+     "lines_listed": 41,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "68": {
+     "events_bookable": 2,
+     "events_listed": 2,
+     "favourite_suspended": 0,
+     "lines_listed": 23,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    }
+   }
+  },
+  "coverage_first_date": {
+   "events": 2,
+   "events_all_markets_bookable": 2,
+   "markets": {
+    "223": {
+     "events_bookable": 2,
+     "events_listed": 2,
+     "favourite_suspended": 0,
+     "lines_listed": 56,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "225": {
+     "events_bookable": 2,
+     "events_listed": 2,
+     "favourite_suspended": 0,
+     "lines_listed": 60,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "227": {
+     "events_bookable": 2,
+     "events_listed": 2,
+     "favourite_suspended": 0,
+     "lines_listed": 12,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "228": {
+     "events_bookable": 2,
+     "events_listed": 2,
+     "favourite_suspended": 0,
+     "lines_listed": 14,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "68": {
+     "events_bookable": 2,
+     "events_listed": 2,
+     "favourite_suspended": 0,
+     "lines_listed": 23,
+     "main_is_favourite": 2,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    }
+   }
+  },
+  "espn_games_on_first_date": {
+   "date": "2026-11-05",
+   "games": 2
+  },
+  "event_status": {
+   "0/Not start": 7
+  },
+  "events_by_et_date": {
+   "2026-11-05": 2,
+   "2026-12-25": 5
+  },
+  "events_listed": 7,
+  "handicap_check": {
+   "lines": 113,
+   "sign_matches_specifier": 113
+  },
+  "market_status": {
+   "223/0": 52,
+   "223/2": 61,
+   "225/0": 59,
+   "225/2": 71,
+   "227/0": 10,
+   "227/2": 28,
+   "228/0": 10,
+   "228/2": 31,
+   "68/0": 22,
+   "68/2": 1
+  },
+  "median_lines_per_event": {
+   "223": 12,
+   "225": 14,
+   "227": 5,
+   "228": 5,
+   "68": 11.5
+  }
+ },
+ "NCAA": {
+  "booking_status": {
+   "Booked": 41,
+   "Unavailable": 3
+  },
+  "coverage_all_listed": {
+   "events": 44,
+   "events_all_markets_bookable": 40,
+   "markets": {
+    "223": {
+     "events_bookable": 44,
+     "events_listed": 44,
+     "favourite_suspended": 0,
+     "lines_listed": 293,
+     "main_is_favourite": 44,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "225": {
+     "events_bookable": 44,
+     "events_listed": 44,
+     "favourite_suspended": 1,
+     "lines_listed": 749,
+     "main_is_favourite": 43,
+     "main_not_favourite": 1,
+     "non_half_lines": 0
+    },
+    "227": {
+     "events_bookable": 41,
+     "events_listed": 44,
+     "favourite_suspended": 0,
+     "lines_listed": 304,
+     "main_is_favourite": 41,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "228": {
+     "events_bookable": 41,
+     "events_listed": 44,
+     "favourite_suspended": 0,
+     "lines_listed": 294,
+     "main_is_favourite": 41,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "68": {
+     "events_bookable": 42,
+     "events_listed": 42,
+     "favourite_suspended": 0,
+     "lines_listed": 214,
+     "main_is_favourite": 42,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    }
+   }
+  },
+  "coverage_first_date": {
+   "events": 43,
+   "events_all_markets_bookable": 40,
+   "markets": {
+    "223": {
+     "events_bookable": 43,
+     "events_listed": 43,
+     "favourite_suspended": 0,
+     "lines_listed": 290,
+     "main_is_favourite": 43,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "225": {
+     "events_bookable": 43,
+     "events_listed": 43,
+     "favourite_suspended": 1,
+     "lines_listed": 744,
+     "main_is_favourite": 42,
+     "main_not_favourite": 1,
+     "non_half_lines": 0
+    },
+    "227": {
+     "events_bookable": 40,
+     "events_listed": 43,
+     "favourite_suspended": 0,
+     "lines_listed": 299,
+     "main_is_favourite": 40,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "228": {
+     "events_bookable": 40,
+     "events_listed": 43,
+     "favourite_suspended": 0,
+     "lines_listed": 289,
+     "main_is_favourite": 40,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    },
+    "68": {
+     "events_bookable": 42,
+     "events_listed": 42,
+     "favourite_suspended": 0,
+     "lines_listed": 214,
+     "main_is_favourite": 42,
+     "main_not_favourite": 0,
+     "non_half_lines": 0
+    }
+   }
+  },
+  "espn_games_on_first_date": {
+   "date": "2026-11-05",
+   "games": 65
+  },
+  "event_status": {
+   "0/Not start": 44
+  },
+  "events_by_et_date": {
+   "2026-11-05": 43,
+   "2026-11-06": 1
+  },
+  "events_listed": 44,
+  "handicap_check": {
+   "lines": 293,
+   "sign_matches_specifier": 293
+  },
+  "market_status": {
+   "223/0": 218,
+   "223/2": 75,
+   "225/0": 636,
+   "225/2": 113,
+   "227/0": 183,
+   "227/2": 121,
+   "228/0": 183,
+   "228/2": 111,
+   "68/0": 198,
+   "68/2": 16
+  },
+  "median_lines_per_event": {
+   "223": 7.0,
+   "225": 17.0,
+   "227": 7.0,
+   "228": 6.0,
+   "68": 5.0
+  }
+ },
+ "client": {
+  "by_status": {
+   "200": 10
+  },
+  "median_latency_seconds": 0.336,
+  "requests": 10,
+  "retries": 0
+ },
+ "generated_at": "2026-11-05T15:41:47.788088+00:00",
+ "list_vs_detail": [
+  {
+   "event_id": "sr:match:73719544",
+   "lines_in_detail": 74,
+   "lines_in_list": 79,
+   "only_in_detail": 0,
+   "only_in_list": 5
+  },
+  {
+   "event_id": "sr:match:74803372",
+   "lines_in_detail": 35,
+   "lines_in_list": 43,
+   "only_in_detail": 0,
+   "only_in_list": 8
+  },
+  {
+   "event_id": "sr:match:73274382",
+   "lines_in_detail": 6,
+   "lines_in_list": 26,
+   "only_in_detail": 0,
+   "only_in_list": 20
+  }
+ ],
+ "live_event_status": {
+  "0/Not Start": 1,
+  "1/Q1": 1,
+  "1/Q2": 2,
+  "1/Q4": 1
+ }
+}

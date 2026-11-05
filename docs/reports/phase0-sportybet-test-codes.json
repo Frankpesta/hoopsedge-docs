@@ -1,0 +1,259 @@
+[
+ {
+  "at": "2026-11-05T15:44:38.582040+00:00",
+  "code": "M7SVLQ",
+  "difference": {
+   "extra": [],
+   "missing": []
+  },
+  "http_status": 200,
+  "legs": [
+   {
+    "eventId": "sr:match:73719544",
+    "marketId": "223",
+    "outcomeId": "1714",
+    "specifier": "hcp=-1.5"
+   },
+   {
+    "eventId": "sr:match:73719546",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=234.5"
+   }
+  ],
+  "lookup_biz_code": 10000,
+  "name": "two-leg",
+  "outcome": "created",
+  "verified": true
+ },
+ {
+  "at": "2026-11-05T15:44:55.063904+00:00",
+  "code": "NSE2L4",
+  "difference": {
+   "extra": [],
+   "missing": []
+  },
+  "http_status": 200,
+  "legs": [
+   {
+    "eventId": "sr:match:74803372",
+    "marketId": "223",
+    "outcomeId": "1714",
+    "specifier": "hcp=2.5"
+   },
+   {
+    "eventId": "sr:match:74064584",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=153.5"
+   },
+   {
+    "eventId": "sr:match:73716386",
+    "marketId": "68",
+    "outcomeId": "12",
+    "specifier": "total=75.5"
+   },
+   {
+    "eventId": "sr:match:73837346",
+    "marketId": "227",
+    "outcomeId": "12",
+    "specifier": "total=87.5"
+   },
+   {
+    "eventId": "sr:match:73933100",
+    "marketId": "228",
+    "outcomeId": "12",
+    "specifier": "total=58.5"
+   }
+  ],
+  "lookup_biz_code": 10000,
+  "name": "all-markets",
+  "outcome": "created",
+  "verified": true
+ },
+ {
+  "at": "2026-11-05T15:45:00.166840+00:00",
+  "code": "Q8L2JC",
+  "difference": {
+   "extra": [],
+   "missing": []
+  },
+  "http_status": 200,
+  "legs": [
+   {
+    "eventId": "sr:match:74803372",
+    "marketId": "223",
+    "outcomeId": "1714",
+    "specifier": "hcp=2.5"
+   },
+   {
+    "eventId": "sr:match:74064584",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=153.5"
+   },
+   {
+    "eventId": "sr:match:73716386",
+    "marketId": "68",
+    "outcomeId": "12",
+    "specifier": "total=75.5"
+   },
+   {
+    "eventId": "sr:match:73837346",
+    "marketId": "227",
+    "outcomeId": "12",
+    "specifier": "total=87.5"
+   },
+   {
+    "eventId": "sr:match:73933100",
+    "marketId": "228",
+    "outcomeId": "12",
+    "specifier": "total=58.5"
+   },
+   {
+    "eventId": "sr:match:74828260",
+    "marketId": "223",
+    "outcomeId": "1714",
+    "specifier": "hcp=9.5"
+   },
+   {
+    "eventId": "sr:match:75020834",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=142.5"
+   },
+   {
+    "eventId": "sr:match:73935406",
+    "marketId": "68",
+    "outcomeId": "12",
+    "specifier": "total=72.5"
+   },
+   {
+    "eventId": "sr:match:73245602",
+    "marketId": "227",
+    "outcomeId": "12",
+    "specifier": "total=70.5"
+   },
+   {
+    "eventId": "sr:match:75212216",
+    "marketId": "228",
+    "outcomeId": "12",
+    "specifier": "total=67.5"
+   },
+   {
+    "eventId": "sr:match:73905004",
+    "marketId": "223",
+    "outcomeId": "1714",
+    "specifier": "hcp=-9.5"
+   },
+   {
+    "eventId": "sr:match:75115882",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=160.5"
+   },
+   {
+    "eventId": "sr:match:73498440",
+    "marketId": "68",
+    "outcomeId": "12",
+    "specifier": "total=68.5"
+   },
+   {
+    "eventId": "sr:match:73809066",
+    "marketId": "227",
+    "outcomeId": "12",
+    "specifier": "total=71.5"
+   },
+   {
+    "eventId": "sr:match:74803492",
+    "marketId": "228",
+    "outcomeId": "12",
+    "specifier": "total=65.5"
+   },
+   {
+    "eventId": "sr:match:73120692",
+    "marketId": "223",
+    "outcomeId": "1714",
+    "specifier": "hcp=-7.5"
+   },
+   {
+    "eventId": "sr:match:74803168",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=139.5"
+   },
+   {
+    "eventId": "sr:match:73241590",
+    "marketId": "68",
+    "outcomeId": "12",
+    "specifier": "total=72.5"
+   },
+   {
+    "eventId": "sr:match:74747038",
+    "marketId": "227",
+    "outcomeId": "12",
+    "specifier": "total=71.5"
+   },
+   {
+    "eventId": "sr:match:74829452",
+    "marketId": "228",
+    "outcomeId": "12",
+    "specifier": "total=71.5"
+   }
+  ],
+  "lookup_biz_code": 10000,
+  "name": "twenty-legs",
+  "outcome": "created",
+  "verified": true
+ },
+ {
+  "at": "2026-11-05T15:45:05.638802+00:00",
+  "code": "V04MC9",
+  "difference": {
+   "extra": [],
+   "missing": []
+  },
+  "http_status": 200,
+  "legs": [
+   {
+    "eventId": "sr:match:74803372",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=140.5"
+   },
+   {
+    "eventId": "sr:match:74803372",
+    "marketId": "68",
+    "outcomeId": "12",
+    "specifier": "total=65.5"
+   }
+  ],
+  "lookup_biz_code": 10000,
+  "name": "same-event",
+  "outcome": "created",
+  "verified": true
+ },
+ {
+  "at": "2026-11-05T15:45:10.776866+00:00",
+  "biz_code": 19000,
+  "code": null,
+  "http_status": 200,
+  "legs": [
+   {
+    "eventId": "sr:match:74803372",
+    "marketId": "225",
+    "outcomeId": "12",
+    "specifier": "total=140.5"
+   },
+   {
+    "eventId": "sr:match:74064584",
+    "marketId": "225",
+    "outcomeId": "99999",
+    "specifier": "total=153.5"
+   }
+  ],
+  "message": "invalid outcome data",
+  "name": "bad-outcome",
+  "outcome": "rejected"
+ }
+]
