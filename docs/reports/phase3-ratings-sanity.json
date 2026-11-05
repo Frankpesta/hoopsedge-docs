@@ -1,0 +1,1251 @@
+{
+ "NBA": {
+  "2019": {
+   "correlation_elo_win_pct": 0.9731,
+   "correlation_net_win_pct": 0.9808,
+   "games": 1312,
+   "league_hca": 2.73,
+   "league_mu": 107.76,
+   "league_tau": 102.29,
+   "teams": 30,
+   "top": [
+    {
+     "net": 7.48,
+     "team_id": "15",
+     "win_pct": 0.722
+    },
+    {
+     "net": 5.9,
+     "team_id": "9",
+     "win_pct": 0.683
+    },
+    {
+     "net": 5.76,
+     "team_id": "28",
+     "win_pct": 0.698
+    },
+    {
+     "net": 4.79,
+     "team_id": "10",
+     "win_pct": 0.634
+    },
+    {
+     "net": 4.25,
+     "team_id": "26",
+     "win_pct": 0.586
+    },
+    {
+     "net": 3.9,
+     "team_id": "7",
+     "win_pct": 0.635
+    },
+    {
+     "net": 3.82,
+     "team_id": "22",
+     "win_pct": 0.622
+    },
+    {
+     "net": 3.6,
+     "team_id": "2",
+     "win_pct": 0.593
+    },
+    {
+     "net": 2.84,
+     "team_id": "25",
+     "win_pct": 0.575
+    },
+    {
+     "net": 2.42,
+     "team_id": "20",
+     "win_pct": 0.617
+    },
+    {
+     "net": 2.27,
+     "team_id": "11",
+     "win_pct": 0.558
+    },
+    {
+     "net": 1.7,
+     "team_id": "24",
+     "win_pct": 0.573
+    },
+    {
+     "net": 0.65,
+     "team_id": "12",
+     "win_pct": 0.568
+    },
+    {
+     "net": -0.14,
+     "team_id": "19",
+     "win_pct": 0.494
+    },
+    {
+     "net": -0.28,
+     "team_id": "14",
+     "win_pct": 0.476
+    },
+    {
+     "net": -0.63,
+     "team_id": "17",
+     "win_pct": 0.494
+    },
+    {
+     "net": -0.67,
+     "team_id": "23",
+     "win_pct": 0.476
+    },
+    {
+     "net": -0.76,
+     "team_id": "6",
+     "win_pct": 0.402
+    },
+    {
+     "net": -0.93,
+     "team_id": "3",
+     "win_pct": 0.402
+    },
+    {
+     "net": -0.98,
+     "team_id": "16",
+     "win_pct": 0.439
+    },
+    {
+     "net": -1.05,
+     "team_id": "8",
+     "win_pct": 0.477
+    },
+    {
+     "net": -1.13,
+     "team_id": "30",
+     "win_pct": 0.476
+    },
+    {
+     "net": -1.17,
+     "team_id": "13",
+     "win_pct": 0.451
+    },
+    {
+     "net": -1.97,
+     "team_id": "29",
+     "win_pct": 0.402
+    },
+    {
+     "net": -2.81,
+     "team_id": "27",
+     "win_pct": 0.39
+    }
+   ]
+  },
+  "2020": {
+   "correlation_elo_win_pct": 0.9449,
+   "correlation_net_win_pct": 0.9647,
+   "games": 1143,
+   "league_hca": 2.14,
+   "league_mu": 108.17,
+   "league_tau": 102.55,
+   "teams": 30,
+   "top": [
+    {
+     "net": 7.85,
+     "team_id": "15",
+     "win_pct": 0.735
+    },
+    {
+     "net": 6.15,
+     "team_id": "13",
+     "win_pct": 0.739
+    },
+    {
+     "net": 6.12,
+     "team_id": "2",
+     "win_pct": 0.652
+    },
+    {
+     "net": 6.1,
+     "team_id": "12",
+     "win_pct": 0.659
+    },
+    {
+     "net": 5.8,
+     "team_id": "28",
+     "win_pct": 0.723
+    },
+    {
+     "net": 3.88,
+     "team_id": "6",
+     "win_pct": 0.556
+    },
+    {
+     "net": 3.47,
+     "team_id": "14",
+     "win_pct": 0.617
+    },
+    {
+     "net": 3.27,
+     "team_id": "10",
+     "win_pct": 0.583
+    },
+    {
+     "net": 3.17,
+     "team_id": "26",
+     "win_pct": 0.595
+    },
+    {
+     "net": 2.5,
+     "team_id": "7",
+     "win_pct": 0.598
+    },
+    {
+     "net": 1.96,
+     "team_id": "25",
+     "win_pct": 0.595
+    },
+    {
+     "net": 1.91,
+     "team_id": "20",
+     "win_pct": 0.558
+    },
+    {
+     "net": 1.44,
+     "team_id": "11",
+     "win_pct": 0.584
+    },
+    {
+     "net": -0.04,
+     "team_id": "21",
+     "win_pct": 0.466
+    },
+    {
+     "net": -0.34,
+     "team_id": "22",
+     "win_pct": 0.463
+    },
+    {
+     "net": -0.34,
+     "team_id": "3",
+     "win_pct": 0.417
+    },
+    {
+     "net": -0.37,
+     "team_id": "24",
+     "win_pct": 0.451
+    },
+    {
+     "net": -0.73,
+     "team_id": "19",
+     "win_pct": 0.436
+    },
+    {
+     "net": -0.73,
+     "team_id": "29",
+     "win_pct": 0.459
+    },
+    {
+     "net": -1.19,
+     "team_id": "23",
+     "win_pct": 0.431
+    },
+    {
+     "net": -1.31,
+     "team_id": "17",
+     "win_pct": 0.461
+    },
+    {
+     "net": -3.26,
+     "team_id": "16",
+     "win_pct": 0.297
+    },
+    {
+     "net": -3.79,
+     "team_id": "8",
+     "win_pct": 0.303
+    },
+    {
+     "net": -4.0,
+     "team_id": "4",
+     "win_pct": 0.338
+    },
+    {
+     "net": -4.44,
+     "team_id": "27",
+     "win_pct": 0.347
+    }
+   ]
+  },
+  "2021": {
+   "correlation_elo_win_pct": 0.9602,
+   "correlation_net_win_pct": 0.9457,
+   "games": 1171,
+   "league_hca": 1.23,
+   "league_mu": 109.88,
+   "league_tau": 101.29,
+   "teams": 30,
+   "top": [
+    {
+     "net": 7.6,
+     "team_id": "26",
+     "win_pct": 0.699
+    },
+    {
+     "net": 6.42,
+     "team_id": "12",
+     "win_pct": 0.626
+    },
+    {
+     "net": 5.93,
+     "team_id": "21",
+     "win_pct": 0.691
+    },
+    {
+     "net": 5.87,
+     "team_id": "15",
+     "win_pct": 0.653
+    },
+    {
+     "net": 5.08,
+     "team_id": "20",
+     "win_pct": 0.667
+    },
+    {
+     "net": 4.46,
+     "team_id": "17",
+     "win_pct": 0.655
+    },
+    {
+     "net": 3.75,
+     "team_id": "7",
+     "win_pct": 0.622
+    },
+    {
+     "net": 2.49,
+     "team_id": "13",
+     "win_pct": 0.57
+    },
+    {
+     "net": 2.23,
+     "team_id": "6",
+     "win_pct": 0.57
+    },
+    {
+     "net": 1.78,
+     "team_id": "1",
+     "win_pct": 0.567
+    },
+    {
+     "net": 1.61,
+     "team_id": "22",
+     "win_pct": 0.564
+    },
+    {
+     "net": 1.12,
+     "team_id": "18",
+     "win_pct": 0.545
+    },
+    {
+     "net": 1.01,
+     "team_id": "2",
+     "win_pct": 0.487
+    },
+    {
+     "net": 0.81,
+     "team_id": "29",
+     "win_pct": 0.519
+    },
+    {
+     "net": 0.56,
+     "team_id": "9",
+     "win_pct": 0.527
+    },
+    {
+     "net": 0.15,
+     "team_id": "11",
+     "win_pct": 0.473
+    },
+    {
+     "net": -0.11,
+     "team_id": "28",
+     "win_pct": 0.375
+    },
+    {
+     "net": -0.19,
+     "team_id": "3",
+     "win_pct": 0.431
+    },
+    {
+     "net": -0.43,
+     "team_id": "14",
+     "win_pct": 0.526
+    },
+    {
+     "net": -1.11,
+     "team_id": "4",
+     "win_pct": 0.431
+    },
+    {
+     "net": -1.41,
+     "team_id": "24",
+     "win_pct": 0.452
+    },
+    {
+     "net": -2.21,
+     "team_id": "30",
+     "win_pct": 0.452
+    },
+    {
+     "net": -2.45,
+     "team_id": "27",
+     "win_pct": 0.456
+    },
+    {
+     "net": -3.05,
+     "team_id": "23",
+     "win_pct": 0.431
+    },
+    {
+     "net": -4.23,
+     "team_id": "8",
+     "win_pct": 0.278
+    }
+   ]
+  },
+  "2022": {
+   "correlation_elo_win_pct": 0.9138,
+   "correlation_net_win_pct": 0.9469,
+   "games": 1323,
+   "league_hca": 1.8,
+   "league_mu": 109.37,
+   "league_tau": 100.48,
+   "teams": 30,
+   "top": [
+    {
+     "net": 6.82,
+     "team_id": "2",
+     "win_pct": 0.613
+    },
+    {
+     "net": 5.87,
+     "team_id": "9",
+     "win_pct": 0.663
+    },
+    {
+     "net": 5.79,
+     "team_id": "21",
+     "win_pct": 0.747
+    },
+    {
+     "net": 5.1,
+     "team_id": "26",
+     "win_pct": 0.58
+    },
+    {
+     "net": 4.9,
+     "team_id": "29",
+     "win_pct": 0.66
+    },
+    {
+     "net": 4.44,
+     "team_id": "14",
+     "win_pct": 0.64
+    },
+    {
+     "net": 3.68,
+     "team_id": "6",
+     "win_pct": 0.61
+    },
+    {
+     "net": 3.34,
+     "team_id": "15",
+     "win_pct": 0.617
+    },
+    {
+     "net": 2.68,
+     "team_id": "20",
+     "win_pct": 0.606
+    },
+    {
+     "net": 1.95,
+     "team_id": "7",
+     "win_pct": 0.563
+    },
+    {
+     "net": 1.8,
+     "team_id": "16",
+     "win_pct": 0.551
+    },
+    {
+     "net": 1.63,
+     "team_id": "28",
+     "win_pct": 0.568
+    },
+    {
+     "net": 1.33,
+     "team_id": "1",
+     "win_pct": 0.517
+    },
+    {
+     "net": 1.2,
+     "team_id": "5",
+     "win_pct": 0.524
+    },
+    {
+     "net": 1.06,
+     "team_id": "17",
+     "win_pct": 0.517
+    },
+    {
+     "net": 0.29,
+     "team_id": "12",
+     "win_pct": 0.5
+    },
+    {
+     "net": 0.14,
+     "team_id": "30",
+     "win_pct": 0.518
+    },
+    {
+     "net": 0.08,
+     "team_id": "18",
+     "win_pct": 0.451
+    },
+    {
+     "net": -0.21,
+     "team_id": "24",
+     "win_pct": 0.41
+    },
+    {
+     "net": -0.28,
+     "team_id": "3",
+     "win_pct": 0.444
+    },
+    {
+     "net": -1.0,
+     "team_id": "4",
+     "win_pct": 0.54
+    },
+    {
+     "net": -2.58,
+     "team_id": "13",
+     "win_pct": 0.402
+    },
+    {
+     "net": -2.94,
+     "team_id": "11",
+     "win_pct": 0.305
+    },
+    {
+     "net": -3.22,
+     "team_id": "27",
+     "win_pct": 0.427
+    },
+    {
+     "net": -4.92,
+     "team_id": "23",
+     "win_pct": 0.366
+    }
+   ]
+  },
+  "2023": {
+   "correlation_elo_win_pct": 0.9147,
+   "correlation_net_win_pct": 0.9596,
+   "games": 1320,
+   "league_hca": 2.43,
+   "league_mu": 112.06,
+   "league_tau": 101.44,
+   "teams": 30,
+   "top": [
+    {
+     "net": 6.02,
+     "team_id": "2",
+     "win_pct": 0.667
+    },
+    {
+     "net": 4.46,
+     "team_id": "5",
+     "win_pct": 0.598
+    },
+    {
+     "net": 3.97,
+     "team_id": "7",
+     "win_pct": 0.676
+    },
+    {
+     "net": 3.91,
+     "team_id": "20",
+     "win_pct": 0.656
+    },
+    {
+     "net": 2.89,
+     "team_id": "15",
+     "win_pct": 0.678
+    },
+    {
+     "net": 2.88,
+     "team_id": "29",
+     "win_pct": 0.602
+    },
+    {
+     "net": 2.81,
+     "team_id": "18",
+     "win_pct": 0.57
+    },
+    {
+     "net": 1.92,
+     "team_id": "21",
+     "win_pct": 0.548
+    },
+    {
+     "net": 1.68,
+     "team_id": "9",
+     "win_pct": 0.526
+    },
+    {
+     "net": 1.48,
+     "team_id": "23",
+     "win_pct": 0.573
+    },
+    {
+     "net": 1.45,
+     "team_id": "28",
+     "win_pct": 0.494
+    },
+    {
+     "net": 1.36,
+     "team_id": "3",
+     "win_pct": 0.506
+    },
+    {
+     "net": 1.14,
+     "team_id": "4",
+     "win_pct": 0.488
+    },
+    {
+     "net": 1.13,
+     "team_id": "14",
+     "win_pct": 0.542
+    },
+    {
+     "net": 0.95,
+     "team_id": "13",
+     "win_pct": 0.525
+    },
+    {
+     "net": 0.7,
+     "team_id": "17",
+     "win_pct": 0.523
+    },
+    {
+     "net": 0.52,
+     "team_id": "1",
+     "win_pct": 0.494
+    },
+    {
+     "net": 0.23,
+     "team_id": "25",
+     "win_pct": 0.488
+    },
+    {
+     "net": 0.11,
+     "team_id": "12",
+     "win_pct": 0.517
+    },
+    {
+     "net": 0.09,
+     "team_id": "6",
+     "win_pct": 0.463
+    },
+    {
+     "net": -0.08,
+     "team_id": "16",
+     "win_pct": 0.494
+    },
+    {
+     "net": -0.68,
+     "team_id": "26",
+     "win_pct": 0.451
+    },
+    {
+     "net": -1.19,
+     "team_id": "27",
+     "win_pct": 0.427
+    },
+    {
+     "net": -2.55,
+     "team_id": "19",
+     "win_pct": 0.415
+    },
+    {
+     "net": -2.71,
+     "team_id": "11",
+     "win_pct": 0.427
+    }
+   ]
+  },
+  "2024": {
+   "correlation_elo_win_pct": 0.9529,
+   "correlation_net_win_pct": 0.9827,
+   "games": 1319,
+   "league_hca": 2.22,
+   "league_mu": 112.35,
+   "league_tau": 100.67,
+   "teams": 30,
+   "top": [
+    {
+     "net": 10.26,
+     "team_id": "2",
+     "win_pct": 0.792
+    },
+    {
+     "net": 6.76,
+     "team_id": "25",
+     "win_pct": 0.685
+    },
+    {
+     "net": 6.14,
+     "team_id": "16",
+     "win_pct": 0.663
+    },
+    {
+     "net": 4.57,
+     "team_id": "7",
+     "win_pct": 0.681
+    },
+    {
+     "net": 3.81,
+     "team_id": "18",
+     "win_pct": 0.6
+    },
+    {
+     "net": 3.59,
+     "team_id": "3",
+     "win_pct": 0.568
+    },
+    {
+     "net": 3.33,
+     "team_id": "6",
+     "win_pct": 0.606
+    },
+    {
+     "net": 2.71,
+     "team_id": "11",
+     "win_pct": 0.55
+    },
+    {
+     "net": 2.57,
+     "team_id": "12",
+     "win_pct": 0.602
+    },
+    {
+     "net": 2.48,
+     "team_id": "20",
+     "win_pct": 0.562
+    },
+    {
+     "net": 2.36,
+     "team_id": "9",
+     "win_pct": 0.554
+    },
+    {
+     "net": 2.34,
+     "team_id": "21",
+     "win_pct": 0.57
+    },
+    {
+     "net": 2.2,
+     "team_id": "23",
+     "win_pct": 0.56
+    },
+    {
+     "net": 2.16,
+     "team_id": "15",
+     "win_pct": 0.58
+    },
+    {
+     "net": 1.71,
+     "team_id": "5",
+     "win_pct": 0.564
+    },
+    {
+     "net": 1.66,
+     "team_id": "19",
+     "win_pct": 0.562
+    },
+    {
+     "net": 1.13,
+     "team_id": "13",
+     "win_pct": 0.562
+    },
+    {
+     "net": 0.82,
+     "team_id": "14",
+     "win_pct": 0.539
+    },
+    {
+     "net": 0.7,
+     "team_id": "10",
+     "win_pct": 0.5
+    },
+    {
+     "net": -1.68,
+     "team_id": "4",
+     "win_pct": 0.476
+    },
+    {
+     "net": -2.13,
+     "team_id": "1",
+     "win_pct": 0.434
+    },
+    {
+     "net": -2.7,
+     "team_id": "17",
+     "win_pct": 0.39
+    },
+    {
+     "net": -3.91,
+     "team_id": "26",
+     "win_pct": 0.378
+    },
+    {
+     "net": -5.53,
+     "team_id": "24",
+     "win_pct": 0.268
+    },
+    {
+     "net": -5.69,
+     "team_id": "28",
+     "win_pct": 0.305
+    }
+   ]
+  },
+  "2025": {
+   "correlation_elo_win_pct": 0.9691,
+   "correlation_net_win_pct": 0.9831,
+   "games": 1321,
+   "league_hca": 1.92,
+   "league_mu": 111.58,
+   "league_tau": 101.24,
+   "teams": 30,
+   "top": [
+    {
+     "net": 11.33,
+     "team_id": "25",
+     "win_pct": 0.792
+    },
+    {
+     "net": 8.48,
+     "team_id": "5",
+     "win_pct": 0.758
+    },
+    {
+     "net": 8.26,
+     "team_id": "2",
+     "win_pct": 0.72
+    },
+    {
+     "net": 5.47,
+     "team_id": "16",
+     "win_pct": 0.598
+    },
+    {
+     "net": 4.55,
+     "team_id": "12",
+     "win_pct": 0.596
+    },
+    {
+     "net": 4.12,
+     "team_id": "10",
+     "win_pct": 0.618
+    },
+    {
+     "net": 3.59,
+     "team_id": "7",
+     "win_pct": 0.594
+    },
+    {
+     "net": 3.53,
+     "team_id": "18",
+     "win_pct": 0.61
+    },
+    {
+     "net": 3.41,
+     "team_id": "29",
+     "win_pct": 0.557
+    },
+    {
+     "net": 3.16,
+     "team_id": "11",
+     "win_pct": 0.619
+    },
+    {
+     "net": 3.11,
+     "team_id": "9",
+     "win_pct": 0.568
+    },
+    {
+     "net": 1.96,
+     "team_id": "15",
+     "win_pct": 0.568
+    },
+    {
+     "net": 1.2,
+     "team_id": "8",
+     "win_pct": 0.523
+    },
+    {
+     "net": 1.11,
+     "team_id": "13",
+     "win_pct": 0.586
+    },
+    {
+     "net": 0.5,
+     "team_id": "23",
+     "win_pct": 0.482
+    },
+    {
+     "net": -0.36,
+     "team_id": "6",
+     "win_pct": 0.476
+    },
+    {
+     "net": -0.45,
+     "team_id": "19",
+     "win_pct": 0.489
+    },
+    {
+     "net": -0.52,
+     "team_id": "14",
+     "win_pct": 0.443
+    },
+    {
+     "net": -1.56,
+     "team_id": "1",
+     "win_pct": 0.476
+    },
+    {
+     "net": -1.83,
+     "team_id": "4",
+     "win_pct": 0.47
+    },
+    {
+     "net": -2.21,
+     "team_id": "21",
+     "win_pct": 0.439
+    },
+    {
+     "net": -2.49,
+     "team_id": "24",
+     "win_pct": 0.415
+    },
+    {
+     "net": -2.58,
+     "team_id": "22",
+     "win_pct": 0.439
+    },
+    {
+     "net": -4.29,
+     "team_id": "28",
+     "win_pct": 0.366
+    },
+    {
+     "net": -5.58,
+     "team_id": "20",
+     "win_pct": 0.293
+    }
+   ]
+  },
+  "2026": {
+   "correlation_elo_win_pct": 0.9617,
+   "correlation_net_win_pct": 0.9749,
+   "games": 1322,
+   "league_hca": 1.68,
+   "league_mu": 112.6,
+   "league_tau": 101.85,
+   "teams": 30,
+   "top": [
+    {
+     "net": 10.6,
+     "team_id": "25",
+     "win_pct": 0.773
+    },
+    {
+     "net": 8.21,
+     "team_id": "24",
+     "win_pct": 0.708
+    },
+    {
+     "net": 7.85,
+     "team_id": "18",
+     "win_pct": 0.686
+    },
+    {
+     "net": 6.97,
+     "team_id": "2",
+     "win_pct": 0.663
+    },
+    {
+     "net": 6.51,
+     "team_id": "8",
+     "win_pct": 0.698
+    },
+    {
+     "net": 4.39,
+     "team_id": "7",
+     "win_pct": 0.636
+    },
+    {
+     "net": 4.37,
+     "team_id": "10",
+     "win_pct": 0.614
+    },
+    {
+     "net": 3.52,
+     "team_id": "5",
+     "win_pct": 0.6
+    },
+    {
+     "net": 3.33,
+     "team_id": "30",
+     "win_pct": 0.536
+    },
+    {
+     "net": 2.53,
+     "team_id": "16",
+     "win_pct": 0.585
+    },
+    {
+     "net": 2.03,
+     "team_id": "28",
+     "win_pct": 0.551
+    },
+    {
+     "net": 1.93,
+     "team_id": "14",
+     "win_pct": 0.518
+    },
+    {
+     "net": 1.58,
+     "team_id": "13",
+     "win_pct": 0.62
+    },
+    {
+     "net": 1.24,
+     "team_id": "1",
+     "win_pct": 0.545
+    },
+    {
+     "net": 1.1,
+     "team_id": "21",
+     "win_pct": 0.523
+    },
+    {
+     "net": 0.99,
+     "team_id": "12",
+     "win_pct": 0.506
+    },
+    {
+     "net": 0.86,
+     "team_id": "19",
+     "win_pct": 0.538
+    },
+    {
+     "net": -0.19,
+     "team_id": "9",
+     "win_pct": 0.452
+    },
+    {
+     "net": -0.41,
+     "team_id": "22",
+     "win_pct": 0.5
+    },
+    {
+     "net": -0.63,
+     "team_id": "20",
+     "win_pct": 0.532
+    },
+    {
+     "net": -4.44,
+     "team_id": "3",
+     "win_pct": 0.317
+    },
+    {
+     "net": -4.47,
+     "team_id": "29",
+     "win_pct": 0.305
+    },
+    {
+     "net": -4.52,
+     "team_id": "4",
+     "win_pct": 0.378
+    },
+    {
+     "net": -4.73,
+     "team_id": "6",
+     "win_pct": 0.317
+    },
+    {
+     "net": -5.62,
+     "team_id": "15",
+     "win_pct": 0.39
+    }
+   ]
+  },
+  "2027": {
+   "correlation_elo_win_pct": null,
+   "correlation_net_win_pct": null,
+   "games": 121,
+   "league_hca": 1.5,
+   "league_mu": 110.09,
+   "league_tau": 102.49,
+   "teams": 0,
+   "top": []
+  }
+ },
+ "NCAA": {
+  "2026": {
+   "correlation_elo_win_pct": 0.948,
+   "correlation_net_win_pct": 0.8311,
+   "games": 6300,
+   "league_hca": 5.51,
+   "league_mu": 109.52,
+   "league_tau": 67.65,
+   "teams": 365,
+   "top": [
+    {
+     "net": 32.32,
+     "team_id": "130",
+     "win_pct": 0.925
+    },
+    {
+     "net": 32.1,
+     "team_id": "150",
+     "win_pct": 0.921
+    },
+    {
+     "net": 29.43,
+     "team_id": "12",
+     "win_pct": 0.923
+    },
+    {
+     "net": 27.29,
+     "team_id": "57",
+     "win_pct": 0.771
+    },
+    {
+     "net": 27.27,
+     "team_id": "356",
+     "win_pct": 0.757
+    },
+    {
+     "net": 26.9,
+     "team_id": "248",
+     "win_pct": 0.811
+    },
+    {
+     "net": 26.38,
+     "team_id": "66",
+     "win_pct": 0.784
+    },
+    {
+     "net": 24.53,
+     "team_id": "2250",
+     "win_pct": 0.886
+    },
+    {
+     "net": 24.24,
+     "team_id": "2509",
+     "win_pct": 0.769
+    },
+    {
+     "net": 23.62,
+     "team_id": "41",
+     "win_pct": 0.85
+    },
+    {
+     "net": 22.0,
+     "team_id": "127",
+     "win_pct": 0.771
+    },
+    {
+     "net": 21.4,
+     "team_id": "238",
+     "win_pct": 0.75
+    },
+    {
+     "net": 20.91,
+     "team_id": "2633",
+     "win_pct": 0.676
+    },
+    {
+     "net": 20.72,
+     "team_id": "258",
+     "win_pct": 0.833
+    },
+    {
+     "net": 20.52,
+     "team_id": "97",
+     "win_pct": 0.686
+    },
+    {
+     "net": 20.51,
+     "team_id": "2599",
+     "win_pct": 0.811
+    },
+    {
+     "net": 20.3,
+     "team_id": "158",
+     "win_pct": 0.8
+    },
+    {
+     "net": 20.25,
+     "team_id": "333",
+     "win_pct": 0.714
+    },
+    {
+     "net": 19.78,
+     "team_id": "8",
+     "win_pct": 0.757
+    },
+    {
+     "net": 19.45,
+     "team_id": "139",
+     "win_pct": 0.829
+    },
+    {
+     "net": 18.57,
+     "team_id": "2641",
+     "win_pct": 0.676
+    },
+    {
+     "net": 18.08,
+     "team_id": "2294",
+     "win_pct": 0.649
+    },
+    {
+     "net": 18.06,
+     "team_id": "328",
+     "win_pct": 0.806
+    },
+    {
+     "net": 17.78,
+     "team_id": "2305",
+     "win_pct": 0.686
+    },
+    {
+     "net": 17.62,
+     "team_id": "2608",
+     "win_pct": 0.818
+    }
+   ]
+  },
+  "2027": {
+   "correlation_elo_win_pct": null,
+   "correlation_net_win_pct": null,
+   "games": 238,
+   "league_hca": 6.42,
+   "league_mu": 105.36,
+   "league_tau": 70.84,
+   "teams": 0,
+   "top": []
+  }
+ },
+ "generated_at": "2026-11-05T20:33:30.280854+00:00"
+}

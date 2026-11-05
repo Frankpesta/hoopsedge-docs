@@ -1,0 +1,194 @@
+{
+ "NBA": {
+  "2019": {
+   "box_rejects": 0,
+   "dates_complete": 273,
+   "dates_total": 273,
+   "final_games": 1312,
+   "game_rejects": 0,
+   "games_kept": 1312,
+   "meets_target": true,
+   "other_statuses": {},
+   "pct_box": 100.0,
+   "pct_half": 100.0,
+   "reject_reasons": {},
+   "summaries_absent": 0
+  },
+  "2020": {
+   "box_rejects": 0,
+   "dates_complete": 381,
+   "dates_total": 381,
+   "final_games": 1143,
+   "game_rejects": 0,
+   "games_kept": 1143,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_POSTPONED": 12
+   },
+   "pct_box": 100.0,
+   "pct_half": 100.0,
+   "reject_reasons": {},
+   "summaries_absent": 0
+  },
+  "2021": {
+   "box_rejects": 7,
+   "dates_complete": 243,
+   "dates_total": 243,
+   "final_games": 1171,
+   "game_rejects": 0,
+   "games_kept": 1171,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_POSTPONED": 32
+   },
+   "pct_box": 99.4,
+   "pct_half": 100.0,
+   "reject_reasons": {
+    "box_unreadable": 6,
+    "possessions_implausible": 1
+   },
+   "summaries_absent": 0
+  },
+  "2022": {
+   "box_rejects": 0,
+   "dates_complete": 273,
+   "dates_total": 273,
+   "final_games": 1323,
+   "game_rejects": 0,
+   "games_kept": 1323,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_POSTPONED": 11
+   },
+   "pct_box": 100.0,
+   "pct_half": 100.0,
+   "reject_reasons": {},
+   "summaries_absent": 0
+  },
+  "2023": {
+   "box_rejects": 0,
+   "dates_complete": 273,
+   "dates_total": 273,
+   "final_games": 1320,
+   "game_rejects": 0,
+   "games_kept": 1320,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_POSTPONED": 1
+   },
+   "pct_box": 100.0,
+   "pct_half": 100.0,
+   "reject_reasons": {},
+   "summaries_absent": 0
+  },
+  "2024": {
+   "box_rejects": 0,
+   "dates_complete": 274,
+   "dates_total": 274,
+   "final_games": 1319,
+   "game_rejects": 0,
+   "games_kept": 1319,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_POSTPONED": 2
+   },
+   "pct_box": 100.0,
+   "pct_half": 100.0,
+   "reject_reasons": {},
+   "summaries_absent": 0
+  },
+  "2025": {
+   "box_rejects": 1,
+   "dates_complete": 273,
+   "dates_total": 273,
+   "final_games": 1321,
+   "game_rejects": 0,
+   "games_kept": 1321,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_POSTPONED": 5
+   },
+   "pct_box": 99.92,
+   "pct_half": 100.0,
+   "reject_reasons": {
+    "box_points_do_not_match_score": 1
+   },
+   "summaries_absent": 0
+  },
+  "2026": {
+   "box_rejects": 2,
+   "dates_complete": 269,
+   "dates_total": 273,
+   "final_games": 1322,
+   "game_rejects": 0,
+   "games_kept": 1322,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_POSTPONED": 4
+   },
+   "pct_box": 99.55,
+   "pct_half": 100.0,
+   "reject_reasons": {
+    "possessions_implausible": 2
+   },
+   "summaries_absent": 4
+  },
+  "2027": {
+   "box_rejects": 0,
+   "dates_complete": 34,
+   "dates_total": 34,
+   "final_games": 107,
+   "game_rejects": 0,
+   "games_kept": 107,
+   "meets_target": true,
+   "other_statuses": {},
+   "pct_box": 100.0,
+   "pct_half": 100.0,
+   "reject_reasons": {},
+   "summaries_absent": 0
+  }
+ },
+ "NCAA": {
+  "2026": {
+   "box_rejects": 21,
+   "dates_complete": 166,
+   "dates_total": 166,
+   "final_games": 6300,
+   "game_rejects": 0,
+   "games_kept": 6300,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_CANCELED": 4,
+    "STATUS_POSTPONED": 14
+   },
+   "pct_box": 99.67,
+   "pct_half": 100.0,
+   "reject_reasons": {
+    "box_points_do_not_match_score": 12,
+    "box_unreadable": 1,
+    "possessions_implausible": 8
+   },
+   "summaries_absent": 0
+  },
+  "2027": {
+   "box_rejects": 2,
+   "dates_complete": 3,
+   "dates_total": 3,
+   "final_games": 212,
+   "game_rejects": 0,
+   "games_kept": 212,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_SCHEDULED": 1
+   },
+   "pct_box": 99.06,
+   "pct_half": 100.0,
+   "reject_reasons": {
+    "box_points_do_not_match_score": 1,
+    "possessions_implausible": 1
+   },
+   "summaries_absent": 0
+  }
+ },
+ "generated_at": "2026-11-05T20:24:56.215294+00:00"
+}
