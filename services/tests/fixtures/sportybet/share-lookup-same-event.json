@@ -1,0 +1,160 @@
+{
+ "bizCode": 10000,
+ "data": {
+  "deadline": 1794780000000,
+  "outcomes": [
+   {
+    "awayTeamName": "McNeese State Cowboys",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793916000000,
+    "eventId": "sr:match:74803372",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74803372",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74803372",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "33306",
+    "homeTeamName": "North Texas Mean Green",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Over/Under (incl. overtime) 140.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "225",
+      "lastOddsChangeTime": 1793890469271,
+      "marketGuide": "Predict whether the total number of points scored in the match is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 140.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.84",
+        "probability": "0.5021240000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=140.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "McNeese State Cowboys",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793916000000,
+    "eventId": "sr:match:74803372",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "74803372",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "74803372",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "33306",
+    "homeTeamName": "North Texas Mean Green",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "1st Half - Over/Under",
+      "favourite": 1,
+      "group": "Half",
+      "id": "68",
+      "lastOddsChangeTime": 1793890469271,
+      "marketGuide": "Predict whether the total number of points scored in the 1st Half is over/under a given line.",
+      "outcomes": [
+       {
+        "desc": "Over 65.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.87",
+        "probability": "0.4947080000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=65.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:648",
+       "name": "NCAA, Regular Season"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   }
+  ],
+  "shareCode": "V04MC9",
+  "shareURL": "http://www.sportybet.com/ng/?shareCode=V04MC9",
+  "ticket": {
+   "bets": [],
+   "orderType": 2,
+   "selections": [
+    {
+     "eventId": "sr:match:74803372",
+     "marketId": "225",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "productId": 3,
+     "specifier": "total=140.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "eventId": "sr:match:74803372",
+     "marketId": "68",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "productId": 3,
+     "specifier": "total=65.5",
+     "sportId": "sr:sport:2"
+    }
+   ]
+  },
+  "unavailableOutcomes": [],
+  "userId": ""
+ },
+ "isAvailable": true,
+ "message": "Success"
+}

@@ -1,0 +1,161 @@
+{
+ "bizCode": 10000,
+ "data": {
+  "deadline": 1794798000000,
+  "operId": "2",
+  "outcomes": [
+   {
+    "awayTeamName": "Orlando Magic",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793930400000,
+    "eventId": "sr:match:73719544",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73719544",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73719544",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "30975",
+    "homeTeamName": "Phoenix Suns",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Handicap (incl. overtime) -1.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "223",
+      "lastOddsChangeTime": 1793891955033,
+      "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Home (-1.5)",
+        "id": "1714",
+        "isActive": 1,
+        "odds": "1.98",
+        "probability": "0.4841120000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "hcp=-1.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:132",
+       "name": "NBA"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   },
+   {
+    "awayTeamName": "Miami Heat",
+    "banned": false,
+    "bgEvent": false,
+    "bookingStatus": "Booked",
+    "estimateStartTime": 1793934000000,
+    "eventId": "sr:match:73719546",
+    "eventSource": {
+     "liveSource": {
+      "sourceId": "73719546",
+      "sourceType": "BET_RADAR"
+     },
+     "preMatchSource": {
+      "sourceId": "73719546",
+      "sourceType": "BET_RADAR"
+     }
+    },
+    "gameId": "29812",
+    "homeTeamName": "Golden State Warriors",
+    "markets": [
+     {
+      "banned": false,
+      "desc": "Over/Under (incl. overtime) 234.5",
+      "favourite": 1,
+      "group": "Main",
+      "id": "225",
+      "lastOddsChangeTime": 1793892605400,
+      "marketGuide": "Predict whether the total number of points scored in the match is over/under a given line. Overtime included.",
+      "outcomes": [
+       {
+        "desc": "Over 234.5",
+        "id": "12",
+        "isActive": 1,
+        "odds": "1.93",
+        "probability": "0.4919090000",
+        "voidProbability": "0E-10"
+       }
+      ],
+      "product": 3,
+      "sourceType": "BET_RADAR",
+      "specifier": "total=234.5",
+      "status": 0
+     }
+    ],
+    "matchStatus": "Not start",
+    "matchTrackerNotAllowed": false,
+    "parentBetBuilderMarketId": "",
+    "productStatus": "0#0",
+    "sport": {
+     "category": {
+      "id": "sr:category:15",
+      "name": "USA",
+      "tournament": {
+       "id": "sr:tournament:132",
+       "name": "NBA"
+      }
+     },
+     "id": "sr:sport:2",
+     "name": "Basketball"
+    },
+    "status": 0
+   }
+  ],
+  "shareCode": "M7SVLQ",
+  "shareURL": "http://www.sportybet.com/ng/?shareCode=M7SVLQ",
+  "ticket": {
+   "selections": [
+    {
+     "estimateStartTime": 1793930400000,
+     "eventId": "sr:match:73719544",
+     "marketId": "223",
+     "outcomeId": "1714",
+     "parentBetBuilderMarketId": "",
+     "specifier": "hcp=-1.5",
+     "sportId": "sr:sport:2"
+    },
+    {
+     "estimateStartTime": 1793934000000,
+     "eventId": "sr:match:73719546",
+     "marketId": "225",
+     "outcomeId": "12",
+     "parentBetBuilderMarketId": "",
+     "specifier": "total=234.5",
+     "sportId": "sr:sport:2"
+    }
+   ]
+  },
+  "unavailableOutcomes": [],
+  "userId": ""
+ },
+ "isAvailable": true,
+ "message": "Success"
+}

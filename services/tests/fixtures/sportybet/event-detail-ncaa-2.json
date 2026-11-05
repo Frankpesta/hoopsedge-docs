@@ -1,0 +1,298 @@
+{
+ "bizCode": 10000,
+ "data": {
+  "ai": false,
+  "awayTeamId": "sr:competitor:86716",
+  "awayTeamName": "Cal Poly Mustangs",
+  "banned": false,
+  "bgEvent": false,
+  "bookingStatus": "Booked",
+  "containsPcbb": false,
+  "estimateStartTime": 1793935800000,
+  "eventId": "sr:match:73274382",
+  "eventSource": {
+   "liveSource": {
+    "sourceId": "73274382",
+    "sourceType": "BET_RADAR"
+   },
+   "preMatchSource": {
+    "sourceId": "73274382",
+    "sourceType": "BET_RADAR"
+   }
+  },
+  "fixtureVenue": {
+   "name": "McKale Center"
+  },
+  "gameId": "33742",
+  "giftGrabActivityResultVO": {
+   "activityEnabled": false,
+   "enabled": false
+  },
+  "homeTeamId": "sr:competitor:34645",
+  "homeTeamName": "Arizona Wildcats",
+  "markets": [
+   {
+    "banned": false,
+    "desc": "Winner (incl. overtime)",
+    "farNearOdds": 0,
+    "favourite": 0,
+    "group": "Main",
+    "groupId": "171124171109MGI11390860",
+    "id": "219",
+    "lastOddsChangeTime": 1793892981000,
+    "marketGuide": "Which team will win the match. Overtime included.",
+    "name": "Winner (incl. overtime)",
+    "outcomes": [
+     {
+      "desc": "Home",
+      "id": "4",
+      "isActive": 0,
+      "odds": "1.01",
+      "probability": "0.9958760000",
+      "voidProbability": "0E-10"
+     },
+     {
+      "desc": "Away",
+      "id": "5",
+      "isActive": 1,
+      "odds": "12.50",
+      "probability": "0.0041187700",
+      "voidProbability": "0E-10"
+     }
+    ],
+    "product": 3,
+    "sourceType": "BET_RADAR",
+    "status": 0,
+    "title": "Home,Away"
+   },
+   {
+    "banned": false,
+    "desc": "Over/Under (incl. overtime) 172.5",
+    "farNearOdds": 1,
+    "favourite": 1,
+    "group": "Main",
+    "groupId": "171124171109MGI11390860",
+    "id": "225",
+    "lastOddsChangeTime": 1793892980634,
+    "marketGuide": "Predict whether the total number of points scored in the match is over/under a given line. Overtime included.",
+    "name": "Over/Under (incl. overtime)",
+    "outcomes": [
+     {
+      "desc": "Over 172.5",
+      "id": "12",
+      "isActive": 1,
+      "odds": "1.87",
+      "probability": "0.4958530000",
+      "voidProbability": "0E-10"
+     },
+     {
+      "desc": "Under 172.5",
+      "id": "13",
+      "isActive": 1,
+      "odds": "1.84",
+      "probability": "0.5041410000",
+      "voidProbability": "0E-10"
+     }
+    ],
+    "product": 3,
+    "sourceType": "BET_RADAR",
+    "specifier": "total=172.5",
+    "status": 0,
+    "title": "Total,Over,Under"
+   },
+   {
+    "banned": false,
+    "desc": "Handicap (incl. overtime) -32.5",
+    "farNearOdds": 0,
+    "favourite": 0,
+    "group": "Main",
+    "groupId": "171124171109MGI11390860",
+    "id": "223",
+    "lastOddsChangeTime": 1793892980634,
+    "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+    "name": "Handicap (incl. overtime)",
+    "outcomes": [
+     {
+      "desc": "Home (-32.5)",
+      "id": "1714",
+      "isActive": 1,
+      "odds": "2.05",
+      "probability": "0.4505167207",
+      "voidProbability": "0E-10"
+     },
+     {
+      "desc": "Away (+32.5)",
+      "id": "1715",
+      "isActive": 1,
+      "odds": "1.70",
+      "probability": "0.5494832795",
+      "voidProbability": "0E-10"
+     }
+    ],
+    "product": 3,
+    "sourceType": "BET_RADAR",
+    "specifier": "hcp=-32.5",
+    "status": 0,
+    "title": "Handicap,Home,Away"
+   },
+   {
+    "banned": false,
+    "desc": "Handicap (incl. overtime) -31.5",
+    "farNearOdds": 0,
+    "favourite": 0,
+    "group": "Main",
+    "groupId": "171124171109MGI11390860",
+    "id": "223",
+    "lastOddsChangeTime": 1793892980634,
+    "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+    "name": "Handicap (incl. overtime)",
+    "outcomes": [
+     {
+      "desc": "Home (-31.5)",
+      "id": "1714",
+      "isActive": 1,
+      "odds": "1.92",
+      "probability": "0.4796020000",
+      "voidProbability": "0E-10"
+     },
+     {
+      "desc": "Away (+31.5)",
+      "id": "1715",
+      "isActive": 1,
+      "odds": "1.78",
+      "probability": "0.5203980000",
+      "voidProbability": "0E-10"
+     }
+    ],
+    "product": 3,
+    "sourceType": "BET_RADAR",
+    "specifier": "hcp=-31.5",
+    "status": 0,
+    "title": "Handicap,Home,Away"
+   },
+   {
+    "banned": false,
+    "desc": "Handicap (incl. overtime) -30.5",
+    "farNearOdds": 1,
+    "favourite": 1,
+    "group": "Main",
+    "groupId": "171124171109MGI11390860",
+    "id": "223",
+    "lastOddsChangeTime": 1793892980634,
+    "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+    "name": "Handicap (incl. overtime)",
+    "outcomes": [
+     {
+      "desc": "Home (-30.5)",
+      "id": "1714",
+      "isActive": 1,
+      "odds": "1.82",
+      "probability": "0.5087990000",
+      "voidProbability": "0E-10"
+     },
+     {
+      "desc": "Away (+30.5)",
+      "id": "1715",
+      "isActive": 1,
+      "odds": "1.87",
+      "probability": "0.4912010000",
+      "voidProbability": "0E-10"
+     }
+    ],
+    "product": 3,
+    "sourceType": "BET_RADAR",
+    "specifier": "hcp=-30.5",
+    "status": 0,
+    "title": "Handicap,Home,Away"
+   },
+   {
+    "banned": false,
+    "desc": "Handicap (incl. overtime) -29.5",
+    "farNearOdds": 0,
+    "favourite": 0,
+    "group": "Main",
+    "groupId": "171124171109MGI11390860",
+    "id": "223",
+    "lastOddsChangeTime": 1793892980634,
+    "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+    "name": "Handicap (incl. overtime)",
+    "outcomes": [
+     {
+      "desc": "Home (-29.5)",
+      "id": "1714",
+      "isActive": 1,
+      "odds": "1.73",
+      "probability": "0.5379180000",
+      "voidProbability": "0E-10"
+     },
+     {
+      "desc": "Away (+29.5)",
+      "id": "1715",
+      "isActive": 1,
+      "odds": "2.00",
+      "probability": "0.4620820000",
+      "voidProbability": "0E-10"
+     }
+    ],
+    "product": 3,
+    "sourceType": "BET_RADAR",
+    "specifier": "hcp=-29.5",
+    "status": 0,
+    "title": "Handicap,Home,Away"
+   },
+   {
+    "banned": false,
+    "desc": "Handicap (incl. overtime) -28.5",
+    "farNearOdds": -1,
+    "favourite": 0,
+    "group": "Main",
+    "groupId": "171124171109MGI11390860",
+    "id": "223",
+    "lastOddsChangeTime": 1793892980634,
+    "marketGuide": "Predict the winner taking into consideration the handicap in brackets. Overtime included.",
+    "name": "Handicap (incl. overtime)",
+    "outcomes": [
+     {
+      "desc": "Home (-28.5)",
+      "id": "1714",
+      "isActive": 1,
+      "odds": "1.65",
+      "probability": "0.5668000000",
+      "voidProbability": "0E-10"
+     },
+     {
+      "desc": "Away (+28.5)",
+      "id": "1715",
+      "isActive": 1,
+      "odds": "2.10",
+      "probability": "0.4332000000",
+      "voidProbability": "0E-10"
+     }
+    ],
+    "product": 3,
+    "sourceType": "BET_RADAR",
+    "specifier": "hcp=-28.5",
+    "status": 0,
+    "title": "Handicap,Home,Away"
+   }
+  ],
+  "matchStatus": "Not start",
+  "matchTrackerNotAllowed": false,
+  "productStatus": "0#0",
+  "sport": {
+   "category": {
+    "id": "sr:category:15",
+    "name": "USA",
+    "tournament": {
+     "id": "sr:tournament:648",
+     "name": "NCAA, Regular Season"
+    }
+   },
+   "id": "sr:sport:2",
+   "name": "Basketball"
+  },
+  "status": 0,
+  "topTeam": false
+ },
+ "message": "0#0"
+}

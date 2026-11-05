@@ -1,0 +1,38 @@
+# SportyBet Nigeria public endpoints, verified from the owner's machine on 2026-11-05.
+# Evidence: docs/reports/phase0-sportybet-discovery.md. Access from AWS is still unknown (D22).
+base_url: https://www.sportybet.com/api/ng
+sport_id: sr:sport:2
+rate_per_second: 1.0
+
+events:
+  path: /factsCenter/pcUpcomingEvents
+  method: GET
+  # marketId is comma-separated and returns every line of those markets. tournamentId filters
+  # to one tournament. Pages start at 1, data.totalNum is the event total, pageSize=100 works.
+  params: [sportId, marketId, tournamentId, pageSize, pageNum]
+event_detail:
+  path: /factsCenter/event
+  method: GET
+  params: [eventId, productId]
+  product_id_prematch: "3"
+live_events:
+  path: /factsCenter/liveOrPrematchEvents
+  method: GET
+  params: [sportId]
+share_create:
+  path: /orders/share
+  method: POST
+  # OperId comes from `var operId` on the Nigerian site.
+  headers:
+    Content-Type: application/json;charset=UTF-8
+    OperId: "2"
+  # Body: {"selections": [{eventId, marketId, specifier, outcomeId}]}. No specifier key if none.
+  code_field: data.shareCode
+share_lookup:
+  path: /orders/share/{code}
+  method: GET
+  invalid_code_biz_code: 19000
+
+# HTTP 200 alone doesn't mean success. Always check bizCode.
+success_biz_code: 10000
+requires_cookie_or_token: false
