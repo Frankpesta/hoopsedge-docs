@@ -26,10 +26,10 @@ from pathlib import Path
 from typing import Any
 
 import polars as pl
-from pydantic import BaseModel
 
 from hoopsedge.common.http import HttpFetchError, NotJsonError, PoliteClient
 from hoopsedge.common.schemas import Game, PlayerGame, Reject, TeamGame
+from hoopsedge.ingest.curated import write_parquet, write_table
 from hoopsedge.ingest.espn_coverage import EASTERN, check_scoreboard_event
 from hoopsedge.ingest.espn_parser import PLAYER_LEAGUES, parse_game
 from hoopsedge.teams.registry import (
@@ -122,32 +122,37 @@ def read_gz(path: Path) -> Any:
     return json.loads(gzip.decompress(path.read_bytes()))
 
 
-def _halt_path(data_dir: Path) -> Path:
+def halt_path(data_dir: Path) -> Path:
     return data_dir / "backfill" / "HALTED"
 
 
-def _assert_not_halted(data_dir: Path) -> None:
-    path = _halt_path(data_dir)
+def assert_not_halted(data_dir: Path) -> None:
+    path = halt_path(data_dir)
     if path.exists():
         raise BlockedError(f"Backfill is halted: {path.read_text('utf-8')}")
 
 
-def _get(backfill: Backfill, url: str, params: dict[str, str] | None = None) -> Any:
+def halt_on_block(data_dir: Path, error: HttpFetchError) -> None:
+    """If this error is a block, record a halt that lasts until the owner clears it, and raise."""
+    if isinstance(error, NotJsonError) or error.status in BLOCK_STATUS:
+        path = halt_path(data_dir)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"{datetime.now(UTC).isoformat()} {error}", "utf-8")
+        raise BlockedError(str(error)) from error
+
+
+def fetch_json(backfill: Backfill, url: str, params: dict[str, str] | None = None) -> Any:
     """GET, and turn any block into a persistent halt."""
     try:
         return backfill.client.get_json(url, params)
     except HttpFetchError as error:
-        if isinstance(error, NotJsonError) or error.status in BLOCK_STATUS:
-            path = _halt_path(backfill.data_dir)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(f"{datetime.now(UTC).isoformat()} {error}", "utf-8")
-            raise BlockedError(str(error)) from error
+        halt_on_block(backfill.data_dir, error)
         raise
 
 
 def fetch_registry(backfill: Backfill) -> None:
     """Store team lists: current teams for both leagues and D1 membership per NCAA season."""
-    _assert_not_halted(backfill.data_dir)
+    assert_not_halted(backfill.data_dir)
     folder = backfill.data_dir / "raw/espn/registry"
     calls: list[tuple[Path, str, dict[str, str]]] = [
         (folder / f"{league}-teams.json.gz", f"{SITE}/{path}/teams", {"limit": "1000"})
@@ -164,7 +169,7 @@ def fetch_registry(backfill: Backfill) -> None:
     ]
     for file, url, params in calls:
         if not file.exists():
-            write_gz(file, _get(backfill, url, params))
+            write_gz(file, fetch_json(backfill, url, params))
 
 
 def _wants_summary(event: dict[str, Any], league: str) -> bool:
@@ -180,7 +185,7 @@ def _fetch_games_date(backfill: Backfill, league: str, season: int, day: date) -
         board = read_gz(board_file)
     else:
         try:
-            board = _get(
+            board = fetch_json(
                 backfill,
                 f"{SITE}/{path}/scoreboard",
                 {"dates": day.strftime("%Y%m%d"), **params},
@@ -196,7 +201,9 @@ def _fetch_games_date(backfill: Backfill, league: str, season: int, day: date) -
         if not _wants_summary(event, league) or summary_file.exists():
             continue
         try:
-            write_gz(summary_file, _get(backfill, f"{SITE}/{path}/summary", {"event": game_id}))
+            write_gz(
+                summary_file, fetch_json(backfill, f"{SITE}/{path}/summary", {"event": game_id})
+            )
         except HttpFetchError as error:
             failures[game_id] = str(error)
     return failures
@@ -230,7 +237,7 @@ def _fetch_odds_date(backfill: Backfill, league: str, season: int, day: date) ->
             continue
         url = f"{CORE}/{path}/events/{game_id}/competitions/{game_id}/odds"
         try:
-            write_gz(odds_file, _get(backfill, url, {"limit": "50"}))
+            write_gz(odds_file, fetch_json(backfill, url, {"limit": "50"}))
         except HttpFetchError as error:
             if error.status == 404:  # ESPN holds no odds for this game.
                 write_gz(odds_file, {"items": [], "not_found": True})
@@ -268,7 +275,7 @@ def fetch_season(
     backfill: Backfill, league: str, season: int, days: Sequence[date], stage: str = "games"
 ) -> bool:
     """Run one stage for the given dates. True means every one of them is now complete."""
-    _assert_not_halted(backfill.data_dir)
+    assert_not_halted(backfill.data_dir)
     fetch_date = _fetch_games_date if stage == GAMES else _fetch_odds_date
     checkpoint = _read_checkpoint(backfill.data_dir, league, season, stage)
     completed = set(checkpoint["completed_dates"])
@@ -306,79 +313,6 @@ def fetch_all(backfill: Backfill, only: str | None = None) -> bool:
                     f"{time.monotonic() - started:.0f} s"
                 )
     return complete
-
-
-GAME_SCHEMA: dict[str, Any] = {
-    "league": pl.String,
-    "season": pl.Int64,
-    "game_id": pl.String,
-    "tip_utc": pl.Datetime("us", "UTC"),
-    "slate_date_et": pl.Date,
-    "home_id": pl.String,
-    "away_id": pl.String,
-    "neutral": pl.Boolean,
-    "venue_id": pl.String,
-    "status": pl.String,
-    "home_pts": pl.Int64,
-    "away_pts": pl.Int64,
-    "home_1h": pl.Int64,
-    "away_1h": pl.Int64,
-    "home_periods": pl.List(pl.Int64),
-    "away_periods": pl.List(pl.Int64),
-    "ot_periods": pl.Int64,
-    "postseason": pl.Boolean,
-    "season_flag": pl.String,
-    "box_missing": pl.Boolean,
-}
-SCHEMAS: dict[type[BaseModel], dict[str, Any]] = {
-    Game: GAME_SCHEMA,
-    TeamGame: {
-        **{"game_id": pl.String, "team_id": pl.String, "opp_id": pl.String, "is_home": pl.Boolean},
-        **{
-            name: pl.Int64
-            for name in (
-                "fgm",
-                "fga",
-                "fg3m",
-                "fg3a",
-                "ftm",
-                "fta",
-                "oreb",
-                "dreb",
-                "tov",
-                "pf",
-                "pts",
-                "pts_1h",
-                "minutes",
-            )
-        },
-        "poss": pl.Float64,
-    },
-    PlayerGame: {
-        "game_id": pl.String,
-        "team_id": pl.String,
-        "player_id": pl.String,
-        "minutes": pl.Int64,
-        "pts": pl.Int64,
-        "starter": pl.Boolean,
-    },
-}
-
-
-def _write_parquet(frame: pl.DataFrame, path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + ".tmp")
-    frame.write_parquet(temporary)
-    os.replace(temporary, path)
-
-
-def _write_table(data_dir: Path, table: str, league: str, season: int, rows: Sequence[Any]) -> None:
-    path = data_dir / f"curated/{table}/league={league}/season={season}/part-0.parquet"
-    if not rows:
-        path.unlink(missing_ok=True)
-        return
-    schema = SCHEMAS[type(rows[0])]
-    _write_parquet(pl.DataFrame([row.model_dump() for row in rows], schema=schema), path)
 
 
 @dataclass
@@ -505,16 +439,14 @@ def _write_registry(
         "confirmed_by": pl.String,
         "confirmed_at": pl.String,
     }
-    _write_parquet(
+    write_parquet(
         pl.DataFrame(team_rows, infer_schema_length=None), data_dir / "curated/teams/teams.parquet"
     )
-    _write_parquet(
+    write_parquet(
         pl.DataFrame(alias_rows, schema=alias_schema),
         data_dir / "curated/team_aliases/team_aliases.parquet",
     )
-    _write_parquet(
-        pl.DataFrame(season_rows), data_dir / "curated/team_seasons/team_seasons.parquet"
-    )
+    write_parquet(pl.DataFrame(season_rows), data_dir / "curated/team_seasons/team_seasons.parquet")
     write_gz(data_dir / "curated/team_aliases/ambiguous.json.gz", ambiguous_rows)
 
 
@@ -534,10 +466,10 @@ def build_curated(
         results[league] = {}
         for season in sorted(seasons_for(league, today_et)):
             build = _build_season(data_dir, league, season, today_et, nba_ids)
-            _write_table(data_dir, "games", league, season, build.games)
-            _write_table(data_dir, "team_games", league, season, build.team_games)
+            write_table(data_dir, "games", league, season, build.games)
+            write_table(data_dir, "team_games", league, season, build.team_games)
             if league in PLAYER_LEAGUES:
-                _write_table(data_dir, "player_games", league, season, build.player_games)
+                write_table(data_dir, "player_games", league, season, build.player_games)
             all_rejects += build.rejects
             sightings[league].update(build.sightings)
             d1_file = registry / f"NCAA-d1-{season}.json.gz"
@@ -624,7 +556,7 @@ def _write_report(report_dir: Path, results: dict[str, Any]) -> None:
 
 def status_text(data_dir: Path, today: date) -> str:
     lines = []
-    halt = _halt_path(data_dir)
+    halt = halt_path(data_dir)
     if halt.exists():
         lines.append(f"HALTED: {halt.read_text('utf-8')}")
     for stage in STAGES:
@@ -666,7 +598,7 @@ def main() -> int:
         print(status_text(data_dir, today))
         return 0
     if args.command == "resume":
-        _halt_path(data_dir).unlink(missing_ok=True)
+        halt_path(data_dir).unlink(missing_ok=True)
         print("Halt cleared.")
         return 0
     if args.command == "build":

@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Private basketball prediction system for the NBA and NCAA Men's D1"
 requires-python = "==3.12.*"
 dependencies = [
+    "boto3>=1.35",
     "httpx>=0.27",
     "polars>=1.5",
     "pyarrow>=17",
@@ -14,6 +15,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "moto[dynamodb]>=5.0",
     "mypy>=1.11",
     "pytest>=8.3",
     "respx>=0.21",
@@ -44,6 +46,10 @@ select = ["E", "F", "W", "I", "B", "UP", "S", "BLE"]
 python_version = "3.12"
 files = ["hoopsedge", "tests"]
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["boto3.*", "botocore.*", "moto.*"]
+ignore_missing_imports = true
 
 # CLAUDE.md section 5: strict typing on services/common.
 [[tool.mypy.overrides]]
