@@ -44,7 +44,7 @@ The site's own JavaScript confirms the create and decode calls. Codes expire: `d
 
 Columns 223 to 228 count events with at least one bookable line.
 
-- **NCAA volume:** 43 of ESPN's 65 games were listed. Listed games weren't matched to ESPN one by one, so which games are missing isn't known. Listings may also grow later in the day.
+- **NCAA volume:** 43 of ESPN's 65 games were listed. A later comparison (D38) found the other 22 have no ESPN odds either and are mostly D1 teams hosting smaller-college opponents, while all 43 games with ESPN odds are listed. Listings may also grow later in the day.
 - **Next-day listings:** only 1 NCAA game for 2026-11-06 was listed at this time.
 - **Far-future games:** 5 NBA Christmas games were listed, with only the full-game total bookable. Their handicap and team-total lines were all locked, and they had no first-half lines.
 

@@ -15,3 +15,10 @@ ENV UV_PROJECT_ENVIRONMENT=/opt/venv \
 WORKDIR /workspace/services
 COPY pyproject.toml uv.lock ./
 RUN uv sync --locked
+
+# Target "collector": the early data collector (D13). The code is copied in, so
+# switching branches in the working tree can't break a running collector.
+# Rebuild it to pick up code changes.
+FROM dev AS collector
+COPY hoopsedge ./hoopsedge
+CMD ["python", "-m", "hoopsedge.ingest.collector", "run"]

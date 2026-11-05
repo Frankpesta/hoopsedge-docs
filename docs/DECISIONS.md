@@ -71,3 +71,11 @@ Open items from this discovery:
 - **NCAA volume (affects D3):** 43 of ESPN's 65 games were listed for 2026-11-05, and 40 had all five markets bookable. Reaching 100 legs per market may be rare on days like this, which D4 accepts. The collector should measure how listings grow through the day before NCAA's 15:00 Lagos run time is relied on.
 - **Geo:** the owner's machine passes. AWS stays untested until deployment (D20, D22).
 - **Status values:** suspended and postponed events weren't observed. Anything except status 0 is treated as not bookable.
+
+## 2026-11-05 — Early data collector (awaiting owner review)
+
+| ID | Decision | Reason | Who |
+|----|----------|--------|-----|
+| D36 | Collector intervals: SportyBet offers every 30 min, NBA injuries every 60 min, ESPN schedule and pre-game lines every 6 h. Snapshots follow the doc 12 raw layout, gzipped, under `data/raw/`. Every attempt is logged to `data/collector/runs.jsonl`. | D13 set no intervals. Offers change most and can't be recovered, and 30 min also measures listing growth. ESPN's core API keeps open and close prices from 2023-24 (D27), so its lines are a backup. First-pass storage implies about 6 MB a day; busier slates will use more | Claude Code |
+| D37 | A 401, 403, 451 or non-JSON response halts that source, even across restarts, until the owner runs `resume`. Other failures are logged and retried at the next interval. | Applies the doc 01 rule to stop rather than work around bot protection. A long-running service must survive a passing outage, and a failed run stays visible in `status`. There's no alert channel locally, so failures only show up there and in the logs | Claude Code |
+| D38 | Correction to the NCAA volume item above: the 22 unlisted games aren't a SportyBet gap. All 22 have no ESPN odds either, and they are mostly D1 teams hosting smaller-college opponents. All 43 games with ESPN odds are listed on SportyBet. | Name-matched from one snapshot of 2026-11-05, with 2 matches confirmed by eye because the names differ (LIU, East Texas A&M). The opponents weren't checked against a registry. Volume is still limited by how many games are priced, so 100 legs per market stays unlikely on a day like this | Claude Code |

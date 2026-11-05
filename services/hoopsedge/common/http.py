@@ -30,6 +30,10 @@ class HttpFetchError(Exception):
         self.status = status
 
 
+class NotJsonError(HttpFetchError):
+    """A 200 response that wasn't JSON, such as a challenge page."""
+
+
 @dataclass
 class ClientStats:
     requests: int = 0
@@ -74,7 +78,7 @@ class PoliteClient:
         try:
             parsed = json.loads(body)
         except ValueError as exc:
-            raise HttpFetchError("response was not JSON", url, 200) from exc
+            raise NotJsonError("response was not JSON", url, 200) from exc
 
         if cache_path is not None:
             self._write_cache(cache_path, body)

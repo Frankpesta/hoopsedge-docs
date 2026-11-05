@@ -17,3 +17,22 @@ services:
       RUFF_CACHE_DIR: /tmp/ruff
       MYPY_CACHE_DIR: /tmp/mypy
     # No AWS credentials are passed in, so local work cannot reach a real account.
+
+  # Early data collector (D13). Runs until AWS ingest takes over.
+  collector:
+    build:
+      context: ./services
+      target: collector
+    image: hoopsedge-collector
+    restart: unless-stopped
+    mem_limit: 256m
+    volumes:
+      - ./data:/workspace/data
+    environment:
+      HOOPSEDGE_ENV: local
+      DRY_RUN: "true"
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"

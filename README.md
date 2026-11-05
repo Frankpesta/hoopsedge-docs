@@ -21,3 +21,16 @@ If you change dependencies in `services/pyproject.toml`, refresh the lock file a
 docker compose run --rm dev uv lock
 docker compose build dev
 ```
+
+## Early data collector
+
+Snapshots SportyBet offers, NBA injuries and ESPN lines to `data/raw/` (D13). It only collects while this machine and Docker are running, and gaps can't be recovered.
+
+```sh
+docker compose up -d --build collector                                       # start, or pick up code changes
+docker compose run --rm dev python -m hoopsedge.ingest.collector status      # health and listing growth
+docker compose logs --tail 20 collector                                      # recent runs
+docker compose stop collector                                                # stop
+```
+
+If `status` shows `HALTED`, a source returned a block and the collector has stopped calling it. Review what happened before running `docker compose run --rm dev python -m hoopsedge.ingest.collector resume <source>`.

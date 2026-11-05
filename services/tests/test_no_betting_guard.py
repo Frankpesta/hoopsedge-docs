@@ -6,6 +6,7 @@ from pathlib import Path
 SERVICES = Path(__file__).resolve().parent.parent
 GUARDED = [
     *sorted((SERVICES / "hoopsedge" / "sportybet").rglob("*.*")),
+    SERVICES / "hoopsedge" / "ingest" / "collector.py",
     SERVICES.parent / "scripts" / "sportybet_discovery.py",
 ]
 FORBIDDEN = re.compile(r"login|password|wallet|deposit|placeBet|/orders/(?!share)", re.IGNORECASE)

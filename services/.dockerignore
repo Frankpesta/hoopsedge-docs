@@ -1,3 +1,5 @@
 *
 !pyproject.toml
 !uv.lock
+!hoopsedge
+**/__pycache__
