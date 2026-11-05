@@ -99,6 +99,18 @@ def parse_game(
             result.rejects.append(
                 Reject(table="team_games", league=league, game_id=game_id, reason=str(error))
             )
+        except (KeyError, IndexError, TypeError, ValueError, AttributeError) as error:
+            # An unexpected shape costs this game's box only, and the reason is kept.
+            result.team_games, result.player_games = [], []
+            result.rejects.append(
+                Reject(
+                    table="team_games",
+                    league=league,
+                    game_id=game_id,
+                    reason="box_unreadable",
+                    detail=f"{type(error).__name__}: {error}",
+                )
+            )
 
     venue = competition.get("venue", {}).get("id")
     result.game = Game(
@@ -217,5 +229,7 @@ def _player_rows(game_id: str, team_id: str, group: dict[str, Any]) -> list[Play
             starter=athlete.get("starter") is True,
         )
         for athlete in block.get("athletes", [])
-        if athlete.get("stats")
+        # A few two-way players have no ESPN ID, nearly always with no minutes. The row can't be
+        # attributed to anyone, so it's left out and the team's box stays usable (D53).
+        if athlete.get("stats") and athlete.get("athlete", {}).get("id")
     ]

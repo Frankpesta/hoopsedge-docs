@@ -60,3 +60,15 @@ docker compose stop live-ingest aws-mock                                     # s
 ```
 
 It shares its `HALTED` state with the backfill. Review a block before clearing it with `clear-halt` in place of `status`.
+
+## Ratings and training sets
+
+These read the curated tables, so run `backfill build` first. `build` only adds games it hasn't built, and `sanity` writes `docs/reports/phase3-ratings-sanity.md`.
+
+```sh
+docker compose run --rm dev python -m hoopsedge.features.training build                 # both leagues
+docker compose run --rm dev python -m hoopsedge.features.training sanity                # compare ratings with win %
+docker compose run --rm dev python -m hoopsedge.features.training leakage --league NBA  # 500 real games
+```
+
+All curated reads go through `hoopsedge/ratings/history.py`. A result counts only once `tip + 3 h < as_of` (D14).
