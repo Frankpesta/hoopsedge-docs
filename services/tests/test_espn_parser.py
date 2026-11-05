@@ -175,6 +175,37 @@ def test_empty_box_keeps_the_score_and_flags_it_d25() -> None:
     assert result.rejects == []
 
 
+def test_a_player_with_no_id_is_left_out_and_the_box_is_kept() -> None:
+    event, summary = nba_game()
+    summary = copy.deepcopy(summary)
+    athletes = summary["boxscore"]["players"][0]["statistics"][0]["athletes"]
+    keys = summary["boxscore"]["players"][0]["statistics"][0]["keys"]
+    athletes.append(
+        {
+            "athlete": {"links": [], "shortName": "Olbrich"},
+            "starter": False,
+            "stats": ["--", *["0"] * (len(keys) - 1)],
+        }
+    )
+    result = parse_game("NBA", event, summary, NBA_IDS)
+    assert result.rejects == []
+    assert result.game is not None
+    assert result.game.box_missing is False
+    assert len(result.team_games) == 2
+    assert all(row.player_id for row in result.player_games)
+
+
+def test_an_unexpected_box_shape_costs_the_box_and_keeps_the_reason() -> None:
+    event, summary = nba_game()
+    summary = copy.deepcopy(summary)
+    del summary["boxscore"]["players"][0]["team"]
+    result = parse_game("NBA", event, summary, NBA_IDS)
+    assert result.game is not None
+    assert result.game.box_missing is True
+    assert result.rejects[0].reason == "box_unreadable"
+    assert "KeyError" in (result.rejects[0].detail or "")
+
+
 def test_no_summary_is_the_same_as_an_empty_box() -> None:
     event, _ = nba_game()
     result = parse_game("NBA", event, None, NBA_IDS)
