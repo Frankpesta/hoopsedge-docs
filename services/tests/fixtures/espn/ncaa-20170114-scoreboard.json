@@ -1,0 +1,3215 @@
+{
+ "events": [
+  {
+   "competitions": [
+    {
+     "attendance": 0,
+     "broadcast": "ESPNU",
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "ESPNU"
+       ]
+      }
+     ],
+     "competitors": [
+      {
+       "curatedRank": {
+        "current": 25
+       },
+       "homeAway": "home",
+       "id": "2306",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "D.J. Johnson",
+            "fullName": "D.J. Johnson",
+            "id": "62710",
+            "jersey": "4",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/62710/dj-johnson",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "D.J. Johnson",
+            "team": {
+             "id": "2306"
+            }
+           },
+           "displayValue": "20",
+           "team": {
+            "id": "2306"
+           },
+           "value": 20.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Barry Brown Jr.",
+            "fullName": "Barry Brown Jr.",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/3912841.png",
+            "id": "3912841",
+            "jersey": "5",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3912841/barry-brown-jr",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "B. Brown Jr.",
+            "team": {
+             "id": "2306"
+            }
+           },
+           "displayValue": "5",
+           "team": {
+            "id": "2306"
+           },
+           "value": 5.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Wes Iwundu",
+            "fullName": "Wes Iwundu",
+            "id": "67249",
+            "jersey": "25",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/67249/wes-iwundu",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "W. Iwundu",
+            "team": {
+             "id": "2306"
+            }
+           },
+           "displayValue": "6",
+           "team": {
+            "id": "2306"
+           },
+           "value": 6.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "D.J. Johnson",
+            "fullName": "D.J. Johnson",
+            "id": "62710",
+            "jersey": "4",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/62710/dj-johnson",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "D.J. Johnson",
+            "team": {
+             "id": "2306"
+            }
+           },
+           "displayValue": "20 PTS, 3 BLK",
+           "team": {
+            "id": "2306"
+           },
+           "value": 30.899999618530273
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "30",
+         "period": 1,
+         "value": 30.0
+        },
+        {
+         "displayValue": "38",
+         "period": 2,
+         "value": 38.0
+        }
+       ],
+       "order": 0,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "13-4",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "9-1",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "1-2",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "2-3",
+         "type": "vsconf"
+        }
+       ],
+       "score": "68",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "24",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "24.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "19",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "51",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "22",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "43.1",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "76.2",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "21",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "16",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "68",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "23",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "8",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "68.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "19.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "34.8",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "KSU",
+        "alternateColor": "e2e3e4",
+        "color": "330a57",
+        "conferenceId": "8",
+        "displayName": "Kansas State Wildcats",
+        "id": "2306",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/2306/kansas-state-wildcats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/2306",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2306&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/2306",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2306&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/2306",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2306&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Kansas State",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2306.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2306.png",
+        "name": "Wildcats",
+        "shortDisplayName": "Kansas St",
+        "uid": "s:40~l:41~t:2306",
+        "venue": {
+         "id": "2131"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:2306",
+       "winner": false
+      },
+      {
+       "curatedRank": {
+        "current": 1
+       },
+       "homeAway": "away",
+       "id": "239",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Manu Lecomte",
+            "fullName": "Manu Lecomte",
+            "id": "66131",
+            "jersey": "20",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/66131/manu-lecomte",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "M. Lecomte",
+            "team": {
+             "id": "239"
+            }
+           },
+           "displayValue": "26",
+           "team": {
+            "id": "239"
+           },
+           "value": 26.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Jo Lual-Acuil Jr.",
+            "fullName": "Jo Lual-Acuil Jr.",
+            "id": "3920136",
+            "jersey": "0",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3920136/jo-lual-acuil-jr",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "J. Lual-Acuil Jr.",
+            "team": {
+             "id": "239"
+            }
+           },
+           "displayValue": "12",
+           "team": {
+            "id": "239"
+           },
+           "value": 12.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Allerik Freeman",
+            "fullName": "Allerik Freeman",
+            "id": "66297",
+            "jersey": "12",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/66297/allerik-freeman",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "A. Freeman",
+            "team": {
+             "id": "152"
+            }
+           },
+           "displayValue": "5",
+           "team": {
+            "id": "239"
+           },
+           "value": 5.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Manu Lecomte",
+            "fullName": "Manu Lecomte",
+            "id": "66131",
+            "jersey": "20",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/66131/manu-lecomte",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "M. Lecomte",
+            "team": {
+             "id": "239"
+            }
+           },
+           "displayValue": "26 PTS",
+           "team": {
+            "id": "239"
+           },
+           "value": 37.79999923706055
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "31",
+         "period": 1,
+         "value": 31.0
+        },
+        {
+         "displayValue": "46",
+         "period": 2,
+         "value": 46.0
+        }
+       ],
+       "order": 1,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "16-1",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "10-0",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "2-1",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "4-1",
+         "type": "vsconf"
+        }
+       ],
+       "score": "77",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "37",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "37.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "14",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "56",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "27",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "48.2",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "73.7",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "19",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "14",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "77",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "20",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "9",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "77.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "14.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "45.0",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "BAY",
+        "alternateColor": "ffb81c",
+        "color": "154734",
+        "conferenceId": "8",
+        "displayName": "Baylor Bears",
+        "id": "239",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/239/baylor-bears",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/239",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:239&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/239",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:239&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/239",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:239&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Baylor",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/239.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/239.png",
+        "name": "Bears",
+        "shortDisplayName": "Baylor",
+        "uid": "s:40~l:41~t:239",
+        "venue": {
+         "id": "7509"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:239",
+       "winner": true
+      }
+     ],
+     "conferenceCompetition": true,
+     "date": "2017-01-14T21:30Z",
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "geoBroadcasts": [
+      {
+       "lang": "en",
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "darkLogo": "",
+        "logo": "https://a.espncdn.com/guid/8c9e5134-a2bf-39f1-9380-3ec6c75ed106/logos/default.png",
+        "shortName": "ESPNU"
+       },
+       "region": "us",
+       "type": {
+        "id": "1",
+        "shortName": "TV"
+       }
+      }
+     ],
+     "groups": {
+      "id": "8",
+      "isConference": true,
+      "name": "Big 12 Conference",
+      "shortName": "Big 12"
+     },
+     "headlines": [
+      {
+       "description": "Manu Lecomte scored 26 points after battling early foul trouble, Ish Wainright and Al Freeman had key baskets down the stretch and top-ranked Baylor outlasted No. 25 Kansas State 77-68 on Saturda",
+       "shortLinkText": "Lecomte helps No. 1 Baylor hold off No. 25 K-State 77-68",
+       "type": "Recap",
+       "video": [
+        {
+         "deviceRestrictions": {
+          "devices": [
+           "settop",
+           "tablet",
+           "handset",
+           "ipad",
+           "desktop"
+          ],
+          "type": "whitelist"
+         },
+         "duration": 49,
+         "headline": "Baylor bounces back on road against Kansas State",
+         "id": 18475745,
+         "links": {
+          "api": {
+           "self": {
+            "href": "https://content.core.api.espn.com/v1/video/clips/18475745"
+           }
+          },
+          "mobile": {
+           "alert": {
+            "href": "https://m.espn.com/general/video/videoAlert?vid=18475745"
+           },
+           "href": "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/488eade0-fb77-43da-9d40-fcb8b1e922c6/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=18475745",
+           "progressiveDownload": {
+            "href": "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/488eade0-fb77-43da-9d40-fcb8b1e922c6/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=18475745"
+           },
+           "source": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+           },
+           "streaming": {
+            "href": "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/488eade0-fb77-43da-9d40-fcb8b1e922c6/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=18475745"
+           }
+          },
+          "source": {
+           "HD": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+           },
+           "HLS": {
+            "HD": {
+             "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl/playlist.m3u8"
+            },
+            "cmaf": {
+             "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl/playlist.m3u8"
+            },
+            "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl/playlist.m3u8"
+           },
+           "flash": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+           },
+           "full": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+           },
+           "hds": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+           },
+           "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4",
+           "mezzanine": {
+            "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+           }
+          },
+          "sportscenter": {
+           "href": "sportscenter://x-callback-url/showVideo?videoID=18475745&videoDSI=9fd7c77b8dec1"
+          },
+          "web": {
+           "href": "http://www.espn.com/video/clip?id=18475745",
+           "self": {
+            "dsi": {
+             "href": "https://www.espn.com/video/clip?id=9fd7c77b8dec1"
+            },
+            "href": "http://www.espn.com/video/clip?id=18475745"
+           }
+          }
+         },
+         "source": "espn",
+         "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.jpg",
+         "tracking": {
+          "coverageType": "Final Game Highlight",
+          "leagueName": "No League",
+          "sportName": "ncb",
+          "trackingName": "COM_NCB Highlight (Baylor/Kansas State) 2017/01/14 ESHEET"
+         }
+        }
+       ]
+      }
+     ],
+     "highlights": [
+      {
+       "ad": {
+        "bundle": "ncbgamehighlights",
+        "sport": "ncb"
+       },
+       "cerebroId": "587abb08e4b0779d3e59de38",
+       "description": "Manu Lecomte leads all scorers with 26 points in No. 1 Baylor's 77-68 win over No. 25 Kansas State.",
+       "deviceRestrictions": {
+        "devices": [
+         "settop",
+         "tablet",
+         "handset",
+         "ipad",
+         "desktop"
+        ],
+        "type": "whitelist"
+       },
+       "duration": 49,
+       "headline": "Baylor bounces back on road against Kansas State",
+       "id": 18475745,
+       "lastModified": "2017-01-15T00:12:17Z",
+       "links": {
+        "api": {
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/18475745"
+         }
+        },
+        "mobile": {
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=18475745"
+         },
+         "href": "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/488eade0-fb77-43da-9d40-fcb8b1e922c6/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=18475745",
+         "progressiveDownload": {
+          "href": "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/488eade0-fb77-43da-9d40-fcb8b1e922c6/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=18475745"
+         },
+         "source": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+         },
+         "streaming": {
+          "href": "http://once.unicornmedia.com/now/od/auto/4d993388-8b49-4f34-9e48-87906e690281/85957be9-026a-415e-a8ce-7bfdc19d5e23/488eade0-fb77-43da-9d40-fcb8b1e922c6/content.once?UMADPARAMreferer=http://www.espn.com/video/clip?id=18475745"
+         }
+        },
+        "source": {
+         "HD": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+         },
+         "HLS": {
+          "HD": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl/playlist.m3u8"
+          },
+          "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl/playlist.m3u8"
+         },
+         "flash": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+         },
+         "full": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+         },
+         "hds": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+         },
+         "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4",
+         "mezzanine": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=18475745&videoDSI=9fd7c77b8dec1"
+        },
+        "web": {
+         "href": "http://www.espn.com/video/clip?id=18475745",
+         "self": {
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=9fd7c77b8dec1"
+          },
+          "href": "http://www.espn.com/video/clip?id=18475745"
+         }
+        }
+       },
+       "originalPublishDate": "2017-01-14T23:58:01Z",
+       "source": "espn",
+       "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/2017/0114/dm_170114_ncb_baylor_kansas_state_hl/dm_170114_ncb_baylor_kansas_state_hl.jpg",
+       "timeRestrictions": {
+        "embargoDate": "2017-01-14T23:56:49Z",
+        "expirationDate": "2037-01-17T23:52:04Z"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "No League",
+        "sportName": "ncb",
+        "trackingName": "COM_NCB Highlight (Baylor/Kansas State) 2017/01/14 ESHEET"
+       }
+      }
+     ],
+     "id": "400916211",
+     "neutralSite": false,
+     "notes": [],
+     "playByPlayAvailable": true,
+     "recent": false,
+     "startDate": "2017-01-14T21:30Z",
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "shortDetail": "Final",
+       "state": "post"
+      }
+     },
+     "timeValid": true,
+     "type": {
+      "abbreviation": "STD",
+      "id": "1"
+     },
+     "uid": "s:40~l:41~e:400916211~c:400916211",
+     "venue": {
+      "address": {
+       "city": "Manhattan",
+       "state": "KS"
+      },
+      "fullName": "Bramlage Coliseum",
+      "id": "2131",
+      "indoor": true
+     }
+    }
+   ],
+   "date": "2017-01-14T21:30Z",
+   "id": "400916211",
+   "links": [
+    {
+     "href": "https://www.espn.com/mens-college-basketball/game/_/gameId/400916211/baylor-kansas-st",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "summary",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Gamecast",
+     "text": "Gamecast"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/boxscore/_/gameId/400916211",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "boxscore",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Box Score",
+     "text": "Box Score"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/video?gameId=400916211",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "highlights",
+      "desktop"
+     ],
+     "shortText": "Highlights",
+     "text": "Highlights"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/playbyplay/_/gameId/400916211",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "pbp",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Play-by-Play",
+     "text": "Play-by-Play"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/recap?gameId=400916211",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "recap",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Recap",
+     "text": "Recap"
+    }
+   ],
+   "name": "Baylor Bears at Kansas State Wildcats",
+   "season": {
+    "slug": "regular-season",
+    "type": 2,
+    "year": 2017
+   },
+   "shortName": "BAY @ KSU",
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 2,
+    "type": {
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "shortDetail": "Final",
+     "state": "post"
+    }
+   },
+   "uid": "s:40~l:41~e:400916211"
+  },
+  {
+   "competitions": [
+    {
+     "attendance": 0,
+     "broadcast": "ESPN2",
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "ESPN2"
+       ]
+      }
+     ],
+     "competitors": [
+      {
+       "curatedRank": {
+        "current": 2
+       },
+       "homeAway": "home",
+       "id": "2305",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Frank Mason III",
+            "fullName": "Frank Mason III",
+            "id": "67430",
+            "jersey": "0",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/67430/frank-mason-iii",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "F. Mason III",
+            "team": {
+             "id": "2305"
+            }
+           },
+           "displayValue": "22",
+           "team": {
+            "id": "2305"
+           },
+           "value": 22.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Landen Lucas",
+            "fullName": "Landen Lucas",
+            "id": "61621",
+            "jersey": "33",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/61621/landen-lucas",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "L. Lucas",
+            "team": {
+             "id": "2305"
+            }
+           },
+           "displayValue": "12",
+           "team": {
+            "id": "2305"
+           },
+           "value": 12.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Frank Mason III",
+            "fullName": "Frank Mason III",
+            "id": "67430",
+            "jersey": "0",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/67430/frank-mason-iii",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "F. Mason III",
+            "team": {
+             "id": "2305"
+            }
+           },
+           "displayValue": "4",
+           "team": {
+            "id": "2305"
+           },
+           "value": 4.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Devonte' Graham",
+            "fullName": "Devonte' Graham",
+            "id": "3133601",
+            "jersey": "4",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3133601/devonte-graham",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "D. Graham",
+            "team": {
+             "id": "2305"
+            }
+           },
+           "displayValue": "21 PTS",
+           "team": {
+            "id": "2305"
+           },
+           "value": 35.900001525878906
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "36",
+         "period": 1,
+         "value": 36.0
+        },
+        {
+         "displayValue": "51",
+         "period": 2,
+         "value": 51.0
+        }
+       ],
+       "order": 0,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "16-1",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "9-0",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "3-0",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "5-0",
+         "type": "vsconf"
+        }
+       ],
+       "score": "87",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "45",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "45.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "11",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "59",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "26",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "44.1",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "66.7",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "45",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "30",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "87",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "20",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "5",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "87.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "11.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "25.0",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "KU",
+        "alternateColor": "e8000d",
+        "color": "0051ba",
+        "conferenceId": "8",
+        "displayName": "Kansas Jayhawks",
+        "id": "2305",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/2305/kansas-jayhawks",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/2305",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2305&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/2305",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2305&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/2305",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2305&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Kansas",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2305.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2305.png",
+        "name": "Jayhawks",
+        "shortDisplayName": "Kansas",
+        "uid": "s:40~l:41~t:2305",
+        "venue": {
+         "id": "2171"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:2305",
+       "winner": true
+      },
+      {
+       "curatedRank": {
+        "current": 99
+       },
+       "homeAway": "away",
+       "id": "197",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Jeffrey Carroll",
+            "fullName": "Jeffrey Carroll",
+            "id": "66308",
+            "jersey": "30",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/66308/jeffrey-carroll",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Carroll",
+            "team": {
+             "id": "197"
+            }
+           },
+           "displayValue": "23",
+           "team": {
+            "id": "197"
+           },
+           "value": 23.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Davon Dillard",
+            "fullName": "Davon Dillard",
+            "id": "3912853",
+            "links": [],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "D. Dillard",
+            "team": {
+             "id": "2551"
+            }
+           },
+           "displayValue": "8",
+           "team": {
+            "id": "197"
+           },
+           "value": 8.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Jawun Evans",
+            "fullName": "Jawun Evans",
+            "id": "3912854",
+            "jersey": "1",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3912854/jawun-evans",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Evans",
+            "team": {
+             "id": "197"
+            }
+           },
+           "displayValue": "6",
+           "team": {
+            "id": "197"
+           },
+           "value": 6.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Jeffrey Carroll",
+            "fullName": "Jeffrey Carroll",
+            "id": "66308",
+            "jersey": "30",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/66308/jeffrey-carroll",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Carroll",
+            "team": {
+             "id": "197"
+            }
+           },
+           "displayValue": "23 PTS, 7 REB",
+           "team": {
+            "id": "197"
+           },
+           "value": 40.5
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "40",
+         "period": 1,
+         "value": 40.0
+        },
+        {
+         "displayValue": "40",
+         "period": 2,
+         "value": 40.0
+        }
+       ],
+       "order": 1,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "10-7",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "6-2",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "2-4",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "0-5",
+         "type": "vsconf"
+        }
+       ],
+       "score": "80",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "36",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "36.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "16",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "68",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "31",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "45.6",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "78.6",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "14",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "11",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "80",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "19",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "7",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "80.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "16.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "36.8",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "OKST",
+        "alternateColor": "000000",
+        "color": "fe5c00",
+        "conferenceId": "8",
+        "displayName": "Oklahoma State Cowboys",
+        "id": "197",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/197/oklahoma-state-cowboys",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/197",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:197&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/197",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:197&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/197",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:197&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Oklahoma State",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/197.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/197.png",
+        "name": "Cowboys",
+        "shortDisplayName": "Oklahoma St",
+        "uid": "s:40~l:41~t:197",
+        "venue": {
+         "id": "1992"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:197",
+       "winner": false
+      }
+     ],
+     "conferenceCompetition": true,
+     "date": "2017-01-14T19:00Z",
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "geoBroadcasts": [
+      {
+       "lang": "en",
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "darkLogo": "",
+        "logo": "https://a.espncdn.com/guid/4bab8fd8-cd13-379f-9558-c3614851bf91/logos/default.png",
+        "shortName": "ESPN2"
+       },
+       "region": "us",
+       "type": {
+        "id": "1",
+        "shortName": "TV"
+       }
+      }
+     ],
+     "groups": {
+      "id": "8",
+      "isConference": true,
+      "name": "Big 12 Conference",
+      "shortName": "Big 12"
+     },
+     "headlines": [
+      {
+       "description": "Frank Mason III scored 22 points, freshman Josh Jackson added 20 points and 11 rebounds, and No. 2 Kansas held off Oklahoma State 87-80 on Saturday.",
+       "shortLinkText": "No. 2 Kansas tops pesky Oklahoma State 87-80",
+       "type": "Recap"
+      }
+     ],
+     "highlights": [],
+     "id": "400916210",
+     "neutralSite": false,
+     "notes": [],
+     "playByPlayAvailable": true,
+     "recent": false,
+     "startDate": "2017-01-14T19:00Z",
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "shortDetail": "Final",
+       "state": "post"
+      }
+     },
+     "timeValid": true,
+     "type": {
+      "abbreviation": "STD",
+      "id": "1"
+     },
+     "uid": "s:40~l:41~e:400916210~c:400916210",
+     "venue": {
+      "address": {
+       "city": "Lawrence",
+       "state": "KS"
+      },
+      "fullName": "Allen Fieldhouse",
+      "id": "2171",
+      "indoor": true
+     }
+    }
+   ],
+   "date": "2017-01-14T19:00Z",
+   "id": "400916210",
+   "links": [
+    {
+     "href": "https://www.espn.com/mens-college-basketball/game/_/gameId/400916210/oklahoma-st-kansas",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "summary",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Gamecast",
+     "text": "Gamecast"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/boxscore/_/gameId/400916210",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "boxscore",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Box Score",
+     "text": "Box Score"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/video?gameId=400916210",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "highlights",
+      "desktop"
+     ],
+     "shortText": "Highlights",
+     "text": "Highlights"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/playbyplay/_/gameId/400916210",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "pbp",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Play-by-Play",
+     "text": "Play-by-Play"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/recap?gameId=400916210",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "recap",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Recap",
+     "text": "Recap"
+    }
+   ],
+   "name": "Oklahoma State Cowboys at Kansas Jayhawks",
+   "season": {
+    "slug": "regular-season",
+    "type": 2,
+    "year": 2017
+   },
+   "shortName": "OKST @ KU",
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 2,
+    "type": {
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "shortDetail": "Final",
+     "state": "post"
+    }
+   },
+   "uid": "s:40~l:41~e:400916210"
+  },
+  {
+   "competitions": [
+    {
+     "attendance": 0,
+     "broadcast": "FS1",
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "FS1"
+       ]
+      }
+     ],
+     "competitors": [
+      {
+       "curatedRank": {
+        "current": 99
+       },
+       "homeAway": "home",
+       "id": "2599",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Shamorie Ponds",
+            "fullName": "Shamorie Ponds",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4065834.png",
+            "id": "4065834",
+            "jersey": "2",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/4065834/shamorie-ponds",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "S. Ponds",
+            "team": {
+             "id": "2599"
+            }
+           },
+           "displayValue": "13",
+           "team": {
+            "id": "2599"
+           },
+           "value": 13.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Tariq Owens",
+            "fullName": "Tariq Owens",
+            "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/3149059.png",
+            "id": "3149059",
+            "jersey": "11",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3149059/tariq-owens",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "T. Owens",
+            "team": {
+             "id": "2641"
+            }
+           },
+           "displayValue": "7",
+           "team": {
+            "id": "2599"
+           },
+           "value": 7.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Marcus LoVett",
+            "fullName": "Marcus LoVett",
+            "id": "3938917",
+            "jersey": "20",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3938917/marcus-lovett",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "M. LoVett",
+            "team": {
+             "id": "2599"
+            }
+           },
+           "displayValue": "4",
+           "team": {
+            "id": "2599"
+           },
+           "value": 4.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Marcus LoVett",
+            "fullName": "Marcus LoVett",
+            "id": "3938917",
+            "jersey": "20",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3938917/marcus-lovett",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "M. LoVett",
+            "team": {
+             "id": "2599"
+            }
+           },
+           "displayValue": "12 PTS",
+           "team": {
+            "id": "2599"
+           },
+           "value": 19.600000381469727
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "29",
+         "period": 1,
+         "value": 29.0
+        },
+        {
+         "displayValue": "28",
+         "period": 2,
+         "value": 28.0
+        }
+       ],
+       "order": 0,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "8-11",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "5-4",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "3-4",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "2-4",
+         "type": "vsconf"
+        }
+       ],
+       "score": "57",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "23",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "23.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "14",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "50",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "20",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "40.0",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "69.2",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "13",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "9",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "57",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "25",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "8",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "57.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "14.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "32.0",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "SJU",
+        "alternateColor": "101010",
+        "color": "d10000",
+        "conferenceId": "4",
+        "displayName": "St. John's Red Storm",
+        "id": "2599",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/2599/st-johns-red-storm",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/2599",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2599&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/2599",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2599&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/2599",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:2599&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "St. John's",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2599.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2599.png",
+        "name": "Red Storm",
+        "shortDisplayName": "St John's",
+        "uid": "s:40~l:41~t:2599",
+        "venue": {
+         "id": "2019"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:2599",
+       "winner": false
+      },
+      {
+       "curatedRank": {
+        "current": 3
+       },
+       "homeAway": "away",
+       "id": "222",
+       "leaders": [
+        {
+         "abbreviation": "Pts",
+         "displayName": "Points",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Donte DiVincenzo",
+            "fullName": "Donte DiVincenzo",
+            "id": "3934673",
+            "jersey": "10",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3934673/donte-divincenzo",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "D. DiVincenzo",
+            "team": {
+             "id": "222"
+            }
+           },
+           "displayValue": "19",
+           "team": {
+            "id": "222"
+           },
+           "value": 19.0
+          }
+         ],
+         "name": "points",
+         "shortDisplayName": "Pts"
+        },
+        {
+         "abbreviation": "Reb",
+         "displayName": "Rebounds",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Darryl Reynolds",
+            "fullName": "Darryl Reynolds",
+            "id": "66174",
+            "jersey": "45",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/66174/darryl-reynolds",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "F"
+            },
+            "shortName": "D. Reynolds",
+            "team": {
+             "id": "222"
+            }
+           },
+           "displayValue": "8",
+           "team": {
+            "id": "222"
+           },
+           "value": 8.0
+          }
+         ],
+         "name": "rebounds",
+         "shortDisplayName": "Reb"
+        },
+        {
+         "abbreviation": "Ast",
+         "displayName": "Assists",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Jalen Brunson",
+            "fullName": "Jalen Brunson",
+            "id": "3934672",
+            "jersey": "1",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3934672/jalen-brunson",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "J. Brunson",
+            "team": {
+             "id": "222"
+            }
+           },
+           "displayValue": "4",
+           "team": {
+            "id": "222"
+           },
+           "value": 4.0
+          }
+         ],
+         "name": "assists",
+         "shortDisplayName": "Ast"
+        },
+        {
+         "abbreviation": "RAT",
+         "displayName": "Rating",
+         "leaders": [
+          {
+           "athlete": {
+            "active": false,
+            "displayName": "Donte DiVincenzo",
+            "fullName": "Donte DiVincenzo",
+            "id": "3934673",
+            "jersey": "10",
+            "links": [
+             {
+              "href": "https://www.espn.com/mens-college-basketball/player/_/id/3934673/donte-divincenzo",
+              "rel": [
+               "playercard",
+               "desktop",
+               "athlete"
+              ]
+             }
+            ],
+            "position": {
+             "abbreviation": "G"
+            },
+            "shortName": "D. DiVincenzo",
+            "team": {
+             "id": "222"
+            }
+           },
+           "displayValue": "19 PTS",
+           "team": {
+            "id": "222"
+           },
+           "value": 30.0
+          }
+         ],
+         "name": "rating",
+         "shortDisplayName": "RAT"
+        }
+       ],
+       "linescores": [
+        {
+         "displayValue": "35",
+         "period": 1,
+         "value": 35.0
+        },
+        {
+         "displayValue": "35",
+         "period": 2,
+         "value": 35.0
+        }
+       ],
+       "order": 1,
+       "records": [
+        {
+         "abbreviation": "Game",
+         "name": "overall",
+         "summary": "17-1",
+         "type": "total"
+        },
+        {
+         "name": "Home",
+         "summary": "8-0",
+         "type": "home"
+        },
+        {
+         "name": "Road",
+         "summary": "4-1",
+         "type": "road"
+        },
+        {
+         "name": "vs. Conf.",
+         "summary": "5-1",
+         "type": "vsconf"
+        }
+       ],
+       "score": "70",
+       "statistics": [
+        {
+         "abbreviation": "REB",
+         "displayValue": "41",
+         "name": "rebounds"
+        },
+        {
+         "abbreviation": "REB",
+         "displayValue": "41.0",
+         "name": "avgRebounds"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "9",
+         "name": "assists"
+        },
+        {
+         "abbreviation": "FGA",
+         "displayValue": "53",
+         "name": "fieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "FGM",
+         "displayValue": "24",
+         "name": "fieldGoalsMade"
+        },
+        {
+         "abbreviation": "FG%",
+         "displayValue": "45.3",
+         "name": "fieldGoalPct"
+        },
+        {
+         "abbreviation": "FT%",
+         "displayValue": "71.4",
+         "name": "freeThrowPct"
+        },
+        {
+         "abbreviation": "FTA",
+         "displayValue": "21",
+         "name": "freeThrowsAttempted"
+        },
+        {
+         "abbreviation": "FTM",
+         "displayValue": "15",
+         "name": "freeThrowsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "70",
+         "name": "points"
+        },
+        {
+         "abbreviation": "3PA",
+         "displayValue": "21",
+         "name": "threePointFieldGoalsAttempted"
+        },
+        {
+         "abbreviation": "3PM",
+         "displayValue": "7",
+         "name": "threePointFieldGoalsMade"
+        },
+        {
+         "abbreviation": "PTS",
+         "displayValue": "70.0",
+         "name": "avgPoints"
+        },
+        {
+         "abbreviation": "AST",
+         "displayValue": "9.0",
+         "name": "avgAssists"
+        },
+        {
+         "abbreviation": "3P%",
+         "displayValue": "33.3",
+         "name": "threePointFieldGoalPct"
+        }
+       ],
+       "team": {
+        "abbreviation": "VILL",
+        "alternateColor": "13b5ea",
+        "color": "00205b",
+        "conferenceId": "4",
+        "displayName": "Villanova Wildcats",
+        "id": "222",
+        "isActive": true,
+        "links": [
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/_/id/222/villanova-wildcats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "clubhouse",
+           "desktop",
+           "team"
+          ],
+          "text": "Clubhouse"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/roster/_/id/222",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "desktop",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:222&section=roster",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "roster",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Roster"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/stats/_/id/222",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "desktop",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:222&section=stats",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "stats",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Statistics"
+         },
+         {
+          "href": "https://www.espn.com/mens-college-basketball/team/schedule/_/id/222",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "desktop",
+           "team"
+          ],
+          "text": "Schedule"
+         },
+         {
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:40~l:41~t:222&section=scores",
+          "isExternal": false,
+          "isPremium": false,
+          "rel": [
+           "schedule",
+           "sportscenter",
+           "app",
+           "team"
+          ],
+          "text": "Schedule"
+         }
+        ],
+        "location": "Villanova",
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/222.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/222.png",
+        "name": "Wildcats",
+        "shortDisplayName": "Villanova",
+        "uid": "s:40~l:41~t:222",
+        "venue": {
+         "id": "1969"
+        }
+       },
+       "type": "team",
+       "uid": "s:40~l:41~t:222",
+       "winner": true
+      }
+     ],
+     "conferenceCompetition": true,
+     "date": "2017-01-14T17:00Z",
+     "format": {
+      "regulation": {
+       "periods": 2
+      }
+     },
+     "geoBroadcasts": [
+      {
+       "lang": "en",
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "shortName": "FS1"
+       },
+       "region": "us",
+       "type": {
+        "id": "1",
+        "shortName": "TV"
+       }
+      }
+     ],
+     "groups": {
+      "id": "4",
+      "isConference": true,
+      "name": "Big East Conference",
+      "shortName": "Big East"
+     },
+     "headlines": [
+      {
+       "description": "Redshirt freshman guard Dante DiVincenzo had a season-high 19 points and No. 3 Villanova pulled away to a 70-57 victory over St. John's on Saturday at Madison Square Garden.",
+       "shortLinkText": "No. 3 Villanova beats St. John's 70-57",
+       "type": "Recap"
+      }
+     ],
+     "highlights": [],
+     "id": "400919680",
+     "neutralSite": false,
+     "notes": [],
+     "playByPlayAvailable": true,
+     "recent": false,
+     "startDate": "2017-01-14T17:00Z",
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 2,
+      "type": {
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "shortDetail": "Final",
+       "state": "post"
+      }
+     },
+     "timeValid": true,
+     "type": {
+      "abbreviation": "STD",
+      "id": "1"
+     },
+     "uid": "s:40~l:41~e:400919680~c:400919680",
+     "venue": {
+      "address": {
+       "city": "New York",
+       "state": "NY"
+      },
+      "fullName": "Madison Square Garden",
+      "id": "1830",
+      "indoor": true
+     }
+    }
+   ],
+   "date": "2017-01-14T17:00Z",
+   "id": "400919680",
+   "links": [
+    {
+     "href": "https://www.espn.com/mens-college-basketball/game/_/gameId/400919680/villanova-st-johns",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "summary",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Gamecast",
+     "text": "Gamecast"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/boxscore/_/gameId/400919680",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "boxscore",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Box Score",
+     "text": "Box Score"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/playbyplay/_/gameId/400919680",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "pbp",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Play-by-Play",
+     "text": "Play-by-Play"
+    },
+    {
+     "href": "https://www.espn.com/mens-college-basketball/recap?gameId=400919680",
+     "isExternal": false,
+     "isPremium": false,
+     "language": "en-US",
+     "rel": [
+      "recap",
+      "desktop",
+      "event"
+     ],
+     "shortText": "Recap",
+     "text": "Recap"
+    }
+   ],
+   "name": "Villanova Wildcats at St. John's Red Storm",
+   "season": {
+    "slug": "regular-season",
+    "type": 2,
+    "year": 2017
+   },
+   "shortName": "VILL @ SJU",
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 2,
+    "type": {
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "shortDetail": "Final",
+     "state": "post"
+    }
+   },
+   "uid": "s:40~l:41~e:400919680"
+  }
+ ],
+ "eventsDate": {
+  "date": "2017-01-14T21:30Z",
+  "seasonType": 2
+ },
+ "groups": [
+  "50"
+ ],
+ "leagues": [
+  {
+   "abbreviation": "NCAAM",
+   "calendar": [
+    "2016-11-11T08:00Z",
+    "2016-11-12T08:00Z",
+    "2016-11-13T08:00Z",
+    "2016-11-14T08:00Z",
+    "2016-11-15T08:00Z",
+    "2016-11-16T08:00Z",
+    "2016-11-17T08:00Z",
+    "2016-11-18T08:00Z",
+    "2016-11-19T08:00Z",
+    "2016-11-20T08:00Z",
+    "2016-11-21T08:00Z",
+    "2016-11-22T08:00Z",
+    "2016-11-23T08:00Z",
+    "2016-11-24T08:00Z",
+    "2016-11-25T08:00Z",
+    "2016-11-26T08:00Z",
+    "2016-11-27T08:00Z",
+    "2016-11-28T08:00Z",
+    "2016-11-29T08:00Z",
+    "2016-11-30T08:00Z",
+    "2016-12-01T08:00Z",
+    "2016-12-02T08:00Z",
+    "2016-12-03T08:00Z",
+    "2016-12-04T08:00Z",
+    "2016-12-05T08:00Z",
+    "2016-12-06T08:00Z",
+    "2016-12-07T08:00Z",
+    "2016-12-08T08:00Z",
+    "2016-12-09T08:00Z",
+    "2016-12-10T08:00Z",
+    "2016-12-11T08:00Z",
+    "2016-12-12T08:00Z",
+    "2016-12-13T08:00Z",
+    "2016-12-14T08:00Z",
+    "2016-12-15T08:00Z",
+    "2016-12-16T08:00Z",
+    "2016-12-17T08:00Z",
+    "2016-12-18T08:00Z",
+    "2016-12-19T08:00Z",
+    "2016-12-20T08:00Z",
+    "2016-12-21T08:00Z",
+    "2016-12-22T08:00Z",
+    "2016-12-23T08:00Z",
+    "2016-12-24T08:00Z",
+    "2016-12-25T08:00Z",
+    "2016-12-26T08:00Z",
+    "2016-12-27T08:00Z",
+    "2016-12-28T08:00Z",
+    "2016-12-29T08:00Z",
+    "2016-12-30T08:00Z",
+    "2016-12-31T08:00Z",
+    "2017-01-01T08:00Z",
+    "2017-01-02T08:00Z",
+    "2017-01-03T08:00Z",
+    "2017-01-04T08:00Z",
+    "2017-01-05T08:00Z",
+    "2017-01-06T08:00Z",
+    "2017-01-07T08:00Z",
+    "2017-01-08T08:00Z",
+    "2017-01-09T08:00Z",
+    "2017-01-10T08:00Z",
+    "2017-01-11T08:00Z",
+    "2017-01-12T08:00Z",
+    "2017-01-13T08:00Z",
+    "2017-01-14T08:00Z",
+    "2017-01-15T08:00Z",
+    "2017-01-16T08:00Z",
+    "2017-01-17T08:00Z",
+    "2017-01-18T08:00Z",
+    "2017-01-19T08:00Z",
+    "2017-01-20T08:00Z",
+    "2017-01-21T08:00Z",
+    "2017-01-22T08:00Z",
+    "2017-01-23T08:00Z",
+    "2017-01-24T08:00Z",
+    "2017-01-25T08:00Z",
+    "2017-01-26T08:00Z",
+    "2017-01-27T08:00Z",
+    "2017-01-28T08:00Z",
+    "2017-01-29T08:00Z",
+    "2017-01-30T08:00Z",
+    "2017-01-31T08:00Z",
+    "2017-02-01T08:00Z",
+    "2017-02-02T08:00Z",
+    "2017-02-03T08:00Z",
+    "2017-02-04T08:00Z",
+    "2017-02-05T08:00Z",
+    "2017-02-06T08:00Z",
+    "2017-02-07T08:00Z",
+    "2017-02-08T08:00Z",
+    "2017-02-09T08:00Z",
+    "2017-02-10T08:00Z",
+    "2017-02-11T08:00Z",
+    "2017-02-12T08:00Z",
+    "2017-02-13T08:00Z",
+    "2017-02-14T08:00Z",
+    "2017-02-15T08:00Z",
+    "2017-02-16T08:00Z",
+    "2017-02-17T08:00Z",
+    "2017-02-18T08:00Z",
+    "2017-02-19T08:00Z",
+    "2017-02-20T08:00Z",
+    "2017-02-21T08:00Z",
+    "2017-02-22T08:00Z",
+    "2017-02-23T08:00Z",
+    "2017-02-24T08:00Z",
+    "2017-02-25T08:00Z",
+    "2017-02-26T08:00Z",
+    "2017-02-27T08:00Z",
+    "2017-02-28T08:00Z",
+    "2017-03-01T08:00Z",
+    "2017-03-02T08:00Z",
+    "2017-03-03T08:00Z",
+    "2017-03-04T08:00Z",
+    "2017-03-05T08:00Z",
+    "2017-03-06T08:00Z",
+    "2017-03-07T08:00Z",
+    "2017-03-08T08:00Z",
+    "2017-03-09T08:00Z",
+    "2017-03-10T08:00Z",
+    "2017-03-11T08:00Z",
+    "2017-03-12T08:00Z",
+    "2017-03-13T07:00Z",
+    "2017-03-14T07:00Z",
+    "2017-03-15T07:00Z",
+    "2017-03-16T07:00Z",
+    "2017-03-17T07:00Z",
+    "2017-03-18T07:00Z",
+    "2017-03-19T07:00Z",
+    "2017-03-20T07:00Z",
+    "2017-03-21T07:00Z",
+    "2017-03-22T07:00Z",
+    "2017-03-23T07:00Z",
+    "2017-03-24T07:00Z",
+    "2017-03-25T07:00Z",
+    "2017-03-26T07:00Z",
+    "2017-03-27T07:00Z",
+    "2017-03-28T07:00Z",
+    "2017-03-29T07:00Z",
+    "2017-03-30T07:00Z",
+    "2017-03-31T07:00Z",
+    "2017-04-01T07:00Z",
+    "2017-04-03T07:00Z"
+   ],
+   "calendarEndDate": "2017-04-05T06:59Z",
+   "calendarIsWhitelist": true,
+   "calendarStartDate": "2016-07-01T07:00Z",
+   "calendarType": "day",
+   "id": "41",
+   "logos": [
+    {
+     "alt": "",
+     "height": 500,
+     "href": "https://a.espncdn.com/redesign/assets/img/icons/NCAASports_MensBasketball.png",
+     "lastUpdated": "2026-09-17T20:36Z",
+     "rel": [
+      "full",
+      "default"
+     ],
+     "width": 500
+    },
+    {
+     "alt": "",
+     "height": 500,
+     "href": "https://a.espncdn.com/redesign/assets/img/icons/NCAASports_MensBasketball.png",
+     "lastUpdated": "2026-09-17T20:36Z",
+     "rel": [
+      "full",
+      "dark"
+     ],
+     "width": 500
+    }
+   ],
+   "midsizeName": "NCAAM Basketball",
+   "name": "NCAA Men's Basketball",
+   "season": {
+    "displayName": "2016-17",
+    "endDate": "2017-04-05T06:59Z",
+    "startDate": "2016-07-01T07:00Z",
+    "type": {
+     "abbreviation": "post",
+     "id": "3",
+     "name": "Postseason",
+     "type": 3
+    },
+    "year": 2017
+   },
+   "slug": "mens-college-basketball",
+   "uid": "s:40~l:41"
+  }
+ ],
+ "provider": {
+  "displayName": "Draft Kings",
+  "id": "100",
+  "name": "Draft Kings",
+  "priority": 1
+ }
+}
