@@ -37,7 +37,7 @@ If `status` shows `HALTED`, a source returned a block and the collector has stop
 
 ## Historical backfill
 
-A one-time download of past games from ESPN, then odds, into `data/raw/`. It's safe to stop and start again, and it doesn't restart by itself after a reboot. Starting it again resumes where it stopped.
+A one-time download of past games from ESPN, then odds, into `data/raw/`: NBA from 2018-19 (D39) and NCAA from 2025-26 (D57). It's safe to stop and start again, and it doesn't restart by itself after a reboot. Starting it again resumes where it stopped.
 
 ```sh
 docker compose up -d backfill                                                # start or resume
