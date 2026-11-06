@@ -28,6 +28,11 @@ from hoopsedge.ratings.engine import Engine
 from hoopsedge.ratings.history import GameRef, History
 
 UNCERTAIN_STATUSES = frozenset(AVAILABILITY["uncertain_statuses"])
+KEY_FEATURES = tuple(
+    f"{name}_{side}"
+    for name in ("adj_o", "adj_d", "adj_t", "elo", "form", "rest", "b2b", "games", "prior_weight")
+    for side in ("h", "a")
+) + ("hca", "exp_poss")
 REQUIRED = ("game_id", "season", "tip_utc", "home_id", "away_id", "slate_date_et")
 
 
@@ -64,18 +69,24 @@ def injury_status(history: History, game: GameRef, as_of: datetime) -> InjurySta
     if snapshot is None:
         return None
     questionable = False
+    listed: list[dict[str, str]] = []
     for team in (game.home_id, game.away_id):
+        rows = snapshot.filter(pl.col("team_id") == team).to_dicts()
+        listed += [
+            {"player_id": str(row["player_id"]), "team_id": team, "status": str(row["status"])}
+            for row in rows
+        ]
         minutes = history.player_minutes(game.season, team, as_of)
         if not len(minutes):
             continue
         starters = set(
             minutes.filter(pl.col("start_rate") > START_RATE_FOR_STARTER)["player_id"].to_list()
         )
-        for row in snapshot.filter(pl.col("team_id") == team).to_dicts():
+        for row in rows:
             uncertain = row["status"] in UNCERTAIN_STATUSES or row["status"] not in STATUS_WEIGHTS
             questionable = questionable or (uncertain and row["player_id"] in starters)
     taken: datetime = snapshot["captured_at"].max()  # type: ignore[assignment]
-    return InjuryStatus(questionable_starter=questionable, snapshot_at=taken)
+    return InjuryStatus(questionable_starter=questionable, snapshot_at=taken, listed=tuple(listed))
 
 
 def _period(dist: ScoreDistribution, row: int) -> PeriodPrediction:
@@ -126,6 +137,7 @@ def predict_games(
                     prior_weight_away=float(features["prior_weight_a"] or 0.0),
                 ),
                 injury=injury_status(history, game, as_of) if league == "NBA" else None,
+                key_features={name: features.get(name) for name in KEY_FEATURES},
             )
         )
     return predictions

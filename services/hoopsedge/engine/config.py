@@ -34,6 +34,40 @@ def _entry(table: dict[str, dict[str, Any] | None], name: str, league: str, fami
     return table[family]
 
 
+def apply_settings(config: EngineConfig, settings: dict[str, Any] | None) -> EngineConfig:
+    """What the owner changed on the dashboard. Gate verdicts stay what the evidence said."""
+    if not settings:
+        return config
+    markets = {name: dict(group) for name, group in config.markets.items()}
+    for league, group in settings.get("markets", {}).items():
+        for family, chosen in group.items():
+            if family in markets.get(league, {}):
+                markets[league][family] = markets[league][family].model_copy(
+                    update={
+                        "enabled": bool(chosen["enabled"]),
+                        "min_prob": None
+                        if chosen["min_prob"] is None
+                        else float(chosen["min_prob"]),
+                        "min_edge": None
+                        if chosen["min_edge"] is None
+                        else float(chosen["min_edge"]),
+                    }
+                )
+    leagues = dict(config.leagues)
+    for league, chosen in settings.get("leagues", {}).items():
+        if league in leagues:
+            leagues[league] = leagues[league].model_copy(
+                update={"enabled": bool(chosen["enabled"])}
+            )
+    update: dict[str, Any] = {"markets": markets, "leagues": leagues}
+    for name in ("min_legs", "min_minutes_before_tip"):
+        if name in settings:
+            update[name] = int(settings[name])
+    if "allow_alt_lines" in settings:
+        update["allow_alt_lines"] = bool(settings["allow_alt_lines"])
+    return config.model_copy(update=update)
+
+
 def with_calibrator_sources(
     config: EngineConfig, league: str, sources: dict[str, str]
 ) -> EngineConfig:

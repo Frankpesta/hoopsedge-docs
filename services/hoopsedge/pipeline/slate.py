@@ -29,7 +29,7 @@ from hoopsedge.engine import (
     load_engine_config,
     score_offers,
 )
-from hoopsedge.engine.config import with_calibrator_sources
+from hoopsedge.engine.config import apply_settings, with_calibrator_sources
 from hoopsedge.engine.recheck import (
     REJECTED_AT_BOOKING,
     compare_builds,
@@ -37,6 +37,7 @@ from hoopsedge.engine.recheck import (
     still_bookable,
 )
 from hoopsedge.engine.schemas import Ticket
+from hoopsedge.grading.data import team_names
 from hoopsedge.ingest.espn_coverage import EASTERN
 from hoopsedge.ingest.live import USER_AGENT, Live, ingest_once
 from hoopsedge.learning.data import write_log
@@ -86,6 +87,17 @@ class SlateContext:
     dry_run: bool = True
     now: Callable[[], datetime] = lambda: datetime.now(UTC)
     aliases: dict[str, TeamIndex] = field(default_factory=dict)
+    team_names: dict[str, str] = field(default_factory=dict)
+
+    def game_names(self, games: Sequence[CanonicalGame]) -> dict[str, tuple[str, str]]:
+        """Each game's home and away names. A team with no name shows its ID, never a guess."""
+        return {
+            game.game_id: (
+                self.team_names.get(game.home_id, game.home_id),
+                self.team_names.get(game.away_id, game.away_id),
+            )
+            for game in games
+        }
 
     def team_index(self, league: str) -> TeamIndex:
         if league not in self.aliases:
@@ -199,6 +211,7 @@ class _Booking:
             code,
             reason,
             verification,
+            names=self.ctx.game_names(self.games),
         )
         self.summary.tickets.append(
             {
@@ -247,7 +260,7 @@ class _Booking:
         ticket_id = new_ulid(ctx.now())
         ctx.store.save_ticket(
             ticket_id, ticket, self.summary.run_id, self.summary.slate, self.version,
-            PENDING_BOOKING,
+            PENDING_BOOKING, names=ctx.game_names(self.games),
         )  # fmt: skip
         if ctx.dry_run:
             self._finish(ticket_id, ticket, DRY_RUN, dry_run_code(ticket_id))
@@ -397,6 +410,7 @@ def _run_steps(ctx: SlateContext, summary: RunSummary, artifact: dict[str, Any])
         predictions,
         score_offers(predictions, rematched.offers),
     )
+    _save_game_details(ctx, run_id, league, predictions, rematched.offers, final)
     _step(summary, "RecheckOffers", started, ctx.now(), changes=len(changes))
 
     started = ctx.now()
@@ -410,9 +424,41 @@ def _run_steps(ctx: SlateContext, summary: RunSummary, artifact: dict[str, Any])
     _step(summary, "Finalize", ctx.now(), ctx.now(), superseded=superseded)
 
 
-def run_slate(ctx: SlateContext, league: str, slate: date, trigger: str = "manual") -> RunSummary:
+def _save_game_details(
+    ctx: SlateContext,
+    run_id: str,
+    league: str,
+    predictions: Sequence[Prediction],
+    offers: Sequence[Offer],
+    final: BuildResult,
+) -> None:
+    lines = score_offers(predictions, offers)
+    labels = {
+        family: settings.edge_label for family, settings in ctx.config.markets[league].items()
+    }
+    legs = [leg for ticket in final.tickets for leg in ticket.legs]
+    for prediction in predictions:
+        game = prediction.game_id
+        ctx.store.save_game_detail(
+            run_id,
+            league,
+            game,
+            [item for item in lines if item.game_id == game],
+            [item for item in final.rejections if item.game_id == game],
+            [item for item in legs if item.game_id == game],
+            labels,
+        )
+
+
+def run_slate(
+    ctx: SlateContext,
+    league: str,
+    slate: date,
+    trigger: str = "manual",
+    run_id: str | None = None,
+) -> RunSummary:
     now = ctx.now()
-    summary = RunSummary(new_ulid(now), league, slate)
+    summary = RunSummary(run_id or new_ulid(now), league, slate)
     run_id = summary.run_id
     if not ctx.store.acquire_lock(league, slate, run_id, now):
         raise SlateLocked(f"{league} {slate} already has a run in progress")
@@ -460,11 +506,17 @@ def _build_context(league: str, data_dir: Path, run_folder: Path) -> SlateContex
     registry = ModelRegistry(table, data_dir / "models")
     champion = registry.require(league)
     model_folder = registry.model_folder(league, champion.version)
+    settings = store.settings()
     config = with_calibrator_sources(
-        load_engine_config({league: registry.calibrators(league, champion)}),
+        apply_settings(
+            load_engine_config({league: registry.calibrators(league, champion)}), settings
+        ),
         league,
         champion.calibrator_sources,
     )
+    names = team_names(data_dir)
+    league_names = {team: name for (owner, team), name in names.items() if owner == league}
+    store.sync_teams(league, league_names)
 
     def predict(chosen: str, items: Sequence[dict[str, Any]], now: datetime) -> list[Prediction]:
         refs = [game_ref(chosen, item) for item in items]
@@ -483,7 +535,8 @@ def _build_context(league: str, data_dir: Path, run_folder: Path) -> SlateContex
         config=config,
         predict=predict,
         refresh=refresh,
-        dry_run=is_dry_run(),
+        dry_run=is_dry_run(bool(settings and settings.get("dry_run"))),
+        team_names=league_names,
     )
 
 
@@ -493,6 +546,8 @@ def main() -> int:
     run = commands.add_parser("run")
     run.add_argument("--league", choices=["NBA", "NCAA"], required=True)
     run.add_argument("--date", help="Slate date, US Eastern. Defaults to today.")
+    run.add_argument("--run-id", help="Set by the API, so Run now can return it straight away.")
+    run.add_argument("--trigger", default="manual", choices=["manual", "scheduled", "dashboard"])
     args = parser.parse_args()
     data_dir = Path(os.environ.get("HOOPSEDGE_DATA_DIR", DEFAULT_DATA_DIR))
     slate = (
@@ -500,7 +555,7 @@ def main() -> int:
     )
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     context = _build_context(args.league, data_dir, data_dir / f"raw/sportybet/run-{stamp}")
-    summary = run_slate(context, args.league, slate)
+    summary = run_slate(context, args.league, slate, args.trigger, args.run_id)
     print(
         json.dumps(
             {
