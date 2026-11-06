@@ -7,6 +7,8 @@ D14: a result counts only once `tip + 3 h < as_of`, stricter than invariant 1's 
 replays can't see games that wouldn't have finished. Live prediction uses the same rule.
 """
 
+import gzip
+import json
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -15,7 +17,7 @@ import numpy as np
 import polars as pl
 
 from hoopsedge.ingest.curated import read_table
-from hoopsedge.teams.registry import ratings_team_id
+from hoopsedge.teams.registry import d1_ids_from_core, ratings_team_id
 
 RESULT_KNOWN_AFTER = timedelta(hours=3)  # D14.
 REGULATION_MINUTES = {"NBA": 48, "NCAA": 40}
@@ -104,6 +106,26 @@ def _offence_stats(
     }
 
 
+def d1_teams(data_dir: Path, seasons: list[int]) -> dict[int, set[str]]:
+    """NCAA's D1 teams by season.
+
+    `team_seasons` only holds teams seen in a final when it was built. A D1 team playing its first
+    game since then would otherwise be rated as the non-D1 pool, so ESPN's list is added (D71).
+    """
+    d1: dict[int, set[str]] = {}
+    seasons_file = data_dir / "curated/team_seasons/team_seasons.parquet"
+    if seasons_file.exists():
+        rows = pl.read_parquet(seasons_file).filter((pl.col("league") == "NCAA") & pl.col("is_d1"))
+        for key, frame in rows.group_by("season"):
+            d1[int(key[0])] = set(frame["team_id"].to_list())
+    for season in seasons:
+        listed = data_dir / f"raw/espn/registry/NCAA-d1-{season}.json.gz"
+        if listed.exists():
+            with gzip.open(listed, "rt", encoding="utf-8") as handle:
+                d1.setdefault(season, set()).update(d1_ids_from_core(json.load(handle)))
+    return d1
+
+
 class History:
     def __init__(
         self,
@@ -132,14 +154,7 @@ class History:
             frames = [frame for frame in frames if len(frame)]
             return pl.concat(frames) if frames else pl.DataFrame()
 
-        seasons_file = data_dir / "curated/team_seasons/team_seasons.parquet"
-        d1: dict[int, set[str]] = {}
-        if league == "NCAA" and seasons_file.exists():
-            rows = pl.read_parquet(seasons_file).filter(
-                (pl.col("league") == "NCAA") & pl.col("is_d1")
-            )
-            for season, frame in rows.group_by("season"):
-                d1[int(season[0])] = set(frame["team_id"].to_list())
+        d1 = d1_teams(data_dir, seasons) if league == "NCAA" else {}
         injury_files = sorted((data_dir / "curated/injuries/league=NBA").rglob("part-*.parquet"))
         injuries = (
             pl.concat([pl.read_parquet(file) for file in injury_files])

@@ -98,3 +98,17 @@ After a deliberate change to engine output, regenerate the golden file and revie
 ```sh
 docker compose run --rm -e UPDATE_GOLDEN=1 dev pytest -q tests/test_engine.py -k recorded
 ```
+
+## Slate pipeline
+
+One league and date, end to end: refresh results and injuries, fetch SportyBet offers, match teams, predict, build tickets, re-check offers, then book and verify. It runs against the local database stand-in. **Locally it always runs dry and can't create a real code.**
+
+```sh
+docker compose run --rm pipeline python -m hoopsedge.pipeline.slate run --league NCAA --date 2026-11-06
+```
+
+It prints the tickets and writes everything behind them, including each rejection's reason, to `data/runs/{run_id}/result.json`. Raw SportyBet responses go to `data/raw/sportybet/run-*/`. Teams it can't place with certainty go to the Unmatched queue and are excluded.
+
+**Half-time and Team O/U probabilities are unproven (D72).** Treat each leg as about 50%, whatever the ticket's figures say: at real bookmaker lines, the model's high-confidence picks won about half the time.
+
+`hoopsedge.pipeline.live_test` made the one approved live booking. All 5 test codes are now used, so it refuses to book again.

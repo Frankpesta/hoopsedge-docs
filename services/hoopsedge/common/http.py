@@ -84,6 +84,25 @@ class PoliteClient:
             self._write_cache(cache_path, body)
         return parsed
 
+    def post_json_once(self, url: str, body: Any, headers: Mapping[str, str]) -> Any:
+        """One POST with no retries, because a retry could create a second real object.
+
+        A timeout leaves the outcome unknown, and this raises rather than guessing at it.
+        """
+        self._wait_for_slot(url)
+        self.stats.requests += 1
+        try:
+            response = self._http.post(url, json=body, headers=dict(headers))
+        except httpx.TransportError as exc:
+            raise HttpFetchError("POST failed, outcome unknown", url) from exc
+        self.stats.by_status[response.status_code] += 1
+        if response.status_code != 200:
+            raise HttpFetchError("request rejected", url, response.status_code)
+        try:
+            return json.loads(response.text)
+        except ValueError as exc:
+            raise NotJsonError("response was not JSON", url, 200) from exc
+
     def close(self) -> None:
         self._http.close()
 

@@ -82,7 +82,7 @@ Both AWS stacks use the same CDK app with an `env` context. Before `prod` is dep
 ```jsonc
 {
   "version": 7,
-  "schedules": { "ncaa_slate": "15:00", "nba_slate": "19:30", "nightly_learn": "11:00" },
+  "schedules": { "ncaa_slate": "15:00", "nba_slate": "22:00", "nightly_learn": "11:00" },
   "leagues": {
     "NBA":  { "enabled": true, "max_legs_per_ticket": 20, "max_tickets_per_market": 1 },
     "NCAA": { "enabled": true, "max_legs_per_ticket": 20, "max_tickets_per_market": 5, "max_legs_per_market": 100 }

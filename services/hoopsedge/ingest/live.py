@@ -48,7 +48,7 @@ from hoopsedge.ingest.backfill import (
 from hoopsedge.ingest.collector import CollectorError, Context, collect_injuries
 from hoopsedge.ingest.curated import delta_path, rows_frame, write_parquet
 from hoopsedge.ingest.espn_coverage import EASTERN, check_scoreboard_event, parse_time
-from hoopsedge.ingest.espn_parser import ParseResult, parse_game
+from hoopsedge.ingest.espn_parser import POSTSEASON_TYPES, ParseResult, parse_game
 from hoopsedge.ingest.injuries import sync_injuries
 from hoopsedge.teams.registry import teams_from_list
 
@@ -142,6 +142,7 @@ def _game_item(league: str, event: dict[str, Any], checked_venue: bool = False) 
         "home_id": str(home["id"]),
         "away_id": str(away["id"]),
         "status": str(status["name"]),
+        "postseason": event["season"].get("type") in POSTSEASON_TYPES,
     }
     if isinstance(competition.get("neutralSite"), bool):
         item["neutral"] = competition["neutralSite"]
