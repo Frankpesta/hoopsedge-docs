@@ -26,6 +26,8 @@ READ_ALLOWED = {
     "hoopsedge/ingest/curated.py",
     "hoopsedge/ingest/live.py",  # Compares a game's own delta when checking for corrections.
     "hoopsedge/features/training.py",  # Reads its own output, to append new games only.
+    # Point-in-time features, season flags, and market lines that only score predictions.
+    "hoopsedge/backtest/data.py",
 }
 SAMPLE = 500
 

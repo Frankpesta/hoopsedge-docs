@@ -4,6 +4,10 @@ FROM python:3.12-slim-bookworm AS dev
 
 COPY --from=ghcr.io/astral-sh/uv:0.8.22 /uv /usr/local/bin/uv
 
+# LightGBM's OpenMP runtime, which the slim image leaves out.
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
 # The virtual environment lives outside the mounted repo so nothing from
 # Linux ends up in the Windows working tree.
 ENV UV_PROJECT_ENVIRONMENT=/opt/venv \

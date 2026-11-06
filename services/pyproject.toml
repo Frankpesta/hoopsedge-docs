@@ -6,11 +6,13 @@ requires-python = "==3.12.*"
 dependencies = [
     "boto3>=1.35",
     "httpx>=0.27",
+    "lightgbm>=4.5",
     "numpy>=2",
     "polars>=1.5",
     "pyarrow>=17",
     "pydantic>=2.8",
     "pyyaml>=6",
+    "scikit-learn>=1.5",
     "scipy>=1.14",
     "tzdata>=2024.1",
 ]
@@ -18,8 +20,10 @@ dependencies = [
 [dependency-groups]
 dev = [
     "hypothesis>=2.0",
+    "matplotlib>=3.9",
     "moto[dynamodb]>=5.0",
     "mypy>=1.11",
+    "optuna>=4.0",
     "pytest>=8.3",
     "respx>=0.21",
     "ruff>=0.6",
@@ -51,7 +55,7 @@ files = ["hoopsedge", "tests"]
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = ["boto3.*", "botocore.*", "moto.*", "scipy.*"]
+module = ["boto3.*", "botocore.*", "lightgbm.*", "matplotlib.*", "moto.*", "optuna.*", "scipy.*", "sklearn.*"]
 ignore_missing_imports = true
 
 # CLAUDE.md section 5: strict typing on services/common.

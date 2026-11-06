@@ -1,0 +1,86 @@
+params:
+  ft_mean:
+    feature_fraction: 0.5983693497540779
+    lambda_l2: 6.91148644262367
+    learning_rate: 0.02993686069533849
+    min_data_in_leaf: 64
+    n_estimators: 550
+    num_leaves: 11
+  ft_var:
+    feature_fraction: 0.2426255718706749
+    lambda_l2: 64.73866419398804
+    learning_rate: 0.022757988351437154
+    min_data_in_leaf: 381
+    n_estimators: 60
+    num_leaves: 13
+  h1_mean:
+    feature_fraction: 0.9031580555317045
+    lambda_l2: 1.2259220524352028
+    learning_rate: 0.05985620069964437
+    min_data_in_leaf: 103
+    n_estimators: 500
+    num_leaves: 14
+  h1_var:
+    feature_fraction: 0.9922005634809833
+    lambda_l2: 89.0687267853584
+    learning_rate: 0.01187567008069037
+    min_data_in_leaf: 54
+    n_estimators: 20
+    num_leaves: 13
+  layout: stacked
+  mean:
+    feature_fraction: 0.7
+    lambda_l2: 5.0
+    learning_rate: 0.03
+    min_data_in_leaf: 40
+    n_estimators: 300
+    num_leaves: 15
+  objective: huber
+  seed: 20261106
+  target: residual
+  var:
+    feature_fraction: 0.5
+    lambda_l2: 10.0
+    learning_rate: 0.03
+    min_data_in_leaf: 100
+    n_estimators: 80
+    num_leaves: 7
+tuning:
+  families:
+    ft_mean: 16.1034
+    ft_var: -8.3319
+    h1_mean: 11.5214
+    h1_var: -7.7237
+  forms:
+  - layout: two
+    objective: regression
+    rmse: 13.9559
+    target: direct
+  - layout: two
+    objective: huber
+    rmse: 14.2217
+    target: direct
+  - layout: stacked
+    objective: regression
+    rmse: 13.8979
+    target: direct
+  - layout: stacked
+    objective: huber
+    rmse: 14.2359
+    target: direct
+  - layout: two
+    objective: regression
+    rmse: 13.9205
+    target: residual
+  - layout: two
+    objective: huber
+    rmse: 13.8347
+    target: residual
+  - layout: stacked
+    objective: regression
+    rmse: 13.8887
+    target: residual
+  - layout: stacked
+    objective: huber
+    rmse: 13.8248
+    target: residual

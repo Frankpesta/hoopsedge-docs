@@ -135,11 +135,11 @@
   },
   "2027": {
    "box_rejects": 0,
-   "dates_complete": 34,
-   "dates_total": 34,
-   "final_games": 107,
+   "dates_complete": 35,
+   "dates_total": 35,
+   "final_games": 121,
    "game_rejects": 0,
-   "games_kept": 107,
+   "games_kept": 121,
    "meets_target": true,
    "other_statuses": {},
    "pct_box": 100.0,
@@ -149,6 +149,49 @@
   }
  },
  "NCAA": {
+  "2024": {
+   "box_rejects": 33,
+   "dates_complete": 167,
+   "dates_total": 167,
+   "final_games": 6243,
+   "game_rejects": 0,
+   "games_kept": 6243,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_CANCELED": 2,
+    "STATUS_POSTPONED": 4
+   },
+   "pct_box": 99.47,
+   "pct_half": 100.0,
+   "reject_reasons": {
+    "box_points_do_not_match_score": 23,
+    "box_unreadable": 2,
+    "possessions_implausible": 8
+   },
+   "summaries_absent": 0
+  },
+  "2025": {
+   "box_rejects": 26,
+   "dates_complete": 166,
+   "dates_total": 166,
+   "final_games": 6292,
+   "game_rejects": 0,
+   "games_kept": 6292,
+   "meets_target": true,
+   "other_statuses": {
+    "STATUS_CANCELED": 1,
+    "STATUS_POSTPONED": 5,
+    "STATUS_SCHEDULED": 1
+   },
+   "pct_box": 99.59,
+   "pct_half": 100.0,
+   "reject_reasons": {
+    "box_points_do_not_match_score": 14,
+    "box_unreadable": 6,
+    "possessions_implausible": 6
+   },
+   "summaries_absent": 0
+  },
   "2026": {
    "box_rejects": 21,
    "dates_complete": 166,
@@ -172,16 +215,16 @@
   },
   "2027": {
    "box_rejects": 2,
-   "dates_complete": 3,
-   "dates_total": 3,
-   "final_games": 212,
+   "dates_complete": 4,
+   "dates_total": 4,
+   "final_games": 238,
    "game_rejects": 0,
-   "games_kept": 212,
+   "games_kept": 238,
    "meets_target": true,
    "other_statuses": {
     "STATUS_SCHEDULED": 1
    },
-   "pct_box": 99.06,
+   "pct_box": 99.16,
    "pct_half": 100.0,
    "reject_reasons": {
     "box_points_do_not_match_score": 1,
@@ -190,5 +233,5 @@
    "summaries_absent": 0
   }
  },
- "generated_at": "2026-11-05T20:24:56.215294+00:00"
+ "generated_at": "2026-11-06T17:34:26.541265+00:00"
 }

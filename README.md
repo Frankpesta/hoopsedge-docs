@@ -37,7 +37,7 @@ If `status` shows `HALTED`, a source returned a block and the collector has stop
 
 ## Historical backfill
 
-A one-time download of past games from ESPN, then odds, into `data/raw/`: NBA from 2018-19 (D39) and NCAA from 2025-26 (D57). It's safe to stop and start again, and it doesn't restart by itself after a reboot. Starting it again resumes where it stopped.
+A one-time download of past games from ESPN, then odds, into `data/raw/`: NBA from 2018-19 (D39) and NCAA from 2023-24 (D66). It's safe to stop and start again, and it doesn't restart by itself after a reboot. Starting it again resumes where it stopped.
 
 ```sh
 docker compose up -d backfill                                                # start or resume
@@ -72,3 +72,17 @@ docker compose run --rm dev python -m hoopsedge.features.training leakage --leag
 ```
 
 All curated reads go through `hoopsedge/ratings/history.py`. A result counts only once `tip + 3 h < as_of` (D14).
+
+## Models and evidence
+
+Run these in order, per league. The tuned settings, thresholds and market gates are written to `services/hoopsedge/models/params/`, and reports to `docs/reports/`. Model versions go in `data/models/`.
+
+```sh
+docker compose run --rm dev python -m hoopsedge.backtest.run lines                      # historical lines, both leagues
+docker compose run --rm dev python -m hoopsedge.backtest.run ratings-grid               # docs/reports/phase4-ratings-grid.md
+docker compose run --rm dev python -m hoopsedge.backtest.run tune --league NBA          # about 20 min; run once
+docker compose run --rm dev python -m hoopsedge.backtest.run backtest --league NBA      # about 15 min; NCAA about 3
+docker compose run --rm dev python -m hoopsedge.backtest.run evidence --league NBA      # report, gates and a model version
+```
+
+Set `HOOPSEDGE_GIT_SHA` on `evidence` to the commit being run. Without it the version is marked `-dirty` and can't be promoted. After changing `ratings/config.yaml`, delete that league's `data/curated/features` and `ratings_snapshots` folders and rebuild before tuning.

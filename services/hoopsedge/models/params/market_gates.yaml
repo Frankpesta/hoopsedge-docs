@@ -1,0 +1,82 @@
+NBA:
+  handicap:
+    edge: measured
+    enabled: true
+    judged_on: real
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: false
+    reason: does not beat baselines
+  team_total:
+    edge: unproven
+    enabled: true
+    judged_on: synthetic
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: false
+    reason: does not beat baselines
+  total_1h:
+    edge: unproven
+    enabled: true
+    judged_on: synthetic
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: false
+    reason: does not beat baselines
+  total_ft:
+    edge: measured
+    enabled: true
+    judged_on: real
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: false
+    reason: does not beat baselines
+NCAA:
+  handicap:
+    edge: measured
+    enabled: true
+    judged_on: real
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: false
+    reason: does not beat baselines
+  team_total:
+    edge: unproven
+    enabled: true
+    judged_on: synthetic
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: true
+    reason: beats baselines with CI excluding zero
+  total_1h:
+    edge: unproven
+    enabled: true
+    judged_on: synthetic
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: true
+    reason: beats baselines with CI excluding zero
+  total_ft:
+    edge: measured
+    enabled: true
+    judged_on: real
+    override:
+      by: owner
+      decision: D65
+      enabled: true
+    passed: false
+    reason: does not beat baselines
