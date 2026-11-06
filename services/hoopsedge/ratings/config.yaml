@@ -19,7 +19,7 @@ NCAA:
   mu: 103.0
   tau: 69.0
   hca: 5.0
-  hca_k: 100
+  hca_k: 1000 # Measured on 2025-26 (D58). Phase 4 tunes it.
   regulation_minutes: 40
 
 # Share of a player's minutes treated as missing (docs/04 section 3.3). Day-To-Day isn't in the

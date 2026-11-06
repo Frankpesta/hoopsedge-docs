@@ -118,3 +118,12 @@ Open items from this discovery:
 | ID | Decision | Reason | Who |
 |----|----------|--------|-----|
 | D57 | NCAA history is limited to 2025-26 and the current season. The 2015-16 to 2024-25 download is dropped. NBA stays at 2018-19 onward (D39). Differs from docs/01 and docs/03. | Owner's direction: college rosters turn over each year, so old seasons say little. Known consequences: rosters explain team ratings, but the models also learn general relationships from history, such as how pace and efficiency become scores, and those now rest on about 6,300 games from one complete season. Walk-forward evidence for NCAA covers far fewer games, with no way to compare seasons, so its confidence intervals will be wider and early-season behaviour rests on one sample. 2025-26 opens with no team priors, so its first weeks are weak as training data. Lowering `FIRST_SEASON` and re-running `fetch` adds seasons later without repeating anything | Owner |
+
+## 2026-11-05 — NCAA ratings check
+
+Evidence is in `docs/reports/phase2-coverage.md` and `docs/reports/phase3-ratings-sanity.md`. The replay used pre-game information only, on non-neutral games: 5,592 from 2025-26 and 223 from 2026-27.
+
+| ID | Decision | Reason | Who |
+|----|----------|--------|-----|
+| D58 | NCAA home-edge prior weight is 1000, not 100. NBA stays at 100, which was not measured. Phase 4 tunes both. | Replacing D55's value for NCAA. At weights of 100, 400, 1000 and 3000, 2025-26 margin error was 10.751, 10.702, 10.696 and 10.701, so accuracy barely moves. Late-season bias fell from -1.67 at 100 to -0.88 at 1000. On the first 223 games of 2026-27, the error went the other way: 16.72 at 100 and 17.05 at 1000. One season plus a few days is thin evidence | Claude Code |
+| D59 | Phase 4 must treat the first two weeks of an NCAA season as a known weak spot: tune the prior regression `r` and weight `k` for it, measure accuracy for these weeks separately, and be ready to gate them with `LOW_CONFIDENCE`. | Margin error is about 16 points in the first 14 days of 2025-26 and about 17 in 2026-27, against about 9.3 after day 45. Hosts beat expectations by 6-12 points. The likely cause, not yet tested, is that strong teams host weak ones while priors regress team gaps by 45%. The first days of 2025-26 have no priors at all because of D57, so that season overstates the problem. With D58, the 2026-27 home edge is 6.42 per 100, down from 15.85 at first | Claude Code |
