@@ -1,0 +1,13 @@
+# The owner's overrides of the evidence gates. Hand-kept: `market_gates.yaml` is generated from
+# this and the evidence, and shows both what the evidence said (`passed`) and what's in force.
+# Every entry needs a decision logged in docs/DECISIONS.md.
+NBA:
+  handicap: {enabled: true, decision: D65, by: owner}
+  total_ft: {enabled: true, decision: D65, by: owner}
+  total_1h: {enabled: true, decision: D65, by: owner}
+  team_total: {enabled: true, decision: D65, by: owner}
+NCAA:
+  handicap: {enabled: true, decision: D65, by: owner}
+  total_ft: {enabled: true, decision: D65, by: owner}
+  total_1h: {enabled: true, decision: D65, by: owner}
+  team_total: {enabled: true, decision: D65, by: owner}

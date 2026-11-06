@@ -1,4 +1,5 @@
-# Starting values from docs/04 section 3.2. Phase 4 tunes them and records the outcome in DECISIONS.
+# Starting values from docs/04 section 3.2, tuned in Phase 4 (D60). After changing a league's
+# values, delete its data/curated/features and ratings_snapshots folders and rebuild.
 NBA:
   half_life_days: 30
   k: 8 # Prior weight is k / (k + games).
@@ -12,8 +13,8 @@ NBA:
   regulation_minutes: 48
 NCAA:
   half_life_days: 40
-  k: 6
-  r: 0.45
+  k: 3 # Chosen on 2024-25 priced games only (D67).
+  r: 0.1 # Chosen on 2024-25 priced games only, and the lowest value tried (D67).
   elo_k: 25
   elo_hfa: 85
   mu: 103.0

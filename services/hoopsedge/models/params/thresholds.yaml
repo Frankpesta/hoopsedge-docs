@@ -1,0 +1,45 @@
+NBA:
+  handicap:
+    legs: 292
+    legs_per_slate: 2.75
+    log_likelihood: -0.69553
+    min_edge: 0.025
+    min_prob: 0.52
+  team_total:
+    legs: 273
+    legs_per_slate: 2.58
+    log_likelihood: -0.6341
+    min_edge: 0.0
+    min_prob: 0.65
+  total_1h:
+    legs: 529
+    legs_per_slate: 4.99
+    log_likelihood: -0.66175
+    min_edge: 0.0
+    min_prob: 0.52
+  total_ft: null
+NCAA:
+  handicap:
+    legs: 114
+    legs_per_slate: 1.5
+    log_likelihood: -0.69493
+    min_edge: 0.0
+    min_prob: 0.52
+  team_total:
+    legs: 1547
+    legs_per_slate: 20.36
+    log_likelihood: -0.6429
+    min_edge: 0.0
+    min_prob: 0.64
+  total_1h:
+    legs: 2677
+    legs_per_slate: 35.22
+    log_likelihood: -0.58919
+    min_edge: 0.0
+    min_prob: 0.52
+  total_ft:
+    legs: 137
+    legs_per_slate: 1.8
+    log_likelihood: -0.69302
+    min_edge: 0.015
+    min_prob: 0.52

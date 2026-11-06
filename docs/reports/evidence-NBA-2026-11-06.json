@@ -1,0 +1,3403 @@
+{
+ "coverage": [
+  {
+   "closing_lines": 1319,
+   "games": 1319,
+   "label": "2023-24"
+  },
+  {
+   "closing_lines": 1320,
+   "games": 1321,
+   "label": "2024-25"
+  },
+  {
+   "closing_lines": 1321,
+   "games": 1322,
+   "label": "2025-26"
+  },
+  {
+   "closing_lines": 121,
+   "games": 121,
+   "label": "2026-27 start"
+  }
+ ],
+ "early_all": [
+  {
+   "bucket": "1-5 games",
+   "games": 376,
+   "margin_bias": -0.152,
+   "margin_mae": 10.779,
+   "model": "model",
+   "total_bias": 0.244,
+   "total_mae": 15.612
+  },
+  {
+   "bucket": "1-5 games",
+   "games": 376,
+   "margin_bias": -0.148,
+   "margin_mae": 10.806,
+   "model": "baseline",
+   "total_bias": 1.825,
+   "total_mae": 15.531
+  },
+  {
+   "bucket": "1-5 games",
+   "games": 376,
+   "margin_bias": -0.323,
+   "margin_mae": 10.921,
+   "model": "elo",
+   "total_bias": 4.461,
+   "total_mae": 16.153
+  },
+  {
+   "bucket": "1-5 games",
+   "games": 376,
+   "margin_bias": -0.191,
+   "margin_mae": 11.034,
+   "model": "prior",
+   "total_bias": 1.917,
+   "total_mae": 15.714
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 255,
+   "margin_bias": 0.888,
+   "margin_mae": 9.877,
+   "model": "model",
+   "total_bias": -1.05,
+   "total_mae": 13.506
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 255,
+   "margin_bias": 0.917,
+   "margin_mae": 9.958,
+   "model": "baseline",
+   "total_bias": 0.499,
+   "total_mae": 13.517
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 255,
+   "margin_bias": 1.034,
+   "margin_mae": 10.185,
+   "model": "elo",
+   "total_bias": 3.745,
+   "total_mae": 15.06
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 255,
+   "margin_bias": 1.008,
+   "margin_mae": 10.702,
+   "model": "prior",
+   "total_bias": 1.227,
+   "total_mae": 14.8
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.152,
+   "margin_mae": 11.356,
+   "model": "model",
+   "total_bias": -0.791,
+   "total_mae": 14.7
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.146,
+   "margin_mae": 11.406,
+   "model": "baseline",
+   "total_bias": 0.269,
+   "total_mae": 14.749
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.298,
+   "margin_mae": 11.39,
+   "model": "elo",
+   "total_bias": 3.36,
+   "total_mae": 16.372
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.346,
+   "margin_mae": 12.352,
+   "model": "prior",
+   "total_bias": 1.557,
+   "total_mae": 15.833
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 427,
+   "margin_bias": -0.297,
+   "margin_mae": 10.812,
+   "model": "model",
+   "total_bias": -0.283,
+   "total_mae": 15.332
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 427,
+   "margin_bias": -0.284,
+   "margin_mae": 10.852,
+   "model": "baseline",
+   "total_bias": 1.282,
+   "total_mae": 15.235
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 427,
+   "margin_bias": -0.449,
+   "margin_mae": 10.94,
+   "model": "elo",
+   "total_bias": 3.971,
+   "total_mae": 15.845
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 427,
+   "margin_bias": -0.28,
+   "margin_mae": 11.079,
+   "model": "prior",
+   "total_bias": 1.38,
+   "total_mae": 15.426
+  }
+ ],
+ "early_priced": [
+  {
+   "bucket": "1-5 games",
+   "games": 375,
+   "margin_bias": -0.158,
+   "margin_mae": 10.803,
+   "model": "model",
+   "total_bias": 0.156,
+   "total_mae": 15.565
+  },
+  {
+   "bucket": "1-5 games",
+   "games": 375,
+   "margin_bias": -0.155,
+   "margin_mae": 10.829,
+   "model": "baseline",
+   "total_bias": 1.748,
+   "total_mae": 15.491
+  },
+  {
+   "bucket": "1-5 games",
+   "games": 375,
+   "margin_bias": -0.33,
+   "margin_mae": 10.944,
+   "model": "elo",
+   "total_bias": 4.397,
+   "total_mae": 16.121
+  },
+  {
+   "bucket": "1-5 games",
+   "games": 375,
+   "margin_bias": -0.198,
+   "margin_mae": 11.058,
+   "model": "prior",
+   "total_bias": 1.856,
+   "total_mae": 15.691
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 254,
+   "margin_bias": 0.96,
+   "margin_mae": 9.847,
+   "model": "model",
+   "total_bias": -1.181,
+   "total_mae": 13.433
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 254,
+   "margin_bias": 0.991,
+   "margin_mae": 9.927,
+   "model": "baseline",
+   "total_bias": 0.367,
+   "total_mae": 13.437
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 254,
+   "margin_bias": 1.104,
+   "margin_mae": 10.16,
+   "model": "elo",
+   "total_bias": 3.616,
+   "total_mae": 14.976
+  },
+  {
+   "bucket": "6-10 games",
+   "games": 254,
+   "margin_bias": 1.062,
+   "margin_mae": 10.694,
+   "model": "prior",
+   "total_bias": 1.108,
+   "total_mae": 14.735
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.152,
+   "margin_mae": 11.356,
+   "model": "model",
+   "total_bias": -0.791,
+   "total_mae": 14.7
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.146,
+   "margin_mae": 11.406,
+   "model": "baseline",
+   "total_bias": 0.269,
+   "total_mae": 14.749
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.298,
+   "margin_mae": 11.39,
+   "model": "elo",
+   "total_bias": 3.36,
+   "total_mae": 16.372
+  },
+  {
+   "bucket": "11+ games",
+   "games": 3452,
+   "margin_bias": -0.346,
+   "margin_mae": 12.352,
+   "model": "prior",
+   "total_bias": 1.557,
+   "total_mae": 15.833
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 425,
+   "margin_bias": -0.261,
+   "margin_mae": 10.817,
+   "model": "model",
+   "total_bias": -0.438,
+   "total_mae": 15.251
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 425,
+   "margin_bias": -0.249,
+   "margin_mae": 10.855,
+   "model": "baseline",
+   "total_bias": 1.137,
+   "total_mae": 15.155
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 425,
+   "margin_bias": -0.417,
+   "margin_mae": 10.947,
+   "model": "elo",
+   "total_bias": 3.837,
+   "total_mae": 15.766
+  },
+  {
+   "bucket": "first 14 days",
+   "games": 425,
+   "margin_bias": -0.257,
+   "margin_mae": 11.096,
+   "model": "prior",
+   "total_bias": 1.255,
+   "total_mae": 15.367
+  }
+ ],
+ "forms": {
+  "distribution": "normal",
+  "empirical": {
+   "margin": {
+    "adopt": false,
+    "gain": -0.00898,
+    "high": 0.02468,
+    "low": -0.0447
+   },
+   "total": {
+    "adopt": false,
+    "gain": -0.04359,
+    "high": -0.01061,
+    "low": -0.07602
+   }
+  },
+  "overtime": "absorbed",
+  "overtime_extra_points": 24.16,
+  "overtime_mixture": {
+   "adopt": false,
+   "gain": 0.00619,
+   "high": 0.0196,
+   "low": -0.001
+  },
+  "validation_games": 1320
+ },
+ "gates": {
+  "handicap": {
+   "edge": "measured",
+   "enabled": true,
+   "gain": {
+    "games": 4059,
+    "high": 0.00224,
+    "low": -1e-05,
+    "mean": 0.0011
+   },
+   "judged_on": "real",
+   "override": {
+    "by": "owner",
+    "decision": "D65",
+    "enabled": true
+   },
+   "passed": false,
+   "reason": "does not beat baselines"
+  },
+  "team_total": {
+   "edge": "unproven",
+   "enabled": true,
+   "gain": {
+    "games": 4083,
+    "high": 0.00346,
+    "low": 0.0,
+    "mean": 0.00174
+   },
+   "judged_on": "synthetic",
+   "override": {
+    "by": "owner",
+    "decision": "D65",
+    "enabled": true
+   },
+   "passed": false,
+   "reason": "does not beat baselines"
+  },
+  "total_1h": {
+   "edge": "unproven",
+   "enabled": true,
+   "gain": {
+    "games": 4083,
+    "high": 0.00444,
+    "low": -0.0015,
+    "mean": 0.00146
+   },
+   "judged_on": "synthetic",
+   "override": {
+    "by": "owner",
+    "decision": "D65",
+    "enabled": true
+   },
+   "passed": false,
+   "reason": "does not beat baselines"
+  },
+  "total_ft": {
+   "edge": "measured",
+   "enabled": true,
+   "gain": {
+    "games": 4070,
+    "high": 0.00219,
+    "low": -8e-05,
+    "mean": 0.00101
+   },
+   "judged_on": "real",
+   "override": {
+    "by": "owner",
+    "decision": "D65",
+    "enabled": true
+   },
+   "passed": false,
+   "reason": "does not beat baselines"
+  }
+ },
+ "importance": [
+  {
+   "feature": "days_since_start",
+   "gain_share": 0.1477,
+   "shap": 0.228
+  },
+  {
+   "feature": "rest_h",
+   "gain_share": 0.0514,
+   "shap": 0.192
+  },
+  {
+   "feature": "efg_d_h",
+   "gain_share": 0.0349,
+   "shap": 0.136
+  },
+  {
+   "feature": "adj_d_h",
+   "gain_share": 0.0363,
+   "shap": 0.095
+  },
+  {
+   "feature": "elo_a",
+   "gain_share": 0.0461,
+   "shap": 0.085
+  },
+  {
+   "feature": "rest_a",
+   "gain_share": 0.0491,
+   "shap": 0.082
+  },
+  {
+   "feature": "games_h",
+   "gain_share": 0.0591,
+   "shap": 0.065
+  },
+  {
+   "feature": "efg_d_a",
+   "gain_share": 0.0294,
+   "shap": 0.064
+  },
+  {
+   "feature": "exp_ppp_a",
+   "gain_share": 0.0216,
+   "shap": 0.05
+  },
+  {
+   "feature": "exp_poss_1h",
+   "gain_share": 0.013,
+   "shap": 0.038
+  },
+  {
+   "feature": "efg_matchup_a",
+   "gain_share": 0.0166,
+   "shap": 0.037
+  },
+  {
+   "feature": "orb_o_a",
+   "gain_share": 0.0392,
+   "shap": 0.031
+  },
+  {
+   "feature": "ftr_d_a",
+   "gain_share": 0.0367,
+   "shap": 0.031
+  },
+  {
+   "feature": "prior_weight_h",
+   "gain_share": 0.0245,
+   "shap": 0.028
+  },
+  {
+   "feature": "month",
+   "gain_share": 0.0302,
+   "shap": 0.027
+  }
+ ],
+ "league": "NBA",
+ "market_lines": [
+  {
+   "games": 4081,
+   "margin_gain_over_market": {
+    "games": 4081,
+    "high": -0.33918,
+    "low": -0.54781,
+    "mean": -0.44546
+   },
+   "margin_mae": 11.211,
+   "market_margin_mae": 10.766,
+   "market_total_mae": 14.26,
+   "model": "model",
+   "total_gain_over_market": {
+    "games": 4081,
+    "high": -0.30742,
+    "low": -0.58149,
+    "mean": -0.4408
+   },
+   "total_mae": 14.701
+  },
+  {
+   "games": 4081,
+   "margin_gain_over_market": {
+    "games": 4081,
+    "high": -0.38492,
+    "low": -0.60347,
+    "mean": -0.49541
+   },
+   "margin_mae": 11.261,
+   "market_margin_mae": 10.766,
+   "market_total_mae": 14.26,
+   "model": "baseline",
+   "total_gain_over_market": {
+    "games": 4081,
+    "high": -0.33506,
+    "low": -0.62523,
+    "mean": -0.47529
+   },
+   "total_mae": 14.735
+  },
+  {
+   "games": 4081,
+   "margin_gain_over_market": {
+    "games": 4081,
+    "high": -0.4027,
+    "low": -0.61288,
+    "mean": -0.50712
+   },
+   "margin_mae": 11.273,
+   "market_margin_mae": 10.766,
+   "market_total_mae": 14.26,
+   "model": "elo",
+   "total_gain_over_market": {
+    "games": 4081,
+    "high": -1.73868,
+    "low": -2.27083,
+    "mean": -2.00234
+   },
+   "total_mae": 16.262
+  },
+  {
+   "games": 4081,
+   "margin_gain_over_market": {
+    "games": 4081,
+    "high": -1.19855,
+    "low": -1.53076,
+    "mean": -1.36412
+   },
+   "margin_mae": 12.13,
+   "market_margin_mae": 10.766,
+   "market_total_mae": 14.26,
+   "model": "prior",
+   "total_gain_over_market": {
+    "games": 4081,
+    "high": -1.24181,
+    "low": -1.72457,
+    "mean": -1.4917
+   },
+   "total_mae": 15.752
+  }
+ ],
+ "markets": [
+  {
+   "brier_calibrated": 0.25062,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4059,
+    "high": 0.00224,
+    "low": -1e-05,
+    "mean": 0.0011
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4059,
+    "high": 0.00554,
+    "low": 0.00262,
+    "mean": 0.00411
+   },
+   "gain_vs_best_baseline": {
+    "games": 4059,
+    "high": 0.00224,
+    "low": -1e-05,
+    "mean": 0.0011
+   },
+   "log_loss_calibrated": 0.6944,
+   "log_loss_raw": 0.71637,
+   "model": "model",
+   "rows": 4059,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.25116,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4059,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4059,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_vs_best_baseline": {
+    "games": 4059,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "log_loss_calibrated": 0.6955,
+   "log_loss_raw": 0.72048,
+   "model": "baseline",
+   "rows": 4059,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.2509,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4059,
+    "high": 0.0019,
+    "low": -0.00072,
+    "mean": 0.00055
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4059,
+    "high": 0.00251,
+    "low": -0.00361,
+    "mean": -0.00057
+   },
+   "gain_vs_best_baseline": {
+    "games": 4059,
+    "high": 0.0019,
+    "low": -0.00072,
+    "mean": 0.00055
+   },
+   "log_loss_calibrated": 0.69495,
+   "log_loss_raw": 0.72105,
+   "model": "elo",
+   "rows": 4059,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.25115,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4059,
+    "high": 0.0016,
+    "low": -0.00147,
+    "mean": 5e-05
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4059,
+    "high": -0.03459,
+    "low": -0.05138,
+    "mean": -0.04282
+   },
+   "gain_vs_best_baseline": {
+    "games": 4059,
+    "high": 0.0016,
+    "low": -0.00147,
+    "mean": 5e-05
+   },
+   "log_loss_calibrated": 0.69545,
+   "log_loss_raw": 0.76329,
+   "model": "prior",
+   "rows": 4059,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.23772,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.00512,
+    "low": 0.00208,
+    "mean": 0.00365
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.0042,
+    "low": 0.00181,
+    "mean": 0.00303
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": 0.0045,
+    "low": 0.0015,
+    "mean": 0.00299
+   },
+   "log_loss_calibrated": 0.66821,
+   "log_loss_raw": 0.66804,
+   "model": "model",
+   "rows": 20129,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.23948,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.00012,
+    "low": -0.00116,
+    "mean": -0.00066
+   },
+   "log_loss_calibrated": 0.67187,
+   "log_loss_raw": 0.67112,
+   "model": "baseline",
+   "rows": 20129,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.23933,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.00265,
+    "low": -0.00244,
+    "mean": 0.0002
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.00244,
+    "low": -0.00263,
+    "mean": -1e-05
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": 0.00199,
+    "low": -0.00311,
+    "mean": -0.00046
+   },
+   "log_loss_calibrated": 0.67155,
+   "log_loss_raw": 0.67109,
+   "model": "elo",
+   "rows": 20129,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.24887,
+   "family": "handicap",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": -0.01662,
+    "low": -0.02353,
+    "mean": -0.01995
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": -0.03797,
+    "low": -0.0525,
+    "mean": -0.04507
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.01725,
+    "low": -0.02421,
+    "mean": -0.02061
+   },
+   "log_loss_calibrated": 0.69096,
+   "log_loss_raw": 0.71623,
+   "model": "prior",
+   "rows": 20129,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.25043,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4070,
+    "high": 0.00219,
+    "low": -8e-05,
+    "mean": 0.00101
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4070,
+    "high": 0.00353,
+    "low": -0.00185,
+    "mean": 0.00082
+   },
+   "gain_vs_best_baseline": {
+    "games": 4070,
+    "high": 0.00219,
+    "low": -8e-05,
+    "mean": 0.00101
+   },
+   "log_loss_calibrated": 0.69401,
+   "log_loss_raw": 0.71212,
+   "model": "model",
+   "rows": 4070,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.25092,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4070,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4070,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_vs_best_baseline": {
+    "games": 4070,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "log_loss_calibrated": 0.69502,
+   "log_loss_raw": 0.71294,
+   "model": "baseline",
+   "rows": 4070,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.25111,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4070,
+    "high": 0.00171,
+    "low": -0.00233,
+    "mean": -0.00037
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4070,
+    "high": -0.0403,
+    "low": -0.06185,
+    "mean": -0.05169
+   },
+   "gain_vs_best_baseline": {
+    "games": 4070,
+    "high": 0.00171,
+    "low": -0.00233,
+    "mean": -0.00037
+   },
+   "log_loss_calibrated": 0.69539,
+   "log_loss_raw": 0.76463,
+   "model": "elo",
+   "rows": 4070,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.25057,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4070,
+    "high": 0.00279,
+    "low": -0.00128,
+    "mean": 0.00072
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4070,
+    "high": -0.02362,
+    "low": -0.04089,
+    "mean": -0.03254
+   },
+   "gain_vs_best_baseline": {
+    "games": 4070,
+    "high": 0.00279,
+    "low": -0.00128,
+    "mean": 0.00072
+   },
+   "log_loss_calibrated": 0.6943,
+   "log_loss_raw": 0.74548,
+   "model": "prior",
+   "rows": 4070,
+   "source": "real"
+  },
+  {
+   "brier_calibrated": 0.24328,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.0059,
+    "low": 0.00083,
+    "mean": 0.00335
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.0038,
+    "low": -0.00093,
+    "mean": 0.00147
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": 0.00427,
+    "low": -0.00095,
+    "mean": 0.00168
+   },
+   "log_loss_calibrated": 0.67957,
+   "log_loss_raw": 0.67971,
+   "model": "model",
+   "rows": 20215,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.2449,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.00018,
+    "low": -0.0031,
+    "mean": -0.00167
+   },
+   "log_loss_calibrated": 0.68294,
+   "log_loss_raw": 0.68119,
+   "model": "baseline",
+   "rows": 20215,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.25093,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": -0.01025,
+    "low": -0.01536,
+    "mean": -0.01287
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": -0.0489,
+    "low": -0.06853,
+    "mean": -0.05874
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.01171,
+    "low": -0.01715,
+    "mean": -0.01454
+   },
+   "log_loss_calibrated": 0.69511,
+   "log_loss_raw": 0.73996,
+   "model": "elo",
+   "rows": 20215,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.25098,
+   "family": "total_ft",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": -0.01025,
+    "low": -0.01561,
+    "mean": -0.01299
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": -0.02942,
+    "low": -0.04553,
+    "mean": -0.03765
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.01124,
+    "low": -0.01771,
+    "mean": -0.01466
+   },
+   "log_loss_calibrated": 0.69524,
+   "log_loss_raw": 0.71899,
+   "model": "prior",
+   "rows": 20215,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.23676,
+   "family": "total_1h",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.00468,
+    "low": -0.00103,
+    "mean": 0.00181
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.00494,
+    "low": -0.00119,
+    "mean": 0.00187
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": 0.00444,
+    "low": -0.0015,
+    "mean": 0.00146
+   },
+   "log_loss_calibrated": 0.66624,
+   "log_loss_raw": 0.66597,
+   "model": "model",
+   "rows": 20089,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.23765,
+   "family": "total_1h",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": 0.0003,
+    "low": -0.001,
+    "mean": -0.00035
+   },
+   "log_loss_calibrated": 0.66811,
+   "log_loss_raw": 0.66781,
+   "model": "baseline",
+   "rows": 20089,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.24424,
+   "family": "total_1h",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": -0.01041,
+    "low": -0.01849,
+    "mean": -0.01454
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": -0.0248,
+    "low": -0.04047,
+    "mean": -0.03291
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.01086,
+    "low": -0.01875,
+    "mean": -0.01489
+   },
+   "log_loss_calibrated": 0.68161,
+   "log_loss_raw": 0.70034,
+   "model": "elo",
+   "rows": 20089,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.24535,
+   "family": "total_1h",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": -0.01243,
+    "low": -0.02137,
+    "mean": -0.01694
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": -0.02032,
+    "low": -0.03446,
+    "mean": -0.0275
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.01284,
+    "low": -0.02157,
+    "mean": -0.0173
+   },
+   "log_loss_calibrated": 0.68414,
+   "log_loss_raw": 0.69513,
+   "model": "prior",
+   "rows": 20089,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.24569,
+   "family": "team_total",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.0043,
+    "low": 0.00118,
+    "mean": 0.00276
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.00366,
+    "low": 0.00041,
+    "mean": 0.00206
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": 0.00346,
+    "low": 0.0,
+    "mean": 0.00174
+   },
+   "log_loss_calibrated": 0.6845,
+   "log_loss_raw": 0.68419,
+   "model": "model",
+   "rows": 40424,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.24708,
+   "family": "team_total",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": 1e-05,
+    "low": -0.00206,
+    "mean": -0.00102
+   },
+   "log_loss_calibrated": 0.68731,
+   "log_loss_raw": 0.68629,
+   "model": "baseline",
+   "rows": 40424,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.25053,
+   "family": "team_total",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": -0.00545,
+    "low": -0.00888,
+    "mean": -0.00718
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": -0.03237,
+    "low": -0.04532,
+    "mean": -0.03885
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.00627,
+    "low": -0.01008,
+    "mean": -0.0082
+   },
+   "log_loss_calibrated": 0.69425,
+   "log_loss_raw": 0.72502,
+   "model": "elo",
+   "rows": 40424,
+   "source": "synthetic"
+  },
+  {
+   "brier_calibrated": 0.25126,
+   "family": "team_total",
+   "gain_calibrated_vs_baseline": {
+    "games": 4083,
+    "high": -0.00719,
+    "low": -0.01009,
+    "mean": -0.00867
+   },
+   "gain_raw_vs_baseline": {
+    "games": 4083,
+    "high": -0.03624,
+    "low": -0.0475,
+    "mean": -0.04162
+   },
+   "gain_vs_best_baseline": {
+    "games": 4083,
+    "high": -0.00764,
+    "low": -0.01174,
+    "mean": -0.00968
+   },
+   "log_loss_calibrated": 0.69575,
+   "log_loss_raw": 0.72796,
+   "model": "prior",
+   "rows": 40424,
+   "source": "synthetic"
+  }
+ ],
+ "notes": [
+  "Tuning and thresholds used only games before the first tested game.",
+  "Validation ran from 2022-10-01 to 2023-07-01, refitting every 30 days through the tested games.",
+  "No injury features are in V1 (D15), so availability news isn't reflected.",
+  "Half-time and team totals have no historical lines, so any edge on them is unproven until live SportyBet logs build up (D18, D27).",
+  "Real lines are ESPN book closing lines, not SportyBet prices, whose margin may differ."
+ ],
+ "reliability": [
+  {
+   "family": "handicap",
+   "high": 0.2,
+   "hit_rate": 1.0,
+   "low": 0.1,
+   "mean_p": 0.197,
+   "rows": 1,
+   "source": "synthetic"
+  },
+  {
+   "family": "handicap",
+   "high": 0.3,
+   "hit_rate": 0.3137,
+   "low": 0.2,
+   "mean_p": 0.2691,
+   "rows": 255,
+   "source": "synthetic"
+  },
+  {
+   "family": "handicap",
+   "high": 0.4,
+   "hit_rate": 0.3529,
+   "low": 0.3,
+   "mean_p": 0.3576,
+   "rows": 4404,
+   "source": "synthetic"
+  },
+  {
+   "family": "handicap",
+   "high": 0.5,
+   "hit_rate": 0.4434,
+   "low": 0.4,
+   "mean_p": 0.4482,
+   "rows": 5178,
+   "source": "synthetic"
+  },
+  {
+   "family": "handicap",
+   "high": 0.6,
+   "hit_rate": 0.5475,
+   "low": 0.5,
+   "mean_p": 0.5514,
+   "rows": 5476,
+   "source": "synthetic"
+  },
+  {
+   "family": "handicap",
+   "high": 0.7,
+   "hit_rate": 0.6401,
+   "low": 0.6,
+   "mean_p": 0.6447,
+   "rows": 4459,
+   "source": "synthetic"
+  },
+  {
+   "family": "handicap",
+   "high": 0.8,
+   "hit_rate": 0.6826,
+   "low": 0.7,
+   "mean_p": 0.705,
+   "rows": 356,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.2,
+   "hit_rate": 0.248,
+   "low": 0.1,
+   "mean_p": 0.1905,
+   "rows": 125,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.3,
+   "hit_rate": 0.2722,
+   "low": 0.2,
+   "mean_p": 0.2525,
+   "rows": 316,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.4,
+   "hit_rate": 0.3859,
+   "low": 0.3,
+   "mean_p": 0.3713,
+   "rows": 2291,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.5,
+   "hit_rate": 0.4514,
+   "low": 0.4,
+   "mean_p": 0.4523,
+   "rows": 7227,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.6,
+   "hit_rate": 0.5513,
+   "low": 0.5,
+   "mean_p": 0.5559,
+   "rows": 6913,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.7,
+   "hit_rate": 0.6082,
+   "low": 0.6,
+   "mean_p": 0.6323,
+   "rows": 3295,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.8,
+   "hit_rate": 0.625,
+   "low": 0.7,
+   "mean_p": 0.7129,
+   "rows": 48,
+   "source": "synthetic"
+  },
+  {
+   "family": "team_total",
+   "high": 0.3,
+   "hit_rate": 0.3497,
+   "low": 0.2,
+   "mean_p": 0.2723,
+   "rows": 143,
+   "source": "synthetic"
+  },
+  {
+   "family": "team_total",
+   "high": 0.4,
+   "hit_rate": 0.3614,
+   "low": 0.3,
+   "mean_p": 0.361,
+   "rows": 1829,
+   "source": "synthetic"
+  },
+  {
+   "family": "team_total",
+   "high": 0.5,
+   "hit_rate": 0.4514,
+   "low": 0.4,
+   "mean_p": 0.4552,
+   "rows": 16288,
+   "source": "synthetic"
+  },
+  {
+   "family": "team_total",
+   "high": 0.6,
+   "hit_rate": 0.5401,
+   "low": 0.5,
+   "mean_p": 0.5449,
+   "rows": 16999,
+   "source": "synthetic"
+  },
+  {
+   "family": "team_total",
+   "high": 0.7,
+   "hit_rate": 0.6027,
+   "low": 0.6,
+   "mean_p": 0.6201,
+   "rows": 4971,
+   "source": "synthetic"
+  },
+  {
+   "family": "team_total",
+   "high": 0.8,
+   "hit_rate": 0.6222,
+   "low": 0.7,
+   "mean_p": 0.742,
+   "rows": 180,
+   "source": "synthetic"
+  },
+  {
+   "family": "team_total",
+   "high": 0.9,
+   "hit_rate": 0.7857,
+   "low": 0.8,
+   "mean_p": 0.8,
+   "rows": 14,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_1h",
+   "high": 0.2,
+   "hit_rate": 0.2114,
+   "low": 0.1,
+   "mean_p": 0.1745,
+   "rows": 123,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_1h",
+   "high": 0.3,
+   "hit_rate": 0.2676,
+   "low": 0.2,
+   "mean_p": 0.2554,
+   "rows": 527,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_1h",
+   "high": 0.4,
+   "hit_rate": 0.3567,
+   "low": 0.3,
+   "mean_p": 0.3525,
+   "rows": 4315,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_1h",
+   "high": 0.5,
+   "hit_rate": 0.4517,
+   "low": 0.4,
+   "mean_p": 0.4465,
+   "rows": 6529,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_1h",
+   "high": 0.6,
+   "hit_rate": 0.5689,
+   "low": 0.5,
+   "mean_p": 0.5561,
+   "rows": 4519,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_1h",
+   "high": 0.7,
+   "hit_rate": 0.6473,
+   "low": 0.6,
+   "mean_p": 0.6486,
+   "rows": 3859,
+   "source": "synthetic"
+  },
+  {
+   "family": "total_1h",
+   "high": 0.8,
+   "hit_rate": 0.6682,
+   "low": 0.7,
+   "mean_p": 0.712,
+   "rows": 217,
+   "source": "synthetic"
+  },
+  {
+   "family": "handicap",
+   "high": 0.4,
+   "hit_rate": 0.6154,
+   "low": 0.3,
+   "mean_p": 0.3742,
+   "rows": 13,
+   "source": "real"
+  },
+  {
+   "family": "handicap",
+   "high": 0.5,
+   "hit_rate": 0.497,
+   "low": 0.4,
+   "mean_p": 0.4837,
+   "rows": 1815,
+   "source": "real"
+  },
+  {
+   "family": "handicap",
+   "high": 0.6,
+   "hit_rate": 0.5029,
+   "low": 0.5,
+   "mean_p": 0.5145,
+   "rows": 2231,
+   "source": "real"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.5,
+   "hit_rate": 0.5138,
+   "low": 0.4,
+   "mean_p": 0.4931,
+   "rows": 1265,
+   "source": "real"
+  },
+  {
+   "family": "total_ft",
+   "high": 0.6,
+   "hit_rate": 0.4984,
+   "low": 0.5,
+   "mean_p": 0.5154,
+   "rows": 2805,
+   "source": "real"
+  }
+ ],
+ "scores": [
+  {
+   "crps": 8.022,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.05358,
+    "low": 0.02441,
+    "mean": 0.03927
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0099,
+    "low": 0.00353,
+    "mean": 0.00671
+   },
+   "log_likelihood": -4.0835,
+   "mae": 11.21,
+   "model": "model",
+   "period": "ft",
+   "rmse": 14.362,
+   "target": "margin"
+  },
+  {
+   "crps": 8.061,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "log_likelihood": -4.0902,
+   "mae": 11.261,
+   "model": "baseline",
+   "period": "ft",
+   "rmse": 14.424,
+   "target": "margin"
+  },
+  {
+   "crps": 8.059,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.02916,
+    "low": -0.02719,
+    "mean": 0.0021
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0045,
+    "low": -0.00265,
+    "mean": 0.001
+   },
+   "log_likelihood": -4.0892,
+   "mae": 11.272,
+   "model": "elo",
+   "period": "ft",
+   "rmse": 14.412,
+   "target": "margin"
+  },
+  {
+   "crps": 8.646,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.50957,
+    "low": -0.66625,
+    "mean": -0.58483
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.06061,
+    "low": -0.08046,
+    "mean": -0.06999
+   },
+   "log_likelihood": -4.1602,
+   "mae": 12.127,
+   "model": "prior",
+   "period": "ft",
+   "rmse": 15.451,
+   "target": "margin"
+  },
+  {
+   "crps": 10.411,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.05932,
+    "low": -0.01001,
+    "mean": 0.02502
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.00599,
+    "low": -0.00096,
+    "mean": 0.00248
+   },
+   "log_likelihood": -4.3356,
+   "mae": 14.71,
+   "model": "model",
+   "period": "ft",
+   "rmse": 18.455,
+   "target": "total"
+  },
+  {
+   "crps": 10.436,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "log_likelihood": -4.3381,
+   "mae": 14.744,
+   "model": "baseline",
+   "period": "ft",
+   "rmse": 18.518,
+   "target": "total"
+  },
+  {
+   "crps": 11.508,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.92968,
+    "low": -1.21206,
+    "mean": -1.07173
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.08728,
+    "low": -0.11234,
+    "mean": -0.10023
+   },
+   "log_likelihood": -4.4383,
+   "mae": 16.27,
+   "model": "elo",
+   "period": "ft",
+   "rmse": 20.476,
+   "target": "total"
+  },
+  {
+   "crps": 11.162,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.60715,
+    "low": -0.83744,
+    "mean": -0.72575
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.05909,
+    "low": -0.07966,
+    "mean": -0.06947
+   },
+   "log_likelihood": -4.4076,
+   "mae": 15.758,
+   "model": "prior",
+   "period": "ft",
+   "rmse": 19.856,
+   "target": "total"
+  },
+  {
+   "crps": 6.395,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.03093,
+    "low": -0.00938,
+    "mean": 0.01061
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.00558,
+    "low": -0.00085,
+    "mean": 0.00233
+   },
+   "log_likelihood": -3.8523,
+   "mae": 9.003,
+   "model": "model",
+   "period": "h1",
+   "rmse": 11.395,
+   "target": "margin"
+  },
+  {
+   "crps": 6.406,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "log_likelihood": -3.8546,
+   "mae": 9.025,
+   "model": "baseline",
+   "period": "h1",
+   "rmse": 11.412,
+   "target": "margin"
+  },
+  {
+   "crps": 6.355,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.08589,
+    "low": 0.01759,
+    "mean": 0.05123
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.01436,
+    "low": 0.00377,
+    "mean": 0.00894
+   },
+   "log_likelihood": -3.8457,
+   "mae": 8.964,
+   "model": "elo",
+   "period": "h1",
+   "rmse": 11.31,
+   "target": "margin"
+  },
+  {
+   "crps": 6.621,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.16005,
+    "low": -0.26621,
+    "mean": -0.2147
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.02387,
+    "low": -0.04079,
+    "mean": -0.03244
+   },
+   "log_likelihood": -3.8871,
+   "mae": 9.32,
+   "model": "prior",
+   "period": "h1",
+   "rmse": 11.785,
+   "target": "margin"
+  },
+  {
+   "crps": 6.863,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.04278,
+    "low": -0.01436,
+    "mean": 0.01429
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.00532,
+    "low": -0.00304,
+    "mean": 0.00125
+   },
+   "log_likelihood": -3.9188,
+   "mae": 9.708,
+   "model": "model",
+   "period": "h1",
+   "rmse": 12.175,
+   "target": "total"
+  },
+  {
+   "crps": 6.877,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": 0.0,
+    "low": 0.0,
+    "mean": 0.0
+   },
+   "log_likelihood": -3.92,
+   "mae": 9.753,
+   "model": "baseline",
+   "period": "h1",
+   "rmse": 12.195,
+   "target": "total"
+  },
+  {
+   "crps": 7.256,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.29673,
+    "low": -0.45998,
+    "mean": -0.37921
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.04275,
+    "low": -0.06484,
+    "mean": -0.05399
+   },
+   "log_likelihood": -3.974,
+   "mae": 10.27,
+   "model": "elo",
+   "period": "h1",
+   "rmse": 12.872,
+   "target": "total"
+  },
+  {
+   "crps": 7.204,
+   "crps_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.25596,
+    "low": -0.3946,
+    "mean": -0.32685
+   },
+   "games": 4083,
+   "ll_gain_vs_baseline": {
+    "games": 4083,
+    "high": -0.03685,
+    "low": -0.05591,
+    "mean": -0.04654
+   },
+   "log_likelihood": -3.9666,
+   "mae": 10.186,
+   "model": "prior",
+   "period": "h1",
+   "rmse": 12.776,
+   "target": "total"
+  }
+ ],
+ "scores_by_label": {
+  "2023-24": [
+   {
+    "crps": 7.952,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.07141,
+     "low": 0.01528,
+     "mean": 0.04354
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.01609,
+     "low": 0.00432,
+     "mean": 0.00999
+    },
+    "log_likelihood": -4.0727,
+    "mae": 11.111,
+    "model": "model",
+    "period": "ft",
+    "rmse": 14.251,
+    "target": "margin"
+   },
+   {
+    "crps": 7.996,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.0827,
+    "mae": 11.17,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 14.314,
+    "target": "margin"
+   },
+   {
+    "crps": 7.968,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.07427,
+     "low": -0.01713,
+     "mean": 0.02812
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.01078,
+     "low": -0.00137,
+     "mean": 0.00451
+    },
+    "log_likelihood": -4.0782,
+    "mae": 11.144,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 14.257,
+    "target": "margin"
+   },
+   {
+    "crps": 8.479,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.3502,
+     "low": -0.60824,
+     "mean": -0.48309
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.04102,
+     "low": -0.07401,
+     "mean": -0.0577
+    },
+    "log_likelihood": -4.1404,
+    "mae": 11.921,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 15.158,
+    "target": "margin"
+   },
+   {
+    "crps": 10.298,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.07233,
+     "low": -0.08034,
+     "mean": -0.00627
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.00892,
+     "low": -0.00596,
+     "mean": 0.00137
+    },
+    "log_likelihood": -4.3229,
+    "mae": 14.664,
+    "model": "model",
+    "period": "ft",
+    "rmse": 18.233,
+    "target": "total"
+   },
+   {
+    "crps": 10.292,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.3243,
+    "mae": 14.626,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 18.249,
+    "target": "total"
+   },
+   {
+    "crps": 11.661,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": -1.10312,
+     "low": -1.63996,
+     "mean": -1.36879
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.10552,
+     "low": -0.15236,
+     "mean": -0.12863
+    },
+    "log_likelihood": -4.4529,
+    "mae": 16.502,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 20.769,
+    "target": "total"
+   },
+   {
+    "crps": 11.061,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.57569,
+     "low": -0.96755,
+     "mean": -0.76954
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.05627,
+     "low": -0.09,
+     "mean": -0.07302
+    },
+    "log_likelihood": -4.3973,
+    "mae": 15.673,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 19.646,
+    "target": "total"
+   },
+   {
+    "crps": 6.414,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.06075,
+     "low": -0.01208,
+     "mean": 0.02335
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.00904,
+     "low": -0.00295,
+     "mean": 0.00297
+    },
+    "log_likelihood": -3.8574,
+    "mae": 9.016,
+    "model": "model",
+    "period": "h1",
+    "rmse": 11.437,
+    "target": "margin"
+   },
+   {
+    "crps": 6.438,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.8603,
+    "mae": 9.05,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 11.468,
+    "target": "margin"
+   },
+   {
+    "crps": 6.375,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.1228,
+     "low": -0.00097,
+     "mean": 0.06307
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.02079,
+     "low": 0.00109,
+     "mean": 0.01116
+    },
+    "log_likelihood": -3.8492,
+    "mae": 8.973,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 11.341,
+    "target": "margin"
+   },
+   {
+    "crps": 6.608,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.0822,
+     "low": -0.26141,
+     "mean": -0.16994
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.01109,
+     "low": -0.03947,
+     "mean": -0.02497
+    },
+    "log_likelihood": -3.8853,
+    "mae": 9.272,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 11.758,
+    "target": "margin"
+   },
+   {
+    "crps": 6.881,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.06509,
+     "low": -0.03796,
+     "mean": 0.01375
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.00884,
+     "low": -0.00583,
+     "mean": 0.00133
+    },
+    "log_likelihood": -3.9218,
+    "mae": 9.771,
+    "model": "model",
+    "period": "h1",
+    "rmse": 12.215,
+    "target": "total"
+   },
+   {
+    "crps": 6.895,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.9231,
+    "mae": 9.831,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 12.232,
+    "target": "total"
+   },
+   {
+    "crps": 7.405,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.36203,
+     "low": -0.66791,
+     "mean": -0.51039
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.05123,
+     "low": -0.09288,
+     "mean": -0.07195
+    },
+    "log_likelihood": -3.995,
+    "mae": 10.5,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 13.141,
+    "target": "total"
+   },
+   {
+    "crps": 7.315,
+    "crps_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.30403,
+     "low": -0.5442,
+     "mean": -0.4207
+    },
+    "games": 1319,
+    "ll_gain_vs_baseline": {
+     "games": 1319,
+     "high": -0.04155,
+     "low": -0.07495,
+     "mean": -0.05766
+    },
+    "log_likelihood": -3.9807,
+    "mae": 10.394,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 12.956,
+    "target": "total"
+   }
+  ],
+  "2024-25": [
+   {
+    "crps": 7.922,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.06095,
+     "low": 0.01336,
+     "mean": 0.03782
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.01225,
+     "low": 0.00095,
+     "mean": 0.00668
+    },
+    "log_likelihood": -4.0721,
+    "mae": 11.059,
+    "model": "model",
+    "period": "ft",
+    "rmse": 14.21,
+    "target": "margin"
+   },
+   {
+    "crps": 7.959,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.0788,
+    "mae": 11.113,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 14.272,
+    "target": "margin"
+   },
+   {
+    "crps": 7.975,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.03409,
+     "low": -0.06099,
+     "mean": -0.01587
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.00622,
+     "low": -0.00609,
+     "mean": -0.00022
+    },
+    "log_likelihood": -4.079,
+    "mae": 11.153,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 14.276,
+    "target": "margin"
+   },
+   {
+    "crps": 8.508,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.41252,
+     "low": -0.6873,
+     "mean": -0.54854
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.05026,
+     "low": -0.08501,
+     "mean": -0.06776
+    },
+    "log_likelihood": -4.1466,
+    "mae": 11.914,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 15.259,
+    "target": "margin"
+   },
+   {
+    "crps": 10.308,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.11788,
+     "low": 0.00386,
+     "mean": 0.06111
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.01034,
+     "low": -0.00131,
+     "mean": 0.00462
+    },
+    "log_likelihood": -4.3263,
+    "mae": 14.546,
+    "model": "model",
+    "period": "ft",
+    "rmse": 18.259,
+    "target": "total"
+   },
+   {
+    "crps": 10.369,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.3309,
+    "mae": 14.669,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 18.381,
+    "target": "total"
+   },
+   {
+    "crps": 11.3,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.71236,
+     "low": -1.1523,
+     "mean": -0.93145
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.06787,
+     "low": -0.10412,
+     "mean": -0.0863
+    },
+    "log_likelihood": -4.4172,
+    "mae": 16.02,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 20.044,
+    "target": "total"
+   },
+   {
+    "crps": 11.145,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.58163,
+     "low": -0.96569,
+     "mean": -0.77629
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.05776,
+     "low": -0.0904,
+     "mean": -0.07446
+    },
+    "log_likelihood": -4.4054,
+    "mae": 15.745,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 19.811,
+    "target": "total"
+   },
+   {
+    "crps": 6.296,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.05361,
+     "low": -0.01656,
+     "mean": 0.01927
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.00988,
+     "low": -0.00135,
+     "mean": 0.00443
+    },
+    "log_likelihood": -3.8373,
+    "mae": 8.862,
+    "model": "model",
+    "period": "h1",
+    "rmse": 11.238,
+    "target": "margin"
+   },
+   {
+    "crps": 6.315,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.8417,
+    "mae": 8.899,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 11.273,
+    "target": "margin"
+   },
+   {
+    "crps": 6.284,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.09431,
+     "low": -0.03254,
+     "mean": 0.03096
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.01627,
+     "low": -0.00333,
+     "mean": 0.00663
+    },
+    "log_likelihood": -3.8351,
+    "mae": 8.88,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 11.197,
+    "target": "margin"
+   },
+   {
+    "crps": 6.493,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.08374,
+     "low": -0.27653,
+     "mean": -0.17793
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.01479,
+     "low": -0.0454,
+     "mean": -0.02946
+    },
+    "log_likelihood": -3.8712,
+    "mae": 9.116,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 11.608,
+    "target": "margin"
+   },
+   {
+    "crps": 6.681,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.06293,
+     "low": -0.03694,
+     "mean": 0.0129
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.00932,
+     "low": -0.0046,
+     "mean": 0.00238
+    },
+    "log_likelihood": -3.8904,
+    "mae": 9.464,
+    "model": "model",
+    "period": "h1",
+    "rmse": 11.828,
+    "target": "total"
+   },
+   {
+    "crps": 6.694,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.8928,
+    "mae": 9.502,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 11.857,
+    "target": "total"
+   },
+   {
+    "crps": 7.05,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.23164,
+     "low": -0.48837,
+     "mean": -0.35649
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.03444,
+     "low": -0.07056,
+     "mean": -0.05257
+    },
+    "log_likelihood": -3.9454,
+    "mae": 9.992,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 12.494,
+    "target": "total"
+   },
+   {
+    "crps": 7.029,
+    "crps_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.22236,
+     "low": -0.44379,
+     "mean": -0.33465
+    },
+    "games": 1321,
+    "ll_gain_vs_baseline": {
+     "games": 1321,
+     "high": -0.03436,
+     "low": -0.06532,
+     "mean": -0.05013
+    },
+    "log_likelihood": -3.9429,
+    "mae": 9.936,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 12.468,
+    "target": "total"
+   }
+  ],
+  "2025-26": [
+   {
+    "crps": 8.184,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0635,
+     "low": 0.01355,
+     "mean": 0.03896
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.01036,
+     "low": 0.00013,
+     "mean": 0.00539
+    },
+    "log_likelihood": -4.1029,
+    "mae": 11.453,
+    "model": "model",
+    "period": "ft",
+    "rmse": 14.608,
+    "target": "margin"
+   },
+   {
+    "crps": 8.223,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.1082,
+    "mae": 11.491,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 14.669,
+    "target": "margin"
+   },
+   {
+    "crps": 8.211,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.06866,
+     "low": -0.04421,
+     "mean": 0.01172
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.00776,
+     "low": -0.00594,
+     "mean": 0.00093
+    },
+    "log_likelihood": -4.1073,
+    "mae": 11.48,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 14.658,
+    "target": "margin"
+   },
+   {
+    "crps": 8.978,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.60805,
+     "low": -0.91055,
+     "mean": -0.75437
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.07033,
+     "low": -0.10792,
+     "mean": -0.08864
+    },
+    "log_likelihood": -4.1969,
+    "mae": 12.579,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 15.97,
+    "target": "margin"
+   },
+   {
+    "crps": 10.609,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0789,
+     "low": -0.02364,
+     "mean": 0.02655
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.00778,
+     "low": -0.00299,
+     "mean": 0.0024
+    },
+    "log_likelihood": -4.3555,
+    "mae": 14.911,
+    "model": "model",
+    "period": "ft",
+    "rmse": 18.832,
+    "target": "total"
+   },
+   {
+    "crps": 10.635,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.3579,
+    "mae": 14.932,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 18.896,
+    "target": "total"
+   },
+   {
+    "crps": 11.608,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.71907,
+     "low": -1.23425,
+     "mean": -0.97241
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.06842,
+     "low": -0.11425,
+     "mean": -0.09125
+    },
+    "log_likelihood": -4.4492,
+    "mae": 16.348,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 20.695,
+    "target": "total"
+   },
+   {
+    "crps": 11.323,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.47273,
+     "low": -0.89823,
+     "mean": -0.6873
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.04648,
+     "low": -0.08502,
+     "mean": -0.06615
+    },
+    "log_likelihood": -4.4241,
+    "mae": 15.905,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 20.187,
+    "target": "total"
+   },
+   {
+    "crps": 6.462,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.02595,
+     "low": -0.04174,
+     "mean": -0.00756
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.00518,
+     "low": -0.00537,
+     "mean": -7e-05
+    },
+    "log_likelihood": -3.8597,
+    "mae": 9.124,
+    "model": "model",
+    "period": "h1",
+    "rmse": 11.478,
+    "target": "margin"
+   },
+   {
+    "crps": 6.454,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.8596,
+    "mae": 9.122,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 11.469,
+    "target": "margin"
+   },
+   {
+    "crps": 6.397,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.11224,
+     "low": 0.00186,
+     "mean": 0.05664
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.01702,
+     "low": -0.00019,
+     "mean": 0.00842
+    },
+    "log_likelihood": -3.8512,
+    "mae": 9.031,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 11.372,
+    "target": "margin"
+   },
+   {
+    "crps": 6.78,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.22839,
+     "low": -0.4289,
+     "mean": -0.32632
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.03229,
+     "low": -0.06387,
+     "mean": -0.04774
+    },
+    "log_likelihood": -3.9074,
+    "mae": 9.602,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 12.013,
+    "target": "margin"
+   },
+   {
+    "crps": 7.004,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.08339,
+     "low": -0.0259,
+     "mean": 0.02739
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.01044,
+     "low": -0.00657,
+     "mean": 0.00182
+    },
+    "log_likelihood": -3.9409,
+    "mae": 9.845,
+    "model": "model",
+    "period": "h1",
+    "rmse": 12.436,
+    "target": "total"
+   },
+   {
+    "crps": 7.031,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.9427,
+    "mae": 9.902,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 12.469,
+    "target": "total"
+   },
+   {
+    "crps": 7.322,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.14419,
+     "low": -0.44185,
+     "mean": -0.29075
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.0195,
+     "low": -0.05987,
+     "mean": -0.04
+    },
+    "log_likelihood": -3.9827,
+    "mae": 10.322,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 12.983,
+    "target": "total"
+   },
+   {
+    "crps": 7.29,
+    "crps_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.12546,
+     "low": -0.39897,
+     "mean": -0.25892
+    },
+    "games": 1322,
+    "ll_gain_vs_baseline": {
+     "games": 1322,
+     "high": -0.01665,
+     "low": -0.05601,
+     "mean": -0.03591
+    },
+    "log_likelihood": -3.9786,
+    "mae": 10.257,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 12.93,
+    "target": "total"
+   }
+  ],
+  "2026-27 start": [
+   {
+    "crps": 8.096,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.09718,
+     "low": -0.07544,
+     "mean": 0.01192
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.00972,
+     "low": -0.04127,
+     "mean": -0.01415
+    },
+    "log_likelihood": -4.1126,
+    "mae": 11.296,
+    "model": "model",
+    "period": "ft",
+    "rmse": 14.514,
+    "target": "margin"
+   },
+   {
+    "crps": 8.108,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.0985,
+    "mae": 11.334,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 14.547,
+    "target": "margin"
+   },
+   {
+    "crps": 8.299,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.07776,
+     "low": -0.46593,
+     "mean": -0.19044
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.00962,
+     "low": -0.05628,
+     "mean": -0.023
+    },
+    "log_likelihood": -4.1215,
+    "mae": 11.687,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 14.85,
+    "target": "margin"
+   },
+   {
+    "crps": 8.346,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.12194,
+     "low": -0.58566,
+     "mean": -0.23773
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.02044,
+     "low": -0.06804,
+     "mean": -0.02454
+    },
+    "log_likelihood": -4.123,
+    "mae": 11.776,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 14.939,
+    "target": "margin"
+   },
+   {
+    "crps": 10.615,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.13882,
+     "low": -0.23092,
+     "mean": -0.04472
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.01492,
+     "low": -0.02915,
+     "mean": -0.00773
+    },
+    "log_likelihood": -4.3585,
+    "mae": 14.796,
+    "model": "model",
+    "period": "ft",
+    "rmse": 18.828,
+    "target": "total"
+   },
+   {
+    "crps": 10.57,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -4.3507,
+    "mae": 14.787,
+    "model": "baseline",
+    "period": "ft",
+    "rmse": 18.761,
+    "target": "total"
+   },
+   {
+    "crps": 11.02,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.14212,
+     "low": -1.04894,
+     "mean": -0.45018
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.01209,
+     "low": -0.09171,
+     "mean": -0.04105
+    },
+    "log_likelihood": -4.3918,
+    "mae": 15.631,
+    "model": "elo",
+    "period": "ft",
+    "rmse": 19.51,
+    "target": "total"
+   },
+   {
+    "crps": 10.687,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.29305,
+     "low": -0.50188,
+     "mean": -0.11672
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.02763,
+     "low": -0.05116,
+     "mean": -0.0126
+    },
+    "log_likelihood": -4.3633,
+    "mae": 15.202,
+    "model": "prior",
+    "period": "ft",
+    "rmse": 18.947,
+    "target": "total"
+   },
+   {
+    "crps": 6.548,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.09037,
+     "low": -0.14015,
+     "mean": -0.02421
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.01753,
+     "low": -0.01967,
+     "mean": -0.00121
+    },
+    "log_likelihood": -3.8803,
+    "mae": 9.081,
+    "model": "model",
+    "period": "h1",
+    "rmse": 11.707,
+    "target": "margin"
+   },
+   {
+    "crps": 6.524,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.8791,
+    "mae": 9.053,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 11.679,
+    "target": "margin"
+   },
+   {
+    "crps": 6.44,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.26804,
+     "low": -0.09733,
+     "mean": 0.08421
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.04262,
+     "low": -0.01131,
+     "mean": 0.0158
+    },
+    "log_likelihood": -3.8633,
+    "mae": 9.073,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 11.502,
+    "target": "margin"
+   },
+   {
+    "crps": 6.409,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.35021,
+     "low": -0.10856,
+     "mean": 0.11549
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.05949,
+     "low": -0.01536,
+     "mean": 0.02064
+    },
+    "log_likelihood": -3.8584,
+    "mae": 8.981,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 11.467,
+    "target": "margin"
+   },
+   {
+    "crps": 7.113,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.05346,
+     "low": -0.26835,
+     "mean": -0.10771
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.00413,
+     "low": -0.04087,
+     "mean": -0.01831
+    },
+    "log_likelihood": -3.9551,
+    "mae": 10.194,
+    "model": "model",
+    "period": "h1",
+    "rmse": 12.593,
+    "target": "total"
+   },
+   {
+    "crps": 7.005,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.0,
+     "low": 0.0,
+     "mean": 0.0
+    },
+    "log_likelihood": -3.9368,
+    "mae": 10.029,
+    "model": "baseline",
+    "period": "h1",
+    "rmse": 12.4,
+    "target": "total"
+   },
+   {
+    "crps": 7.169,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.25471,
+     "low": -0.58901,
+     "mean": -0.16354
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.03316,
+     "low": -0.08888,
+     "mean": -0.02672
+    },
+    "log_likelihood": -3.9636,
+    "mae": 10.243,
+    "model": "elo",
+    "period": "h1",
+    "rmse": 12.736,
+    "target": "total"
+   },
+   {
+    "crps": 6.966,
+    "crps_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.35412,
+     "low": -0.29426,
+     "mean": 0.03934
+    },
+    "games": 121,
+    "ll_gain_vs_baseline": {
+     "games": 121,
+     "high": 0.04074,
+     "low": -0.04744,
+     "mean": -0.0025
+    },
+    "log_likelihood": -3.9393,
+    "mae": 9.874,
+    "model": "prior",
+    "period": "h1",
+    "rmse": 12.423,
+    "target": "total"
+   }
+  ]
+ },
+ "selection": [
+  {
+   "family": "handicap",
+   "flat_return_at_minus_110": {
+    "games": 657,
+    "high": 0.01702,
+    "low": -0.12827,
+    "mean": -0.05562
+   },
+   "hit_rate": {
+    "games": 657,
+    "high": 0.53272,
+    "low": 0.45662,
+    "mean": 0.49467
+   },
+   "mean_p": 0.542,
+   "model": "model",
+   "picks": 657
+  },
+  {
+   "family": "handicap",
+   "flat_return_at_minus_110": {
+    "games": 471,
+    "high": -0.08801,
+    "low": -0.25825,
+    "mean": -0.17313
+   },
+   "hit_rate": {
+    "games": 471,
+    "high": 0.47771,
+    "low": 0.38854,
+    "mean": 0.43312
+   },
+   "mean_p": 0.5484,
+   "model": "baseline",
+   "picks": 471
+  },
+  {
+   "family": "handicap",
+   "flat_return_at_minus_110": {
+    "games": 311,
+    "high": -0.06694,
+    "low": -0.27565,
+    "mean": -0.17129
+   },
+   "hit_rate": {
+    "games": 311,
+    "high": 0.48875,
+    "low": 0.37942,
+    "mean": 0.43408
+   },
+   "mean_p": 0.5423,
+   "model": "elo",
+   "picks": 311
+  },
+  {
+   "family": "handicap",
+   "flat_return_at_minus_110": {
+    "games": 740,
+    "high": -0.08415,
+    "low": -0.2183,
+    "mean": -0.15123
+   },
+   "hit_rate": {
+    "games": 740,
+    "high": 0.47973,
+    "low": 0.40946,
+    "mean": 0.44459
+   },
+   "mean_p": 0.5416,
+   "model": "prior",
+   "picks": 740
+  }
+ ],
+ "thresholds": {
+  "handicap": {
+   "legs": 292,
+   "legs_per_slate": 2.75,
+   "log_likelihood": -0.69553,
+   "min_edge": 0.025,
+   "min_prob": 0.52
+  },
+  "team_total": {
+   "legs": 273,
+   "legs_per_slate": 2.58,
+   "log_likelihood": -0.6341,
+   "min_edge": 0.0,
+   "min_prob": 0.65
+  },
+  "total_1h": {
+   "legs": 529,
+   "legs_per_slate": 4.99,
+   "log_likelihood": -0.66175,
+   "min_edge": 0.0,
+   "min_prob": 0.52
+  },
+  "total_ft": null
+ },
+ "version": "20261106-1815-unknown-dirty"
+}
