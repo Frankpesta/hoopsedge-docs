@@ -16,6 +16,7 @@ from hypothesis import strategies as st
 from pydantic import ValidationError
 
 from hoopsedge.engine import (
+    FAMILIES,
     BuildResult,
     Confidence,
     InjuryStatus,
@@ -557,3 +558,45 @@ def test_a_recorded_real_slate_gives_stable_tickets() -> None:
     assert result == json.loads(GOLDEN.read_text("utf-8"))
     assert result["tickets"], "The recorded slate should give at least one ticket"
     assert {ticket["league"] for ticket in result["tickets"]} == {"NBA", "NCAA"}
+
+
+# D78: every market can fill, and a leg below what testing chose says so.
+
+
+def test_every_market_runs_on_the_owners_minimum_and_remembers_what_testing_chose() -> None:
+    families = {family: IDENTITY for family in FAMILIES}
+    loaded = load_engine_config({"NBA": families, "NCAA": families})
+    for league in ("NBA", "NCAA"):
+        for family in FAMILIES:
+            market = loaded.markets[league][family]
+            assert (market.min_prob, market.min_edge) == (0.5, 0.0), (league, family)
+            assert market.has_tested_floor
+    assert loaded.markets["NBA"]["total_ft"].tested_min_prob is None  # Testing found none (D69).
+    assert loaded.markets["NBA"]["handicap"].tested_min_prob == 0.52
+    assert loaded.markets["NCAA"]["team_total"].tested_min_prob == 0.64
+
+
+def _weak_counts(**tested: Any) -> list[bool]:
+    predictions, offers = _slate(3)
+    market = market_settings(min_prob=0.5).model_copy(update={"has_tested_floor": True, **tested})
+    markets = {league: {family: market for family in FAMILIES} for league in ("NBA", "NCAA")}
+    result = build_tickets(predictions, offers, config(markets=markets), NOW)
+    return [leg.below_tested for ticket in result.tickets for leg in ticket.legs]
+
+
+def test_a_leg_below_the_tested_minimum_is_marked() -> None:
+    assert _weak_counts(tested_min_prob=0.99, tested_min_edge=0.0) == [True] * 3
+
+
+def test_a_leg_above_the_tested_minimum_is_not_marked() -> None:
+    assert _weak_counts(tested_min_prob=0.5, tested_min_edge=-1.0) == [False] * 3
+
+
+def test_a_market_testing_found_no_minimum_for_marks_every_leg() -> None:
+    assert _weak_counts(tested_min_prob=None, tested_min_edge=None) == [True] * 3
+
+
+def test_a_market_without_tested_figures_marks_nothing() -> None:
+    predictions, offers = _slate(3)
+    result = build_tickets(predictions, offers, config(), NOW)
+    assert not any(leg.below_tested for ticket in result.tickets for leg in ticket.legs)

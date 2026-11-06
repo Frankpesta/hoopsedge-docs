@@ -930,3 +930,33 @@ def test_a_failed_job_is_logged_and_the_rest_still_run(tmp_path: Path) -> None:
 def test_a_pause_file_stops_everything(tmp_path: Path) -> None:
     (tmp_path / "PAUSED").write_text("", "utf-8")
     assert run_due(tmp_path, LAGOS_11, lambda *_, **__: None) == []
+
+
+# D78: a second NBA run, so later tips get an injury report from inside the 3-hour window.
+LATE_NBA = datetime(2026, 11, 7, 23, 30, tzinfo=UTC)  # 00:30 on the 8th in Lagos.
+
+
+def test_the_late_nba_run_is_due_at_half_past_midnight_lagos() -> None:
+    assert _names(LATE_NBA) == {"slate-NBA-late"}
+
+
+def test_the_late_nba_run_is_still_the_eastern_slate_it_follows() -> None:
+    jobs = due_jobs(LATE_NBA, {"grade": LATE_NBA.isoformat()})
+    assert "2026-11-07" in jobs[0].command
+    assert "NBA" in jobs[0].command
+    assert "scheduled" in jobs[0].command
+
+
+def test_the_late_nba_run_happens_once() -> None:
+    done = {"grade": LATE_NBA.isoformat(), "slate-NBA-late": "2026-11-08"}
+    assert _names(LATE_NBA, done) == set()
+
+
+def test_the_late_nba_run_can_be_moved_in_settings() -> None:
+    moved = {"nba_late_slate": "01:00"}
+    now = {"grade": LATE_NBA.isoformat()}
+    assert due_jobs(LATE_NBA, now, moved) == []
+    later = LATE_NBA + timedelta(minutes=30)
+    assert {job.name for job in due_jobs(later, {"grade": later.isoformat()}, moved)} == {
+        "slate-NBA-late"
+    }

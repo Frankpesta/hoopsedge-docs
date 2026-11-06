@@ -18,6 +18,7 @@
    "league": "NBA",
    "legs": [
     {
+     "below_tested": false,
      "edge": 0.102438,
      "ev": 0.132825,
      "event_id": "sr:match:73682600",
@@ -45,6 +46,7 @@
      "tip_time": "2026-12-25T17:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0995714,
      "ev": 0.144509,
      "event_id": "sr:match:73719544",
@@ -72,6 +74,7 @@
      "tip_time": "2026-11-06T02:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0894951,
      "ev": 0.116593,
      "event_id": "sr:match:73682658",
@@ -99,6 +102,7 @@
      "tip_time": "2026-12-25T19:30:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0468263,
      "ev": 0.0335018,
      "event_id": "sr:match:73682664",
@@ -126,6 +130,7 @@
      "tip_time": "2026-12-26T01:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0351552,
      "ev": 0.0114433,
      "event_id": "sr:match:73682660",
@@ -166,6 +171,7 @@
    "league": "NCAA",
    "legs": [
     {
+     "below_tested": false,
      "edge": 0.0851028,
      "ev": 0.087073,
      "event_id": "sr:match:73120692",
@@ -193,6 +199,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.064563,
      "ev": 0.05,
      "event_id": "sr:match:74803168",
@@ -220,6 +227,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0264317,
      "ev": -0.0295637,
      "event_id": "sr:match:73241590",
@@ -247,6 +255,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0399818,
      "ev": -0.00290337,
      "event_id": "sr:match:73809066",
@@ -287,6 +296,7 @@
    "league": "NCAA",
    "legs": [
     {
+     "below_tested": false,
      "edge": 0.0883337,
      "ev": 0.0875146,
      "event_id": "sr:match:73498440",
@@ -314,6 +324,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0821673,
      "ev": 0.083072,
      "event_id": "sr:match:74803168",
@@ -341,6 +352,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0530518,
      "ev": 0.0219767,
      "event_id": "sr:match:73809066",
@@ -368,6 +380,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.031112,
      "ev": -0.0153145,
      "event_id": "sr:match:73120692",
@@ -395,6 +408,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0365029,
      "ev": -0.00461139,
      "event_id": "sr:match:73905004",
@@ -422,6 +436,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0288591,
      "ev": -0.0211416,
      "event_id": "sr:match:73241590",
@@ -449,6 +464,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0288591,
      "ev": -0.0211416,
      "event_id": "sr:match:73245602",
@@ -476,6 +492,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0248014,
      "ev": -0.0263762,
      "event_id": "sr:match:73837346",
@@ -516,6 +533,7 @@
    "league": "NCAA",
    "legs": [
     {
+     "below_tested": false,
      "edge": 0.0362176,
      "ev": -0.00799746,
      "event_id": "sr:match:73241590",
@@ -543,6 +561,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0362176,
      "ev": -0.00799746,
      "event_id": "sr:match:73905004",
@@ -570,6 +589,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0308122,
      "ev": -0.0187218,
      "event_id": "sr:match:73120692",
@@ -597,6 +617,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0308122,
      "ev": -0.0187218,
      "event_id": "sr:match:73809066",
@@ -637,6 +658,7 @@
    "league": "NCAA",
    "legs": [
     {
+     "below_tested": false,
      "edge": 0.0959591,
      "ev": 0.0836584,
      "event_id": "sr:match:74803168",
@@ -664,6 +686,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.061824,
      "ev": 0.0193945,
      "event_id": "sr:match:73120692",
@@ -691,6 +714,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0522124,
      "ev": 0.00249845,
      "event_id": "sr:match:73809066",
@@ -718,6 +742,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0480499,
      "ev": -0.00876558,
      "event_id": "sr:match:73245602",
@@ -745,6 +770,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.024689,
      "ev": -0.0458353,
      "event_id": "sr:match:73905004",
@@ -772,6 +798,7 @@
      "tip_time": "2026-11-06T00:00:00Z"
     },
     {
+     "below_tested": false,
      "edge": 0.0265757,
      "ev": -0.0455327,
      "event_id": "sr:match:73241590",

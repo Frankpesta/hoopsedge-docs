@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* Courtside Terminal: a late-night broadcast stats desk. Dark first. */
+:root {
+  color-scheme: dark;
+  --ink: #0b0d12;
+  --surface: #141821;
+  --surface-2: #1c2230;
+  --line: #2a3140;
+  --text: #eef0f4;
+  --text-2: #b4bbc8;
+  --muted: #8d96a6;
+  --amber: #e8a93e;
+  --on-amber: #1a1204;
+  --loss: #e27574;
+  --focus: #f4c56a;
+  /* Chart tokens, checked with the palette validator against --surface. */
+  --series-1: #c4851a;
+  --series-2: #4a90e2;
+  --series-3: #dc605f;
+  --grid: #262c39;
+  --axis: #3b4353;
+  --wash: rgb(196 133 26 / 0.14);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ink: #f4f2ec;
+  --surface: #fbfaf7;
+  --surface-2: #efece4;
+  --line: #d9d5ca;
+  --text: #15171c;
+  --text-2: #474c57;
+  --muted: #646b78;
+  --amber: #8f5600;
+  --on-amber: #fff8ec;
+  --loss: #b3302f;
+  --focus: #8a5300;
+  --series-1: #b26f00;
+  --series-2: #2a78d6;
+  --series-3: #c7403f;
+  --grid: #e4e1d8;
+  --axis: #c3bfb3;
+  --wash: rgb(178 111 0 / 0.12);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-muted: var(--muted);
+  --color-amber: var(--amber);
+  --color-on-amber: var(--on-amber);
+  --color-loss: var(--loss);
+  --font-display: var(--font-display-face);
+  --font-sans: var(--font-inter-tight);
+  --font-mono: var(--font-jetbrains);
+}
+
+html,
+body {
+  background: var(--ink);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A booking code as a torn ticket stub: perforations cut from both short edges. */
+.stub {
+  --hole: 7px;
+  background: var(--surface-2);
+  -webkit-mask:
+    radial-gradient(circle var(--hole) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--hole) at 100% 50%, transparent 98%, #000) right / 51% 100%
+      no-repeat;
+  mask:
+    radial-gradient(circle var(--hole) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--hole) at 100% 50%, transparent 98%, #000) right / 51% 100%
+      no-repeat;
+}
+
+.stub::before {
+  content: "";
+  position: absolute;
+  inset: 8px auto 8px 22px;
+  border-left: 2px dotted var(--line);
+}
+
+.stub::after {
+  content: "";
+  position: absolute;
+  inset: 8px 22px 8px auto;
+  border-right: 2px dotted var(--line);
+}
+
+/* The court motif behind section headers: a free-throw arc and baseline. */
+.court-rule {
+  background-image:
+    linear-gradient(var(--line), var(--line)),
+    radial-gradient(
+      circle at 0 100%,
+      transparent 15px,
+      var(--line) 15px,
+      var(--line) 16px,
+      transparent 17px
+    );
+  background-size:
+    100% 1px,
+    34px 18px;
+  background-position:
+    0 100%,
+    0 100%;
+  background-repeat: no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

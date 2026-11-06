@@ -197,6 +197,9 @@ class PipelineStore:
         items: list[dict[str, Any]] = response["Items"]
         return items
 
+    def has_verified_codes(self, league: str, slate: date) -> bool:
+        return any(item["status"] == VERIFIED for item in self.slate_tickets(league, slate))
+
     def save_ticket(
         self,
         ticket_id: str,
@@ -239,6 +242,7 @@ class PipelineStore:
                     "ev": ticket.expected_value,
                     "passed_gate": ticket.passed_gate,
                     "edge_label": ticket.edge_label,
+                    "weak_legs": sum(leg.below_tested for leg in ticket.legs),
                     "settle_status": "pending",
                     "legs_summary": [leg_summary(leg, *teams(leg)) for leg in ticket.legs],
                 }

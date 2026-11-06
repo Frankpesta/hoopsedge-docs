@@ -707,8 +707,9 @@ def test_settings_start_from_what_phase_four_decided(api: Api) -> None:
     document = body["document"]
     assert document["schedules"]["nba_slate"] == "22:00"
     assert document["dry_run"] is True
-    assert document["markets"]["NBA"]["total_ft"]["min_prob"] is None  # D69.
-    assert document["markets"]["NCAA"]["handicap"]["min_prob"] == 0.52
+    assert document["schedules"]["nba_late_slate"] == "00:30"
+    assert document["markets"]["NBA"]["total_ft"]["min_prob"] == 0.5  # D78.
+    assert document["markets"]["NCAA"]["handicap"]["min_prob"] == 0.5
 
 
 def _changed(api: Api, **changes: Any) -> dict[str, Any]:
@@ -850,6 +851,7 @@ def test_the_system_page_shows_alerts_freshness_and_the_dry_run_state(api: Api) 
     assert body["freshness"]["last_ingest"] == "new"
     assert body["freshness"]["last_odds_fetch"] is None
     assert body["dry_run"] is True
+    assert body["scheduled_dry_run"] is True
     assert body["cost"] is None
     assert body["budget_usd"] == [10, 25, 50]
 
@@ -962,3 +964,31 @@ def test_the_schema_covers_every_endpoint() -> None:
         "/models/{league}/rollback", "/system",
     ):  # fmt: skip
         assert path in paths, path
+
+
+# D78: the page must say what will really happen, not only what the Settings switch says.
+
+
+def _turn_off_dry_run(api: Api) -> None:
+    view = api.get("/config").json()
+    document = {**view["document"], "dry_run": False}
+    response = api.send("PUT", "/config", {"version": view["version"], "document": document})
+    assert response.status_code == 200, response.text
+
+
+def test_the_switch_alone_doesnt_make_codes_real_on_this_machine(api: Api) -> None:
+    _turn_off_dry_run(api)
+    body = api.get("/system").json()
+    assert body["dry_run"] is True
+    assert body["scheduled_dry_run"] is True
+
+
+def test_with_local_booking_run_now_is_real_and_schedules_stay_practice(
+    api: Api, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("HOOPSEDGE_LOCAL_BOOKING", "dashboard")
+    monkeypatch.setenv("DRY_RUN", "false")
+    _turn_off_dry_run(api)
+    body = api.get("/system").json()
+    assert body["dry_run"] is False
+    assert body["scheduled_dry_run"] is True

@@ -476,3 +476,33 @@ def test_ulids_are_26_characters_and_sort_by_time() -> None:
     later = new_ulid(NOW.replace(year=2027))
     assert len(first) == 26
     assert first < later
+
+
+# D78: on this machine, only the dashboard's Run now can book, and only with every switch set.
+
+
+@pytest.mark.parametrize(
+    ("allowed", "dry", "trigger", "config", "expected"),
+    [
+        ("dashboard", "false", "dashboard", False, False),
+        ("dashboard", "false", "scheduled", False, True),
+        ("dashboard", "false", "manual", False, True),
+        ("dashboard", "false", None, False, True),
+        ("dashboard", "false", "dashboard", True, True),  # The Settings switch still wins.
+        ("dashboard", "true", "dashboard", False, True),
+        ("", "false", "dashboard", False, True),
+        ("anything", "false", "dashboard", False, True),
+    ],
+)
+def test_local_booking_is_only_ever_run_now(
+    monkeypatch: pytest.MonkeyPatch,
+    allowed: str,
+    dry: str,
+    trigger: str | None,
+    config: bool,
+    expected: bool,
+) -> None:
+    monkeypatch.setenv("HOOPSEDGE_ENV", "local")
+    monkeypatch.setenv("DRY_RUN", dry)
+    monkeypatch.setenv("HOOPSEDGE_LOCAL_BOOKING", allowed)
+    assert is_dry_run(config, trigger) is expected
