@@ -6,6 +6,7 @@ from pathlib import Path
 SERVICES = Path(__file__).resolve().parent.parent
 GUARDED = [
     *sorted((SERVICES / "hoopsedge" / "sportybet").rglob("*.*")),
+    *sorted((SERVICES / "hoopsedge" / "pipeline").rglob("*.*")),
     SERVICES / "hoopsedge" / "ingest" / "collector.py",
     SERVICES.parent / "scripts" / "sportybet_discovery.py",
 ]

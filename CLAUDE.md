@@ -32,7 +32,7 @@ Hosting: backend, data, models and schedules run on **AWS** (credit-conscious, s
 | D3 | NCAA volume | Applies to **every** market. Take up to the **top 100** eligible legs (ranked by model probability) and split them into tickets of **20**. |
 | D4 | Weak legs | Legs below the confidence threshold are **dropped**, even if a ticket ends up shorter than 20. A ticket needs at least `min_legs` (default 2) legs or it is not booked. |
 | D5 | Lines | **Main line only** by default: the specifier whose two outcome prices are closest to even. Alternate lines sit behind the config flag `allow_alt_lines` (default `false`). |
-| D6 | Timing | Automatic daily runs per league at configurable Africa/Lagos times (defaults: NCAA 15:00, NBA 19:30). There is also a **Run now** button. Re-runs create new ticket *versions*; old ones are marked `superseded`. Nothing is ever overwritten. |
+| D6 | Timing | Automatic daily runs per league at configurable Africa/Lagos times (defaults: NCAA 15:00, NBA 22:00, changed by the owner in D71). There is also a **Run now** button. Re-runs create new ticket *versions*; old ones are marked `superseded`. Nothing is ever overwritten. |
 | D7 | Geo access | If SportyBet NG blocks AWS IPs, only the SportyBet client is routed through a small Nigerian proxy (feature flag `sportybet_proxy_enabled`; proxy URL stored in SSM). |
 | D8 | Auth | No user auth. The AWS API is protected by a shared secret that only the Vercel server knows. The browser never sees it. |
 | D9 | Learning | Ratings update after every game. Nightly recalibration plus retraining runs a champion vs challenger comparison, and the challenger is promoted only if it is measurably better. |

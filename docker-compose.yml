@@ -18,6 +18,27 @@ services:
       MYPY_CACHE_DIR: /tmp/mypy
     # No AWS credentials are passed in, so local work cannot reach a real account.
 
+  # The slate pipeline, run by hand, against the stand-in database only. Locally it can't create
+  # a real code (D71). It has its own service so that tests in `dev` never see this endpoint.
+  pipeline:
+    build:
+      context: ./services
+      target: dev
+    image: hoopsedge-dev
+    profiles: ["manual"]
+    working_dir: /workspace/services
+    depends_on:
+      - aws-mock
+    volumes:
+      - .:/workspace
+    environment:
+      HOOPSEDGE_ENV: local
+      DRY_RUN: "true"
+      AWS_ENDPOINT_URL_DYNAMODB: http://aws-mock:5000
+      # Dummy values the client insists on. They aren't credentials for anything.
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+
   # Early data collector (D13). Runs until AWS ingest takes over.
   collector:
     build:

@@ -28,6 +28,7 @@ READ_ALLOWED = {
     "hoopsedge/features/training.py",  # Reads its own output, to append new games only.
     # Point-in-time features, season flags, and market lines that only score predictions.
     "hoopsedge/backtest/data.py",
+    "hoopsedge/teams/matcher.py",  # Team names and aliases only. They hold no results.
 }
 SAMPLE = 500
 

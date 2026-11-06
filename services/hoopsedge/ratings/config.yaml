@@ -32,3 +32,5 @@ availability:
     Questionable: 0.4
     Day-To-Day: 0.4
   max_snapshot_age_hours: 48
+  # A starter with one of these keeps the NBA_INJURY_UNCERTAIN gate on (D71, the owner's decision).
+  uncertain_statuses: [Doubtful, Questionable, Day-To-Day]

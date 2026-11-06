@@ -255,5 +255,31 @@
   "message": "invalid outcome data",
   "name": "bad-outcome",
   "outcome": "rejected"
+ },
+ {
+  "name": "phase6-live-test",
+  "legs": [
+   {
+    "eventId": "sr:match:74271334",
+    "marketId": "68",
+    "specifier": "total=75.5",
+    "outcomeId": "13"
+   },
+   {
+    "eventId": "sr:match:73268668",
+    "marketId": "68",
+    "specifier": "total=66.5",
+    "outcomeId": "12"
+   }
+  ],
+  "at": "2026-11-06T19:39:10.017767+00:00",
+  "code": "M8M1KN",
+  "outcome": "created",
+  "verified": true,
+  "difference": {
+   "missing": [],
+   "extra": []
+  },
+  "odds_differences": []
  }
 ]
