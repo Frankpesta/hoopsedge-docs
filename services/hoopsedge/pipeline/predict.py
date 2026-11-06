@@ -23,20 +23,12 @@ from hoopsedge.features.builder import (
 from hoopsedge.features.registry import FEATURE_SET_VERSION, FEATURES
 from hoopsedge.ingest.backfill import FIRST_SEASON
 from hoopsedge.models.distribution import ScoreDistribution
-from hoopsedge.models.registry import load_bundle, load_calibrators
+from hoopsedge.models.registry import load_bundle
 from hoopsedge.ratings.engine import Engine
 from hoopsedge.ratings.history import GameRef, History
 
 UNCERTAIN_STATUSES = frozenset(AVAILABILITY["uncertain_statuses"])
 REQUIRED = ("game_id", "season", "tip_utc", "home_id", "away_id", "slate_date_et")
-
-
-def latest_version(models_root: Path, league: str) -> Path:
-    """The newest model version. Phase 7's champion record replaces this."""
-    folders = sorted(path for path in (models_root / league).glob("*") if path.is_dir())
-    if not folders:
-        raise FileNotFoundError(f"No model versions for {league} in {models_root}")
-    return folders[-1]
 
 
 def history_seasons(league: str, season: int) -> list[int]:
@@ -137,7 +129,3 @@ def predict_games(
             )
         )
     return predictions
-
-
-def load_model_calibrators(model_folder: Path, league: str) -> dict[str, dict[str, Any]]:
-    return {league: load_calibrators(model_folder)}

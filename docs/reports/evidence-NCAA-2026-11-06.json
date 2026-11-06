@@ -406,77 +406,77 @@
  "importance": [
   {
    "feature": "efg_matchup_h",
-   "gain_share": 0.0805,
-   "shap": 0.143
+   "gain_share": 0.0772,
+   "shap": 0.135
   },
   {
    "feature": "adj_d_h",
-   "gain_share": 0.0344,
-   "shap": 0.123
+   "gain_share": 0.0341,
+   "shap": 0.121
   },
   {
    "feature": "efg_d_a",
-   "gain_share": 0.0378,
-   "shap": 0.116
+   "gain_share": 0.0386,
+   "shap": 0.12
   },
   {
    "feature": "exp_ppp_a",
-   "gain_share": 0.0321,
-   "shap": 0.097
+   "gain_share": 0.0328,
+   "shap": 0.101
   },
   {
    "feature": "days_since_start",
-   "gain_share": 0.1052,
+   "gain_share": 0.1062,
    "shap": 0.094
   },
   {
    "feature": "exp_ppp_1h_a",
-   "gain_share": 0.0349,
-   "shap": 0.076
+   "gain_share": 0.0377,
+   "shap": 0.078
   },
   {
-   "feature": "efg_matchup_a",
-   "gain_share": 0.0281,
+   "feature": "exp_ppp_h",
+   "gain_share": 0.059,
    "shap": 0.056
   },
   {
    "feature": "ftr_d_h",
-   "gain_share": 0.0239,
-   "shap": 0.055
+   "gain_share": 0.0242,
+   "shap": 0.053
   },
   {
-   "feature": "exp_ppp_h",
-   "gain_share": 0.0606,
-   "shap": 0.055
+   "feature": "form_a",
+   "gain_share": 0.0332,
+   "shap": 0.05
+  },
+  {
+   "feature": "rest_a",
+   "gain_share": 0.0396,
+   "shap": 0.049
+  },
+  {
+   "feature": "efg_matchup_a",
+   "gain_share": 0.026,
+   "shap": 0.048
   },
   {
    "feature": "orb_matchup_a",
    "gain_share": 0.0337,
-   "shap": 0.051
-  },
-  {
-   "feature": "rest_a",
-   "gain_share": 0.0387,
    "shap": 0.047
   },
   {
-   "feature": "form_a",
-   "gain_share": 0.0266,
-   "shap": 0.046
-  },
-  {
    "feature": "exp_poss_1h",
-   "gain_share": 0.0167,
-   "shap": 0.036
+   "gain_share": 0.0191,
+   "shap": 0.039
   },
   {
    "feature": "ftr_matchup_a",
-   "gain_share": 0.0152,
-   "shap": 0.029
+   "gain_share": 0.016,
+   "shap": 0.03
   },
   {
-   "feature": "exp_ppp_1h_h",
-   "gain_share": 0.0318,
+   "feature": "efg_d_h",
+   "gain_share": 0.0167,
    "shap": 0.024
   }
  ],
@@ -2754,5 +2754,5 @@
    "min_prob": 0.52
   }
  },
- "version": "20261106-1827-unknown-dirty"
+ "version": "20261106-1953-4d25ce0"
 }

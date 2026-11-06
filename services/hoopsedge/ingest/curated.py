@@ -2,6 +2,7 @@
 
 import os
 from collections.abc import Sequence
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -91,6 +92,32 @@ def write_table(
 def delta_path(data_dir: Path, table: str, day: str, league: str, season: int, game: str) -> Path:
     """One file per game, so writing the same game again replaces it instead of duplicating."""
     return data_dir / f"curated/_deltas/{table}/{day}/{league}-{season}-{game}.parquet"
+
+
+def compact_deltas(data_dir: Path, league: str, before: date) -> dict[str, int]:
+    """Fold deltas from dated folders before `before` into each season's file (docs/08 7.3).
+
+    `before` must fall outside live ingest's scan: it treats a game with no delta as new. Safe to
+    repeat, and a crash between the two writes only leaves deltas that say what the file says.
+    """
+    folded: dict[str, int] = {}
+    for table in ("games", "team_games", "player_games"):
+        old = [
+            file
+            for folder in sorted((data_dir / f"curated/_deltas/{table}").glob("*"))
+            if folder.is_dir() and date.fromisoformat(folder.name) < before
+            for file in sorted(folder.glob(f"{league}-*.parquet"))
+        ]
+        if not old:
+            continue
+        for season in sorted({int(file.name.split("-")[1]) for file in old}):
+            merged = read_table(data_dir, table, league, season)
+            path = data_dir / f"curated/{table}/league={league}/season={season}/part-0.parquet"
+            write_parquet(merged, path)
+        for file in old:
+            file.unlink()
+        folded[table] = len(old)
+    return folded
 
 
 def read_table(data_dir: Path, table: str, league: str, season: int) -> pl.DataFrame:

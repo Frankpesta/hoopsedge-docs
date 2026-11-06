@@ -42,10 +42,10 @@ from hoopsedge.pipeline.predict import (
     game_ref,
     history_seasons,
     injury_status,
-    latest_version,
     predict_games,
 )
-from hoopsedge.pipeline.slate import LIVE_RUN_TIMES, SlateContext, SlateLocked, run_slate
+from hoopsedge.pipeline.schedule import RUN_TIMES as LIVE_RUN_TIMES
+from hoopsedge.pipeline.slate import SlateContext, SlateLocked, run_slate
 from hoopsedge.pipeline.store import PipelineStore
 from hoopsedge.ratings.history import GameRef, History, d1_teams
 from hoopsedge.sportybet.client import ENDPOINTS, SportyBetClient
@@ -766,14 +766,6 @@ def test_a_d1_team_with_no_final_yet_is_not_rated_as_the_non_d1_pool(tmp_path: P
     assert history().pooled_team(2027, "2") == "2"
     assert history().pooled_team(2027, "1") == "1"
     assert history().pooled_team(2027, "3") == NON_D1
-
-
-def test_the_newest_model_version_is_used_and_none_is_an_error(tmp_path: Path) -> None:
-    with pytest.raises(FileNotFoundError):
-        latest_version(tmp_path, "NBA")
-    (tmp_path / "NBA/20261106-1056-a").mkdir(parents=True)
-    (tmp_path / "NBA/20261106-1815-b").mkdir()
-    assert latest_version(tmp_path, "NBA").name == "20261106-1815-b"
 
 
 def test_the_nba_run_moved_for_the_injury_rule() -> None:

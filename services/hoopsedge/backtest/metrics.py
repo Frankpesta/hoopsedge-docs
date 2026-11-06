@@ -33,8 +33,9 @@ def bootstrap_difference(
     values: np.ndarray,
     seed: int = 20261106,
     resamples: int = BOOTSTRAP_RESAMPLES,
+    level: float = 0.95,
 ) -> Interval:
-    """95% interval for a mean, resampling whole games so one game's lines count once."""
+    """An interval for a mean, resampling whole games so one game's lines count once."""
     _, inverse = np.unique(games, return_inverse=True)
     sums = np.bincount(inverse, weights=values)
     sizes = np.bincount(inverse)
@@ -42,7 +43,8 @@ def bootstrap_difference(
     count = len(per_game)
     rng = np.random.default_rng(seed)
     means = per_game[rng.integers(0, count, (resamples, count))].mean(axis=1)
-    low, high = np.percentile(means, [2.5, 97.5])
+    tail = (1.0 - level) * 50.0
+    low, high = np.percentile(means, [tail, 100.0 - tail])
     return Interval(float(per_game.mean()), float(low), float(high), count)
 
 

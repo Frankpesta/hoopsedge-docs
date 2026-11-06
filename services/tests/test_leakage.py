@@ -29,6 +29,8 @@ READ_ALLOWED = {
     # Point-in-time features, season flags, and market lines that only score predictions.
     "hoopsedge/backtest/data.py",
     "hoopsedge/teams/matcher.py",  # Team names and aliases only. They hold no results.
+    "hoopsedge/grading/data.py",  # Final scores, to settle legs. Never reaches a feature.
+    "hoopsedge/learning/data.py",  # Results, to score what was predicted earlier.
 }
 SAMPLE = 500
 

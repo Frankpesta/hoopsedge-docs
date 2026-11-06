@@ -17,7 +17,7 @@
   },
   {
    "closing_lines": 121,
-   "games": 121,
+   "games": 123,
    "label": "2026-27 start"
   }
  ],
@@ -416,78 +416,78 @@
  "importance": [
   {
    "feature": "days_since_start",
-   "gain_share": 0.1477,
-   "shap": 0.228
+   "gain_share": 0.1493,
+   "shap": 0.235
   },
   {
    "feature": "rest_h",
-   "gain_share": 0.0514,
-   "shap": 0.192
+   "gain_share": 0.0508,
+   "shap": 0.183
   },
   {
    "feature": "efg_d_h",
-   "gain_share": 0.0349,
-   "shap": 0.136
-  },
-  {
-   "feature": "adj_d_h",
-   "gain_share": 0.0363,
-   "shap": 0.095
+   "gain_share": 0.0391,
+   "shap": 0.145
   },
   {
    "feature": "elo_a",
    "gain_share": 0.0461,
-   "shap": 0.085
+   "shap": 0.09
+  },
+  {
+   "feature": "adj_d_h",
+   "gain_share": 0.0312,
+   "shap": 0.084
   },
   {
    "feature": "rest_a",
-   "gain_share": 0.0491,
-   "shap": 0.082
+   "gain_share": 0.0474,
+   "shap": 0.077
   },
   {
    "feature": "games_h",
-   "gain_share": 0.0591,
-   "shap": 0.065
+   "gain_share": 0.0595,
+   "shap": 0.067
   },
   {
    "feature": "efg_d_a",
-   "gain_share": 0.0294,
+   "gain_share": 0.0299,
    "shap": 0.064
   },
   {
    "feature": "exp_ppp_a",
-   "gain_share": 0.0216,
-   "shap": 0.05
-  },
-  {
-   "feature": "exp_poss_1h",
-   "gain_share": 0.013,
-   "shap": 0.038
+   "gain_share": 0.0244,
+   "shap": 0.057
   },
   {
    "feature": "efg_matchup_a",
-   "gain_share": 0.0166,
-   "shap": 0.037
+   "gain_share": 0.0173,
+   "shap": 0.039
+  },
+  {
+   "feature": "exp_poss_1h",
+   "gain_share": 0.0128,
+   "shap": 0.038
   },
   {
    "feature": "orb_o_a",
-   "gain_share": 0.0392,
-   "shap": 0.031
+   "gain_share": 0.0404,
+   "shap": 0.033
   },
   {
    "feature": "ftr_d_a",
-   "gain_share": 0.0367,
-   "shap": 0.031
+   "gain_share": 0.0384,
+   "shap": 0.029
   },
   {
    "feature": "prior_weight_h",
-   "gain_share": 0.0245,
+   "gain_share": 0.0243,
    "shap": 0.028
   },
   {
    "feature": "month",
-   "gain_share": 0.0302,
-   "shap": 0.027
+   "gain_share": 0.0298,
+   "shap": 0.028
   }
  ],
  "league": "NBA",
@@ -3399,5 +3399,5 @@
   },
   "total_ft": null
  },
- "version": "20261106-1815-unknown-dirty"
+ "version": "20261106-1954-4d25ce0"
 }
