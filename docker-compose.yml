@@ -68,6 +68,36 @@ services:
         max-size: 5m
         max-file: "2"
 
+  # The dashboard's API, locally, against the stand-in database only. Started by hand. The secret
+  # comes from the environment and is never committed. With none set, it refuses every request.
+  api:
+    build:
+      context: ./services
+      target: collector
+    image: hoopsedge-api
+    profiles: ["manual"]
+    command: ["uvicorn", "hoopsedge.api.main:build_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]
+    restart: unless-stopped
+    mem_limit: 3g
+    depends_on:
+      - aws-mock
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/workspace/data
+    environment:
+      HOOPSEDGE_ENV: local
+      DRY_RUN: "true"
+      HOOPSEDGE_API_KEY: ${HOOPSEDGE_API_KEY:-}
+      AWS_ENDPOINT_URL_DYNAMODB: http://aws-mock:5000
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"
+
   # Early data collector (D13). Runs until AWS ingest takes over.
   collector:
     build:

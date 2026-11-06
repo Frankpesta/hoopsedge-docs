@@ -19,6 +19,9 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from botocore.exceptions import BotoCoreError, ClientError
+
+from hoopsedge.common.dynamo import connect, table_name
 from hoopsedge.ingest.espn_coverage import EASTERN
 
 LAGOS = ZoneInfo("Africa/Lagos")
@@ -41,24 +44,35 @@ def _module(*arguments: str) -> tuple[str, ...]:
     return (sys.executable, "-m", *arguments)
 
 
-def due_jobs(now: datetime, done: dict[str, str]) -> list[Job]:
-    """Pure. What should start now, given what's already been done."""
+def _clock(text: Any, fallback: clock) -> clock:
+    return clock.fromisoformat(str(text)) if text else fallback
+
+
+def due_jobs(
+    now: datetime, done: dict[str, str], schedules: dict[str, Any] | None = None
+) -> list[Job]:
+    """Pure. What should start now, given what's already been done and the times in force."""
     local = now.astimezone(LAGOS)
     day = local.date().isoformat()
     jobs: list[Job] = []
+    times = schedules or {}
 
     def daily(name: str, at: clock, command: tuple[str, ...]) -> None:
         start = datetime.combine(local.date(), at, tzinfo=LAGOS)
         if start <= now < start + TOO_LATE_AFTER and done.get(name) != day:
             jobs.append(Job(name, day, command))
 
+    learn_at = _clock(times.get("nightly_learn"), LEARN_TIME)
     for league in ("NBA", "NCAA"):  # C6: one league at a time.
         learn = _module("hoopsedge.learning.run", "learn", "--league", league)
-        daily(f"learn-{league}", LEARN_TIME, learn)
+        daily(f"learn-{league}", learn_at, learn)
     slate = now.astimezone(EASTERN).date().isoformat()
     for league, at in RUN_TIMES.items():
-        run = _module("hoopsedge.pipeline.slate", "run", "--league", league, "--date", slate)
-        daily(f"slate-{league}", at, run)
+        run = _module(
+            "hoopsedge.pipeline.slate", "run", "--league", league, "--date", slate,
+            "--trigger", "scheduled",
+        )  # fmt: skip
+        daily(f"slate-{league}", _clock(times.get(f"{league.lower()}_slate"), at), run)
     last = done.get("grade")
     if last is None or now - datetime.fromisoformat(last) >= GRADE_EVERY:
         jobs.append(Job("grade", now.isoformat(), _module("hoopsedge.grading.run")))
@@ -76,14 +90,22 @@ def _write_state(path: Path, state: dict[str, str]) -> None:
     temporary.replace(path)
 
 
-def run_due(folder: Path, now: datetime, runner: Any = subprocess.run) -> list[dict[str, Any]]:
-    """Runs what's due, one at a time. A failed job is logged and isn't retried until next due."""
-    if (folder / "PAUSED").exists():
+def run_due(
+    folder: Path,
+    now: datetime,
+    runner: Any = subprocess.run,
+    settings: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Runs what's due, one at a time. A failed job is logged and isn't retried until next due.
+
+    C19: `pause_all` stops everything here. Run now from the dashboard still works.
+    """
+    if (folder / "PAUSED").exists() or (settings or {}).get("pause_all"):
         return []
     path = folder / "state.json"
     done = _read_state(path)
     results: list[dict[str, Any]] = []
-    for job in due_jobs(now, done):
+    for job in due_jobs(now, done, (settings or {}).get("schedules")):
         started = time.monotonic()
         finished = runner(list(job.command), check=False, env=os.environ.copy())  # noqa: S603
         result = {
@@ -104,8 +126,18 @@ def main() -> int:
     data_dir = Path(os.environ.get("HOOPSEDGE_DATA_DIR", DEFAULT_DATA_DIR))
     folder = data_dir / "scheduler"
     folder.mkdir(parents=True, exist_ok=True)
+    table = connect().Table(table_name())
+
+    def settings() -> dict[str, Any] | None:
+        try:
+            item = table.get_item(Key={"pk": "CONFIG", "sk": "CURRENT"}).get("Item")
+        except (BotoCoreError, ClientError) as error:
+            print(f"Can't read settings, so using the defaults: {error}", flush=True)
+            return None
+        return None if item is None else item.get("document")
+
     while True:
-        run_due(folder, datetime.now(UTC))
+        run_due(folder, datetime.now(UTC), settings=settings())
         time.sleep(POLL_SECONDS)
 
 

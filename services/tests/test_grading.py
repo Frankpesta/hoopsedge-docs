@@ -348,8 +348,15 @@ def test_aggregates_count_wins_losses_and_calibration_buckets(harness: Harness) 
         item = harness.agg(key)
         assert item is not None
         assert (item["legs"], item["won"], item["lost"], item["push"]) == (3, 1, 1, 1)
-        assert item["buckets"]["0.60"] == {"legs": 2, "won": 1}
-        assert item["buckets"]["0.70"] == {"legs": 0, "won": 0}  # A push settles nothing.
+        assert (item["buckets"]["0.60"]["legs"], item["buckets"]["0.60"]["won"]) == (2, 1)
+        assert float(item["buckets"]["0.60"]["p_sum"]) == pytest.approx(1.23)
+        assert item["buckets"]["0.70"]["legs"] == 0  # A push settles nothing.
+        # One winner at 2.0 and one loser, so the flat stake breaks even.
+        assert float(item["profit"]) == pytest.approx(0.0)
+        assert float(item["breakeven_sum"]) == pytest.approx(1.0)
+        assert item["tickets"]["lost"] == 1
+        assert item["missed_by"] == {"1": 1}
+        assert (item["legs_won_on_lost"], item["legs_on_lost"]) == (1, 3)
 
 
 def test_superseded_tickets_are_graded_but_never_counted(harness: Harness) -> None:

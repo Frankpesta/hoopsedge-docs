@@ -3,6 +3,7 @@ beyond a status: a re-run writes new versions and marks the old ones superseded 
 """
 
 import json
+from collections.abc import Mapping, Sequence
 from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 from typing import Any
@@ -10,7 +11,8 @@ from typing import Any
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-from hoopsedge.engine.schemas import Leg, Prediction, Ticket
+from hoopsedge.engine.schemas import Leg, Prediction, Rejection, ScoredLine, Ticket
+from hoopsedge.pipeline.labels import leg_summary, matchup, pick_label
 from hoopsedge.teams.matcher import Match
 
 LOCK_MINUTES = 30
@@ -82,6 +84,17 @@ class PipelineStore:
                     "sk": "META",
                     "gsi1pk": "RUNS",
                     "gsi1sk": fields["started_at"],
+                    "run_id": run_id,
+                    **fields,
+                }
+            )
+        )
+        # Lets the Today page ask for a slate's newest run with one query.
+        self.table.put_item(
+            Item=to_item(
+                {
+                    "pk": f"SLATERUNS#{fields['league']}#{fields['slate_date']}",
+                    "sk": fields["started_at"],
                     "run_id": run_id,
                     **fields,
                 }
@@ -195,8 +208,13 @@ class PipelineStore:
         code: str | None = None,
         reason: str | None = None,
         verification: dict[str, Any] | None = None,
+        names: Mapping[str, tuple[str, str]] | None = None,
     ) -> None:
         """C20: versions are zero-padded so that they sort properly."""
+
+        def teams(leg: Leg) -> tuple[str, str]:
+            return (names or {}).get(leg.game_id, (leg.game_id, leg.game_id))
+
         self.table.put_item(
             Item=to_item(
                 {
@@ -222,15 +240,16 @@ class PipelineStore:
                     "passed_gate": ticket.passed_gate,
                     "edge_label": ticket.edge_label,
                     "settle_status": "pending",
+                    "legs_summary": [leg_summary(leg, *teams(leg)) for leg in ticket.legs],
                 }
             )
         )
         # Only a finished ticket's legs: a retry can drop legs, and those must never be graded.
         if status != PENDING_BOOKING:
             for leg in ticket.legs:
-                self._save_leg(ticket_id, leg, slate)
+                self._save_leg(ticket_id, leg, slate, *teams(leg))
 
-    def _save_leg(self, ticket_id: str, leg: Leg, slate: date) -> None:
+    def _save_leg(self, ticket_id: str, leg: Leg, slate: date, home: str, away: str) -> None:
         self.table.put_item(
             Item=to_item(
                 {
@@ -240,10 +259,54 @@ class PipelineStore:
                     "gsi1sk": _stamp(leg.tip_time),
                     "status": "pending",
                     "slate_date": slate.isoformat(),
+                    "matchup": matchup(home, away),
+                    "pick": pick_label(leg, home, away),
                     **leg.model_dump(mode="json"),
                 }
             )
         )
+
+    # What the dashboard reads (docs/09).
+
+    def save_game_detail(
+        self,
+        run_id: str,
+        league: str,
+        game_id: str,
+        lines: Sequence[ScoredLine],
+        rejections: Sequence[Rejection],
+        legs: Sequence[Leg],
+        labels: Mapping[str, str],
+    ) -> None:
+        """One game's scored outcomes from one run: one item, so a page needs one read."""
+        self.table.put_item(
+            Item=to_item(
+                {
+                    "pk": f"GAME#{league}#{game_id}",
+                    "sk": f"DETAIL#{run_id}",
+                    "lines": [item.model_dump(mode="json") for item in lines],
+                    "rejections": [item.model_dump(mode="json") for item in rejections],
+                    "legs": [item.model_dump(mode="json") for item in legs],
+                    "edge_labels": dict(labels),
+                }
+            )
+        )
+
+    def sync_teams(self, league: str, names: Mapping[str, str]) -> None:
+        """C16: `TEAM#` items, so the API can name and validate teams without Parquet."""
+        count = self.table.query(
+            KeyConditionExpression=Key("pk").eq(f"TEAM#{league}"), Select="COUNT"
+        )["Count"]
+        if count == len(names):
+            return
+        with self.table.batch_writer() as batch:
+            for team_id, name in names.items():
+                batch.put_item(Item={"pk": f"TEAM#{league}", "sk": team_id, "name": name})
+
+    def settings(self) -> dict[str, Any] | None:
+        """What the dashboard has saved. None until the first change: the files apply until then."""
+        item = self.table.get_item(Key={"pk": "CONFIG", "sk": "CURRENT"}).get("Item")
+        return None if item is None else item.get("document")
 
     # Grading (docs/08 section 7.1).
 

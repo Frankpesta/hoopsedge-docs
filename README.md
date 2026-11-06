@@ -131,5 +131,22 @@ Each night's report is at `data/reports/learning/{league}/{date}.json`.
 To run the daily cycle by itself: dry-run slates at 15:00 (NCAA) and 22:00 (NBA) Lagos, grading every 30 minutes and learning at 11:00. Set `HOOPSEDGE_GIT_SHA` to the commit you built, or learning refuses to promote a model. Its code is copied into the image, so rebuild to pick up changes. Create `data/scheduler/PAUSED` to pause it, and read `data/scheduler/runs.jsonl` to see what it did.
 
 ```sh
-docker compose --profile manual up -d --build scheduler
+docker compose --profile manual up -d --build --no-deps scheduler
+```
+
+## API
+
+The dashboard's API. Every request except `/health` needs the shared secret in `x-hoopsedge-key`. Set `HOOPSEDGE_API_KEY` in your shell or an uncommitted `.env` file: with none set, it refuses everything. It listens only on this machine.
+
+```sh
+docker compose --profile manual up -d --build --no-deps api
+curl -H "x-hoopsedge-key: $HOOPSEDGE_API_KEY" http://127.0.0.1:8000/slates/2026-11-06
+```
+
+Changes (`POST` and `PUT`) also need a unique `idempotency-key` header, and are limited to 10 a minute. Half-time and Team O/U tickets return no probabilities or EV until their calibrators have seen real lines (D72, D76).
+
+The endpoints are in `docs/api/openapi.json`. After changing any endpoint, regenerate it, or a test fails:
+
+```sh
+docker compose run --rm dev python -m hoopsedge.api.main export
 ```

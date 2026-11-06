@@ -99,6 +99,7 @@ class InjuryStatus(_Frozen):
 
     questionable_starter: bool
     snapshot_at: AwareDatetime
+    listed: tuple[dict[str, str], ...] = ()  # Each player listed, for the game page.
 
 
 class Prediction(_Frozen):
@@ -110,6 +111,7 @@ class Prediction(_Frozen):
     h1: PeriodPrediction | None
     confidence: Confidence
     injury: InjuryStatus | None  # None: no snapshot, which the NBA gate treats as uncertain.
+    key_features: dict[str, float | None] = {}  # Ratings and rest, for the game page.
 
 
 class MarketSettings(_Frozen):

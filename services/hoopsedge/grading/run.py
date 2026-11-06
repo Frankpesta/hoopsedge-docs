@@ -14,6 +14,7 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from hoopsedge.common.aggregates import merge_aggregates
 from hoopsedge.common.dynamo import connect, ensure_table, table_name
 from hoopsedge.grading.data import load_finals, load_game_teams, load_statuses, team_names
 from hoopsedge.grading.settle import (
@@ -85,30 +86,49 @@ def _settle_tickets(store: PipelineStore, tickets: set[str], flagged: set[str]) 
         store.update_ticket_settlement(ticket_id, status, odds, ticket_id in flagged)
 
 
-def _aggregate(legs: list[dict[str, Any]]) -> dict[str, Any]:
+def _aggregate(legs: list[dict[str, Any]], store: PipelineStore) -> dict[str, Any]:
+    """Docs/09's track record: hit rate, flat-stake return, calibration and near misses."""
     counts: dict[str, Any] = {"legs": len(legs), WON: 0, LOST: 0, PUSH: 0, VOID: 0}
-    buckets: dict[str, dict[str, int]] = {}
+    buckets: dict[str, dict[str, float]] = {}
+    profit = breakeven = 0.0
     for leg in legs:
         status = str(leg["status"])
         counts[status] += 1
+        odds = _float(leg["odds"])
         name = _bucket(_float(leg["p_calibrated"]))
-        bucket = buckets.setdefault(name, {"legs": 0, "won": 0})
+        bucket = buckets.setdefault(name, {"legs": 0, "won": 0, "p_sum": 0.0})
         if status in {WON, LOST}:  # A push or void settles nothing, so it can't test a probability.
             bucket["legs"] += 1
             bucket["won"] += status == WON
-    return {**counts, "buckets": buckets}
+            bucket["p_sum"] += _float(leg["p_calibrated"])
+            profit += odds - 1.0 if status == WON else -1.0
+            breakeven += 1.0 / odds
+    tickets = {"won": 0, "lost": 0, "pending": 0}
+    misses: dict[str, int] = {}
+    legs_won_on_lost = legs_on_lost = 0
+    for ticket_id in sorted({_ticket_id(leg) for leg in legs}):
+        status = str(store.ticket_meta(ticket_id).get("settle_status", "pending"))
+        tickets[status] = tickets.get(status, 0) + 1
+        if status == LOST:
+            statuses = [str(item["status"]) for item in store.ticket_legs(ticket_id)]
+            missed = str(statuses.count(LOST))
+            misses[missed] = misses.get(missed, 0) + 1
+            legs_won_on_lost += statuses.count(WON)
+            legs_on_lost += len(statuses)
+    return {
+        **counts,
+        "buckets": buckets,
+        "profit": profit,
+        "breakeven_sum": breakeven,
+        "tickets": tickets,
+        "missed_by": misses,
+        "legs_won_on_lost": legs_won_on_lost,
+        "legs_on_lost": legs_on_lost,
+    }
 
 
 def _merge(items: list[dict[str, Any]]) -> dict[str, Any]:
-    total: dict[str, Any] = {"legs": 0, WON: 0, LOST: 0, PUSH: 0, VOID: 0, "buckets": {}}
-    for item in items:
-        for name in ("legs", WON, LOST, PUSH, VOID):
-            total[name] += int(item[name])
-        for key, bucket in item["buckets"].items():
-            into = total["buckets"].setdefault(key, {"legs": 0, "won": 0})
-            into["legs"] += int(bucket["legs"])
-            into["won"] += int(bucket["won"])
-    return total
+    return merge_aggregates(items)
 
 
 def _slate_of(store: PipelineStore, leg: dict[str, Any]) -> str:
@@ -128,7 +148,7 @@ def _refresh_aggregates(store: PipelineStore, touched: set[tuple[str, str, str]]
             and _slate_of(store, leg) == slate
             and store.ticket_meta(_ticket_id(leg)).get("status") != SUPERSEDED
         ]
-        store.save_aggregate(league, family, f"D#{slate}", _aggregate(legs))
+        store.save_aggregate(league, family, f"D#{slate}", _aggregate(legs, store))
         days = store.daily_aggregates(league, family)
         store.save_aggregate(league, family, "ALL", _merge(days))
 

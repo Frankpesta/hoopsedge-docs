@@ -1,0 +1,2749 @@
+{
+ "components": {
+  "schemas": {
+   "Bucket": {
+    "properties": {
+     "bucket": {
+      "title": "Bucket",
+      "type": "number"
+     },
+     "hit_rate": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Hit Rate"
+     },
+     "legs": {
+      "title": "Legs",
+      "type": "integer"
+     },
+     "mean_probability": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Mean Probability"
+     },
+     "won": {
+      "title": "Won",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "bucket",
+     "legs",
+     "won",
+     "hit_rate",
+     "mean_probability"
+    ],
+    "title": "Bucket",
+    "type": "object"
+   },
+   "DailyPoint": {
+    "properties": {
+     "date": {
+      "title": "Date",
+      "type": "string"
+     },
+     "legs": {
+      "title": "Legs",
+      "type": "integer"
+     },
+     "lost": {
+      "title": "Lost",
+      "type": "integer"
+     },
+     "won": {
+      "title": "Won",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "date",
+     "legs",
+     "won",
+     "lost"
+    ],
+    "title": "DailyPoint",
+    "type": "object"
+   },
+   "Evidence": {
+    "properties": {
+     "evidence": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Evidence"
+     },
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "version": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Version"
+     }
+    },
+    "required": [
+     "league",
+     "version",
+     "evidence"
+    ],
+    "title": "Evidence",
+    "type": "object"
+   },
+   "Family": {
+    "enum": [
+     "handicap",
+     "total_ft",
+     "total_1h",
+     "team_total"
+    ],
+    "title": "Family",
+    "type": "string"
+   },
+   "GameDetail": {
+    "properties": {
+     "away_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Away Name"
+     },
+     "edge_labels": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "title": "Edge Labels",
+      "type": "object"
+     },
+     "final": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "type": "integer"
+        },
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Final"
+     },
+     "game": {
+      "additionalProperties": true,
+      "title": "Game",
+      "type": "object"
+     },
+     "game_id": {
+      "title": "Game Id",
+      "type": "string"
+     },
+     "home_name": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Home Name"
+     },
+     "injuries": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Injuries",
+      "type": "array"
+     },
+     "key_features": {
+      "additionalProperties": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "title": "Key Features",
+      "type": "object"
+     },
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "legs": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Legs",
+      "type": "array"
+     },
+     "lines": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Lines",
+      "type": "array"
+     },
+     "prediction": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Prediction"
+     },
+     "rejections": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Rejections",
+      "type": "array"
+     }
+    },
+    "required": [
+     "game_id",
+     "league",
+     "game",
+     "home_name",
+     "away_name",
+     "final",
+     "prediction",
+     "key_features",
+     "injuries",
+     "lines",
+     "rejections",
+     "legs",
+     "edge_labels"
+    ],
+    "title": "GameDetail",
+    "type": "object"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "title": "Detail",
+      "type": "array"
+     }
+    },
+    "title": "HTTPValidationError",
+    "type": "object"
+   },
+   "Health": {
+    "properties": {
+     "ok": {
+      "title": "Ok",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "ok"
+    ],
+    "title": "Health",
+    "type": "object"
+   },
+   "HealthDetails": {
+    "properties": {
+     "champion_versions": {
+      "additionalProperties": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "title": "Champion Versions",
+      "type": "object"
+     },
+     "env": {
+      "title": "Env",
+      "type": "string"
+     },
+     "last_runs": {
+      "items": {
+       "$ref": "#/components/schemas/RunSummary"
+      },
+      "title": "Last Runs",
+      "type": "array"
+     },
+     "ok": {
+      "title": "Ok",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "ok",
+     "env",
+     "champion_versions",
+     "last_runs"
+    ],
+    "title": "HealthDetails",
+    "type": "object"
+   },
+   "League": {
+    "enum": [
+     "NBA",
+     "NCAA"
+    ],
+    "title": "League",
+    "type": "string"
+   },
+   "LeagueSetting": {
+    "additionalProperties": false,
+    "properties": {
+     "enabled": {
+      "title": "Enabled",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "enabled"
+    ],
+    "title": "LeagueSetting",
+    "type": "object"
+   },
+   "LearningPoint": {
+    "properties": {
+     "at": {
+      "title": "At",
+      "type": "string"
+     },
+     "crps_gain": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Crps Gain"
+     },
+     "decision": {
+      "title": "Decision",
+      "type": "string"
+     },
+     "games": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Games"
+     },
+     "log_likelihood_gain": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Log Likelihood Gain"
+     },
+     "reasons": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+     },
+     "version": {
+      "title": "Version",
+      "type": "string"
+     }
+    },
+    "required": [
+     "at",
+     "version",
+     "decision",
+     "log_likelihood_gain",
+     "crps_gain",
+     "games",
+     "reasons"
+    ],
+    "title": "LearningPoint",
+    "type": "object"
+   },
+   "LegDetail": {
+    "properties": {
+     "actual_value": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Actual Value"
+     },
+     "correction": {
+      "default": false,
+      "title": "Correction",
+      "type": "boolean"
+     },
+     "edge": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Edge"
+     },
+     "ev": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ev"
+     },
+     "event_id": {
+      "title": "Event Id",
+      "type": "string"
+     },
+     "fair": {
+      "title": "Fair",
+      "type": "number"
+     },
+     "family": {
+      "title": "Family",
+      "type": "string"
+     },
+     "game_id": {
+      "title": "Game Id",
+      "type": "string"
+     },
+     "line": {
+      "title": "Line",
+      "type": "number"
+     },
+     "matchup": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Matchup"
+     },
+     "model_error": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Model Error"
+     },
+     "odds": {
+      "title": "Odds",
+      "type": "number"
+     },
+     "outcome_id": {
+      "title": "Outcome Id",
+      "type": "string"
+     },
+     "p_calibrated": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "P Calibrated"
+     },
+     "p_lose": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "P Lose"
+     },
+     "p_push": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "P Push"
+     },
+     "p_raw": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "P Raw"
+     },
+     "p_win": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "P Win"
+     },
+     "pick": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Pick"
+     },
+     "predicted_mean": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Predicted Mean"
+     },
+     "rank": {
+      "title": "Rank",
+      "type": "integer"
+     },
+     "side": {
+      "title": "Side",
+      "type": "string"
+     },
+     "specifier": {
+      "title": "Specifier",
+      "type": "string"
+     },
+     "status": {
+      "title": "Status",
+      "type": "string"
+     },
+     "team": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Team"
+     },
+     "tip_time": {
+      "title": "Tip Time",
+      "type": "string"
+     }
+    },
+    "required": [
+     "rank",
+     "game_id",
+     "event_id",
+     "family",
+     "specifier",
+     "line",
+     "side",
+     "outcome_id",
+     "odds",
+     "fair",
+     "tip_time",
+     "status"
+    ],
+    "title": "LegDetail",
+    "type": "object"
+   },
+   "LegSummary": {
+    "properties": {
+     "edge": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Edge"
+     },
+     "fair": {
+      "title": "Fair",
+      "type": "number"
+     },
+     "game_id": {
+      "title": "Game Id",
+      "type": "string"
+     },
+     "matchup": {
+      "title": "Matchup",
+      "type": "string"
+     },
+     "odds": {
+      "title": "Odds",
+      "type": "number"
+     },
+     "p_calibrated": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "P Calibrated"
+     },
+     "pick": {
+      "title": "Pick",
+      "type": "string"
+     },
+     "rank": {
+      "title": "Rank",
+      "type": "integer"
+     },
+     "tip_time": {
+      "title": "Tip Time",
+      "type": "string"
+     }
+    },
+    "required": [
+     "rank",
+     "game_id",
+     "matchup",
+     "pick",
+     "odds",
+     "p_calibrated",
+     "fair",
+     "edge",
+     "tip_time"
+    ],
+    "title": "LegSummary",
+    "type": "object"
+   },
+   "MarketSetting": {
+    "additionalProperties": false,
+    "properties": {
+     "enabled": {
+      "title": "Enabled",
+      "type": "boolean"
+     },
+     "min_edge": {
+      "anyOf": [
+       {
+        "maximum": 1.0,
+        "minimum": -1.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Edge"
+     },
+     "min_prob": {
+      "anyOf": [
+       {
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Min Prob"
+     }
+    },
+    "required": [
+     "enabled"
+    ],
+    "title": "MarketSetting",
+    "type": "object"
+   },
+   "ModelsView": {
+    "properties": {
+     "champion": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Champion"
+     },
+     "drift": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Drift"
+     },
+     "gates": {
+      "additionalProperties": true,
+      "title": "Gates",
+      "type": "object"
+     },
+     "history": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "History",
+      "type": "array"
+     },
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "learning_curve": {
+      "items": {
+       "$ref": "#/components/schemas/LearningPoint"
+      },
+      "title": "Learning Curve",
+      "type": "array"
+     }
+    },
+    "required": [
+     "league",
+     "champion",
+     "history",
+     "learning_curve",
+     "drift",
+     "gates"
+    ],
+    "title": "ModelsView",
+    "type": "object"
+   },
+   "ResolveRequest": {
+    "properties": {
+     "ignore": {
+      "default": false,
+      "title": "Ignore",
+      "type": "boolean"
+     },
+     "team_id_away": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Team Id Away"
+     },
+     "team_id_home": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Team Id Home"
+     }
+    },
+    "title": "ResolveRequest",
+    "type": "object"
+   },
+   "ResolveResult": {
+    "properties": {
+     "aliases": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "title": "Aliases",
+      "type": "object"
+     },
+     "event_id": {
+      "title": "Event Id",
+      "type": "string"
+     },
+     "status": {
+      "title": "Status",
+      "type": "string"
+     }
+    },
+    "required": [
+     "event_id",
+     "status",
+     "aliases"
+    ],
+    "title": "ResolveResult",
+    "type": "object"
+   },
+   "RollbackRequest": {
+    "properties": {
+     "reason": {
+      "default": "Rolled back from the dashboard",
+      "title": "Reason",
+      "type": "string"
+     },
+     "version": {
+      "title": "Version",
+      "type": "string"
+     }
+    },
+    "required": [
+     "version"
+    ],
+    "title": "RollbackRequest",
+    "type": "object"
+   },
+   "RollbackResult": {
+    "properties": {
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "reason": {
+      "title": "Reason",
+      "type": "string"
+     },
+     "version": {
+      "title": "Version",
+      "type": "string"
+     }
+    },
+    "required": [
+     "league",
+     "version",
+     "reason"
+    ],
+    "title": "RollbackResult",
+    "type": "object"
+   },
+   "RunDetail": {
+    "properties": {
+     "log": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Log",
+      "type": "array"
+     },
+     "run": {
+      "$ref": "#/components/schemas/RunSummary"
+     },
+     "steps": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Steps",
+      "type": "array"
+     }
+    },
+    "required": [
+     "run",
+     "steps",
+     "log"
+    ],
+    "title": "RunDetail",
+    "type": "object"
+   },
+   "RunRequest": {
+    "properties": {
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "slate_date": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Slate Date"
+     }
+    },
+    "required": [
+     "league"
+    ],
+    "title": "RunRequest",
+    "type": "object"
+   },
+   "RunStarted": {
+    "properties": {
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "run_id": {
+      "title": "Run Id",
+      "type": "string"
+     },
+     "slate_date": {
+      "title": "Slate Date",
+      "type": "string"
+     }
+    },
+    "required": [
+     "run_id",
+     "league",
+     "slate_date"
+    ],
+    "title": "RunStarted",
+    "type": "object"
+   },
+   "RunSummary": {
+    "properties": {
+     "counts": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "title": "Counts",
+      "type": "object"
+     },
+     "dry_run": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Dry Run"
+     },
+     "ended_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ended At"
+     },
+     "error": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Error"
+     },
+     "league": {
+      "title": "League",
+      "type": "string"
+     },
+     "run_id": {
+      "title": "Run Id",
+      "type": "string"
+     },
+     "slate_date": {
+      "title": "Slate Date",
+      "type": "string"
+     },
+     "started_at": {
+      "title": "Started At",
+      "type": "string"
+     },
+     "status": {
+      "title": "Status",
+      "type": "string"
+     },
+     "trigger": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Trigger"
+     }
+    },
+    "required": [
+     "run_id",
+     "league",
+     "slate_date",
+     "status",
+     "started_at"
+    ],
+    "title": "RunSummary",
+    "type": "object"
+   },
+   "ScheduleUpdate": {
+    "properties": {
+     "time": {
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+      "title": "Time",
+      "type": "string"
+     }
+    },
+    "required": [
+     "time"
+    ],
+    "title": "ScheduleUpdate",
+    "type": "object"
+   },
+   "SettingsDocument": {
+    "additionalProperties": false,
+    "properties": {
+     "allow_alt_lines": {
+      "title": "Allow Alt Lines",
+      "type": "boolean"
+     },
+     "dry_run": {
+      "title": "Dry Run",
+      "type": "boolean"
+     },
+     "leagues": {
+      "additionalProperties": {
+       "$ref": "#/components/schemas/LeagueSetting"
+      },
+      "propertyNames": {
+       "$ref": "#/components/schemas/League"
+      },
+      "title": "Leagues",
+      "type": "object"
+     },
+     "markets": {
+      "additionalProperties": {
+       "additionalProperties": {
+        "$ref": "#/components/schemas/MarketSetting"
+       },
+       "propertyNames": {
+        "$ref": "#/components/schemas/Family"
+       },
+       "type": "object"
+      },
+      "propertyNames": {
+       "$ref": "#/components/schemas/League"
+      },
+      "title": "Markets",
+      "type": "object"
+     },
+     "min_legs": {
+      "minimum": 2.0,
+      "title": "Min Legs",
+      "type": "integer"
+     },
+     "min_minutes_before_tip": {
+      "minimum": 20.0,
+      "title": "Min Minutes Before Tip",
+      "type": "integer"
+     },
+     "pause_all": {
+      "title": "Pause All",
+      "type": "boolean"
+     },
+     "schedules": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "title": "Schedules",
+      "type": "object"
+     },
+     "sportybet_proxy_enabled": {
+      "title": "Sportybet Proxy Enabled",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "schedules",
+     "leagues",
+     "markets",
+     "min_legs",
+     "min_minutes_before_tip",
+     "allow_alt_lines",
+     "sportybet_proxy_enabled",
+     "dry_run",
+     "pause_all"
+    ],
+    "title": "SettingsDocument",
+    "type": "object"
+   },
+   "SettingsUpdate": {
+    "properties": {
+     "document": {
+      "$ref": "#/components/schemas/SettingsDocument"
+     },
+     "version": {
+      "title": "Version",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "version",
+     "document"
+    ],
+    "title": "SettingsUpdate",
+    "type": "object"
+   },
+   "SettingsView": {
+    "properties": {
+     "changed_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Changed At"
+     },
+     "changed_by": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Changed By"
+     },
+     "diff": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Diff",
+      "type": "array"
+     },
+     "document": {
+      "$ref": "#/components/schemas/SettingsDocument"
+     },
+     "version": {
+      "title": "Version",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "version",
+     "document"
+    ],
+    "title": "SettingsView",
+    "type": "object"
+   },
+   "Slate": {
+    "properties": {
+     "date": {
+      "title": "Date",
+      "type": "string"
+     },
+     "leagues": {
+      "items": {
+       "$ref": "#/components/schemas/SlateLeague"
+      },
+      "title": "Leagues",
+      "type": "array"
+     }
+    },
+    "required": [
+     "date",
+     "leagues"
+    ],
+    "title": "Slate",
+    "type": "object"
+   },
+   "SlateLeague": {
+    "properties": {
+     "eligible_legs": {
+      "title": "Eligible Legs",
+      "type": "integer"
+     },
+     "excluded": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "title": "Excluded",
+      "type": "object"
+     },
+     "first_tip": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "First Tip"
+     },
+     "games": {
+      "title": "Games",
+      "type": "integer"
+     },
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "markets": {
+      "additionalProperties": {
+       "items": {
+        "$ref": "#/components/schemas/TicketCard"
+       },
+       "type": "array"
+      },
+      "title": "Markets",
+      "type": "object"
+     },
+     "run": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/RunSummary"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "unmatched_events": {
+      "title": "Unmatched Events",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "league",
+     "run",
+     "games",
+     "first_tip",
+     "markets",
+     "excluded",
+     "eligible_legs",
+     "unmatched_events"
+    ],
+    "title": "SlateLeague",
+    "type": "object"
+   },
+   "SystemView": {
+    "properties": {
+     "alerts": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Alerts",
+      "type": "array"
+     },
+     "budget_usd": {
+      "items": {
+       "type": "integer"
+      },
+      "title": "Budget Usd",
+      "type": "array"
+     },
+     "cost": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Cost"
+     },
+     "dry_run": {
+      "title": "Dry Run",
+      "type": "boolean"
+     },
+     "freshness": {
+      "additionalProperties": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "title": "Freshness",
+      "type": "object"
+     },
+     "pause_all": {
+      "title": "Pause All",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "cost",
+     "budget_usd",
+     "alerts",
+     "freshness",
+     "dry_run",
+     "pause_all"
+    ],
+    "title": "SystemView",
+    "type": "object"
+   },
+   "Team": {
+    "properties": {
+     "name": {
+      "title": "Name",
+      "type": "string"
+     },
+     "team_id": {
+      "title": "Team Id",
+      "type": "string"
+     }
+    },
+    "required": [
+     "team_id",
+     "name"
+    ],
+    "title": "Team",
+    "type": "object"
+   },
+   "TicketCard": {
+    "properties": {
+     "booking_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Booking Code"
+     },
+     "combined_odds": {
+      "title": "Combined Odds",
+      "type": "number"
+     },
+     "combined_prob": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Combined Prob"
+     },
+     "correction": {
+      "default": false,
+      "title": "Correction",
+      "type": "boolean"
+     },
+     "edge_label": {
+      "title": "Edge Label",
+      "type": "string"
+     },
+     "expected_value": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Expected Value"
+     },
+     "family": {
+      "$ref": "#/components/schemas/Family"
+     },
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "legs": {
+      "title": "Legs",
+      "type": "integer"
+     },
+     "legs_summary": {
+      "items": {
+       "$ref": "#/components/schemas/LegSummary"
+      },
+      "title": "Legs Summary",
+      "type": "array"
+     },
+     "passed_gate": {
+      "title": "Passed Gate",
+      "type": "boolean"
+     },
+     "probability_note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Probability Note"
+     },
+     "reason": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reason"
+     },
+     "settle_status": {
+      "title": "Settle Status",
+      "type": "string"
+     },
+     "status": {
+      "title": "Status",
+      "type": "string"
+     },
+     "ticket_id": {
+      "title": "Ticket Id",
+      "type": "string"
+     },
+     "ticket_no": {
+      "title": "Ticket No",
+      "type": "integer"
+     },
+     "version": {
+      "title": "Version",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "ticket_id",
+     "league",
+     "family",
+     "ticket_no",
+     "version",
+     "status",
+     "settle_status",
+     "booking_code",
+     "legs",
+     "combined_odds",
+     "combined_prob",
+     "expected_value",
+     "passed_gate",
+     "edge_label",
+     "probability_note"
+    ],
+    "title": "TicketCard",
+    "type": "object"
+   },
+   "TicketDetail": {
+    "properties": {
+     "leg_details": {
+      "items": {
+       "$ref": "#/components/schemas/LegDetail"
+      },
+      "title": "Leg Details",
+      "type": "array"
+     },
+     "run_id": {
+      "title": "Run Id",
+      "type": "string"
+     },
+     "selection_hash": {
+      "title": "Selection Hash",
+      "type": "string"
+     },
+     "settled_combined_odds": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Settled Combined Odds"
+     },
+     "slate_date": {
+      "title": "Slate Date",
+      "type": "string"
+     },
+     "ticket": {
+      "$ref": "#/components/schemas/TicketCard"
+     },
+     "verification": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Verification"
+     },
+     "versions": {
+      "items": {
+       "$ref": "#/components/schemas/TicketVersion"
+      },
+      "title": "Versions",
+      "type": "array"
+     }
+    },
+    "required": [
+     "ticket",
+     "run_id",
+     "slate_date",
+     "selection_hash",
+     "leg_details",
+     "versions"
+    ],
+    "title": "TicketDetail",
+    "type": "object"
+   },
+   "TicketVersion": {
+    "properties": {
+     "booking_code": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Booking Code"
+     },
+     "run_id": {
+      "title": "Run Id",
+      "type": "string"
+     },
+     "status": {
+      "title": "Status",
+      "type": "string"
+     },
+     "ticket_id": {
+      "title": "Ticket Id",
+      "type": "string"
+     },
+     "version": {
+      "title": "Version",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "ticket_id",
+     "version",
+     "status",
+     "booking_code",
+     "run_id"
+    ],
+    "title": "TicketVersion",
+    "type": "object"
+   },
+   "TrackRecord": {
+    "properties": {
+     "breakeven_hit_rate": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Breakeven Hit Rate"
+     },
+     "buckets": {
+      "items": {
+       "$ref": "#/components/schemas/Bucket"
+      },
+      "title": "Buckets",
+      "type": "array"
+     },
+     "calibration_error": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Calibration Error"
+     },
+     "daily": {
+      "items": {
+       "$ref": "#/components/schemas/DailyPoint"
+      },
+      "title": "Daily",
+      "type": "array"
+     },
+     "first": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "First"
+     },
+     "flat_stake_profit": {
+      "title": "Flat Stake Profit",
+      "type": "number"
+     },
+     "flat_stake_roi": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Flat Stake Roi"
+     },
+     "hit_rate": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Hit Rate"
+     },
+     "last": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Last"
+     },
+     "league": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/League"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "legs": {
+      "title": "Legs",
+      "type": "integer"
+     },
+     "legs_on_lost": {
+      "title": "Legs On Lost",
+      "type": "integer"
+     },
+     "legs_won_on_lost": {
+      "title": "Legs Won On Lost",
+      "type": "integer"
+     },
+     "lost": {
+      "title": "Lost",
+      "type": "integer"
+     },
+     "market": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/Family"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "missed_by": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "title": "Missed By",
+      "type": "object"
+     },
+     "push": {
+      "title": "Push",
+      "type": "integer"
+     },
+     "push_rate": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Push Rate"
+     },
+     "tickets": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "title": "Tickets",
+      "type": "object"
+     },
+     "void": {
+      "title": "Void",
+      "type": "integer"
+     },
+     "won": {
+      "title": "Won",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "league",
+     "market",
+     "first",
+     "last",
+     "legs",
+     "won",
+     "lost",
+     "push",
+     "void",
+     "hit_rate",
+     "push_rate",
+     "breakeven_hit_rate",
+     "flat_stake_profit",
+     "flat_stake_roi",
+     "calibration_error",
+     "tickets",
+     "missed_by",
+     "legs_won_on_lost",
+     "legs_on_lost",
+     "buckets",
+     "daily"
+    ],
+    "title": "TrackRecord",
+    "type": "object"
+   },
+   "UnmatchedItem": {
+    "properties": {
+     "away_name": {
+      "title": "Away Name",
+      "type": "string"
+     },
+     "away_suggestions": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Away Suggestions",
+      "type": "array"
+     },
+     "away_team_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Away Team Id"
+     },
+     "event_id": {
+      "title": "Event Id",
+      "type": "string"
+     },
+     "home_name": {
+      "title": "Home Name",
+      "type": "string"
+     },
+     "home_suggestions": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "title": "Home Suggestions",
+      "type": "array"
+     },
+     "home_team_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Home Team Id"
+     },
+     "league": {
+      "$ref": "#/components/schemas/League"
+     },
+     "reason": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Reason"
+     },
+     "start": {
+      "title": "Start",
+      "type": "string"
+     }
+    },
+    "required": [
+     "league",
+     "event_id",
+     "home_name",
+     "away_name",
+     "start",
+     "reason"
+    ],
+    "title": "UnmatchedItem",
+    "type": "object"
+   },
+   "ValidationError": {
+    "properties": {
+     "ctx": {
+      "title": "Context",
+      "type": "object"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "title": "Location",
+      "type": "array"
+     },
+     "msg": {
+      "title": "Message",
+      "type": "string"
+     },
+     "type": {
+      "title": "Error Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError",
+    "type": "object"
+   }
+  }
+ },
+ "info": {
+  "title": "HoopsEdge API",
+  "version": "1"
+ },
+ "openapi": "3.1.0",
+ "paths": {
+  "/config": {
+   "get": {
+    "operationId": "get_config_config_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SettingsView"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Get Config"
+   },
+   "put": {
+    "operationId": "put_config_config_put",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "idempotency-key",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Idempotency-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/SettingsUpdate"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SettingsView"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Put Config"
+   }
+  },
+  "/evidence/{league}": {
+   "get": {
+    "operationId": "evidence_evidence__league__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "league",
+      "required": true,
+      "schema": {
+       "$ref": "#/components/schemas/League"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Evidence"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Evidence"
+   }
+  },
+  "/games/{game_id}": {
+   "get": {
+    "operationId": "game_games__game_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "game_id",
+      "required": true,
+      "schema": {
+       "title": "Game Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/GameDetail"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Game"
+   }
+  },
+  "/health": {
+   "get": {
+    "operationId": "health_health_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Health"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Health"
+   }
+  },
+  "/health/details": {
+   "get": {
+    "operationId": "health_details_health_details_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HealthDetails"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Health Details"
+   }
+  },
+  "/models/{league}": {
+   "get": {
+    "operationId": "models_models__league__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "league",
+      "required": true,
+      "schema": {
+       "$ref": "#/components/schemas/League"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ModelsView"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Models"
+   }
+  },
+  "/models/{league}/rollback": {
+   "post": {
+    "operationId": "rollback_models__league__rollback_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "league",
+      "required": true,
+      "schema": {
+       "$ref": "#/components/schemas/League"
+      }
+     },
+     {
+      "in": "header",
+      "name": "idempotency-key",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Idempotency-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RollbackRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RollbackResult"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Rollback"
+   }
+  },
+  "/runs": {
+   "get": {
+    "operationId": "runs_runs_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+       "default": 20,
+       "maximum": 100,
+       "minimum": 1,
+       "title": "Limit",
+       "type": "integer"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/RunSummary"
+         },
+         "title": "Response Runs Runs Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Runs"
+   },
+   "post": {
+    "operationId": "start_run_runs_post",
+    "parameters": [
+     {
+      "in": "header",
+      "name": "idempotency-key",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Idempotency-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RunRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "202": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RunStarted"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Start Run"
+   }
+  },
+  "/runs/{run_id}": {
+   "get": {
+    "operationId": "run_detail_runs__run_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "run_id",
+      "required": true,
+      "schema": {
+       "title": "Run Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/RunDetail"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Run Detail"
+   }
+  },
+  "/schedules/{name}": {
+   "put": {
+    "operationId": "put_schedule_schedules__name__put",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "name",
+      "required": true,
+      "schema": {
+       "title": "Name",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "idempotency-key",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Idempotency-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ScheduleUpdate"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SettingsView"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Put Schedule"
+   }
+  },
+  "/slates/{slate_date}": {
+   "get": {
+    "operationId": "slate_slates__slate_date__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "slate_date",
+      "required": true,
+      "schema": {
+       "title": "Slate Date",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Slate"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Slate"
+   }
+  },
+  "/system": {
+   "get": {
+    "operationId": "system_system_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SystemView"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "System"
+   }
+  },
+  "/teams/{league}": {
+   "get": {
+    "operationId": "teams_teams__league__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "league",
+      "required": true,
+      "schema": {
+       "$ref": "#/components/schemas/League"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/Team"
+         },
+         "title": "Response Teams Teams  League  Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Teams"
+   }
+  },
+  "/tickets/{ticket_id}": {
+   "get": {
+    "operationId": "ticket_tickets__ticket_id__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "ticket_id",
+      "required": true,
+      "schema": {
+       "title": "Ticket Id",
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TicketDetail"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Ticket"
+   }
+  },
+  "/track-record": {
+   "get": {
+    "operationId": "track_record_track_record_get",
+    "parameters": [
+     {
+      "in": "query",
+      "name": "league",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "$ref": "#/components/schemas/League"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "League"
+      }
+     },
+     {
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "$ref": "#/components/schemas/Family"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Market"
+      }
+     },
+     {
+      "in": "query",
+      "name": "from",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "From"
+      }
+     },
+     {
+      "in": "query",
+      "name": "to",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "To"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TrackRecord"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Track Record"
+   }
+  },
+  "/unmatched": {
+   "get": {
+    "operationId": "unmatched_unmatched_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/UnmatchedItem"
+         },
+         "title": "Response Unmatched Unmatched Get",
+         "type": "array"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Unmatched"
+   }
+  },
+  "/unmatched/{event_id}/resolve": {
+   "post": {
+    "operationId": "resolve_unmatched_unmatched__event_id__resolve_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "event_id",
+      "required": true,
+      "schema": {
+       "title": "Event Id",
+       "type": "string"
+      }
+     },
+     {
+      "in": "header",
+      "name": "idempotency-key",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Idempotency-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ResolveRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ResolveResult"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Resolve Unmatched"
+   }
+  }
+ }
+}
