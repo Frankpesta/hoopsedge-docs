@@ -26,6 +26,7 @@ from hoopsedge.ingest.espn_coverage import EASTERN
 
 LAGOS = ZoneInfo("Africa/Lagos")
 RUN_TIMES = {"NCAA": clock(15, 0), "NBA": clock(22, 0)}  # D71.
+NBA_LATE_TIME = clock(0, 30)  # D78: later tips get an injury report inside the 3-hour window.
 LEARN_TIME = clock(11, 0)
 GRADE_EVERY = timedelta(minutes=30)
 TOO_LATE_AFTER = timedelta(hours=3)  # A machine that wakes much later skips that day's job.
@@ -73,6 +74,8 @@ def due_jobs(
             "--trigger", "scheduled",
         )  # fmt: skip
         daily(f"slate-{league}", _clock(times.get(f"{league.lower()}_slate"), at), run)
+        if league == "NBA":
+            daily("slate-NBA-late", _clock(times.get("nba_late_slate"), NBA_LATE_TIME), run)
     last = done.get("grade")
     if last is None or now - datetime.fromisoformat(last) >= GRADE_EVERY:
         jobs.append(Job("grade", now.isoformat(), _module("hoopsedge.grading.run")))

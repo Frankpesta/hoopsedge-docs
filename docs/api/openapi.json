@@ -1350,6 +1350,10 @@
      "pause_all": {
       "title": "Pause All",
       "type": "boolean"
+     },
+     "scheduled_dry_run": {
+      "title": "Scheduled Dry Run",
+      "type": "boolean"
      }
     },
     "required": [
@@ -1358,6 +1362,7 @@
      "alerts",
      "freshness",
      "dry_run",
+     "scheduled_dry_run",
      "pause_all"
     ],
     "title": "SystemView",
@@ -1490,6 +1495,11 @@
      },
      "version": {
       "title": "Version",
+      "type": "integer"
+     },
+     "weak_legs": {
+      "default": 0,
+      "title": "Weak Legs",
       "type": "integer"
      }
     },

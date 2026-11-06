@@ -1044,3 +1044,36 @@ def test_no_games_needs_no_model(tmp_path: Path) -> None:
 
 def test_a_recorded_event_parses_the_way_the_pipeline_needs() -> None:
     assert parse_event("NCAA", _events()[0]).status == "not_started"
+
+
+# D78: real codes come from Run now, and a scheduled practice run must never replace them.
+
+
+def test_a_scheduled_practice_run_leaves_real_codes_alone(harness: Harness) -> None:
+    first = harness.run(dry_run=False)
+    assert {item["status"] for item in first.tickets} == {"verified"}
+    before = harness.ticket_items()
+    harness.clock += timedelta(hours=1)
+    harness.ctx.dry_run = True
+    skipped = run_slate(harness.ctx, "NCAA", SLATE, "scheduled")
+    assert skipped.status == "skipped"
+    assert "real codes" in (skipped.error or "")
+    assert skipped.tickets == []
+    assert harness.ticket_items() == before
+    assert harness.query(f"RUN#{skipped.run_id}") == []  # So the slate's latest run stays the real.
+    saved = json.loads((harness.ctx.data_dir / f"runs/{skipped.run_id}/result.json").read_text())
+    assert saved["status"] == "skipped"  # Invariant 7: skipped, and it says why.
+
+
+def test_a_scheduled_practice_run_still_replaces_practice_codes(harness: Harness) -> None:
+    harness.run()
+    harness.clock += timedelta(hours=1)
+    second = run_slate(harness.ctx, "NCAA", SLATE, "scheduled")
+    assert second.status == "succeeded", second.error
+    statuses = {item["status"] for item in harness.ticket_items()}
+    assert "superseded" in statuses
+
+
+def test_a_ticket_records_how_many_legs_are_below_the_tested_minimum(harness: Harness) -> None:
+    harness.run()
+    assert {int(item["weak_legs"]) for item in harness.ticket_items()} == {0}

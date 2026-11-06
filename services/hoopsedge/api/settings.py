@@ -9,15 +9,17 @@ from typing import Any
 
 import yaml
 
+from hoopsedge.common.thresholds import thresholds_in_force
+
 PARAMS_DIR = Path(__file__).parent.parent / "models" / "params"
 FAMILIES = ("handicap", "total_ft", "total_1h", "team_total")
 LEAGUES = ("NBA", "NCAA")
-SCHEDULE_NAMES = ("ncaa_slate", "nba_slate", "nightly_learn")
+SCHEDULE_NAMES = ("ncaa_slate", "nba_slate", "nba_late_slate", "nightly_learn")
 
 
 def default_settings(params_dir: Path = PARAMS_DIR) -> dict[str, Any]:
     gates = yaml.safe_load((params_dir / "market_gates.yaml").read_text("utf-8"))
-    thresholds = yaml.safe_load((params_dir / "thresholds.yaml").read_text("utf-8"))
+    thresholds = thresholds_in_force(params_dir)
     markets: dict[str, dict[str, Any]] = {}
     for league in LEAGUES:
         markets[league] = {}
@@ -25,11 +27,16 @@ def default_settings(params_dir: Path = PARAMS_DIR) -> dict[str, Any]:
             chosen = thresholds[league][family]
             markets[league][family] = {
                 "enabled": gates[league][family]["enabled"],
-                "min_prob": None if chosen is None else chosen["min_prob"],
-                "min_edge": None if chosen is None else chosen["min_edge"],
+                "min_prob": chosen["min_prob"],
+                "min_edge": chosen["min_edge"],
             }
     return {
-        "schedules": {"ncaa_slate": "15:00", "nba_slate": "22:00", "nightly_learn": "11:00"},
+        "schedules": {
+            "ncaa_slate": "15:00",
+            "nba_slate": "22:00",
+            "nba_late_slate": "00:30",
+            "nightly_learn": "11:00",
+        },
         "leagues": {league: {"enabled": True} for league in LEAGUES},
         "markets": markets,
         "min_legs": 2,

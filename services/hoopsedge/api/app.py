@@ -59,6 +59,7 @@ from hoopsedge.api.settings import (
 )
 from hoopsedge.api.store import Artifacts, ConflictError, plain
 from hoopsedge.common.aggregates import merge_aggregates
+from hoopsedge.common.booking_mode import DASHBOARD_TRIGGER, is_dry_run
 from hoopsedge.common.dynamo import LOCAL_ENV
 from hoopsedge.common.ids import new_ulid
 from hoopsedge.teams.normalize import normalize_name
@@ -134,6 +135,7 @@ def ticket_card(item: dict[str, Any]) -> dict[str, Any]:
         "combined_prob": None if unproven else item.get("combined_prob"),
         "probability_note": UNPROVEN_NOTE if unproven else None,
         "correction": bool(item.get("correction")),
+        "weak_legs": int(item.get("weak_legs", 0)),
     }
 
 
@@ -591,7 +593,9 @@ def create_app(deps: Deps) -> FastAPI:
                 "last_odds_fetch": at("collector/runs.jsonl"),
                 "last_scheduled_job": at("scheduler/runs.jsonl"),
             },
-            "dry_run": bool(document["dry_run"]),
+            # What will really happen (D78), since the environment can overrule the switch.
+            "dry_run": is_dry_run(bool(document["dry_run"]), DASHBOARD_TRIGGER),
+            "scheduled_dry_run": is_dry_run(bool(document["dry_run"]), "scheduled"),
             "pause_all": bool(document["pause_all"]),
         }
 

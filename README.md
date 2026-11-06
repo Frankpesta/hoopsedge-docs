@@ -101,7 +101,7 @@ docker compose run --rm -e UPDATE_GOLDEN=1 dev pytest -q tests/test_engine.py -k
 
 ## Slate pipeline
 
-One league and date, end to end: refresh results and injuries, fetch SportyBet offers, match teams, predict, build tickets, re-check offers, then book and verify. It runs against the local database stand-in. **Locally it always runs dry and can't create a real code.**
+One league and date, end to end: refresh results and injuries, fetch SportyBet offers, match teams, predict, build tickets, re-check offers, then book and verify. It runs against the local database stand-in. **From the command line it always runs dry and can't create a real code.** Only the dashboard's Run now can (D78).
 
 ```sh
 docker compose run --rm pipeline python -m hoopsedge.pipeline.slate run --league NCAA --date 2026-11-06
@@ -128,7 +128,7 @@ docker compose run --rm pipeline python -m hoopsedge.learning.run rollback --lea
 
 Each night's report is at `data/reports/learning/{league}/{date}.json`.
 
-To run the daily cycle by itself: dry-run slates at 15:00 (NCAA) and 22:00 (NBA) Lagos, grading every 30 minutes and learning at 11:00. Set `HOOPSEDGE_GIT_SHA` to the commit you built, or learning refuses to promote a model. Its code is copied into the image, so rebuild to pick up changes. Create `data/scheduler/PAUSED` to pause it, and read `data/scheduler/runs.jsonl` to see what it did.
+To run the daily cycle by itself: dry-run slates at 15:00 (NCAA), 22:00 and 00:30 (NBA) Lagos, grading every 30 minutes and learning at 11:00. Set `HOOPSEDGE_GIT_SHA` to the commit you built, or learning refuses to promote a model. Its code is copied into the image, so rebuild to pick up changes. Create `data/scheduler/PAUSED` to pause it, and read `data/scheduler/runs.jsonl` to see what it did.
 
 ```sh
 docker compose --profile manual up -d --build --no-deps scheduler
@@ -150,3 +150,28 @@ The endpoints are in `docs/api/openapi.json`. After changing any endpoint, regen
 ```sh
 docker compose run --rm dev python -m hoopsedge.api.main export
 ```
+
+## Dashboard
+
+The phone-first dashboard, in `web/`. To run it locally with the API, put `HOOPSEDGE_API_KEY=<any long random value>` in a root `.env` file, which git ignores, then open http://127.0.0.1:3000. It builds on start, which takes about 2 minutes.
+
+```sh
+docker compose --profile manual up -d --build --no-deps api web
+```
+
+**Run now books real SportyBet codes here (D78), as long as dry run is off in Settings.** It only creates shareable slips: it can't log in or place a bet. Scheduled runs and command-line runs stay on practice codes (`DRYRUN-…`), which don't exist on SportyBet, and a scheduled run skips a slate that already has real codes rather than replacing them. If SportyBet ever blocks a booking, the run stops and alerts: review it before pressing Run now again.
+
+The key stays on the server: the browser only ever talks to the dashboard. Checks, all inside Docker so they don't depend on this machine's Node:
+
+```sh
+docker compose --profile manual run --rm --no-deps web npm run typecheck
+docker compose --profile manual run --rm --no-deps web npm run lint
+docker compose --profile manual run --rm --no-deps web npm test
+docker compose --profile manual run --rm --no-deps web npm run types:check   # types match the API
+docker compose --profile manual run --rm --no-deps -e HOOPSEDGE_API_KEY=LEAKCHECK-KEY-7f3a9c \
+  -e HOOPSEDGE_API_URL=https://leakcheck-api.invalid web sh -c "npm run build && npm run check:leak"
+docker compose --profile manual run --rm --no-deps web-e2e sh -c "npm run build && npx playwright test"
+docker compose --profile manual run --rm --no-deps web-e2e node scripts/lighthouse.mjs
+```
+
+The leak check and browser tests overwrite the dashboard's build folder, so stop `web` before them and start it again afterwards. Lighthouse measures the running dashboard, so `web` must be up for it. After regenerating the API schema, run `npm run types:generate`.

@@ -1,24 +1,19 @@
 """Creating booking codes (docs/07 section 6.4, invariant 8, C12).
 
 A code is a shareable slip and nothing more: this package can't stake anything on it (D11). Booking
-happens only if both the environment and the config allow it, so either can force dry-run. A local
-environment never books from here: the single approved test has its own command and ledger.
+happens only if both the environment and the config allow it, so either can force dry-run. Locally
+only the dashboard's Run now can book (D78, `common.booking_mode`).
 """
 
-import os
 from collections.abc import Sequence
 
-from hoopsedge.common.dynamo import LOCAL_ENV
+from hoopsedge.common.booking_mode import is_dry_run
 from hoopsedge.engine.schemas import Leg
 from hoopsedge.sportybet.client import SportyBetClient
 
+__all__ = ["DRY_RUN_PREFIX", "create_code", "dry_run_code", "is_dry_run", "selections"]
+
 DRY_RUN_PREFIX = "DRYRUN-"
-
-
-def is_dry_run(config_dry_run: bool = False) -> bool:
-    if config_dry_run or os.environ.get("HOOPSEDGE_ENV", LOCAL_ENV) == LOCAL_ENV:
-        return True
-    return os.environ.get("DRY_RUN", "true").strip().lower() != "false"
 
 
 def selections(legs: Sequence[Leg]) -> list[dict[str, str]]:

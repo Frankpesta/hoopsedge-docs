@@ -9,6 +9,7 @@ from typing import Any
 
 import yaml
 
+from hoopsedge.common.thresholds import thresholds_in_force
 from hoopsedge.engine.schemas import FAMILIES, EngineConfig, LeagueSettings, MarketSettings
 from hoopsedge.models.calibration import Calibrator
 
@@ -87,18 +88,21 @@ def load_engine_config(
     **overrides: Any,
 ) -> EngineConfig:
     gates = _read(params_dir / "market_gates.yaml")
-    thresholds = _read(params_dir / "thresholds.yaml")
+    thresholds = thresholds_in_force(params_dir)
     markets: dict[str, dict[str, MarketSettings]] = {}
     for league in LEAGUES:
         markets[league] = {}
         for family in FAMILIES:
             gate = _entry(gates.get(league, {}), "market_gates", league, family)
-            chosen = _entry(thresholds.get(league, {}), "thresholds", league, family)
+            chosen = thresholds[league][family]
             markets[league][family] = MarketSettings(
                 enabled=gate["enabled"],
                 passed_gate=gate["passed"],
                 edge_label=gate["edge"],
-                min_prob=None if chosen is None else chosen["min_prob"],
-                min_edge=None if chosen is None else chosen["min_edge"],
+                min_prob=chosen["min_prob"],
+                min_edge=chosen["min_edge"],
+                has_tested_floor=True,
+                tested_min_prob=chosen["tested_min_prob"],
+                tested_min_edge=chosen["tested_min_edge"],
             )
     return EngineConfig(leagues=LEAGUES, markets=markets, calibrators=calibrators, **overrides)

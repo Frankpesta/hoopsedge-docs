@@ -2,8 +2,8 @@
 
     docker compose run --rm pipeline python -m hoopsedge.pipeline.slate run --league NBA
 
-Each step is a function, so AWS can run them as Step Functions states later. Locally it always
-runs dry: `booking.is_dry_run` refuses anything else, so nothing here can create a real code.
+Each step is a function, so AWS can run them as Step Functions states later. Locally it runs dry,
+except the dashboard's Run now (D78): `booking.is_dry_run` decides, and refuses anything else.
 """
 
 import argparse
@@ -460,6 +460,13 @@ def run_slate(
     now = ctx.now()
     summary = RunSummary(run_id or new_ulid(now), league, slate)
     run_id = summary.run_id
+    if trigger == "scheduled" and ctx.dry_run and ctx.store.has_verified_codes(league, slate):
+        # D78: practice codes must never replace real ones the owner asked for. The slate's latest
+        # run stays the real one, and this run's file says why it stopped.
+        summary.status = "skipped"
+        summary.error = "This slate already has real codes, so a practice run would replace them"
+        _write_artifact(ctx, summary, {})
+        return summary
     if not ctx.store.acquire_lock(league, slate, run_id, now):
         raise SlateLocked(f"{league} {slate} already has a run in progress")
     fields = {
@@ -498,7 +505,9 @@ def run_slate(
     return summary
 
 
-def _build_context(league: str, data_dir: Path, run_folder: Path) -> SlateContext:
+def _build_context(
+    league: str, data_dir: Path, run_folder: Path, trigger: str = "manual"
+) -> SlateContext:
     resource = connect()
     ensure_table(resource, table_name())
     table = resource.Table(table_name())
@@ -535,7 +544,7 @@ def _build_context(league: str, data_dir: Path, run_folder: Path) -> SlateContex
         config=config,
         predict=predict,
         refresh=refresh,
-        dry_run=is_dry_run(bool(settings and settings.get("dry_run"))),
+        dry_run=is_dry_run(bool(settings and settings.get("dry_run")), trigger),
         team_names=league_names,
     )
 
@@ -554,7 +563,8 @@ def main() -> int:
         date.fromisoformat(args.date) if args.date else datetime.now(UTC).astimezone(EASTERN).date()
     )
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    context = _build_context(args.league, data_dir, data_dir / f"raw/sportybet/run-{stamp}")
+    run_folder = data_dir / f"raw/sportybet/run-{stamp}"
+    context = _build_context(args.league, data_dir, run_folder, args.trigger)
     summary = run_slate(context, args.league, slate, args.trigger, args.run_id)
     print(
         json.dumps(
@@ -570,7 +580,7 @@ def main() -> int:
             default=str,
         )
     )
-    return 0 if summary.status == "succeeded" else 1
+    return 0 if summary.status in {"succeeded", "skipped"} else 1
 
 
 if __name__ == "__main__":

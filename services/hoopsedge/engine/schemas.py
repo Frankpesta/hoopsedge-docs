@@ -120,6 +120,10 @@ class MarketSettings(_Frozen):
     edge_label: EdgeLabel
     min_prob: float | None  # None: no threshold met the leg floor, so no legs (D69).
     min_edge: float | None
+    # What testing chose, kept when the owner overrides it (D78). None: testing found no minimum.
+    has_tested_floor: bool = False
+    tested_min_prob: float | None = None
+    tested_min_edge: float | None = None
 
 
 class LeagueSettings(_Frozen):
@@ -172,6 +176,7 @@ class Leg(_Frozen):
     tip_time: AwareDatetime
     # What grading compares the result with: margin, total or team total, by family.
     predicted_mean: float | None = None
+    below_tested: bool = False  # D78: below the minimum testing chose for this market.
     # Invariant 6: what produced this leg.
     model_version: str
     feature_hash: str

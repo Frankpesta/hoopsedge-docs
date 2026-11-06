@@ -70,6 +70,7 @@ class TicketCard(_Model):
     edge_label: str
     probability_note: str | None
     correction: bool = False
+    weak_legs: int = 0  # D78: legs below the minimum testing chose for this market.
     legs_summary: list[LegSummary] = Field(default_factory=list)
 
 
@@ -338,7 +339,8 @@ class SystemView(_Model):
     budget_usd: list[int]
     alerts: list[dict[str, Any]]
     freshness: dict[str, str | None]
-    dry_run: bool
+    dry_run: bool  # Whether Run now makes practice codes.
+    scheduled_dry_run: bool
     pause_all: bool
 
 

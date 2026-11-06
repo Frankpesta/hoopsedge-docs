@@ -17,6 +17,7 @@ from hoopsedge.engine.schemas import (
     BuildResult,
     EngineConfig,
     Leg,
+    MarketSettings,
     Offer,
     PeriodPrediction,
     Prediction,
@@ -155,6 +156,14 @@ def _market_reason(offer: Offer, config: EngineConfig, now: datetime) -> Reason 
     if market.min_prob is None or market.min_edge is None:
         return Reason.NO_THRESHOLD
     return None
+
+
+def _below_tested(market: MarketSettings, chance: float, edge: float) -> bool:
+    if not market.has_tested_floor:
+        return False
+    if market.tested_min_prob is None or market.tested_min_edge is None:
+        return True
+    return chance < market.tested_min_prob or edge < market.tested_min_edge
 
 
 def _injury_uncertain(prediction: Prediction, offer: Offer, config: EngineConfig) -> bool:
@@ -314,6 +323,11 @@ class _Build:
                 "ev": expected_value(chance.p_win, chance.p_lose, odds),
                 "tip_time": offer.tip_time,
                 "predicted_mean": _predicted_mean(prediction, offer),
+                "below_tested": _below_tested(
+                    self.config.markets[offer.league][offer.family],
+                    chance.p_calibrated,
+                    chance.p_calibrated - fair,
+                ),
                 "model_version": prediction.model_version,
                 "feature_hash": prediction.feature_hash,
                 "offer_fetched_at": offer.fetched_at,
