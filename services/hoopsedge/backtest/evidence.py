@@ -26,8 +26,8 @@ from hoopsedge.backtest.metrics import (
     flat_stake_return,
     gate_decision,
     log_loss,
-    no_vig_probability,
 )
+from hoopsedge.markets.probability import no_vig_probability
 from hoopsedge.models.distribution import crps_normal, log_likelihood_normal
 
 MARGIN_TOTAL = {"margin": "sd_margin", "total": "sd_total"}

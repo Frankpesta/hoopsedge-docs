@@ -86,3 +86,15 @@ docker compose run --rm dev python -m hoopsedge.backtest.run evidence --league N
 ```
 
 Set `HOOPSEDGE_GIT_SHA` on `evidence` to the commit being run. Without it the version is marked `-dirty` and can't be promoted. After changing `ratings/config.yaml`, delete that league's `data/curated/features` and `ratings_snapshots` folders and rebuild before tuning.
+
+## Ticket engine
+
+`hoopsedge.engine.build_tickets(predictions, offers, config, now)` turns predictions and SportyBet offers into tickets. It's pure: no network, no clock and no randomness, so the same inputs always give the same tickets. Every outcome that doesn't become a leg gets a reason code. Nothing runs it on a schedule until Phase 6 supplies live offers.
+
+`load_engine_config(calibrators)` reads market gates and thresholds from `models/params/`, and `models.registry.load_calibrators(folder)` reads a model version's calibrators. A market with no threshold makes no legs (`NO_THRESHOLD`), and each ticket records whether its market passed its gate.
+
+After a deliberate change to engine output, regenerate the golden file and review its diff:
+
+```sh
+docker compose run --rm -e UPDATE_GOLDEN=1 dev pytest -q tests/test_engine.py -k recorded
+```
