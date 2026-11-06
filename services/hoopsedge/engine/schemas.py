@@ -168,6 +168,8 @@ class Leg(_Frozen):
     edge: float
     ev: float
     tip_time: AwareDatetime
+    # What grading compares the result with: margin, total or team total, by family.
+    predicted_mean: float | None = None
     # Invariant 6: what produced this leg.
     model_version: str
     feature_hash: str
@@ -199,6 +201,28 @@ class Rejection(_Frozen):
     side: Side | None = None
     p_calibrated: float | None = None
     edge: float | None = None
+
+
+class ScoredLine(_Frozen):
+    """One main line's raw probabilities, whether or not any leg came of it (docs/08 section 7.3).
+
+    This is what real-line calibrators are fit on. Above means home covers, or over.
+    """
+
+    league: League
+    game_id: str
+    event_id: str
+    family: Family
+    market_id: str
+    specifier: str
+    line: float
+    team: Team | None
+    p_above: float
+    p_push: float
+    fair_above: float
+    tip_time: AwareDatetime
+    fetched_at: AwareDatetime
+    model_version: str
 
 
 class BuildResult(_Frozen):

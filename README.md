@@ -112,3 +112,24 @@ It prints the tickets and writes everything behind them, including each rejectio
 **Half-time and Team O/U probabilities are unproven (D72).** Treat each leg as about 50%, whatever the ticket's figures say: at real bookmaker lines, the model's high-confidence picks won about half the time.
 
 `hoopsedge.pipeline.live_test` made the one approved live booking. All 5 test codes are now used, so it refuses to book again.
+
+## Grading and learning
+
+Grading settles every finished leg, and it's safe to run as often as you like. Learning runs nightly per league: it recalibrates, and tests a retrained model against the champion. A new model only takes over if it's measurably better on games neither trained on, and every decision is recorded with its numbers.
+
+```sh
+docker compose run --rm pipeline python -m hoopsedge.grading.run                 # settle finished legs
+docker compose run --rm pipeline python -m hoopsedge.grading.run hand-check      # 20 legs to compare with real results
+docker compose run --rm pipeline python -m hoopsedge.learning.run bootstrap --league NBA  # first champion
+docker compose run --rm pipeline python -m hoopsedge.learning.run learn --league NBA      # the nightly job
+docker compose run --rm pipeline python -m hoopsedge.learning.run status --league NBA     # champion and decisions
+docker compose run --rm pipeline python -m hoopsedge.learning.run rollback --league NBA --version <version> --reason "Why"
+```
+
+Each night's report is at `data/reports/learning/{league}/{date}.json`.
+
+To run the daily cycle by itself: dry-run slates at 15:00 (NCAA) and 22:00 (NBA) Lagos, grading every 30 minutes and learning at 11:00. Set `HOOPSEDGE_GIT_SHA` to the commit you built, or learning refuses to promote a model. Its code is copied into the image, so rebuild to pick up changes. Create `data/scheduler/PAUSED` to pause it, and read `data/scheduler/runs.jsonl` to see what it did.
+
+```sh
+docker compose --profile manual up -d --build scheduler
+```

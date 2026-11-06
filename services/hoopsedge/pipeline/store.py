@@ -15,6 +15,7 @@ from hoopsedge.teams.matcher import Match
 
 LOCK_MINUTES = 30
 GSI = "GSI1"
+PENDING_LEG = "PENDINGLEG"
 PENDING_BOOKING = "pending_booking"
 DRY_RUN = "dry_run"
 VERIFIED = "verified"
@@ -227,20 +228,101 @@ class PipelineStore:
         # Only a finished ticket's legs: a retry can drop legs, and those must never be graded.
         if status != PENDING_BOOKING:
             for leg in ticket.legs:
-                self._save_leg(ticket_id, leg)
+                self._save_leg(ticket_id, leg, slate)
 
-    def _save_leg(self, ticket_id: str, leg: Leg) -> None:
+    def _save_leg(self, ticket_id: str, leg: Leg, slate: date) -> None:
         self.table.put_item(
             Item=to_item(
                 {
                     "pk": f"TICKET#{ticket_id}",
                     "sk": f"LEG#{leg.rank:03d}",
-                    "gsi1pk": "PENDINGLEG",
+                    "gsi1pk": PENDING_LEG,
                     "gsi1sk": _stamp(leg.tip_time),
                     "status": "pending",
+                    "slate_date": slate.isoformat(),
                     **leg.model_dump(mode="json"),
                 }
             )
+        )
+
+    # Grading (docs/08 section 7.1).
+
+    def _all_pages(self, **query: Any) -> list[dict[str, Any]]:
+        items: list[dict[str, Any]] = []
+        while True:
+            response = self.table.query(**query)
+            items += response["Items"]
+            if "LastEvaluatedKey" not in response:
+                return items
+            query["ExclusiveStartKey"] = response["LastEvaluatedKey"]
+
+    def pending_legs(self) -> list[dict[str, Any]]:
+        return self._all_pages(IndexName=GSI, KeyConditionExpression=Key("gsi1pk").eq(PENDING_LEG))
+
+    def settled_legs(self, league: str, since: datetime) -> list[dict[str, Any]]:
+        return self._all_pages(
+            IndexName=GSI,
+            KeyConditionExpression=Key("gsi1pk").eq(f"SETTLEDLEG#{league}")
+            & Key("gsi1sk").gte(_stamp(since)),
+        )
+
+    def settled_legs_since_all(self, since: datetime) -> list[dict[str, Any]]:
+        return [leg for league in ("NBA", "NCAA") for leg in self.settled_legs(league, since)]
+
+    def settle_leg(self, leg: dict[str, Any], fields: dict[str, Any], now: datetime) -> None:
+        """Moves the leg out of `PENDINGLEG` (docs/12), to where corrections can still find it."""
+        names = {
+            "gsi1pk": f"SETTLEDLEG#{leg['league']}",
+            "settled_at": _stamp(now),
+            **fields,
+        }
+        values = to_item({f"v{number}": value for number, value in enumerate(names.values())})
+        self.table.update_item(
+            Key={"pk": leg["pk"], "sk": leg["sk"]},
+            UpdateExpression="SET " + ", ".join(f"#k{i} = :v{i}" for i in range(len(names))),
+            ExpressionAttributeNames={f"#k{i}": name for i, name in enumerate(names)},
+            ExpressionAttributeValues={f":{key}": value for key, value in values.items()},
+        )
+
+    def ticket_legs(self, ticket_id: str) -> list[dict[str, Any]]:
+        return self._all_pages(
+            KeyConditionExpression=Key("pk").eq(f"TICKET#{ticket_id}")
+            & Key("sk").begins_with("LEG#")
+        )
+
+    def ticket_meta(self, ticket_id: str) -> dict[str, Any]:
+        item: dict[str, Any] = self.table.get_item(Key={"pk": f"TICKET#{ticket_id}", "sk": "META"})[
+            "Item"
+        ]
+        return item
+
+    def update_ticket_settlement(
+        self, ticket_id: str, status: str, odds: float, correction: bool
+    ) -> None:
+        update = "SET settle_status = :status, settled_combined_odds = :odds"
+        values = to_item({":status": status, ":odds": odds})
+        if correction:
+            update += ", correction = :correction"
+            values[":correction"] = True
+        self.table.update_item(
+            Key={"pk": f"TICKET#{ticket_id}", "sk": "META"},
+            UpdateExpression=update,
+            ExpressionAttributeValues=values,
+        )
+
+    def game_item(self, league: str, game_id: str) -> dict[str, Any] | None:
+        item: dict[str, Any] | None = self.table.get_item(
+            Key={"pk": f"GAME#{league}#{game_id}", "sk": "META"}
+        ).get("Item")
+        return item
+
+    def save_aggregate(self, league: str, family: str, period: str, fields: dict[str, Any]) -> None:
+        self.table.put_item(Item=to_item({"pk": f"AGG#{league}#{family}", "sk": period, **fields}))
+
+    def daily_aggregates(self, league: str, family: str) -> list[dict[str, Any]]:
+        return self._all_pages(
+            KeyConditionExpression=Key("pk").eq(f"AGG#{league}#{family}")
+            & Key("sk").begins_with("D#")
         )
 
     def supersede(self, league: str, slate: date, before_version: int) -> int:

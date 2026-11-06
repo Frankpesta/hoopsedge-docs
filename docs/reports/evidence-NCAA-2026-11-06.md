@@ -252,22 +252,22 @@ Break-even at -110 is a 52.4% hit rate.
 
 | Feature | Gain share | Mean absolute SHAP (points) |
 |---|---|---|
-| efg_matchup_h | 0.0805 | 0.143 |
-| adj_d_h | 0.0344 | 0.123 |
-| efg_d_a | 0.0378 | 0.116 |
-| exp_ppp_a | 0.0321 | 0.097 |
-| days_since_start | 0.1052 | 0.094 |
-| exp_ppp_1h_a | 0.0349 | 0.076 |
-| efg_matchup_a | 0.0281 | 0.056 |
-| ftr_d_h | 0.0239 | 0.055 |
-| exp_ppp_h | 0.0606 | 0.055 |
-| orb_matchup_a | 0.0337 | 0.051 |
-| rest_a | 0.0387 | 0.047 |
-| form_a | 0.0266 | 0.046 |
-| exp_poss_1h | 0.0167 | 0.036 |
-| ftr_matchup_a | 0.0152 | 0.029 |
-| exp_ppp_1h_h | 0.0318 | 0.024 |
+| efg_matchup_h | 0.0772 | 0.135 |
+| adj_d_h | 0.0341 | 0.121 |
+| efg_d_a | 0.0386 | 0.12 |
+| exp_ppp_a | 0.0328 | 0.101 |
+| days_since_start | 0.1062 | 0.094 |
+| exp_ppp_1h_a | 0.0377 | 0.078 |
+| exp_ppp_h | 0.059 | 0.056 |
+| ftr_d_h | 0.0242 | 0.053 |
+| form_a | 0.0332 | 0.05 |
+| rest_a | 0.0396 | 0.049 |
+| efg_matchup_a | 0.026 | 0.048 |
+| orb_matchup_a | 0.0337 | 0.047 |
+| exp_poss_1h | 0.0191 | 0.039 |
+| ftr_matchup_a | 0.016 | 0.03 |
+| efg_d_h | 0.0167 | 0.024 |
 
 ## Model
 
-Artifact version: `20261106-1827-unknown-dirty`.
+Artifact version: `20261106-1953-4d25ce0`.

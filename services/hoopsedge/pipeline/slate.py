@@ -13,7 +13,6 @@ import sys
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime, timedelta
-from datetime import time as clock
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
@@ -28,7 +27,9 @@ from hoopsedge.engine import (
     Prediction,
     build_tickets,
     load_engine_config,
+    score_offers,
 )
+from hoopsedge.engine.config import with_calibrator_sources
 from hoopsedge.engine.recheck import (
     REJECTED_AT_BOOKING,
     compare_builds,
@@ -38,12 +39,9 @@ from hoopsedge.engine.recheck import (
 from hoopsedge.engine.schemas import Ticket
 from hoopsedge.ingest.espn_coverage import EASTERN
 from hoopsedge.ingest.live import USER_AGENT, Live, ingest_once
-from hoopsedge.pipeline.predict import (
-    game_ref,
-    latest_version,
-    load_model_calibrators,
-    predict_games,
-)
+from hoopsedge.learning.data import write_log
+from hoopsedge.learning.registry import ModelRegistry
+from hoopsedge.pipeline.predict import game_ref, predict_games
 from hoopsedge.pipeline.store import (
     CRITICAL,
     DRY_RUN,
@@ -67,8 +65,6 @@ from hoopsedge.sportybet.verification import verify_code
 from hoopsedge.teams.matcher import CanonicalGame, TeamIndex, confirmed_aliases, match_event
 
 LAGOS = ZoneInfo("Africa/Lagos")
-# Live defaults (D6, D71). Training replays keep `features.training.SLATE_RUN_TIMES` (D14).
-LIVE_RUN_TIMES = {"NCAA": clock(15, 0), "NBA": clock(22, 0)}
 MAX_UNMATCHED_BEFORE_WARNING = 5
 DEFAULT_DATA_DIR = "/workspace/data"
 
@@ -392,6 +388,15 @@ def _run_steps(ctx: SlateContext, summary: RunSummary, artifact: dict[str, Any])
         ctx.store.log(run_id, ctx.now(), "RecheckOffers", change.kind, vars(change))
     artifact["final_build"] = final.model_dump(mode="json")
     summary.counts.update(_counts(final))
+    # Everything offered, not only the picks, is what real-line calibrators learn from (D72).
+    write_log(
+        ctx.data_dir,
+        league,
+        slate,
+        run_id,
+        predictions,
+        score_offers(predictions, rematched.offers),
+    )
     _step(summary, "RecheckOffers", started, ctx.now(), changes=len(changes))
 
     started = ctx.now()
@@ -452,8 +457,14 @@ def _build_context(league: str, data_dir: Path, run_folder: Path) -> SlateContex
     ensure_table(resource, table_name())
     table = resource.Table(table_name())
     store = PipelineStore(table)
-    model_folder = latest_version(data_dir / "models", league)
-    config = load_engine_config(load_model_calibrators(model_folder, league))
+    registry = ModelRegistry(table, data_dir / "models")
+    champion = registry.require(league)
+    model_folder = registry.model_folder(league, champion.version)
+    config = with_calibrator_sources(
+        load_engine_config({league: registry.calibrators(league, champion)}),
+        league,
+        champion.calibrator_sources,
+    )
 
     def predict(chosen: str, items: Sequence[dict[str, Any]], now: datetime) -> list[Prediction]:
         refs = [game_ref(chosen, item) for item in items]

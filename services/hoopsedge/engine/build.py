@@ -22,6 +22,7 @@ from hoopsedge.engine.schemas import (
     Prediction,
     Reason,
     Rejection,
+    ScoredLine,
     Ticket,
 )
 from hoopsedge.markets.probability import (
@@ -82,6 +83,62 @@ def _chances(period: PeriodPrediction, offer: Offer) -> tuple[float, float, floa
 
 def _period_for(prediction: Prediction, offer: Offer) -> PeriodPrediction | None:
     return prediction.h1 if offer.family == "total_1h" else prediction.ft
+
+
+def _predicted_mean(prediction: Prediction, offer: Offer) -> float | None:
+    period = _period_for(prediction, offer)
+    if period is None:
+        return None
+    if offer.family == "handicap":
+        return period.mu_home - period.mu_away
+    if offer.team == "home":
+        return period.mu_home
+    if offer.team == "away":
+        return period.mu_away
+    return period.mu_home + period.mu_away
+
+
+def score_offers(predictions: Sequence[Prediction], offers: Sequence[Offer]) -> list[ScoredLine]:
+    """Every bookable main line with a prediction, whatever the thresholds and gates say.
+
+    Real-line calibrators need the lines nothing was picked from too, or they'd only ever see
+    where the model most disagrees with the market (docs/08 section 7.3, C5).
+    """
+    by_game = {item.game_id: item for item in predictions}
+    markets: dict[tuple[str, str, str], list[Offer]] = {}
+    for offer in offers:
+        if offer.game_id is not None and offer.game_id in by_game and offer.bookable:
+            markets.setdefault((offer.event_id, offer.family, offer.team or ""), []).append(offer)
+    scored: list[ScoredLine] = []
+    for key in sorted(markets):
+        offer = main_line(markets[key])
+        assert offer.game_id is not None  # noqa: S101 - Filtered just above.
+        prediction = by_game[offer.game_id]
+        period = _period_for(prediction, offer)
+        if period is None:
+            continue
+        above, push, _ = _chances(period, offer)
+        first = next(item for item in offer.outcomes if item.side in FIRST_SIDES)
+        second = next(item for item in offer.outcomes if item.side not in FIRST_SIDES)
+        scored.append(
+            ScoredLine(
+                league=offer.league,
+                game_id=offer.game_id,
+                event_id=offer.event_id,
+                family=offer.family,
+                market_id=offer.market_id,
+                specifier=offer.specifier,
+                line=offer.line,
+                team=offer.team,
+                p_above=above,
+                p_push=push,
+                fair_above=fair_probability(first.odds, second.odds),
+                tip_time=offer.tip_time,
+                fetched_at=offer.fetched_at,
+                model_version=prediction.model_version,
+            )
+        )
+    return scored
 
 
 def _market_reason(offer: Offer, config: EngineConfig, now: datetime) -> Reason | None:
@@ -256,6 +313,7 @@ class _Build:
                 "edge": chance.p_calibrated - fair,
                 "ev": expected_value(chance.p_win, chance.p_lose, odds),
                 "tip_time": offer.tip_time,
+                "predicted_mean": _predicted_mean(prediction, offer),
                 "model_version": prediction.model_version,
                 "feature_hash": prediction.feature_hash,
                 "offer_fetched_at": offer.fetched_at,

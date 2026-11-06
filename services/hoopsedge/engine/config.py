@@ -34,6 +34,19 @@ def _entry(table: dict[str, dict[str, Any] | None], name: str, league: str, fami
     return table[family]
 
 
+def with_calibrator_sources(
+    config: EngineConfig, league: str, sources: dict[str, str]
+) -> EngineConfig:
+    """A market stops being `unproven` once its calibrators have really seen market lines (D72)."""
+    markets = {name: dict(group) for name, group in config.markets.items()}
+    for family, source in sources.items():
+        if source == "real" and family in markets[league]:
+            markets[league][family] = markets[league][family].model_copy(
+                update={"edge_label": "measured"}
+            )
+    return config.model_copy(update={"markets": markets})
+
+
 def load_engine_config(
     calibrators: dict[str, dict[str, Calibrator]],
     params_dir: Path = PARAMS_DIR,
