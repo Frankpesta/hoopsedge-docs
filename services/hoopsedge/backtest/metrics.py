@@ -86,12 +86,6 @@ def sweep_thresholds(frame: pl.DataFrame, min_legs_per_slate: float) -> Threshol
     return best
 
 
-def no_vig_probability(price: np.ndarray, other: np.ndarray) -> np.ndarray:
-    """Fair probability of `price` in a two-way market (docs/06 section 5.2)."""
-    implied, implied_other = 1.0 / price, 1.0 / other
-    return implied / (implied + implied_other)
-
-
 def flat_stake_return(outcome: np.ndarray, price: float = 1.0 + 100.0 / 110.0) -> np.ndarray:
     """Profit per unit staked, at -110-equivalent odds unless told otherwise."""
     return np.where(outcome == 1.0, price - 1.0, -1.0)

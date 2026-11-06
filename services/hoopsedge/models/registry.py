@@ -14,6 +14,7 @@ import polars as pl
 import yaml
 
 from hoopsedge.features.registry import FEATURE_SET_VERSION
+from hoopsedge.models.calibration import Calibrator
 from hoopsedge.models.training import ModelBundle, PeriodModel, training_data_hash
 
 
@@ -66,6 +67,14 @@ def _load_period(folder: Path, period: str, meta: dict[str, Any]) -> PeriodModel
         {name: float(value) for name, value in meta["scale"].items()},
         {name: (float(pair[0]), float(pair[1])) for name, pair in meta["sd_bounds"].items()},
     )
+
+
+def load_calibrators(folder: Path) -> dict[str, Calibrator]:
+    """A version's calibrators by market family. Having none is an error, never "uncalibrated"."""
+    files = sorted((folder / "calibrators").glob("*.json"))
+    if not files:
+        raise FileNotFoundError(f"No calibrators in {folder}")
+    return {file.stem: Calibrator.from_json(json.loads(file.read_text("utf-8"))) for file in files}
 
 
 def load_bundle(folder: Path) -> ModelBundle:
