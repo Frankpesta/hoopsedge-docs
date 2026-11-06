@@ -48,7 +48,9 @@ LEAGUES: dict[str, tuple[str, dict[str, str]]] = {
     "NBA": ("nba", {}),
     "NCAA": ("mens-college-basketball", {"groups": "50", "limit": "400"}),
 }
-FIRST_SEASON = {"NBA": 2019, "NCAA": 2016}  # NBA from 2018-19 by owner decision (D39).
+# Owner decisions: NBA from 2018-19 (D39), NCAA from 2025-26 (D57). Lowering a value and
+# running `fetch` again adds seasons without repeating anything.
+FIRST_SEASON = {"NBA": 2019, "NCAA": 2026}
 # (start month, day, end month, day), with the end in the season's closing year.
 SEASON_WINDOW = {"NBA": (10, 1, 6, 30), "NCAA": (11, 1, 4, 15)}
 # Seasons that ran outside the normal calendar.

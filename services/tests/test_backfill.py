@@ -63,9 +63,14 @@ def mock_day(summary: dict[str, Any] | None = None) -> None:
     respx.get(ODDS_URL).mock(return_value=httpx.Response(200, json={"items": []}))
 
 
-def test_nba_starts_at_2018_19_and_ncaa_at_2015_16() -> None:
-    assert FIRST_SEASON == {"NBA": 2019, "NCAA": 2016}
-    assert seasons_for("NBA", date(2026, 11, 5))[0] == 2027  # Newest first.
+@pytest.fixture(autouse=True)
+def older_ncaa_seasons(monkeypatch: pytest.MonkeyPatch) -> None:
+    """These tests use real responses from older seasons, whatever the current scope is."""
+    monkeypatch.setitem(FIRST_SEASON, "NCAA", 2016)
+
+
+def test_seasons_run_newest_first_and_follow_the_calendar() -> None:
+    assert seasons_for("NBA", date(2026, 11, 5))[0] == 2027
     assert seasons_for("NBA", date(2026, 11, 5))[-1] == 2019
     assert seasons_for("NCAA", date(2026, 11, 5))[-1] == 2016
     assert seasons_for("NCAA", date(2026, 8, 1))[0] == 2026  # Off-season: last season is newest.
