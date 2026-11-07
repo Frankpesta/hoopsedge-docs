@@ -31,6 +31,7 @@ from hoopsedge.markets.probability import (
     expected_value,
     fair_probability,
     score_two_way,
+    toward_market,
 )
 from hoopsedge.models.distribution import ScoreDistribution
 
@@ -97,6 +98,18 @@ def _predicted_mean(prediction: Prediction, offer: Offer) -> float | None:
     if offer.team == "away":
         return period.mu_away
     return period.mu_home + period.mu_away
+
+
+def _disagreement(period: PeriodPrediction, offer: Offer) -> float:
+    """How far the line is from the model's mean, in the model's standard deviations (D79)."""
+    if offer.family == "handicap":
+        # The home side covers when margin + line > 0, so the line's own mean margin is -line.
+        return abs(period.mu_home - period.mu_away + offer.line) / period.sd_margin
+    if offer.team == "home":
+        return abs(period.mu_home - offer.line) / period.sd_home
+    if offer.team == "away":
+        return abs(period.mu_away - offer.line) / period.sd_away
+    return abs(period.mu_home + period.mu_away - offer.line) / period.sd_total
 
 
 def score_offers(predictions: Sequence[Prediction], offers: Sequence[Offer]) -> list[ScoredLine]:
@@ -274,13 +287,20 @@ class _Build:
     def line(self, offer: Offer, prediction: Prediction) -> None:
         period = _period_for(prediction, offer)
         assert period is not None  # noqa: S101 - `market` ruled this out.
+        limit = self.config.max_disagreement_sd
+        if limit is not None and _disagreement(period, offer) > limit:
+            self.reject_line(offer, Reason.MODEL_DISAGREES)
+            return
         calibrator = self.config.calibrators[offer.league][offer.family]
         above, below = score_two_way(*_chances(period, offer), calibrator)
+        market = self.config.markets[offer.league][offer.family]
+        weight = self.config.model_weight[market.edge_label]
+        thin = _thin_data(prediction, self.config)
         one, two = offer.outcomes
         for outcome, other in ((one, two), (two, one)):
             side = above if outcome.side in FIRST_SIDES else below
             leg = self.leg(offer, prediction, outcome.side, outcome.outcome_id, outcome.odds,
-                           other.odds, side)  # fmt: skip
+                           other.odds, side, weight, thin)  # fmt: skip
             reason = self.leg_reason(leg, prediction)
             if reason is None:
                 self.legs.append(leg)
@@ -295,9 +315,12 @@ class _Build:
         outcome_id: str,
         odds: float,
         other_odds: float,
-        chance: SideProbability,
+        model: SideProbability,
+        weight: float,
+        thin: bool,
     ) -> Leg:
         fair = fair_probability(odds, other_odds)
+        chance = toward_market(model, fair, weight)
         assert offer.game_id is not None  # noqa: S101 - `market` ruled this out.
         return Leg.model_validate(
             {
@@ -328,6 +351,9 @@ class _Build:
                     chance.p_calibrated,
                     chance.p_calibrated - fair,
                 ),
+                "p_model": model.p_calibrated,
+                "model_weight": weight,
+                "thin_data": thin,
                 "model_version": prediction.model_version,
                 "feature_hash": prediction.feature_hash,
                 "offer_fetched_at": offer.fetched_at,
@@ -342,7 +368,7 @@ class _Build:
         if leg.edge < market.min_edge:
             return Reason.LOW_EDGE
         strict = market.min_prob + self.config.low_confidence_extra_prob
-        if _thin_data(prediction, self.config) and leg.p_calibrated < strict:
+        if leg.thin_data and leg.p_calibrated < strict:
             return Reason.LOW_CONFIDENCE
         return None
 
@@ -363,6 +389,7 @@ class _Build:
             else:
                 games.add(leg.game_id)
                 best.append(leg)
+        best = self.thin_data_cap(league, best)
         settings = self.config.leagues[league]
         for leg in best[settings.most_legs :]:
             self.reject_leg(leg, Reason.BELOW_CUTOFF)
@@ -377,6 +404,22 @@ class _Build:
                 continue
             tickets.append(self.ticket(league, family, len(tickets) + 1, start, legs))
         return tickets
+
+    def thin_data_cap(self, league: str, ranked: list[Leg]) -> list[Leg]:
+        """D79: early in the season only the strongest few thin-data legs go through."""
+        cap = self.config.thin_data_max_legs_per_market.get(league)
+        if cap is None:
+            return ranked
+        kept: list[Leg] = []
+        thin = 0
+        for leg in ranked:
+            if leg.thin_data:
+                if thin >= cap:
+                    self.reject_leg(leg, Reason.THIN_DATA_CUTOFF)
+                    continue
+                thin += 1
+            kept.append(leg)
+        return kept
 
     def ticket(self, league: str, family: str, number: int, start: int, legs: list[Leg]) -> Ticket:
         ranked = tuple(

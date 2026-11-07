@@ -35,6 +35,8 @@ class Reason(StrEnum):
     SAME_GAME = "SAME_GAME"
     BELOW_CUTOFF = "BELOW_CUTOFF"
     TICKET_TOO_SHORT = "TICKET_TOO_SHORT"
+    MODEL_DISAGREES = "MODEL_DISAGREES"  # D79: the line is too far from the model's mean to trust.
+    THIN_DATA_CUTOFF = "THIN_DATA_CUTOFF"  # D79: past the early-season cap on thin-data legs.
 
 
 class _Frozen(BaseModel):
@@ -150,6 +152,11 @@ class EngineConfig(_Frozen):
     low_confidence_prior_weight: float = 0.6
     low_confidence_extra_prob: float = 0.04
     injury_snapshot_hours_before_tip: float = 3.0
+    # D79. Neutral here, so pure tests see the model alone; `load_engine_config` reads the real
+    # values from `models/params/market_shrink.yaml`.
+    model_weight: dict[str, float] = {"measured": 1.0, "unproven": 1.0}  # By edge label.
+    max_disagreement_sd: float | None = None  # None: no limit.
+    thin_data_max_legs_per_market: dict[str, int] = {}  # By league; missing: no cap.
 
 
 class Leg(_Frozen):
@@ -166,7 +173,7 @@ class Leg(_Frozen):
     outcome_id: str
     odds: float
     p_raw: float
-    p_calibrated: float
+    p_calibrated: float  # After D79's lean toward the market. Thresholds and ranking use this.
     p_win: float
     p_push: float
     p_lose: float
@@ -177,6 +184,10 @@ class Leg(_Frozen):
     # What grading compares the result with: margin, total or team total, by family.
     predicted_mean: float | None = None
     below_tested: bool = False  # D78: below the minimum testing chose for this market.
+    # D79: the calibrated model probability before leaning toward the market, and its weight.
+    p_model: float | None = None  # None on legs from before D79, whose weight was 1.
+    model_weight: float = 1.0
+    thin_data: bool = False  # Early-season: few games and a heavy preseason prior.
     # Invariant 6: what produced this leg.
     model_version: str
     feature_hash: str

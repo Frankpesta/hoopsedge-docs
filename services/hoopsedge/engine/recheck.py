@@ -59,12 +59,20 @@ def reprice_leg(leg: Leg, offer: Offer) -> Leg:
     mine = next(item for item in offer.outcomes if item.outcome_id == leg.outcome_id)
     other = next(item for item in offer.outcomes if item.outcome_id != leg.outcome_id)
     fair = fair_probability(mine.odds, other.odds)
+    # D79: the lean toward the market follows the new fair price.
+    model = leg.p_calibrated if leg.p_model is None else leg.p_model
+    chance = fair + leg.model_weight * (model - fair)
+    settled = 1.0 - leg.p_push
+    p_win, p_lose = chance * settled, (1.0 - chance) * settled
     return leg.model_copy(
         update={
             "odds": mine.odds,
             "fair": fair,
-            "edge": leg.p_calibrated - fair,
-            "ev": expected_value(leg.p_win, leg.p_lose, mine.odds),
+            "p_calibrated": chance,
+            "p_win": p_win,
+            "p_lose": p_lose,
+            "edge": chance - fair,
+            "ev": expected_value(p_win, p_lose, mine.odds),
             "offer_fetched_at": offer.fetched_at,
         }
     )

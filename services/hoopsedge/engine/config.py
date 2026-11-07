@@ -105,4 +105,24 @@ def load_engine_config(
                 tested_min_prob=chosen["tested_min_prob"],
                 tested_min_edge=chosen["tested_min_edge"],
             )
-    return EngineConfig(leagues=LEAGUES, markets=markets, calibrators=calibrators, **overrides)
+    shrink = _read_shrink(params_dir / "market_shrink.yaml")
+    return EngineConfig(
+        leagues=LEAGUES, markets=markets, calibrators=calibrators, **{**shrink, **overrides}
+    )
+
+
+def _read_shrink(path: Path) -> dict[str, Any]:
+    """D79's lean toward the market. Required: leaving it out would quietly trust the model."""
+    if not path.exists():
+        raise FileNotFoundError(f"No market shrink settings at {path} (D79)")
+    loaded: dict[str, Any] = yaml.safe_load(path.read_text("utf-8"))
+    weights = {str(label): float(value) for label, value in loaded["model_weight"].items()}
+    if set(weights) != {"measured", "unproven"} or not all(0 <= w <= 1 for w in weights.values()):
+        raise ValueError(f"{path}: model_weight needs measured and unproven, each from 0 to 1")
+    limit = loaded["max_disagreement_sd"]
+    caps = loaded.get("thin_data_max_legs_per_market") or {}
+    return {
+        "model_weight": weights,
+        "max_disagreement_sd": None if limit is None else float(limit),
+        "thin_data_max_legs_per_market": {str(k): int(v) for k, v in caps.items()},
+    }

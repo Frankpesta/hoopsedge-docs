@@ -25,6 +25,8 @@ export const REASONS: Record<string, string> = {
   SAME_GAME: "Another pick on this game was stronger",
   BELOW_CUTOFF: "Past the top legs for this market",
   TICKET_TOO_SHORT: "Too few legs to make a ticket",
+  MODEL_DISAGREES: "Model too far from the bookmaker's line to trust",
+  THIN_DATA_CUTOFF: "Past the early-season limit for this market",
 };
 
 const STATUS: Record<string, string> = {

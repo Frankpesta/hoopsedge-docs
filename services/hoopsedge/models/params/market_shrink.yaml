@@ -1,0 +1,19 @@
+# D79: lessons from the first real slate (2026-11-06). Hand-kept, owner-approved.
+#
+# model_weight: how much of a leg's probability comes from the model; the bookmaker's fair price
+# has the rest. By edge label: `unproven` markets were calibrated on synthetic lines, `measured`
+# ones on real market lines. A market becomes measured once its calibrators have seen real lines.
+# On 2026-11-06 NCAA legs were expected to win 53.9 of 84 and won 44; at 0.25 the expectation
+# would have been 45.1.
+model_weight:
+  measured: 0.5
+  unproven: 0.25
+
+# A line further than this from the model's mean, in the model's standard deviations, is
+# rejected on both sides: the bookmaker's line missed less than the model did on that slate.
+max_disagreement_sd: 1.0
+
+# Early season: at most this many thin-data legs per market (few games and a heavy preseason
+# prior, see EngineConfig's low-confidence settings). Ends by itself as teams play games.
+thin_data_max_legs_per_market:
+  NCAA: 20

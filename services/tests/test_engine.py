@@ -476,6 +476,8 @@ def _write_params(folder: Path) -> None:
     }
     (folder / "market_gates.yaml").write_text(yaml.safe_dump(gates), "utf-8")
     (folder / "thresholds.yaml").write_text(yaml.safe_dump(thresholds), "utf-8")
+    shrink = {"model_weight": {"measured": 1.0, "unproven": 1.0}, "max_disagreement_sd": None}
+    (folder / "market_shrink.yaml").write_text(yaml.safe_dump(shrink), "utf-8")
 
 
 def test_settings_come_from_the_gate_and_threshold_files(tmp_path: Path) -> None:

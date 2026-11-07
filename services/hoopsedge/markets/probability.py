@@ -36,6 +36,18 @@ def score_two_way(
     return first, second
 
 
+def toward_market(side: SideProbability, fair: float, weight: float) -> SideProbability:
+    """D79: the model's say is `weight`, the bookmaker's fair price has the rest.
+
+    Applied to both sides with fair prices that sum to one, the two sides still sum to one.
+    """
+    chance = fair + weight * (side.p_calibrated - fair)
+    settled = 1.0 - side.p_push
+    return SideProbability(
+        side.p_raw, chance, chance * settled, side.p_push, (1.0 - chance) * settled
+    )
+
+
 def no_vig_probability(price: np.ndarray, other: np.ndarray) -> np.ndarray:
     """Fair probability of `price` in a two-way market (docs/06 section 5.2)."""
     implied, implied_other = 1.0 / price, 1.0 / other

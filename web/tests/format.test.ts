@@ -211,6 +211,8 @@ describe("labels", () => {
       "SAME_GAME",
       "BELOW_CUTOFF",
       "TICKET_TOO_SHORT",
+      "MODEL_DISAGREES",
+      "THIN_DATA_CUTOFF",
     ]) {
       // prettier-ignore
       expect(REASONS[code], code).toBeTruthy();
