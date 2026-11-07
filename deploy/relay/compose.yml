@@ -1,0 +1,30 @@
+# The SportyBet relay, run on the owner's laptop only (D81):
+#
+#   docker compose -f deploy/relay/compose.yml up -d --build
+#
+# It starts with Docker Desktop and reconnects by itself. Stop it with `... down`.
+
+name: hoopsedge-relay
+
+services:
+  sportybet-relay:
+    build: .
+    image: hoopsedge-relay
+    restart: always
+    mem_limit: 64m
+    volumes:
+      # The EC2 key. Defaults to where it was put on 2026-11-07.
+      - ${HOOPSEDGE_RELAY_KEY:-${USERPROFILE}/.ssh/hoopsedge-ec2.pem}:/run/relay/key.pem:ro
+      - relay-state:/state
+    environment:
+      RELAY_TARGET: ${HOOPSEDGE_RELAY_TARGET:-ec2-user@13.48.245.26}
+      # The server's Docker bridge address: its containers can reach it, the internet can't.
+      RELAY_BIND: 172.17.0.1
+    logging:
+      driver: json-file
+      options:
+        max-size: 1m
+        max-file: "2"
+
+volumes:
+  relay-state:

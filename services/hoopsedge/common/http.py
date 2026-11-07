@@ -54,8 +54,11 @@ class PoliteClient:
         sleep: Callable[[float], None] = time.sleep,
         clock: Callable[[], float] = time.monotonic,
         rng: Callable[[], float] = random.random,
+        proxy: str | None = None,
     ) -> None:
+        """`proxy` holds a password, so it is used and never kept or shown (D81)."""
         self._interval = 1.0 / rate_per_second
+        self._via = " through the SportyBet proxy" if proxy else ""
         self._max_retries = max_retries
         self._cache_dir = cache_dir
         self._sleep = sleep
@@ -63,7 +66,10 @@ class PoliteClient:
         self._rng = rng
         self._next_allowed: dict[str, float] = {}
         self._http = httpx.Client(
-            headers={"User-Agent": user_agent}, timeout=timeout, follow_redirects=True
+            headers={"User-Agent": user_agent},
+            timeout=timeout,
+            follow_redirects=True,
+            proxy=proxy,
         )
         self.stats = ClientStats()
 
@@ -93,8 +99,9 @@ class PoliteClient:
         self.stats.requests += 1
         try:
             response = self._http.post(url, json=body, headers=dict(headers))
-        except httpx.TransportError as exc:
-            raise HttpFetchError("POST failed, outcome unknown", url) from exc
+        except httpx.TransportError:
+            # `from None`: httpx's own message can name the proxy, password included.
+            raise HttpFetchError(f"POST failed{self._via}, outcome unknown", url) from None
         self.stats.by_status[response.status_code] += 1
         if response.status_code != 200:
             raise HttpFetchError("request rejected", url, response.status_code)
@@ -131,7 +138,7 @@ class PoliteClient:
                 raise HttpFetchError("request rejected", url, response.status_code)
             self._sleep(self._backoff(attempt, response.headers.get("Retry-After")))
 
-        raise HttpFetchError("retries exhausted", url, last_status)
+        raise HttpFetchError(f"retries exhausted{self._via}", url, last_status)
 
     def _wait_for_slot(self, url: str) -> None:
         host = urlsplit(url).netloc
