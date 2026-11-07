@@ -1,0 +1,45 @@
+# The EC2 server's additions to the root docker-compose.yml (D80). Use both files:
+#
+#   docker compose -f docker-compose.yml -f deploy/ec2/compose.yml ...
+#
+# Paths here resolve from the repository root, like the root file's.
+
+services:
+  # HTTPS in front of the API, so the dashboard on Vercel can reach it without the shared secret
+  # crossing the internet in plain text. The API still refuses any request without the secret.
+  # Caddy gets and renews the certificate by itself, which needs ports 80 and 443 open.
+  caddy:
+    image: caddy:2.8.4
+    restart: unless-stopped
+    mem_limit: 128m
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/ec2/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    environment:
+      HOOPSEDGE_API_HOST: ${HOOPSEDGE_API_HOST:?Set HOOPSEDGE_API_HOST in .env}
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"
+
+  # D81: SportyBet's requests, and only SportyBet's, go through HOOPSEDGE_SPORTYBET_PROXY: the
+  # laptop relay at socks5h://host.docker.internal:1080, or later a paid proxy. Unset: direct.
+  api: &sportybet-proxy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      HOOPSEDGE_SPORTYBET_PROXY: ${HOOPSEDGE_SPORTYBET_PROXY:-}
+  scheduler: *sportybet-proxy
+  collector: *sportybet-proxy
+  pipeline: *sportybet-proxy
+
+volumes:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,10 @@
+{
+	# No admin endpoint. Port 80 only answers certificate checks and redirects to HTTPS.
+	admin off
+}
+
+{$HOOPSEDGE_API_HOST} {
+	encode gzip
+	reverse_proxy api:8000
+	header -Server
+}

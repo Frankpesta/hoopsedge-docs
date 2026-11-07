@@ -30,6 +30,7 @@ from zoneinfo import ZoneInfo
 import yaml
 
 from hoopsedge.common.http import HttpFetchError, NotJsonError, PoliteClient
+from hoopsedge.sportybet.client import proxy_url
 from hoopsedge.sportybet.discovery import events_from_list, family_coverage
 
 PACKAGE = Path(__file__).resolve().parent.parent / "sportybet"
@@ -53,7 +54,7 @@ EASTERN = ZoneInfo("America/New_York")
 DEFAULT_DATA_DIR = "/workspace/data"
 PAGE_SIZE = "100"
 POLL_SECONDS = 30.0
-BLOCK_STATUS = frozenset({401, 403, 451})
+BLOCK_STATUS = frozenset({202, 401, 403, 451})  # 202: CloudFront's WAF challenge (D81).
 GROWTH_ROWS = 8
 
 
@@ -369,7 +370,12 @@ def _context() -> Context:
     data_dir = Path(os.environ.get("HOOPSEDGE_DATA_DIR", DEFAULT_DATA_DIR))
     return Context(
         data_dir,
-        PoliteClient(USER_AGENT, rate_per_second=ENDPOINTS["rate_per_second"], timeout=30.0),
+        PoliteClient(
+            USER_AGENT,
+            rate_per_second=ENDPOINTS["rate_per_second"],
+            timeout=30.0,
+            proxy=proxy_url(),  # SportyBet only. ESPN always goes direct (D81).
+        ),
         PoliteClient(USER_AGENT, rate_per_second=2.0),
     )
 

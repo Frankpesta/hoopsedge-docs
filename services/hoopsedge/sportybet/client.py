@@ -4,9 +4,11 @@ Reads go through the polite client, with retries. Creating a code is one POST wi
 There is no session here, and no way to do anything with a code beyond creating and reading it.
 """
 
+import os
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 import yaml
 
@@ -19,7 +21,10 @@ MARKETS: dict[str, Any] = yaml.safe_load((PACKAGE / "markets.yaml").read_text("u
 USER_AGENT = "HoopsEdge/0.1 (private research client)"
 TIMEOUT_SECONDS = 15.0
 PAGE_SIZE = 100
-BLOCKING_STATUSES = frozenset({401, 403})
+# 202 is CloudFront's WAF challenge, as seen from the EC2 server on 2026-11-07 (D81).
+BLOCKING_STATUSES = frozenset({202, 401, 403})
+PROXY_ENV = "HOOPSEDGE_SPORTYBET_PROXY"
+PROXY_SCHEMES = frozenset({"http", "https", "socks5", "socks5h"})
 
 
 class SportyBetError(Exception):
@@ -123,8 +128,33 @@ class SportyBetClient:
         return str(value)
 
 
+def proxy_url() -> str | None:
+    """D81: where SportyBet's requests go, if not direct. Only SportyBet's clients use it (D7).
+
+    A malformed value stops the run rather than quietly going direct. The message leaves the
+    value out, because it can hold the proxy provider's credentials.
+    """
+    value = os.environ.get(PROXY_ENV, "").strip()
+    if not value:
+        return None
+    parts = urlsplit(value)
+    try:
+        port = parts.port
+    except ValueError:
+        port = None
+    if parts.scheme not in PROXY_SCHEMES or not parts.hostname or port is None:
+        raise ValueError(
+            f"{PROXY_ENV} must look like scheme://host:port with scheme one of "
+            f"{sorted(PROXY_SCHEMES)}"
+        )
+    return value
+
+
 def build_client(raw_dir: Path | None = None) -> SportyBetClient:
     http = PoliteClient(
-        USER_AGENT, rate_per_second=ENDPOINTS["rate_per_second"], timeout=TIMEOUT_SECONDS
+        USER_AGENT,
+        rate_per_second=ENDPOINTS["rate_per_second"],
+        timeout=TIMEOUT_SECONDS,
+        proxy=proxy_url(),
     )
     return SportyBetClient(http, raw_dir)
