@@ -2,9 +2,10 @@
 
     docker compose --profile manual up -d scheduler
 
-Dry-run slates at D71's times, grading every 30 minutes and learning at 11:00 Lagos (docs/00). Each
-job is its own process, so memory goes back between jobs, and one failure can't stop the others. A
-file at `data/scheduler/PAUSED` pauses everything, like the `pause_all` flag.
+Dry-run slates at D71's times, grading every 30 minutes, learning at 11:00 Lagos (docs/00) and a
+database export at 05:00 Lagos (D84). Each job is its own process, so memory goes back between
+jobs, and one failure can't stop the others. A file at `data/scheduler/PAUSED` pauses everything,
+like the `pause_all` flag.
 """
 
 import json
@@ -28,6 +29,7 @@ LAGOS = ZoneInfo("Africa/Lagos")
 RUN_TIMES = {"NCAA": clock(15, 0), "NBA": clock(22, 0)}  # D71.
 NBA_LATE_TIME = clock(0, 30)  # D78: later tips get an injury report inside the 3-hour window.
 LEARN_TIME = clock(11, 0)
+BACKUP_TIME = clock(5, 0)  # D84: after the late NBA run, before the day's jobs.
 GRADE_EVERY = timedelta(minutes=30)
 TOO_LATE_AFTER = timedelta(hours=3)  # A machine that wakes much later skips that day's job.
 POLL_SECONDS = 30
@@ -63,6 +65,8 @@ def due_jobs(
         if start <= now < start + TOO_LATE_AFTER and done.get(name) != day:
             jobs.append(Job(name, day, command))
 
+    backup = _module("hoopsedge.common.backup", "export")
+    daily("backup", _clock(times.get("backup"), BACKUP_TIME), backup)
     learn_at = _clock(times.get("nightly_learn"), LEARN_TIME)
     for league in ("NBA", "NCAA"):  # C6: one league at a time.
         learn = _module("hoopsedge.learning.run", "learn", "--league", league)

@@ -50,13 +50,13 @@ docker compose run --rm dev python -m hoopsedge.ingest.backfill build        # b
 
 ## Live ingest
 
-Every 30 minutes it stores new finals, schedule changes and NBA injuries. It writes one small file per game under `data/curated/_deltas/`, and `read_table` in `hoopsedge/ingest/curated.py` merges those with the season's table. It runs beside `aws-mock`, a local stand-in for DynamoDB that forgets everything on restart, which is safe.
+Every 30 minutes it stores new finals, schedule changes and NBA injuries. It writes one small file per game under `data/curated/_deltas/`, and `read_table` in `hoopsedge/ingest/curated.py` merges those with the season's table. It runs beside `dynamodb`, DynamoDB Local, which keeps its file in `data/dynamodb` so state survives restarts (D84). Create that folder before the first start: `mkdir -p data/dynamodb`.
 
 ```sh
 docker compose up -d --build live-ingest                                     # start, or pick up code changes
 docker compose run --rm dev python -m hoopsedge.ingest.live status           # health and the 48-hour count
 docker compose run --rm live-ingest python -m hoopsedge.ingest.live once --dates 2026-11-05   # re-run given dates
-docker compose stop live-ingest aws-mock                                     # stop
+docker compose stop live-ingest dynamodb                                     # stop
 ```
 
 It shares its `HALTED` state with the backfill. Review a block before clearing it with `clear-halt` in place of `status`.

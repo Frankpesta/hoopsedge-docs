@@ -37,7 +37,7 @@ Docker provides the same pinned toolchain on the owner's machine and in CI. It s
 | `services/Dockerfile`, target `lambda` | The single arm64 Lambda image from doc 02, under 1 GB, with no training-only packages |
 | `services/Dockerfile`, target `dev` | Python 3.12, `uv` and dev extras (Optuna, plotting) on the native architecture. Used for pytest, ruff, mypy, `scripts/`, backfill and tuning |
 | `docker-compose.yml`, `dev` | Interactive toolchain with the repo and `./data` mounted |
-| `docker-compose.yml`, `aws-mock` | `moto_server` for S3, DynamoDB, SSM and SNS, so a full pipeline can run locally with no AWS access or cost |
+| `docker-compose.yml`, `dynamodb` | DynamoDB Local on disk (D84; was `moto_server` in memory), so a full pipeline can run locally with no AWS access or cost and keep its state |
 | `docker-compose.yml`, `collector` | The early data collector from §5, Phase 0 (approved, D13) |
 | `docker-compose.yml`, `node` | LTS Node for CDK synth, Vitest, Playwright and `next dev` |
 

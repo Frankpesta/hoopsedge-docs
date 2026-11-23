@@ -14,16 +14,25 @@ def table_name() -> str:
     return f"hoopsedge-{os.environ.get('HOOPSEDGE_ENV', LOCAL_ENV)}"
 
 
-def connect() -> Any:
-    """Return a DynamoDB resource. Locally, refuse anything but an explicit stand-in endpoint."""
+def _endpoint() -> str | None:
     endpoint = os.environ.get("AWS_ENDPOINT_URL_DYNAMODB")
     if os.environ.get("HOOPSEDGE_ENV", LOCAL_ENV) == LOCAL_ENV and not endpoint:
         raise RuntimeError("Local runs need AWS_ENDPOINT_URL_DYNAMODB, so AWS is never reached")
-    return boto3.resource("dynamodb", region_name=REGION, endpoint_url=endpoint)
+    return endpoint
+
+
+def connect() -> Any:
+    """Return a DynamoDB resource. Locally, refuse anything but an explicit local endpoint."""
+    return boto3.resource("dynamodb", region_name=REGION, endpoint_url=_endpoint())
+
+
+def connect_client() -> Any:
+    """A plain client, which keeps DynamoDB's typed values. A resource's `meta.client` doesn't."""
+    return boto3.client("dynamodb", region_name=REGION, endpoint_url=_endpoint())
 
 
 def ensure_table(resource: Any, name: str) -> None:
-    """Create the table on the local stand-in, which forgets everything when it restarts."""
+    """Create the table on DynamoDB Local if it isn't there yet (D84: it now survives restarts)."""
     try:
         resource.create_table(
             TableName=name,

@@ -512,16 +512,15 @@ def test_local_never_connects_without_an_explicit_endpoint(monkeypatch: pytest.M
         connect()
 
 
-def test_compose_points_live_ingest_at_the_stand_in_only() -> None:
+def test_compose_points_live_ingest_at_the_local_database_only() -> None:
     compose_file = Path(__file__).resolve().parents[2] / "docker-compose.yml"
     services = yaml.safe_load(compose_file.read_text("utf-8"))["services"]
     service = services["live-ingest"]
-    assert service["environment"]["AWS_ENDPOINT_URL_DYNAMODB"] == "http://aws-mock:5000"
+    assert service["environment"]["AWS_ENDPOINT_URL_DYNAMODB"] == "http://dynamodb:8000"
     assert service["environment"]["AWS_ACCESS_KEY_ID"] == "local"
     assert service["volumes"] == ["./data:/workspace/data"]
     assert service["restart"] == "unless-stopped"
-    assert "aws-mock" in services
-    assert not services["aws-mock"].get("volumes")
+    assert services["dynamodb"]["volumes"] == ["./data/dynamodb:/home/dynamodblocal/data"]
 
 
 def test_read_table_lets_a_delta_replace_a_base_row(tmp_path: Path) -> None:
