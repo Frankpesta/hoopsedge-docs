@@ -64,7 +64,8 @@ EC2 containers -> socks5h://host.docker.internal:1080 -> SSH tunnel -> laptop ->
 ## Start, update and stop
 
 ```sh
-dc up -d aws-mock collector live-ingest          # data first
+mkdir -p data/dynamodb                           # once, as ec2-user (the database runs as uid 1000)
+dc up -d dynamodb collector live-ingest          # data first
 dc run --rm pipeline python -m hoopsedge.learning.run bootstrap --league NBA
 dc run --rm pipeline python -m hoopsedge.learning.run bootstrap --league NCAA
 dc up -d --no-deps scheduler api caddy
@@ -83,13 +84,52 @@ dc build scheduler api collector live-ingest pipeline
 dc up -d --no-deps scheduler api collector live-ingest
 ```
 
-Always use `--no-deps`: recreating `aws-mock` wipes tickets, runs, aliases and Settings.
+Use `--no-deps`, so the database isn't restarted for nothing. Since D84 a restart or recreate of
+`dynamodb` loses nothing: its file is `data/dynamodb/shared-local-instance.db`.
 
 The server's tree is a clone of `main`. Files copied in by hand before a commit is merged make
 `git pull` refuse: once they're on `main`, `git checkout -- . && git clean -fd deploy services`
 then pull.
 
 Pause the scheduler with `touch data/scheduler/PAUSED`. Stop everything with `dc stop`.
+
+## The database (D84, D91)
+
+DynamoDB Local keeps its file in `data/dynamodb`. The scheduler exports the whole table every day
+at 05:00 Lagos into `data/backups/dynamodb/` and keeps the newest 14. By hand:
+
+```sh
+dc run --rm pipeline python -m hoopsedge.common.backup export
+scripts/check_storage_restart.sh                     # with COMPOSE set to the dc command, see the script
+```
+
+To restore, stop the services that write, empty the database, then load an export:
+
+```sh
+dc stop scheduler api live-ingest
+dc rm -sf dynamodb && mv data/dynamodb data/dynamodb.broken && mkdir data/dynamodb
+dc up -d dynamodb
+dc run --rm pipeline python -m hoopsedge.common.backup restore /workspace/data/backups/dynamodb/<file>.jsonl.gz
+dc up -d --no-deps scheduler api live-ingest
+```
+
+**Moving from `aws-mock` (once, when this lands on `main`).** `aws-mock` held everything in memory,
+so keep what it has before removing it. The still-running `aws-mock` is exported with the new code:
+
+```sh
+git pull --ff-only
+sed -i "s/^HOOPSEDGE_GIT_SHA=.*/HOOPSEDGE_GIT_SHA=$(git rev-parse --short HEAD)/" .env
+mkdir -p data/dynamodb
+dc build scheduler api collector live-ingest pipeline
+dc run --rm --no-deps -e AWS_ENDPOINT_URL_DYNAMODB=http://aws-mock:5000 \
+  -e HOOPSEDGE_DATA_DIR=/workspace/data/aws-mock-final pipeline python -m hoopsedge.common.backup export
+ls data/aws-mock-final/backups/dynamodb/                 # check the export is there first
+dc up -d dynamodb && dc up -d --no-deps scheduler api collector live-ingest
+docker rm -f hoopsedge-aws-mock-1
+```
+
+The old state is not loaded into the new database. v2 renames NCAA to NCAAB (D87), and nothing in
+it has to carry over; the file stays for reference.
 
 ## Checking on it
 
@@ -104,9 +144,8 @@ free -h; df -h /
 ## Known limits
 
 - SportyBet depends on the laptop relay (above).
-- `aws-mock` keeps everything in memory. A restart of it, or of the server, loses tickets, runs,
-  confirmed aliases and Settings (which fall back to defaults, dry run on). Files in
-  `data/` survive. Moving to persistent storage is a follow-up.
+- Backups (D91) stay on the server: `data/backups/dynamodb/`, the newest 14 nightly exports.
+  Losing the instance's disk loses them too.
 - Real codes come only from the dashboard's Run now (D78). Scheduled and command-line runs stay
   practice.
 - The dashboard has no login (D8): anyone with the Vercel address can use it.

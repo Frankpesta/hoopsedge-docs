@@ -18,7 +18,7 @@ services:
       MYPY_CACHE_DIR: /tmp/mypy
     # No AWS credentials are passed in, so local work cannot reach a real account.
 
-  # The slate pipeline, run by hand, against the stand-in database only. Locally it can't create
+  # The slate pipeline, run by hand, against the local database only. Locally it can't create
   # a real code (D71). It has its own service so that tests in `dev` never see this endpoint.
   pipeline:
     build:
@@ -28,13 +28,14 @@ services:
     profiles: ["manual"]
     working_dir: /workspace/services
     depends_on:
-      - aws-mock
+      dynamodb:
+        condition: service_healthy
     volumes:
       - .:/workspace
     environment:
       HOOPSEDGE_ENV: local
       DRY_RUN: "true"
-      AWS_ENDPOINT_URL_DYNAMODB: http://aws-mock:5000
+      AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
       # Dummy values the client insists on. They aren't credentials for anything.
       AWS_ACCESS_KEY_ID: local
       AWS_SECRET_ACCESS_KEY: local
@@ -52,14 +53,15 @@ services:
     restart: unless-stopped
     mem_limit: 4g
     depends_on:
-      - aws-mock
+      dynamodb:
+        condition: service_healthy
     volumes:
       - ./data:/workspace/data
     environment:
       HOOPSEDGE_ENV: local
       DRY_RUN: "true"
       HOOPSEDGE_GIT_SHA: ${HOOPSEDGE_GIT_SHA:-}
-      AWS_ENDPOINT_URL_DYNAMODB: http://aws-mock:5000
+      AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
       AWS_ACCESS_KEY_ID: local
       AWS_SECRET_ACCESS_KEY: local
     logging:
@@ -68,7 +70,7 @@ services:
         max-size: 5m
         max-file: "2"
 
-  # The dashboard's API, locally, against the stand-in database only. Started by hand. The secret
+  # The dashboard's API, locally, against the local database only. Started by hand. The secret
   # comes from the environment and is never committed. With none set, it refuses every request.
   api:
     build:
@@ -80,7 +82,8 @@ services:
     restart: unless-stopped
     mem_limit: 3g
     depends_on:
-      - aws-mock
+      dynamodb:
+        condition: service_healthy
     ports:
       - "127.0.0.1:8000:8000"
     volumes:
@@ -91,7 +94,7 @@ services:
       DRY_RUN: "false"
       HOOPSEDGE_LOCAL_BOOKING: dashboard
       HOOPSEDGE_API_KEY: ${HOOPSEDGE_API_KEY:-}
-      AWS_ENDPOINT_URL_DYNAMODB: http://aws-mock:5000
+      AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
       AWS_ACCESS_KEY_ID: local
       AWS_SECRET_ACCESS_KEY: local
     logging:
@@ -172,19 +175,29 @@ services:
         max-size: 5m
         max-file: "2"
 
-  # Local stand-in for DynamoDB (BUILD-PLAN section 3). It forgets everything when it restarts,
-  # which is safe: live ingest decides what it has processed from files, then refills the table.
-  aws-mock:
-    image: motoserver/moto:5.1.22
+  # DynamoDB Local (D84), standing in for DynamoDB. Its database file lives in data/dynamodb, so
+  # tickets, runs, aliases and settings survive restarts. Create that folder as your own user
+  # before the first start (`mkdir -p data/dynamodb`): the container runs as uid 1000 and can't
+  # write to a folder Docker creates as root. Nightly exports go to data/backups/dynamodb.
+  dynamodb:
+    image: amazon/dynamodb-local:3.1.0
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-dbPath", "/home/dynamodblocal/data", "-disableTelemetry"]
     restart: unless-stopped
-    mem_limit: 384m
+    mem_limit: 512m
+    volumes:
+      - ./data/dynamodb:/home/dynamodblocal/data
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8000"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
     logging:
       driver: json-file
       options:
         max-size: 5m
         max-file: "2"
 
-  # Live ingest every 30 minutes (docs/03 section 2.4), against the stand-in only.
+  # Live ingest every 30 minutes (docs/03 section 2.4), against the local database only.
   live-ingest:
     build:
       context: ./services
@@ -194,13 +207,14 @@ services:
     restart: unless-stopped
     mem_limit: 384m
     depends_on:
-      - aws-mock
+      dynamodb:
+        condition: service_healthy
     volumes:
       - ./data:/workspace/data
     environment:
       HOOPSEDGE_ENV: local
       DRY_RUN: "true"
-      AWS_ENDPOINT_URL_DYNAMODB: http://aws-mock:5000
+      AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
       # Dummy values the client insists on. They aren't credentials for anything.
       AWS_ACCESS_KEY_ID: local
       AWS_SECRET_ACCESS_KEY: local
