@@ -21,7 +21,12 @@ export async function Banners() {
       )}
       {!system.dry_run && system.scheduled_dry_run && (
         <p role="status" className="bg-surface-2 text-text px-4 py-1.5 text-center text-sm">
-          Run now books real SportyBet codes. Scheduled runs make practice codes.
+          Run now books real SportyBet codes. Scheduled runs still make practice codes.
+        </p>
+      )}
+      {system.relay.mode === "proxy" && system.relay.reachable === false && (
+        <p role="alert" className="bg-loss px-4 py-1.5 text-center text-sm font-semibold text-ink">
+          The SportyBet relay is down: runs will fail until the laptop&apos;s tunnel is back.
         </p>
       )}
       {system.pause_all && (

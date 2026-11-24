@@ -39,7 +39,7 @@ export function Empty({ title, children }: { title: string; children?: ReactNode
 }
 
 const BAD = new Set(["invalid", "failed", "lost", "rejected"]);
-const GOOD = new Set(["verified", "succeeded", "won", "promoted"]);
+const GOOD = new Set(["booked", "verified", "succeeded", "won"]);
 const ICONS: Record<string, string> = { good: "✓", bad: "✕", plain: "•" };
 
 /** Never colour alone: every state carries an icon and a word. */
@@ -79,21 +79,12 @@ export function StatTile({
   );
 }
 
-/** Shot-clock segments: one lit block per 1/24 of the chance, with the fair price marked. */
-export function ShotClock({ value, fair }: { value: number; fair?: number | null }) {
-  const segments = 24;
-  const lit = Math.round(value * segments);
-  const mark = fair === null || fair === undefined ? null : Math.round(fair * segments);
+/** A flag as a badge with its words: the ⚠ alone wouldn't say which warning it is. */
+export function FlagBadge({ label }: { label: string }) {
   return (
-    <div className="flex gap-px" aria-hidden>
-      {Array.from({ length: segments }, (_, index) => (
-        <span
-          key={index}
-          className={`h-2 flex-1 rounded-[1px] ${index < lit ? "bg-amber" : "bg-surface-2"} ${
-            mark !== null && index === mark ? "outline-text outline-1" : ""
-          }`}
-        />
-      ))}
-    </div>
+    <span className="border-amber text-amber inline-flex items-center gap-1 rounded border px-1.5 text-[11px] font-medium whitespace-nowrap">
+      <span aria-hidden>⚠</span>
+      {label}
+    </span>
   );
 }

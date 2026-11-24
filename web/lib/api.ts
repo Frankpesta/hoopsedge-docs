@@ -82,3 +82,28 @@ export async function apiGetOptional<T>(path: string, revalidate = 30): Promise<
     throw error;
   }
 }
+
+/** DELETE answers 204 with no body. */
+export async function apiDelete(path: string, idempotencyKey: string): Promise<void> {
+  const { url, key } = settings();
+  const response = await fetch(`${url}${path}`, {
+    method: "DELETE",
+    headers: { "x-hoopsedge-key": key, "idempotency-key": idempotencyKey },
+    cache: "no-store",
+  });
+  if (!response.ok) throw new ApiError(response.status, await detail(response));
+}
+
+/** The slate's CSV as text, for the download route. Null when no run made one. */
+export async function apiGetText(path: string): Promise<{ text: string; filename: string } | null> {
+  const { url, key } = settings();
+  const response = await fetch(`${url}${path}`, {
+    headers: { "x-hoopsedge-key": key },
+    cache: "no-store",
+  });
+  if (response.status === 404) return null;
+  if (!response.ok) throw new ApiError(response.status, await detail(response));
+  const disposition = response.headers.get("content-disposition") ?? "";
+  const filename = /filename="([^"]+)"/.exec(disposition)?.[1] ?? "slate.csv";
+  return { text: await response.text(), filename };
+}

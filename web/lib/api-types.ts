@@ -4,6 +4,57 @@
  */
 
 export interface paths {
+    "/aliases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add Alias */
+        post: operations["add_alias_aliases_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/aliases/{sport}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Aliases */
+        get: operations["aliases_aliases__sport__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/aliases/{sport}/{alias}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Alias */
+        delete: operations["delete_alias_aliases__sport___alias__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/config": {
         parameters: {
             query?: never;
@@ -22,32 +73,15 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/evidence/{league}": {
+    "/config/versions": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Evidence */
-        get: operations["evidence_evidence__league__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/games/{game_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Game */
-        get: operations["game_games__game_id__get"];
+        /** Config Versions */
+        get: operations["config_versions_config_versions_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -90,40 +124,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/models/{league}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Models */
-        get: operations["models_models__league__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/models/{league}/rollback": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Rollback */
-        post: operations["rollback_models__league__rollback_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/runs": {
         parameters: {
             query?: never;
@@ -149,8 +149,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Run Detail */
-        get: operations["run_detail_runs__run_id__get"];
+        /** Run */
+        get: operations["run_runs__run_id__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -193,6 +193,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/slates/{slate_date}/{sport}/csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Slate Csv
+         * @description Brief §8.1: the owner's sheet, from the slate's newest full run.
+         */
+        get: operations["slate_csv_slates__slate_date___sport__csv_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/system": {
         parameters: {
             query?: never;
@@ -210,7 +230,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/teams/{league}": {
+    "/teams/{sport}": {
         parameters: {
             query?: never;
             header?: never;
@@ -218,7 +238,7 @@ export interface paths {
             cookie?: never;
         };
         /** Teams */
-        get: operations["teams_teams__league__get"];
+        get: operations["teams_teams__sport__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -244,17 +264,17 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/track-record": {
+    "/tickets/{ticket_id}/rebook": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Track Record */
-        get: operations["track_record_track_record_get"];
+        get?: never;
         put?: never;
-        post?: never;
+        /** Rebook */
+        post: operations["rebook_tickets__ticket_id__rebook_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -299,90 +319,63 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** Bucket */
-        Bucket: {
-            /** Bucket */
-            bucket: number;
-            /** Hit Rate */
-            hit_rate: number | null;
-            /** Legs */
-            legs: number;
-            /** Mean Probability */
-            mean_probability: number | null;
-            /** Won */
-            won: number;
+        /** AliasRequest */
+        AliasRequest: {
+            /** Name */
+            name: string;
+            sport: components["schemas"]["Sport"];
+            /** Team Id */
+            team_id: string;
         };
-        /** DailyPoint */
-        DailyPoint: {
-            /** Date */
-            date: string;
-            /** Legs */
-            legs: number;
-            /** Lost */
-            lost: number;
-            /** Won */
-            won: number;
+        /** AliasView */
+        AliasView: {
+            /** Alias */
+            alias: string;
+            /** Source */
+            source: string;
+            /** Team Id */
+            team_id: string;
+            /** Team Name */
+            team_name: string | null;
         };
-        /** Evidence */
-        Evidence: {
-            /** Evidence */
-            evidence: {
+        /** ConfigUpdate */
+        ConfigUpdate: {
+            /** Document */
+            document: {
                 [key: string]: unknown;
-            } | null;
-            league: components["schemas"]["League"];
+            };
             /** Version */
-            version: string | null;
+            version: number;
         };
-        /**
-         * Family
-         * @enum {string}
-         */
-        Family: "handicap" | "total_ft" | "total_1h" | "team_total";
-        /** GameDetail */
-        GameDetail: {
-            /** Away Name */
-            away_name: string | null;
-            /** Edge Labels */
-            edge_labels: {
-                [key: string]: string;
+        /** ConfigVersion */
+        ConfigVersion: {
+            /** Changed At */
+            changed_at: string | null;
+            /** Changed By */
+            changed_by: string | null;
+            /** Diff */
+            diff: {
+                [key: string]: unknown;
+            }[];
+            /** Version */
+            version: number;
+        };
+        /** ConfigView */
+        ConfigView: {
+            /** Changed At */
+            changed_at?: string | null;
+            /** Changed By */
+            changed_by?: string | null;
+            /** Diff */
+            diff?: {
+                [key: string]: unknown;
+            }[];
+            /** Document */
+            document: {
+                [key: string]: unknown;
             };
-            /** Final */
-            final: {
-                [key: string]: number;
-            } | null;
-            /** Game */
-            game: {
-                [key: string]: unknown;
-            };
-            /** Game Id */
-            game_id: string;
-            /** Home Name */
-            home_name: string | null;
-            /** Injuries */
-            injuries: {
-                [key: string]: unknown;
-            }[];
-            /** Key Features */
-            key_features: {
-                [key: string]: number | null;
-            };
-            league: components["schemas"]["League"];
-            /** Legs */
-            legs: {
-                [key: string]: unknown;
-            }[];
-            /** Lines */
-            lines: {
-                [key: string]: unknown;
-            }[];
-            /** Prediction */
-            prediction: {
-                [key: string]: unknown;
-            } | null;
-            /** Rejections */
-            rejections: {
-                [key: string]: unknown;
-            }[];
+            /** Version */
+            version: number;
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -396,141 +389,82 @@ export interface components {
         };
         /** HealthDetails */
         HealthDetails: {
-            /** Champion Versions */
-            champion_versions: {
-                [key: string]: string | null;
-            };
             /** Env */
             env: string;
             /** Last Runs */
-            last_runs: components["schemas"]["RunSummary"][];
+            last_runs: {
+                [key: string]: components["schemas"]["RunSummary"] | null;
+            };
             /** Ok */
             ok: boolean;
         };
-        /**
-         * League
-         * @enum {string}
-         */
-        League: "NBA" | "NCAAB" | "NCAAF";
-        /** LearningPoint */
-        LearningPoint: {
-            /** At */
-            at: string;
-            /** Crps Gain */
-            crps_gain: number | null;
-            /** Decision */
-            decision: string;
-            /** Games */
-            games: number | null;
-            /** Log Likelihood Gain */
-            log_likelihood_gain: number | null;
-            /** Reasons */
-            reasons: string[];
-            /** Version */
-            version: string;
+        /** L5 */
+        L5: {
+            /** N */
+            n: number;
+            /** Pa */
+            pa: number;
+            /** Pf */
+            pf: number;
         };
-        /** LegDetail */
-        LegDetail: {
-            /** Actual Value */
-            actual_value?: number | null;
-            /**
-             * Correction
-             * @default false
-             */
-            correction: boolean;
-            /** Edge */
-            edge?: number | null;
-            /** Ev */
-            ev?: number | null;
+        /** LegView */
+        LegView: {
+            /** Away */
+            away: string;
+            /** Booked Line */
+            booked_line: number;
+            /** Direction */
+            direction: string;
+            /** Edge Booked */
+            edge_booked: number;
+            /** Edge Main */
+            edge_main: number;
             /** Event Id */
             event_id: string;
-            /** Fair */
-            fair: number;
-            /** Family */
-            family: string;
-            /** Game Id */
-            game_id: string;
-            /** Line */
-            line: number;
-            /** Matchup */
-            matchup?: string | null;
-            /** Model Error */
-            model_error?: number | null;
+            /** Flags */
+            flags: string[];
+            /** Home */
+            home: string;
+            /** Kickoff */
+            kickoff: string;
+            /** Kind */
+            kind: string;
+            /** Main Line */
+            main_line: number;
+            /** Main Odds */
+            main_odds: number;
+            /** Mode */
+            mode: string;
             /** Odds */
             odds: number;
-            /** Outcome Id */
-            outcome_id: string;
-            /** P Calibrated */
-            p_calibrated?: number | null;
-            /** P Lose */
-            p_lose?: number | null;
-            /** P Push */
-            p_push?: number | null;
-            /** P Raw */
-            p_raw?: number | null;
-            /** P Win */
-            p_win?: number | null;
-            /** Pick */
-            pick?: string | null;
-            /** Predicted Mean */
-            predicted_mean?: number | null;
-            /** Rank */
-            rank: number;
-            /** Side */
-            side: string;
-            /** Specifier */
-            specifier: string;
-            /** Status */
-            status: string;
+            /** Projection */
+            projection: number;
+            /** Started */
+            started: boolean;
             /** Team */
-            team?: string | null;
-            /** Tip Time */
-            tip_time: string;
+            team: string | null;
         };
-        /** LegSummary */
-        LegSummary: {
-            /** Edge */
-            edge: number | null;
-            /** Fair */
-            fair: number;
-            /** Game Id */
-            game_id: string;
-            /** Matchup */
-            matchup: string;
-            /** Odds */
-            odds: number;
-            /** P Calibrated */
-            p_calibrated: number | null;
-            /** Pick */
-            pick: string;
-            /** Rank */
-            rank: number;
-            /** Tip Time */
-            tip_time: string;
+        /** RebookStarted */
+        RebookStarted: {
+            /** Slate Date */
+            slate_date: string;
+            sport: components["schemas"]["Sport"];
+            /** Ticket Id */
+            ticket_id: string;
         };
-        /** ModelsView */
-        ModelsView: {
-            /** Champion */
-            champion: {
-                [key: string]: unknown;
-            } | null;
-            /** Drift */
-            drift: {
-                [key: string]: unknown;
-            } | null;
-            /** Gates */
-            gates: {
-                [key: string]: unknown;
-            };
-            /** History */
-            history: {
-                [key: string]: unknown;
-            }[];
-            league: components["schemas"]["League"];
-            /** Learning Curve */
-            learning_curve: components["schemas"]["LearningPoint"][];
+        /** RelayView */
+        RelayView: {
+            /** Checked At */
+            checked_at: string;
+            /** Mode */
+            mode: string;
+            /** Reachable */
+            reachable: boolean | null;
         };
-        /** ResolveRequest */
+        /**
+         * ResolveRequest
+         * @description A team for each side that wasn't matched, or `ignore` (a Division II game, say).
+         */
         ResolveRequest: {
             /**
              * Ignore
@@ -553,144 +487,174 @@ export interface components {
             /** Status */
             status: string;
         };
-        /** RollbackRequest */
-        RollbackRequest: {
-            /**
-             * Reason
-             * @default Rolled back from the dashboard
-             */
-            reason: string;
-            /** Version */
-            version: string;
-        };
-        /** RollbackResult */
-        RollbackResult: {
-            league: components["schemas"]["League"];
-            /** Reason */
-            reason: string;
-            /** Version */
-            version: string;
-        };
         /** RunDetail */
         RunDetail: {
-            /** Log */
-            log: {
+            /** Config Version */
+            config_version: number | null;
+            /** Counts */
+            counts: {
+                [key: string]: number;
+            };
+            /** Dropped */
+            dropped: {
+                [key: string]: number;
+            };
+            /** Dry Run */
+            dry_run: boolean;
+            /** Ended At */
+            ended_at: string | null;
+            /** Error */
+            error: string | null;
+            /** Failures */
+            failures: {
                 [key: string]: unknown;
             }[];
-            run: components["schemas"]["RunSummary"];
-            /** Steps */
-            steps: {
+            /** Run Id */
+            run_id: string;
+            /** Slate */
+            slate: string;
+            sport: components["schemas"]["Sport"];
+            /** Started At */
+            started_at: string | null;
+            /** Status */
+            status: string;
+            /** Tickets */
+            tickets: number;
+            /** Tickets Detail */
+            tickets_detail: components["schemas"]["TicketView"][];
+            /** Trigger */
+            trigger: string;
+            /** Unmatched Events */
+            unmatched_events: {
                 [key: string]: unknown;
             }[];
         };
         /** RunRequest */
         RunRequest: {
-            league: components["schemas"]["League"];
             /** Slate Date */
             slate_date?: string | null;
+            sport: components["schemas"]["Sport"];
         };
         /** RunStarted */
         RunStarted: {
-            league: components["schemas"]["League"];
-            /** Run Id */
-            run_id: string;
             /** Slate Date */
             slate_date: string;
+            sport: components["schemas"]["Sport"];
+            /** Started At */
+            started_at: string;
         };
         /** RunSummary */
         RunSummary: {
+            /** Config Version */
+            config_version: number | null;
             /** Counts */
-            counts?: {
+            counts: {
                 [key: string]: number;
             };
             /** Dry Run */
-            dry_run?: boolean | null;
+            dry_run: boolean;
             /** Ended At */
-            ended_at?: string | null;
+            ended_at: string | null;
             /** Error */
-            error?: string | null;
-            /** League */
-            league: string;
+            error: string | null;
             /** Run Id */
             run_id: string;
-            /** Slate Date */
-            slate_date: string;
+            /** Slate */
+            slate: string;
+            sport: components["schemas"]["Sport"];
             /** Started At */
-            started_at: string;
+            started_at: string | null;
             /** Status */
             status: string;
+            /** Tickets */
+            tickets: number;
             /** Trigger */
-            trigger?: string | null;
+            trigger: string;
         };
         /** ScheduleUpdate */
         ScheduleUpdate: {
             /** Time */
             time: string;
         };
-        /**
-         * SettingsDocument
-         * @description Cut down for v2 until B4 (D96). Thresholds live in the v2 config document.
-         */
-        SettingsDocument: {
-            /** Dry Run */
-            dry_run: boolean;
-            /** Pause All */
-            pause_all: boolean;
-            /** Schedules */
-            schedules: {
-                [key: string]: string;
-            };
-            /** Sportybet Proxy Enabled */
-            sportybet_proxy_enabled: boolean;
-        };
-        /** SettingsUpdate */
-        SettingsUpdate: {
-            document: components["schemas"]["SettingsDocument"];
-            /** Version */
-            version: number;
-        };
-        /** SettingsView */
-        SettingsView: {
-            /** Changed At */
-            changed_at?: string | null;
-            /** Changed By */
-            changed_by?: string | null;
-            /** Diff */
-            diff?: {
-                [key: string]: unknown;
-            }[];
-            document: components["schemas"]["SettingsDocument"];
-            /** Version */
-            version: number;
-        };
         /** Slate */
         Slate: {
-            /** Date */
-            date: string;
-            /** Leagues */
-            leagues: components["schemas"]["SlateLeague"][];
+            /** Slate Date */
+            slate_date: string;
+            /** Sports */
+            sports: components["schemas"]["SlateSport"][];
         };
-        /** SlateLeague */
-        SlateLeague: {
-            /** Eligible Legs */
-            eligible_legs: number;
-            /** Excluded */
-            excluded: {
-                [key: string]: number;
-            };
-            /** First Tip */
-            first_tip: string | null;
-            /** Games */
-            games: number;
-            league: components["schemas"]["League"];
-            /** Markets */
-            markets: {
-                [key: string]: components["schemas"]["TicketCard"][];
-            };
+        /** SlateRow */
+        SlateRow: {
+            /** Away */
+            away: string;
+            away_l5: components["schemas"]["L5"];
+            /** Away Proj */
+            away_proj: number;
+            /** Away Tiers */
+            away_tiers: string[];
+            /** Booked Line */
+            booked_line: number | null;
+            /** Booked Odds */
+            booked_odds: number | null;
+            /** Edge Booked */
+            edge_booked: number | null;
+            /** Edge Main */
+            edge_main: number | null;
+            /** Eligible */
+            eligible: boolean;
+            /** Event Id */
+            event_id: string;
+            /** Flags */
+            flags: string[];
+            /** Game Id */
+            game_id: string;
+            /** Home */
+            home: string;
+            home_l5: components["schemas"]["L5"];
+            /** Home Proj */
+            home_proj: number;
+            /** Home Tiers */
+            home_tiers: string[];
+            /** Kickoff */
+            kickoff: string;
+            /** Lean */
+            lean: string | null;
+            /** Main Line */
+            main_line: number | null;
+            /** Model Total */
+            model_total: number;
+            /** Outlook */
+            outlook: string;
+            /** Same Level Lean */
+            same_level_lean: string | null;
+            /** Same Level Total */
+            same_level_total: number | null;
+            /** Skip Reason */
+            skip_reason: string | null;
+            /** Started */
+            started: boolean;
+            /** Sum Of Avgs */
+            sum_of_avgs: number;
+            team_pick: components["schemas"]["TeamPickView"] | null;
+        };
+        /** SlateSport */
+        SlateSport: {
+            /** Csv */
+            csv: boolean;
+            /** Rows */
+            rows: components["schemas"]["SlateRow"][];
             run: components["schemas"]["RunSummary"] | null;
-            /** Unmatched Events */
-            unmatched_events: number;
+            sport: components["schemas"]["Sport"];
+            /** Tickets */
+            tickets: components["schemas"]["TicketView"][];
+            /** Unmatched */
+            unmatched: number;
         };
+        /**
+         * Sport
+         * @enum {string}
+         */
+        Sport: "NBA" | "NCAAB" | "NCAAF";
         /** SystemView */
         SystemView: {
             /** Alerts */
@@ -711,140 +675,86 @@ export interface components {
             };
             /** Pause All */
             pause_all: boolean;
+            relay: components["schemas"]["RelayView"];
             /** Scheduled Dry Run */
             scheduled_dry_run: boolean;
         };
         /** Team */
         Team: {
+            /** Level */
+            level: string;
             /** Name */
             name: string;
+            /** Short Name */
+            short_name: string;
             /** Team Id */
             team_id: string;
         };
-        /** TicketCard */
-        TicketCard: {
-            /** Booking Code */
-            booking_code: string | null;
-            /** Combined Odds */
-            combined_odds: number;
-            /** Combined Prob */
-            combined_prob: number | null;
+        /** TeamPickView */
+        TeamPickView: {
+            /** Direction */
+            direction: string;
+            /** Edge */
+            edge: number;
+            /** Line */
+            line: number;
+            /** Odds */
+            odds: number | null;
+            /** Projection */
+            projection: number;
+            /** Side */
+            side: string;
+            /** Team */
+            team: string;
+        };
+        /** TicketView */
+        TicketView: {
+            /** Bookmaker Implied Probability */
+            bookmaker_implied_probability: number;
+            /** Code */
+            code: string | null;
+            /** Current */
+            current: boolean;
+            /** Dry Run */
+            dry_run: boolean;
+            /** Earliest Kickoff */
+            earliest_kickoff: string;
             /**
-             * Correction
-             * @default false
+             * Implied Note
+             * @default Bookmaker-implied: the product of 1/odds for every leg, margin included. Each leg is close to a coin flip at main-line odds, so long tickets very rarely land (brief §13).
              */
-            correction: boolean;
-            /** Edge Label */
-            edge_label: string;
-            /** Expected Value */
-            expected_value: number | null;
-            family: components["schemas"]["Family"];
-            league: components["schemas"]["League"];
+            implied_note: string;
+            /** Kind */
+            kind: string;
             /** Legs */
-            legs: number;
-            /** Legs Summary */
-            legs_summary?: components["schemas"]["LegSummary"][];
-            /** Passed Gate */
-            passed_gate: boolean;
-            /** Probability Note */
-            probability_note: string | null;
+            legs: components["schemas"]["LegView"][];
+            /** Model Disagrees */
+            model_disagrees: number;
+            /** Next Kickoff */
+            next_kickoff: string | null;
+            /** Number */
+            number: number;
             /** Reason */
-            reason?: string | null;
-            /** Settle Status */
-            settle_status: string;
-            /** Status */
-            status: string;
-            /** Ticket Id */
-            ticket_id: string;
-            /** Ticket No */
-            ticket_no: number;
-            /** Version */
-            version: number;
-            /**
-             * Weak Legs
-             * @default 0
-             */
-            weak_legs: number;
-        };
-        /** TicketDetail */
-        TicketDetail: {
-            /** Leg Details */
-            leg_details: components["schemas"]["LegDetail"][];
+            reason: string | null;
+            /** Rebook Of */
+            rebook_of: string | null;
+            /** Rebooked By */
+            rebooked_by: string | null;
             /** Run Id */
             run_id: string;
-            /** Selection Hash */
-            selection_hash: string;
-            /** Settled Combined Odds */
-            settled_combined_odds?: number | null;
-            /** Slate Date */
-            slate_date: string;
-            ticket: components["schemas"]["TicketCard"];
-            /** Verification */
-            verification?: {
-                [key: string]: unknown;
-            } | null;
-            /** Versions */
-            versions: components["schemas"]["TicketVersion"][];
-        };
-        /** TicketVersion */
-        TicketVersion: {
-            /** Booking Code */
-            booking_code: string | null;
-            /** Run Id */
-            run_id: string;
+            /** Slate */
+            slate: string;
+            sport: components["schemas"]["Sport"];
+            /** Started Legs */
+            started_legs: number;
             /** Status */
             status: string;
+            /** Superseded By */
+            superseded_by: string | null;
             /** Ticket Id */
             ticket_id: string;
-            /** Version */
-            version: number;
-        };
-        /** TrackRecord */
-        TrackRecord: {
-            /** Breakeven Hit Rate */
-            breakeven_hit_rate: number | null;
-            /** Buckets */
-            buckets: components["schemas"]["Bucket"][];
-            /** Calibration Error */
-            calibration_error: number | null;
-            /** Daily */
-            daily: components["schemas"]["DailyPoint"][];
-            /** First */
-            first: string | null;
-            /** Flat Stake Profit */
-            flat_stake_profit: number;
-            /** Flat Stake Roi */
-            flat_stake_roi: number | null;
-            /** Hit Rate */
-            hit_rate: number | null;
-            /** Last */
-            last: string | null;
-            league: components["schemas"]["League"] | null;
-            /** Legs */
-            legs: number;
-            /** Legs On Lost */
-            legs_on_lost: number;
-            /** Legs Won On Lost */
-            legs_won_on_lost: number;
-            /** Lost */
-            lost: number;
-            market: components["schemas"]["Family"] | null;
-            /** Missed By */
-            missed_by: {
-                [key: string]: number;
-            };
-            /** Push */
-            push: number;
-            /** Push Rate */
-            push_rate: number | null;
-            /** Tickets */
-            tickets: {
-                [key: string]: number;
-            };
-            /** Void */
-            void: number;
-            /** Won */
-            won: number;
+            /** Total Odds */
+            total_odds: number;
         };
         /** UnmatchedItem */
         UnmatchedItem: {
@@ -866,9 +776,9 @@ export interface components {
             }[];
             /** Home Team Id */
             home_team_id?: string | null;
-            league: components["schemas"]["League"];
             /** Reason */
             reason: string | null;
+            sport: components["schemas"]["Sport"];
             /** Start */
             start: string;
         };
@@ -894,6 +804,104 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    add_alias_aliases_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "idempotency-key"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AliasRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AliasView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    aliases_aliases__sport__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sport: components["schemas"]["Sport"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AliasView"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_alias_aliases__sport___alias__delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                "idempotency-key"?: string | null;
+            };
+            path: {
+                sport: components["schemas"]["Sport"];
+                alias: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_config_config_get: {
         parameters: {
             query?: never;
@@ -909,7 +917,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SettingsView"];
+                    "application/json": components["schemas"]["ConfigView"];
                 };
             };
         };
@@ -925,7 +933,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SettingsUpdate"];
+                "application/json": components["schemas"]["ConfigUpdate"];
             };
         };
         responses: {
@@ -935,7 +943,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SettingsView"];
+                    "application/json": components["schemas"]["ConfigView"];
                 };
             };
             /** @description Validation Error */
@@ -949,13 +957,13 @@ export interface operations {
             };
         };
     };
-    evidence_evidence__league__get: {
+    config_versions_config_versions_get: {
         parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                league: components["schemas"]["League"];
+            query?: {
+                limit?: number;
             };
+            header?: never;
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;
@@ -966,38 +974,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Evidence"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    game_games__game_id__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                game_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GameDetail"];
+                    "application/json": components["schemas"]["ConfigVersion"][];
                 };
             };
             /** @description Validation Error */
@@ -1051,78 +1028,11 @@ export interface operations {
             };
         };
     };
-    models_models__league__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                league: components["schemas"]["League"];
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ModelsView"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    rollback_models__league__rollback_post: {
-        parameters: {
-            query?: never;
-            header?: {
-                "idempotency-key"?: string | null;
-            };
-            path: {
-                league: components["schemas"]["League"];
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RollbackRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["RollbackResult"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
     runs_runs_get: {
         parameters: {
             query?: {
                 limit?: number;
+                sport?: components["schemas"]["Sport"] | null;
             };
             header?: never;
             path?: never;
@@ -1185,7 +1095,7 @@ export interface operations {
             };
         };
     };
-    run_detail_runs__run_id__get: {
+    run_runs__run_id__get: {
         parameters: {
             query?: never;
             header?: never;
@@ -1239,7 +1149,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SettingsView"];
+                    "application/json": components["schemas"]["ConfigView"];
                 };
             };
             /** @description Validation Error */
@@ -1255,7 +1165,9 @@ export interface operations {
     };
     slate_slates__slate_date__get: {
         parameters: {
-            query?: never;
+            query?: {
+                sport?: components["schemas"]["Sport"] | null;
+            };
             header?: never;
             path: {
                 slate_date: string;
@@ -1271,6 +1183,38 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Slate"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    slate_csv_slates__slate_date___sport__csv_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slate_date: string;
+                sport: components["schemas"]["Sport"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/plain": string;
                 };
             };
             /** @description Validation Error */
@@ -1304,12 +1248,12 @@ export interface operations {
             };
         };
     };
-    teams_teams__league__get: {
+    teams_teams__sport__get: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                league: components["schemas"]["League"];
+                sport: components["schemas"]["Sport"];
             };
             cookie?: never;
         };
@@ -1352,7 +1296,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TicketDetail"];
+                    "application/json": components["schemas"]["TicketView"];
                 };
             };
             /** @description Validation Error */
@@ -1366,27 +1310,26 @@ export interface operations {
             };
         };
     };
-    track_record_track_record_get: {
+    rebook_tickets__ticket_id__rebook_post: {
         parameters: {
-            query?: {
-                league?: components["schemas"]["League"] | null;
-                market?: components["schemas"]["Family"] | null;
-                from?: string | null;
-                to?: string | null;
+            query?: never;
+            header?: {
+                "idempotency-key"?: string | null;
             };
-            header?: never;
-            path?: never;
+            path: {
+                ticket_id: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
             /** @description Successful Response */
-            200: {
+            202: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TrackRecord"];
+                    "application/json": components["schemas"]["RebookStarted"];
                 };
             };
             /** @description Validation Error */
@@ -1402,7 +1345,9 @@ export interface operations {
     };
     unmatched_unmatched_get: {
         parameters: {
-            query?: never;
+            query?: {
+                sport?: components["schemas"]["Sport"] | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -1416,6 +1361,15 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UnmatchedItem"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

@@ -1,11 +1,11 @@
-"""The API's reads and writes. Queries only, never a scan (docs/09 section 8.3).
+"""The API's DynamoDB reads and writes. Queries only, never a scan (docs/09 section 8.3).
 
-Deliberately separate from `pipeline.store`, which pulls in the engine and its heavy libraries. The
-API has to start fast, so nothing on its path may load LightGBM or polars.
+Runs and tickets are files under `data/v2/runs` (`v2.views`); DynamoDB holds the config document
+and its versions, aliases, the review queue, alerts, costs, idempotency and the rate limit.
 """
 
 import json
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
@@ -13,7 +13,6 @@ from typing import Any
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 
-GSI = "GSI1"
 IDEMPOTENCY_TTL = timedelta(days=1)
 RESOLVED_TTL = timedelta(days=14)
 CONDITION_FAILED = "ConditionalCheckFailedException"
@@ -58,121 +57,29 @@ class ApiStore:
         item = self.table.get_item(Key={"pk": pk, "sk": sk}).get("Item")
         return None if item is None else plain(item)
 
-    # Slates and tickets.
+    # The review queue and aliases (per sport, D89).
 
-    def latest_run_for_slate(self, league: str, slate: date) -> dict[str, Any] | None:
-        items = self._query(
-            limit=1,
-            KeyConditionExpression=Key("pk").eq(f"SLATERUNS#{league}#{slate}"),
-            ScanIndexForward=False,
-        )
-        return items[0] if items else None
-
-    def slate_items(
-        self, league: str, slate: date
-    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-        """Tickets and games, which share one partition (docs/12), from one query."""
-        items = self._query(
-            IndexName=GSI, KeyConditionExpression=Key("gsi1pk").eq(f"SLATE#{league}#{slate}")
-        )
-        tickets = [item for item in items if str(item.get("gsi1sk", "")).startswith("T#")]
-        games = [item for item in items if str(item.get("pk", "")).startswith("GAME#")]
-        return tickets, games
-
-    def ticket(self, ticket_id: str) -> dict[str, Any] | None:
-        return self._get(f"TICKET#{ticket_id}", "META")
-
-    def ticket_legs(self, ticket_id: str) -> list[dict[str, Any]]:
-        return self._query(
-            KeyConditionExpression=Key("pk").eq(f"TICKET#{ticket_id}")
-            & Key("sk").begins_with("LEG#")
-        )
-
-    def ticket_versions(self, ticket: dict[str, Any]) -> list[dict[str, Any]]:
-        prefix = f"T#{ticket['family']}#{int(ticket['ticket_no']):02d}#"
-        return self._query(
-            IndexName=GSI,
-            KeyConditionExpression=Key("gsi1pk").eq(
-                f"SLATE#{ticket['league']}#{ticket['slate_date']}"
-            )
-            & Key("gsi1sk").begins_with(prefix),
-        )
-
-    # Games.
-
-    def game(self, league: str, game_id: str) -> dict[str, Any] | None:
-        return self._get(f"GAME#{league}#{game_id}", "META")
-
-    def latest_under(self, league: str, game_id: str, prefix: str) -> dict[str, Any] | None:
-        """Run IDs sort by time, so the newest is last."""
-        items = self._query(
-            limit=1,
-            KeyConditionExpression=Key("pk").eq(f"GAME#{league}#{game_id}")
-            & Key("sk").begins_with(prefix),
-            ScanIndexForward=False,
-        )
-        return items[0] if items else None
-
-    # Runs.
-
-    def runs(self, limit: int) -> list[dict[str, Any]]:
-        return self._query(
-            limit=limit,
-            IndexName=GSI,
-            KeyConditionExpression=Key("gsi1pk").eq("RUNS"),
-            ScanIndexForward=False,
-        )[:limit]
-
-    def run(self, run_id: str) -> dict[str, Any] | None:
-        return self._get(f"RUN#{run_id}", "META")
-
-    def run_log(self, run_id: str) -> list[dict[str, Any]]:
-        return self._query(
-            KeyConditionExpression=Key("pk").eq(f"RUN#{run_id}") & Key("sk").begins_with("LOG#")
-        )
-
-    def lock_held(self, league: str, slate: date, now: datetime) -> bool:
-        """C9: an expired lock doesn't count, because TTL deletion can lag by days."""
-        item = self._get(f"LOCK#{league}#{slate}", "LOCK")
-        return item is not None and int(item["ttl"]) >= int(now.timestamp())
-
-    # Track record.
-
-    def aggregates(
-        self, league: str, family: str, first: date | None, last: date | None
-    ) -> list[dict[str, Any]]:
-        low = f"D#{first}" if first else "D#"
-        high = f"D#{last}" if last else "D#9999"
-        return self._query(
-            KeyConditionExpression=Key("pk").eq(f"AGG#{league}#{family}")
-            & Key("sk").between(low, high)
-        )
-
-    # Models.
-
-    def champion(self, league: str) -> dict[str, Any] | None:
-        return self._get(f"CHAMPION#{league}", "CURRENT")
-
-    def model_history(self, league: str) -> list[dict[str, Any]]:
-        return self._query(KeyConditionExpression=Key("pk").eq(f"MODEL#{league}"))
-
-    # Unmatched and teams.
-
-    def unmatched(self, league: str) -> list[dict[str, Any]]:
-        items = self._query(KeyConditionExpression=Key("pk").eq(f"UNMATCHED#{league}"))
+    def unmatched(self, sport: str) -> list[dict[str, Any]]:
+        items = self._query(KeyConditionExpression=Key("pk").eq(f"UNMATCHED#{sport}"))
         return [item for item in items if item.get("status") == "open"]
 
-    def unmatched_item(self, league: str, event_id: str) -> dict[str, Any] | None:
-        return self._get(f"UNMATCHED#{league}", event_id)
+    def unmatched_item(self, sport: str, event_id: str) -> dict[str, Any] | None:
+        return self._get(f"UNMATCHED#{sport}", event_id)
 
-    def teams(self, league: str) -> dict[str, str]:
-        items = self._query(KeyConditionExpression=Key("pk").eq(f"TEAM#{league}"))
-        return {str(item["sk"]): str(item["name"]) for item in items}
+    def owner_aliases(self, sport: str) -> dict[str, str]:
+        items = self._query(KeyConditionExpression=Key("pk").eq(f"ALIAS#{sport}"))
+        return {str(item["sk"]): str(item["team_id"]) for item in items}
 
-    def confirm_alias(self, league: str, alias: str, team_id: str, now: datetime) -> None:
+    def delete_alias(self, sport: str, alias: str) -> bool:
+        response = self.table.delete_item(
+            Key={"pk": f"ALIAS#{sport}", "sk": alias}, ReturnValues="ALL_OLD"
+        )
+        return "Attributes" in response
+
+    def confirm_alias(self, sport: str, alias: str, team_id: str, now: datetime) -> None:
         self.table.put_item(
             Item={
-                "pk": f"ALIAS#{league}",
+                "pk": f"ALIAS#{sport}",
                 "sk": alias,
                 "gsi1pk": f"TEAM#{team_id}",
                 "gsi1sk": alias,
@@ -183,9 +90,9 @@ class ApiStore:
             }
         )
 
-    def close_unmatched(self, league: str, event_id: str, status: str, now: datetime) -> None:
+    def close_unmatched(self, sport: str, event_id: str, status: str, now: datetime) -> None:
         self.table.update_item(
-            Key={"pk": f"UNMATCHED#{league}", "sk": event_id},
+            Key={"pk": f"UNMATCHED#{sport}", "sk": event_id},
             UpdateExpression="SET #status = :status, resolved_at = :at, #ttl = :ttl",
             ExpressionAttributeNames={"#status": "status", "#ttl": "ttl"},
             ExpressionAttributeValues={
@@ -199,6 +106,14 @@ class ApiStore:
 
     def settings(self) -> dict[str, Any] | None:
         return self._get("CONFIG", "CURRENT")
+
+    def config_versions(self, limit: int) -> list[dict[str, Any]]:
+        """Saved versions, newest first. `CURRENT` sorts after every `v#`, so it's skipped."""
+        items = self._query(
+            KeyConditionExpression=Key("pk").eq("CONFIG") & Key("sk").begins_with("v#"),
+            ScanIndexForward=False,
+        )
+        return items[:limit]
 
     def save_settings(
         self,

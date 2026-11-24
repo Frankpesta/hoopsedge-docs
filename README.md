@@ -80,7 +80,7 @@ docker compose --profile manual up -d --build --no-deps api
 curl -H "x-hoopsedge-key: $HOOPSEDGE_API_KEY" http://127.0.0.1:8000/slates/2026-11-06
 ```
 
-Changes (`POST` and `PUT`) also need a unique `idempotency-key` header, and are limited to 10 a minute. Half-time and Team O/U tickets return no probabilities or EV until their calibrators have seen real lines (D72, D76).
+Changes (`POST`, `PUT` and `DELETE`) also need a unique `idempotency-key` header, and are limited to 10 a minute. The config document is one versioned document: thresholds, line modes, ticket rules, schedules and the Dry run switch, and runs use the version in force when they start (D98).
 
 The endpoints are in `docs/api/openapi.json`. After changing any endpoint, regenerate it, or a test fails:
 
@@ -96,7 +96,7 @@ The phone-first dashboard, in `web/`. To run it locally with the API, put `HOOPS
 docker compose --profile manual up -d --build --no-deps api web
 ```
 
-**Run now starts a v2 slate run, which books real codes only when Settings' Dry run is off (D97).** The dashboard pages are still built around v1 tickets until B4 and B5 rebuild them on v2 data. Nothing here can log in or place a bet.
+Pages: Today (sport tabs, tickets with codes to copy and rebook, the slate sheet, CSV download), Teams (review queue and aliases), Runs, Config (every threshold, versioned) and System (relay health, alerts). **Run now books real codes only when Config's Dry run is off (D97).** Nothing here can log in or place a bet.
 
 The key stays on the server: the browser only ever talks to the dashboard. Checks, all inside Docker so they don't depend on this machine's Node:
 

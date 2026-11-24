@@ -5,11 +5,9 @@ import { usePathname } from "next/navigation";
 
 const LINKS = [
   { href: "/", label: "Today" },
-  { href: "/track-record", label: "Record" },
-  { href: "/models", label: "Models" },
-  { href: "/unmatched", label: "Unmatched" },
+  { href: "/unmatched", label: "Teams" },
   { href: "/runs", label: "Runs" },
-  { href: "/settings", label: "Settings" },
+  { href: "/settings", label: "Config" },
   { href: "/system", label: "System" },
 ];
 

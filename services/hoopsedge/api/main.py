@@ -26,23 +26,20 @@ OPENAPI_FILE = Path(__file__).resolve().parents[3] / "docs" / "api" / "openapi.j
 
 
 class LocalRunStarter:
-    """Run now, as a background process. Step Functions takes this over with Phase 1."""
+    """Run now and Rebook, as background processes on this server (D98)."""
 
-    def start(self, league: str, slate: date, run_id: str) -> None:
+    @staticmethod
+    def _launch(*arguments: str) -> None:
         subprocess.Popen(  # noqa: S603
-            [
-                sys.executable,
-                "-m",
-                "hoopsedge.v2.slate",
-                "run",
-                "--sport",
-                league,
-                "--date",
-                slate.isoformat(),
-                "--trigger",
-                "dashboard",
-            ],  # fmt: skip
-            env=os.environ.copy(),
+            [sys.executable, "-m", "hoopsedge.v2.slate", *arguments], env=os.environ.copy()
+        )
+
+    def start(self, sport: str, slate: date) -> None:
+        self._launch("run", "--sport", sport, "--date", slate.isoformat(), "--trigger", "dashboard")
+
+    def rebook(self, sport: str, slate: date, ticket_id: str) -> None:
+        self._launch(
+            "rebook", "--sport", sport, "--date", slate.isoformat(), "--ticket-id", ticket_id
         )
 
 
