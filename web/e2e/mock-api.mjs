@@ -97,7 +97,7 @@ function sportConfig(over, provisional) {
     espn: { path: "basketball/mens-college-basketball", groups: [50] }, l5_window: 5, min_games: 4,
     l5_same_level_only: false, over_threshold: over, under_threshold: 5, team_total_threshold: 4,
     tiers: provisional ? "provisional_percentiles" : { atk: [24, 33], def: [20, 28], provisional: false },
-    line_mode: { totals: "safest", team_totals: "main" }, min_cushion: 0,
+    line_mode: { totals: "safest", team_totals: "safest" }, min_cushion: 0,
   }; // prettier-ignore
 }
 
@@ -133,13 +133,11 @@ function calibration(sport) {
     sport, graded_legs: 640, pending_legs: 12, slates: 9, min_graded: 100,
     tickets: { won: 1, lost: 6, pending: 2 },
     suggestions: [
-      { market: "totals", mode: "main", same_level: false, graded: 320, slates: 9,
-        current: { thresholds: current, numbers: numbers(90, 0.53, 0.53, -0.02, 10) },
-        suggested: { thresholds: { over_threshold: 4, under_threshold: 6.5 },
-                     numbers: numbers(140, 0.56, 0.53, 0.04, 15.6) } },
       { market: "totals", mode: "safest", same_level: false, graded: 320, slates: 9,
-        current: { thresholds: current, numbers: numbers(90, 0.7, 0.71, -0.03, 10) }, suggested: null },
-      { market: "team_total", mode: "main", same_level: false, graded: 300, slates: 9,
+        current: { thresholds: current, numbers: numbers(90, 0.7, 0.71, -0.03, 10) },
+        suggested: { thresholds: { over_threshold: 4, under_threshold: 6.5 },
+                     numbers: numbers(140, 0.74, 0.71, 0.04, 15.6) } },
+      { market: "team_total", mode: "safest", same_level: false, graded: 300, slates: 9,
         current: { thresholds: { team_total_threshold: 4 }, numbers: numbers(120, 0.55, 0.53, 0.02, 13) },
         suggested: { thresholds: { team_total_threshold: 4 }, numbers: numbers(120, 0.55, 0.53, 0.02, 13) } },
     ],

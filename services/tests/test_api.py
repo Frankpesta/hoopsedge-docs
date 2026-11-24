@@ -474,10 +474,13 @@ def test_a_graded_ticket_shows_its_result(api: Api) -> None:
 def test_calibration_suggests_and_the_owner_applies(api: Api) -> None:
     write_grades(api.root, season())
     body = api.get("/calibration/NCAAB").json()
-    main = next(s for s in body["suggestions"] if (s["market"], s["mode"]) == ("totals", "main"))
+    assert {s["mode"] for s in body["suggestions"]} == {"safest"}  # D101.
+    main = next(s for s in body["suggestions"] if s["market"] == "totals")
     thresholds = main["suggested"]["thresholds"]
     assert thresholds == {"over_threshold": 4.0, "under_threshold": 0.0}
-    request = {"market": "totals", "mode": "main", "version": 0, "thresholds": thresholds}
+    request = {"market": "totals", "mode": "safest", "version": 0, "thresholds": thresholds}
+    main_line = api.send("POST", "/calibration/NCAAB/apply", {**request, "mode": "main"})
+    assert main_line.status_code == 422  # The main line can't be booked, so it can't be applied.
 
     stale = api.send("POST", "/calibration/NCAAB/apply", {**request, "thresholds": {}})
     assert stale.status_code == 409  # Not what the owner saw: nothing changes.
@@ -487,7 +490,7 @@ def test_calibration_suggests_and_the_owner_applies(api: Api) -> None:
     assert applied.status_code == 200
     sport = applied.json()["document"]["sports"]["NCAAB"]
     assert (sport["over_threshold"], sport["under_threshold"]) == (4.0, 0.0)
-    assert sport["line_mode"]["totals"] == "main"
+    assert sport["line_mode"]["totals"] == "safest"
     [version] = api.get("/config/versions").json()
     assert version["changed_by"] == "calibration"
     assert api.send("POST", "/calibration/NCAAB/apply", request).status_code == 409  # Old version.

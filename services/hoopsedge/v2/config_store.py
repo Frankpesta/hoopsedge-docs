@@ -75,7 +75,9 @@ def document_from_stored(stored: dict[str, Any] | None) -> ConfigDocument:
     if "sports" in stored:
         # A job added since the document was saved starts at its default time.
         schedules = {**default_schedules(), **(stored.get("schedules") or {})}
-        return ConfigDocument.model_validate({**stored, "schedules": schedules})
+        return ConfigDocument.model_validate(
+            {**stored, "schedules": schedules, "sports": _lowest_lines(stored["sports"])}
+        )
     defaults = default_document().model_dump(by_alias=True)
     saved_times = stored.get("schedules") or {}
     defaults["schedules"] = {
@@ -85,6 +87,20 @@ def document_from_stored(stored: dict[str, Any] | None) -> ConfigDocument:
         if isinstance(stored.get(key), bool):
             defaults[key] = stored[key]
     return ConfigDocument.model_validate(defaults)
+
+
+def _lowest_lines(sports: dict[str, Any]) -> dict[str, Any]:
+    """D101: the main line is never booked. A document saved before that may still say `main`;
+    it reads as `safest`, the lowest-odds line, and the next save stores it that way."""
+    out = {}
+    for sport, values in sports.items():
+        modes = dict(values.get("line_mode") or {})
+        for market, mode in modes.items():
+            if mode == "main":
+                print(f"{sport} {market}: stored line mode main reads as safest (D101)", flush=True)
+                modes[market] = "safest"
+        out[sport] = {**values, "line_mode": modes}
+    return out
 
 
 def load(table: Any) -> tuple[int, ConfigDocument]:

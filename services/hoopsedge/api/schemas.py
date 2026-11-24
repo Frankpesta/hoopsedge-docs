@@ -369,6 +369,6 @@ class Calibration(_Model):
 
 class ApplySuggestion(_Model):
     market: str = Field(pattern=r"^(totals|team_total)$")
-    mode: str = Field(pattern=r"^(main|safest)$")
+    mode: str = Field(pattern=r"^safest$")  # D101: only the lowest-odds line is booked.
     version: int  # The config version the owner saw the suggestion against.
     thresholds: dict[str, float]  # What the owner saw, so a changed suggestion isn't applied.

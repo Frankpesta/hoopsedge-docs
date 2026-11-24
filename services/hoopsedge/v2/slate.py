@@ -69,7 +69,7 @@ from hoopsedge.v2.booking import (
     record_run,
 )
 from hoopsedge.v2.config_store import load as load_config
-from hoopsedge.v2.legs import KINDS, Kind, Leg, game_legs, recheck, team_lines
+from hoopsedge.v2.legs import KINDS, Kind, Leg, game_legs, recheck, team_ladders, team_lines
 from hoopsedge.v2.lines import EventLines, LineShapeError, main_line, parse_event
 from hoopsedge.v2.names import Directory, EspnGame, EventMatch, Team, match_event, seed_aliases
 from hoopsedge.v2.store import add_alias, alert, owner_aliases, save_unmatched
@@ -112,6 +112,7 @@ class GameRow:
     home_team_line: Any
     away_team_line: Any
     legs: dict[Kind, Leg]
+    team_ladders: tuple[tuple[Any, ...], tuple[Any, ...]] = ((), ())  # ESPN home, away.
 
 
 @dataclass
@@ -266,6 +267,7 @@ def build_slate(
                 other_variant=predictions[not active],
                 home_team_line=home_line,
                 away_team_line=away_line,
+                team_ladders=team_ladders(lines, found.orientation or ""),
                 legs=game_legs(
                     predictions[active],
                     lines,
@@ -444,9 +446,10 @@ def _row_document(row: GameRow) -> dict[str, Any]:
         "prediction": prediction(row.prediction),
         "other_variant": prediction(row.other_variant),
         "legs": {kind: asdict(leg) for kind, leg in row.legs.items()},
-        # Both teams' main team-total lines, so grading can pick for either variant (brief §9).
-        "team_lines": {"home": _line_document(row.home_team_line),
-                       "away": _line_document(row.away_team_line)},
+        # Both teams' main team-total lines, and their ladders' ends (the lowest-odds Over and
+        # Under, D101), so grading can pick for either variant (brief §9).
+        "team_lines": {"home": _team_document(row.home_team_line, row.team_ladders[0]),
+                       "away": _team_document(row.away_team_line, row.team_ladders[1])},
     }  # fmt: skip
 
 
@@ -454,6 +457,14 @@ def _line_document(line: Any) -> dict[str, float] | None:
     if line is None:
         return None
     return {"line": line.line, "over_odds": line.over_odds, "under_odds": line.under_odds}
+
+
+def _team_document(main: Any, ladder: tuple[Any, ...]) -> dict[str, Any] | None:
+    document: dict[str, Any] | None = _line_document(main)
+    if document is not None and ladder:
+        document["lowest"] = _line_document(ladder[0])
+        document["highest"] = _line_document(ladder[-1])
+    return document
 
 
 # Running against the real services

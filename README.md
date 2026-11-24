@@ -61,7 +61,7 @@ Each run writes `data/v2/runs/{sport}/{date}/{run_id}/`: the CSV in the owner's 
 
 ## Grading and calibration
 
-Every finished game is graded from the last run that started before its kickoff, for both `l5_same_level_only` settings: totals at the main and the `safest` line, team totals at the main line, whether or not the game cleared a threshold. Every ticket leg is graded on its booked line, and each ticket gets a result (D99). Grades are files in `data/v2/grades/{sport}/{date}.json`, re-graded daily until nothing is pending. The dashboard's Results page shows hit rate against the bookmaker-implied rate and flat-stake ROI, by line mode, edge bucket and cross-level, and threshold suggestions once 100 graded legs clear them (D90). A suggestion changes nothing until you apply it, which saves a new config version.
+Every finished game is graded from the last run that started before its kickoff, for both `l5_same_level_only` settings: totals and team totals at the main and the `safest` line, whether or not the game cleared a threshold. Every ticket leg is graded on its booked line, and each ticket gets a result (D99). Grades are files in `data/v2/grades/{sport}/{date}.json`, re-graded daily until nothing is pending. The dashboard's Results page shows hit rate against the bookmaker-implied rate and flat-stake ROI, by line mode, edge bucket and cross-level, and threshold suggestions once 100 graded legs clear them (D90). A suggestion changes nothing until you apply it, which saves a new config version. Only the lowest-odds (`safest`) line is ever booked (D101): the main line is graded as evidence and never suggested.
 
 ```sh
 docker compose run --rm dev python -m hoopsedge.v2.grading grade                       # every sport, finished slates

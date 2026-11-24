@@ -14,7 +14,7 @@ sports:
     under_threshold: 5.0
     team_total_threshold: 3.0
     tiers: { atk: [24.0, 33.0], def: [20.0, 28.0] }
-    line_mode: { totals: safest, team_totals: main }
+    line_mode: { totals: safest, team_totals: safest }
     min_cushion: 0.0
   NCAAB:
     enabled: true
@@ -28,7 +28,7 @@ sports:
     under_threshold: 5.0
     team_total_threshold: 4.0
     tiers: provisional_percentiles
-    line_mode: { totals: safest, team_totals: main }
+    line_mode: { totals: safest, team_totals: safest }
     min_cushion: 0.0
   NBA:
     enabled: true
@@ -42,7 +42,7 @@ sports:
     under_threshold: 5.0
     team_total_threshold: 4.0
     tiers: provisional_percentiles
-    line_mode: { totals: safest, team_totals: main }
+    line_mode: { totals: safest, team_totals: safest }
     min_cushion: 0.0
 outlook: { low_max: 2, medium_max: 5 }
 tickets:
