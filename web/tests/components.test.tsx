@@ -2,11 +2,12 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
+import { GoLivePanel } from "@/components/GoLivePanel";
 import { SlateTable } from "@/components/SlateTable";
 import { TicketCard } from "@/components/TicketCard";
 import { TicketStub } from "@/components/TicketStub";
 import { Empty, FlagBadge, StatusChip } from "@/components/ui";
-import type { LegView, SlateRow, TicketView } from "@/lib/types";
+import type { GoLive, LegView, SlateRow, TicketView } from "@/lib/types";
 
 vi.mock("next/link", () => ({
   default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
@@ -251,5 +252,31 @@ describe("small parts", () => {
   it("gives an empty state its reason", () => {
     render(<Empty title="No tickets">Nothing qualified.</Empty>);
     expect(screen.getByText("Nothing qualified.")).toBeInTheDocument();
+  });
+});
+
+describe("the go-live panel", () => {
+  const golive: GoLive = {
+    days_needed: 3,
+    practice_clean: false,
+    live_done: false,
+    ready: false,
+    days: [
+      {
+        day: "2026-11-25",
+        clean: false,
+        problems: ["NCAAF: no scheduled run"],
+        sports: { NBA: { runs: 2, failed: 0, tickets: 1 } },
+      },
+    ],
+    live_codes: { NBA: null },
+  };
+
+  it("lists what spoiled a day and which sports still need a real code", () => {
+    render(<GoLivePanel golive={golive} scheduledDryRun />);
+    expect(screen.getByText("Not clean")).toBeInTheDocument();
+    expect(screen.getByText("NCAAF: no scheduled run")).toBeInTheDocument();
+    expect(screen.getByText("NBA 2/2 runs, 1 tickets")).toBeInTheDocument();
+    expect(screen.getAllByText("Not yet").length).toBeGreaterThanOrEqual(4);
   });
 });

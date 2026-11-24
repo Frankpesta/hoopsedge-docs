@@ -494,6 +494,48 @@ export interface components {
             /** Version */
             version: number;
         };
+        /**
+         * GoLive
+         * @description B7: three clean practice days, then one supervised real code per sport.
+         */
+        GoLive: {
+            /** Days */
+            days: components["schemas"]["GoLiveDay"][];
+            /** Days Needed */
+            days_needed: number;
+            /** Live Codes */
+            live_codes: {
+                [key: string]: components["schemas"]["LiveCode"] | null;
+            };
+            /** Live Done */
+            live_done: boolean;
+            /** Practice Clean */
+            practice_clean: boolean;
+            /** Ready */
+            ready: boolean;
+        };
+        /** GoLiveDay */
+        GoLiveDay: {
+            /** Clean */
+            clean: boolean;
+            /** Day */
+            day: string;
+            /** Problems */
+            problems: string[];
+            /** Sports */
+            sports: {
+                [key: string]: components["schemas"]["GoLiveSport"];
+            };
+        };
+        /** GoLiveSport */
+        GoLiveSport: {
+            /** Failed */
+            failed: number;
+            /** Runs */
+            runs: number;
+            /** Tickets */
+            tickets: number;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -564,6 +606,19 @@ export interface components {
             started: boolean;
             /** Team */
             team: string | null;
+        };
+        /** LiveCode */
+        LiveCode: {
+            /** Booked At */
+            booked_at: string | null;
+            /** Code */
+            code: string;
+            /** Rebook */
+            rebook: boolean;
+            /** Run Id */
+            run_id: string;
+            /** Slate */
+            slate: string | null;
         };
         /** RebookStarted */
         RebookStarted: {
@@ -809,6 +864,7 @@ export interface components {
             freshness: {
                 [key: string]: string | null;
             };
+            golive: components["schemas"]["GoLive"];
             /** Pause All */
             pause_all: boolean;
             relay: components["schemas"]["RelayView"];

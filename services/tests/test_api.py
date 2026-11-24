@@ -508,6 +508,18 @@ def test_the_system_page_shows_relay_freshness_and_switches(api: Api) -> None:
     assert body["freshness"]["ncaaf_run"] == NOW.isoformat()
     assert body["dry_run"] is True and body["scheduled_dry_run"] is True
     assert body["pause_all"] is False
+    # B7: today's runs fall after the three full days, so none of them is clean yet.
+    golive = body["golive"]
+    assert golive["days_needed"] == 3 and len(golive["days"]) == 3
+    assert golive["practice_clean"] is False and golive["ready"] is False
+    assert golive["live_codes"] == {"NBA": None, "NCAAB": None, "NCAAF": None}
+
+
+def test_the_system_page_shows_a_supervised_real_code(api: Api) -> None:
+    write_run(api.root, "01BBBB", booked=True)
+    live = api.get("/system").json()["golive"]["live_codes"]
+    assert live["NCAAF"]["code"] == "REALBB" and live["NCAAF"]["run_id"] == "01BBBB"
+    assert live["NBA"] is None
 
 
 # The published schema.

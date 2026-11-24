@@ -16,6 +16,7 @@ export type AliasView = Schemas["AliasView"];
 export type ConfigView = Schemas["ConfigView"];
 export type ConfigVersion = Schemas["ConfigVersion"];
 export type SystemView = Schemas["SystemView"];
+export type GoLive = Schemas["GoLive"];
 export type Calibration = Schemas["Calibration"];
 export type Suggestion = Schemas["Suggestion"];
 export type CalibrationRow = Schemas["CalibrationRow"];

@@ -1,3 +1,4 @@
+import { GoLivePanel } from "@/components/GoLivePanel";
 import { Card, Empty, PageTitle, Section, StatTile, StatusChip } from "@/components/ui";
 import { apiGetFresh } from "@/lib/api";
 import { lagosDateTime } from "@/lib/format";
@@ -58,6 +59,10 @@ export default async function SystemPage() {
           note={system.scheduled_dry_run ? "Scheduled runs: practice" : "Scheduled runs: real"}
         />
       </div>
+
+      <Section title="Go-live">
+        <GoLivePanel golive={system.golive} scheduledDryRun={system.scheduled_dry_run} />
+      </Section>
 
       <Section title="Data freshness">
         <Card>

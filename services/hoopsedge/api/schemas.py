@@ -268,6 +268,38 @@ class RelayView(_Model):
     checked_at: str
 
 
+class GoLiveSport(_Model):
+    runs: int
+    failed: int
+    tickets: int
+
+
+class GoLiveDay(_Model):
+    day: str
+    clean: bool
+    sports: dict[str, GoLiveSport]
+    problems: list[str]
+
+
+class LiveCode(_Model):
+    code: str
+    run_id: str
+    slate: str | None
+    booked_at: str | None
+    rebook: bool
+
+
+class GoLive(_Model):
+    """B7: three clean practice days, then one supervised real code per sport."""
+
+    days_needed: int
+    days: list[GoLiveDay]
+    practice_clean: bool
+    live_codes: dict[str, LiveCode | None]
+    live_done: bool
+    ready: bool
+
+
 class SystemView(_Model):
     cost: dict[str, Any] | None
     budget_usd: list[int]
@@ -277,6 +309,7 @@ class SystemView(_Model):
     scheduled_dry_run: bool
     pause_all: bool
     relay: RelayView
+    golive: GoLive
 
 
 HealthDetails.model_rebuild()

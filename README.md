@@ -71,6 +71,20 @@ docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.grading
 
 The weekly report is `docs/reports/v2-evidence-{sport}-{week ending}.md`, with a `.json` beside it.
 
+## Go-live (B7)
+
+Going live takes three steps (brief §12 phase 8, D100):
+
+1. **Three clean practice days.** On each of the last three full Lagos days, every sport had a scheduled run and all of them succeeded, no scheduler job exited with an error, and no CRITICAL alert was raised.
+2. **One supervised real code per sport.** Turn Dry run off on the Settings page, press Run now while you watch, and the code must read back exactly as booked.
+3. **Scheduled runs book real codes.** This is your switch alone: `HOOPSEDGE_SCHEDULED_DRY_RUN=false` in the server's `.env`, then recreate `scheduler` and `api`.
+
+The System page shows where each step stands. To check from the command line:
+
+```sh
+docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.golive   # exit 0 once step 1 is done
+```
+
 ## Scheduler
 
 Lagos times (brief §12): database export 05:00, ESPN refresh 08:00, grading 09:00, the weekly evidence report Mondays 09:30, NCAAB and NBA slates 16:00 and 21:00, NCAAF 18:00 daily and 14:00 on Saturdays. Create `data/scheduler/PAUSED` to pause it, and read `data/scheduler/runs.jsonl` to see what it did. Its code is copied into the image, so rebuild to pick up changes.

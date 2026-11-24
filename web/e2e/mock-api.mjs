@@ -226,6 +226,14 @@ const server = createServer(async (request, response) => {
         freshness: { last_scheduled_job: null, ncaab_scores: new Date().toISOString(), ncaab_run: state.ncaabRun.started_at },
         dry_run: state.config.dry_run, scheduled_dry_run: true, pause_all: state.config.pause_all,
         relay: { mode: "proxy", reachable: true, checked_at: new Date().toISOString() },
+        golive: {
+          days_needed: 3, practice_clean: true, live_done: false, ready: false,
+          days: ["2026-11-25", "2026-11-26", "2026-11-27"].map((day) => ({
+            day, clean: true, problems: [],
+            sports: { NBA: { runs: 2, failed: 0, tickets: 1 }, NCAAB: { runs: 2, failed: 0, tickets: 9 }, NCAAF: { runs: 1, failed: 0, tickets: 2 } },
+          })),
+          live_codes: { NBA: { code: "NBA123", run_id: "r", slate: "2026-11-27", booked_at: new Date().toISOString(), rebook: false }, NCAAB: null, NCAAF: null },
+        },
       }); // prettier-ignore
     }
     return send(response, 404, { detail: "Not found" });

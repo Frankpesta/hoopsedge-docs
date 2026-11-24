@@ -445,6 +445,115 @@
     "title": "ConfigView",
     "type": "object"
    },
+   "GoLive": {
+    "description": "B7: three clean practice days, then one supervised real code per sport.",
+    "properties": {
+     "days": {
+      "items": {
+       "$ref": "#/components/schemas/GoLiveDay"
+      },
+      "title": "Days",
+      "type": "array"
+     },
+     "days_needed": {
+      "title": "Days Needed",
+      "type": "integer"
+     },
+     "live_codes": {
+      "additionalProperties": {
+       "anyOf": [
+        {
+         "$ref": "#/components/schemas/LiveCode"
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "title": "Live Codes",
+      "type": "object"
+     },
+     "live_done": {
+      "title": "Live Done",
+      "type": "boolean"
+     },
+     "practice_clean": {
+      "title": "Practice Clean",
+      "type": "boolean"
+     },
+     "ready": {
+      "title": "Ready",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "days_needed",
+     "days",
+     "practice_clean",
+     "live_codes",
+     "live_done",
+     "ready"
+    ],
+    "title": "GoLive",
+    "type": "object"
+   },
+   "GoLiveDay": {
+    "properties": {
+     "clean": {
+      "title": "Clean",
+      "type": "boolean"
+     },
+     "day": {
+      "title": "Day",
+      "type": "string"
+     },
+     "problems": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Problems",
+      "type": "array"
+     },
+     "sports": {
+      "additionalProperties": {
+       "$ref": "#/components/schemas/GoLiveSport"
+      },
+      "title": "Sports",
+      "type": "object"
+     }
+    },
+    "required": [
+     "day",
+     "clean",
+     "sports",
+     "problems"
+    ],
+    "title": "GoLiveDay",
+    "type": "object"
+   },
+   "GoLiveSport": {
+    "properties": {
+     "failed": {
+      "title": "Failed",
+      "type": "integer"
+     },
+     "runs": {
+      "title": "Runs",
+      "type": "integer"
+     },
+     "tickets": {
+      "title": "Tickets",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "runs",
+     "failed",
+     "tickets"
+    ],
+    "title": "GoLiveSport",
+    "type": "object"
+   },
    "HTTPValidationError": {
     "properties": {
      "detail": {
@@ -650,6 +759,53 @@
      "flags"
     ],
     "title": "LegView",
+    "type": "object"
+   },
+   "LiveCode": {
+    "properties": {
+     "booked_at": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Booked At"
+     },
+     "code": {
+      "title": "Code",
+      "type": "string"
+     },
+     "rebook": {
+      "title": "Rebook",
+      "type": "boolean"
+     },
+     "run_id": {
+      "title": "Run Id",
+      "type": "string"
+     },
+     "slate": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Slate"
+     }
+    },
+    "required": [
+     "code",
+     "run_id",
+     "slate",
+     "booked_at",
+     "rebook"
+    ],
+    "title": "LiveCode",
     "type": "object"
    },
    "RebookStarted": {
@@ -1446,6 +1602,9 @@
       "title": "Freshness",
       "type": "object"
      },
+     "golive": {
+      "$ref": "#/components/schemas/GoLive"
+     },
      "pause_all": {
       "title": "Pause All",
       "type": "boolean"
@@ -1466,7 +1625,8 @@
      "dry_run",
      "scheduled_dry_run",
      "pause_all",
-     "relay"
+     "relay",
+     "golive"
     ],
     "title": "SystemView",
     "type": "object"
