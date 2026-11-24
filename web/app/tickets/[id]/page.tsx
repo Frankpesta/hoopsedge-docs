@@ -1,183 +1,163 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { Countdown } from "@/components/Countdown";
+import { RebookButton } from "@/components/RebookButton";
 import { TicketStub } from "@/components/TicketStub";
-import { Card, PageTitle, Section, StatTile, StatusChip } from "@/components/ui";
-import { apiGetOptional } from "@/lib/api";
+import { Card, FlagBadge, PageTitle, Section, StatusChip } from "@/components/ui";
+import { apiGetFresh, apiGetOptional } from "@/lib/api";
 import {
-  FAMILY_NAMES,
+  FLAG_LABELS,
+  KIND_NAMES,
+  MODE_LABELS,
   formatOdds,
-  lagosTime,
+  lagosDateTime,
+  legPick,
   oneInN,
   percent,
-  signedNumber,
-  signedPercent,
+  points,
 } from "@/lib/format";
-import type { LegDetail, TicketDetail } from "@/lib/types";
+import type { SystemView, TicketView } from "@/lib/types";
 
-const MARKS: Record<string, string> = { won: "✓", lost: "✕", push: "=", void: "–" };
-
-function pick(leg: LegDetail): string {
-  return leg.pick ?? `${leg.family} ${leg.side} ${leg.line}`;
-}
-
-function LegRow({ leg }: { leg: LegDetail }) {
-  return (
-    <li className="border-line border-t py-3 first:border-t-0">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="font-semibold">
-            <span aria-hidden className="mr-1.5">
-              {MARKS[leg.status] ?? "•"}
-            </span>
-            {pick(leg)}
-          </p>
-          <Link href={`/games/${leg.game_id}`} className="text-text-2 text-sm underline">
-            {leg.matchup ?? `Game ${leg.game_id}`}
-          </Link>
-        </div>
-        <div className="shrink-0 text-right">
-          <p className="num font-semibold">{formatOdds(leg.odds)}</p>
-          <StatusChip status={leg.status} />
-        </div>
-      </div>
-      <p className="text-muted num mt-1 text-xs">
-        {lagosTime(leg.tip_time)} · Implied {percent(leg.fair)}
-        {leg.p_calibrated !== null && leg.p_calibrated !== undefined
-          ? ` · Model ${percent(leg.p_calibrated)} · Edge ${signedPercent(leg.edge)}`
-          : ""}
-        {leg.actual_value !== null && leg.actual_value !== undefined
-          ? ` · Result ${leg.actual_value}`
-          : ""}
-        {leg.model_error !== null && leg.model_error !== undefined
-          ? ` · Model off by ${signedNumber(leg.model_error, 1)}`
-          : ""}
-      </p>
-      {leg.correction && (
-        <p className="text-loss mt-1 text-xs">The score was corrected after this first settled.</p>
-      )}
-    </li>
-  );
-}
-
-/** What changed from the version before: the reason a code you copied may have gone stale. */
-async function versionDiff(detail: TicketDetail) {
-  const index = detail.versions.findIndex((row) => row.ticket_id === detail.ticket.ticket_id);
-  const previous = index > 0 ? detail.versions[index - 1] : undefined;
-  if (!previous) return null;
-  const before = await apiGetOptional<TicketDetail>(`/tickets/${previous.ticket_id}`);
-  if (!before) return null;
-  const old = new Set(before.leg_details.map(pick));
-  const now = new Set(detail.leg_details.map(pick));
-  return {
-    version: previous.version,
-    added: [...now].filter((item) => !old.has(item)),
-    removed: [...old].filter((item) => !now.has(item)),
-  };
-}
+export const dynamic = "force-dynamic";
 
 export default async function TicketPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const detail = await apiGetOptional<TicketDetail>(`/tickets/${encodeURIComponent(id)}`);
-  if (!detail) notFound();
-  const ticket = detail.ticket;
-  const diff = await versionDiff(detail);
-  const unproven = ticket.edge_label === "unproven";
+  const [ticket, system] = await Promise.all([
+    apiGetOptional<TicketView>(`/tickets/${encodeURIComponent(id)}`, 0),
+    apiGetFresh<SystemView>("/system"),
+  ]);
+  if (!ticket) notFound();
   return (
     <>
       <PageTitle
-        title={`${FAMILY_NAMES[ticket.family] ?? ticket.family} ticket ${ticket.ticket_no}`}
-        sub={`${ticket.league} · Slate ${detail.slate_date} · Version ${ticket.version}`}
+        title={`${KIND_NAMES[ticket.kind] ?? ticket.kind} #${ticket.number}`}
+        sub={
+          <>
+            {ticket.sport} · slate{" "}
+            <Link href={`/slate/${ticket.slate}?sport=${ticket.sport}`} className="underline">
+              {ticket.slate}
+            </Link>{" "}
+            · run{" "}
+            <Link href={`/runs/${ticket.run_id}`} className="underline">
+              {ticket.run_id.slice(-6)}
+            </Link>
+          </>
+        }
       />
-      <TicketStub code={ticket.booking_code ?? null} status={ticket.status} />
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <StatusChip status={ticket.status} />
+        {ticket.current && ticket.status !== "invalid" && (
+          <RebookButton
+            ticketId={ticket.ticket_id}
+            startedLegs={ticket.started_legs}
+            realCodes={!system.dry_run}
+          />
+        )}
+      </div>
+      <TicketStub code={ticket.code ?? null} status={ticket.status} />
       {ticket.reason && <p className="text-loss mt-2 text-sm">{ticket.reason}</p>}
 
       <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-        <StatTile
-          label="Status"
-          value={<StatusChip status={ticket.status} />}
-          note={`Settlement: ${ticket.settle_status}`}
-        />
-        <StatTile label="Combined odds" value={formatOdds(ticket.combined_odds)} />
-        <StatTile
-          label="Chance"
-          value={unproven ? "Unproven" : (oneInN(ticket.combined_prob) ?? "n/a")}
-        />
-        <StatTile
-          label="Expected value"
-          value={unproven ? "Unproven" : signedPercent(ticket.expected_value, 0)}
-        />
+        <Card>
+          <p className="text-text-2 text-xs">Total odds</p>
+          <p className="num text-xl font-semibold">{formatOdds(ticket.total_odds)}</p>
+        </Card>
+        <Card>
+          <p className="text-text-2 text-xs">Bookmaker-implied</p>
+          <p className="num text-xl font-semibold">
+            {percent(ticket.bookmaker_implied_probability, 2)}
+          </p>
+          <p className="text-muted text-xs">{oneInN(ticket.bookmaker_implied_probability)}</p>
+        </Card>
+        <Card>
+          <p className="text-text-2 text-xs">Next kickoff</p>
+          <p className="text-xl font-semibold">
+            <Countdown to={ticket.next_kickoff} />
+          </p>
+        </Card>
+        <Card>
+          <p className="text-text-2 text-xs">Started legs</p>
+          <p className="num text-xl font-semibold">
+            {ticket.started_legs} of {ticket.legs.length}
+          </p>
+        </Card>
       </div>
-      {ticket.probability_note && (
-        <p className="border-line text-text-2 mt-3 border-l-2 pl-3 text-sm">
-          {ticket.probability_note}
-        </p>
-      )}
-      {!ticket.passed_gate && (
-        <p className="text-loss mt-2 text-sm">
-          <span aria-hidden>{"✕ "}</span>
-          This market failed its evidence gate. It&apos;s on because you chose to keep it on.
-        </p>
-      )}
-      {ticket.correction && (
-        <p className="text-loss mt-2 text-sm">A score behind this ticket was corrected.</p>
+      <p className="text-muted mt-2 text-xs">{ticket.implied_note}</p>
+
+      {(ticket.superseded_by || ticket.rebooked_by || ticket.rebook_of) && (
+        <Card className="mt-4 text-sm">
+          {ticket.rebooked_by && (
+            <p>
+              Rebooked as{" "}
+              <Link href={`/tickets/${ticket.rebooked_by}`} className="text-amber underline">
+                a newer ticket
+              </Link>
+              .
+            </p>
+          )}
+          {ticket.superseded_by && !ticket.rebooked_by && (
+            <p>
+              Superseded by{" "}
+              <Link href={`/runs/${ticket.superseded_by}`} className="text-amber underline">
+                a later run
+              </Link>
+              .
+            </p>
+          )}
+          {ticket.rebook_of && (
+            <p>
+              A rebook of{" "}
+              <Link href={`/tickets/${ticket.rebook_of}`} className="underline">
+                an earlier ticket
+              </Link>
+              , without its started legs.
+            </p>
+          )}
+        </Card>
       )}
 
       <Section title="Legs">
-        <Card>
-          <ul>
-            {detail.leg_details.map((leg) => (
-              <LegRow key={leg.rank} leg={leg} />
-            ))}
-          </ul>
-        </Card>
-      </Section>
-
-      {detail.verification && (
-        <Section title="Verification">
-          <Card>
-            <p className="text-sm">
-              Selections missing:{" "}
-              {(detail.verification.missing as unknown[] | undefined)?.length ?? 0} · Unexpected:{" "}
-              {(detail.verification.extra as unknown[] | undefined)?.length ?? 0} · Odds moved:{" "}
-              {(detail.verification.odds_differences as unknown[] | undefined)?.length ?? 0}
-            </p>
-          </Card>
-        </Section>
-      )}
-
-      <Section title="Version history">
-        <Card>
-          <ul className="space-y-2 text-sm">
-            {detail.versions.map((row) => (
-              <li key={row.ticket_id} className="flex items-center justify-between gap-3">
-                <Link href={`/tickets/${row.ticket_id}`} className="underline">
-                  Version {row.version}
-                </Link>
-                <span className="num text-text-2 break-all">{row.booking_code ?? "No code"}</span>
-                <StatusChip status={row.status} />
-              </li>
-            ))}
-          </ul>
-          {diff && (
-            <div className="border-line mt-3 border-t pt-3 text-sm">
-              <p className="font-semibold">Changes since version {diff.version}</p>
-              {!diff.added.length && !diff.removed.length && (
-                <p className="text-text-2 mt-1">Same legs.</p>
+        <ul className="space-y-2">
+          {ticket.legs.map((leg) => (
+            <li
+              key={`${leg.event_id}-${leg.kind}`}
+              className={`bg-surface border-line rounded-md border p-3 text-sm ${
+                leg.started ? "opacity-60" : ""
+              }`}
+            >
+              <div className="flex justify-between gap-2">
+                <span className="font-semibold">{legPick(leg)}</span>
+                <span className="num">{formatOdds(leg.odds)}</span>
+              </div>
+              <p className="text-text-2 mt-0.5">
+                {leg.away} at {leg.home} · {lagosDateTime(leg.kickoff)} Lagos
+                {leg.started ? " · started" : ""}
+              </p>
+              <dl className="num text-text-2 mt-2 grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs">
+                <dt>Projection</dt>
+                <dd className="text-right">{leg.projection.toFixed(1)}</dd>
+                <dt>Main line</dt>
+                <dd className="text-right">
+                  {leg.main_line} @ {formatOdds(leg.main_odds)}
+                </dd>
+                <dt>Booked line ({MODE_LABELS[leg.mode] ?? leg.mode})</dt>
+                <dd className="text-right">{leg.booked_line}</dd>
+                <dt>Edge vs main</dt>
+                <dd className="text-right">{points(leg.edge_main)}</dd>
+                <dt>Edge vs booked</dt>
+                <dd className="text-right">{points(leg.edge_booked)}</dd>
+              </dl>
+              {leg.flags.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {leg.flags.map((flag) => (
+                    <FlagBadge key={flag} label={FLAG_LABELS[flag] ?? flag} />
+                  ))}
+                </div>
               )}
-              {diff.added.map((item) => (
-                <p key={item} className="mt-1">
-                  + {item}
-                </p>
-              ))}
-              {diff.removed.map((item) => (
-                <p key={item} className="text-text-2 mt-1">
-                  {"−"} {item}
-                </p>
-              ))}
-            </div>
-          )}
-        </Card>
+            </li>
+          ))}
+        </ul>
       </Section>
     </>
   );

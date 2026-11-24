@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 
 import { resolveUnmatched } from "@/lib/actions";
@@ -8,9 +7,9 @@ import { lagosDateTime } from "@/lib/format";
 import type { Team, UnmatchedItem } from "@/lib/types";
 
 const REASONS: Record<string, string> = {
-  team_not_resolved: "A team name couldn't be matched with confidence",
-  no_game_found: "No game on the schedule has these two teams at this time",
-  several_games_found: "More than one game could be this one",
+  team_not_resolved: "A team name didn't match an ESPN team exactly, so it wasn't guessed",
+  no_espn_game_within_3_hours: "ESPN has no game for these two teams within 3 hours",
+  several_espn_games: "More than one ESPN game could be this one",
   same_team_twice: "Both names point to the same team",
   swapped_at_a_true_home_game: "SportyBet lists the teams the other way round at a home game",
 };
@@ -81,53 +80,76 @@ function Side({
   );
 }
 
-export function UnmatchedCard({ item, teams }: { item: UnmatchedItem; teams: readonly Team[] }) {
-  const [home, setHome] = useState(item.home_team_id ?? "");
-  const [away, setAway] = useState(item.away_team_id ?? "");
+export function UnmatchedCard({
+  item,
+  teams,
+  onResolved,
+}: {
+  item: UnmatchedItem;
+  teams: readonly Team[];
+  onResolved?: () => void;
+}) {
+  const [home, setHome] = useState("");
+  const [away, setAway] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [pending, start] = useTransition();
   const key = useRef<string | null>(null);
-  const router = useRouter();
+  const byId = new Map(teams.map((team) => [team.team_id, team.name]));
+  const needHome = !item.home_team_id;
+  const needAway = !item.away_team_id;
 
-  function send(choice: { team_id_home: string; team_id_away: string } | { ignore: true }) {
+  function send(choice: { team_id_home?: string; team_id_away?: string } | { ignore: true }) {
     // The same key until it succeeds, so a double tap can't confirm twice.
     key.current ??= crypto.randomUUID();
     start(async () => {
       const result = await resolveUnmatched(item.event_id, choice, key.current as string);
       key.current = null;
-      if (result.ok) router.refresh();
+      if (result.ok) onResolved?.();
       else setMessage(result.message);
     });
   }
 
   const safe = item.event_id.replace(/\W/g, "");
+  const ready = (!needHome || home) && (!needAway || away);
   return (
     <article className="bg-surface border-line rounded-lg border p-4">
       <h2 className="font-semibold">
         {item.away_name} at {item.home_name}
       </h2>
       <p className="text-text-2 mt-1 text-sm">
-        {item.league} · {lagosDateTime(item.start)} Lagos
+        {item.sport} · {lagosDateTime(item.start)} Lagos
       </p>
       <p className="text-text-2 mt-1 text-sm">{REASONS[item.reason ?? ""] ?? item.reason}</p>
-      <Side
-        label="Home"
-        name={item.home_name}
-        suggestions={item.home_suggestions ?? []}
-        teams={teams}
-        value={home}
-        onChange={setHome}
-        listId={`${safe}-home`}
-      />
-      <Side
-        label="Away"
-        name={item.away_name}
-        suggestions={item.away_suggestions ?? []}
-        teams={teams}
-        value={away}
-        onChange={setAway}
-        listId={`${safe}-away`}
-      />
+      {needHome ? (
+        <Side
+          label="Home"
+          name={item.home_name}
+          suggestions={item.home_suggestions ?? []}
+          teams={teams}
+          value={home}
+          onChange={setHome}
+          listId={`${safe}-home`}
+        />
+      ) : (
+        <p className="text-text-2 mt-3 text-xs">
+          Home matched: <span className="text-text">{byId.get(item.home_team_id ?? "")}</span>
+        </p>
+      )}
+      {needAway ? (
+        <Side
+          label="Away"
+          name={item.away_name}
+          suggestions={item.away_suggestions ?? []}
+          teams={teams}
+          value={away}
+          onChange={setAway}
+          listId={`${safe}-away`}
+        />
+      ) : (
+        <p className="text-text-2 mt-3 text-xs">
+          Away matched: <span className="text-text">{byId.get(item.away_team_id ?? "")}</span>
+        </p>
+      )}
       {message && (
         <p role="alert" className="text-loss mt-2 text-sm">
           {message}
@@ -140,15 +162,20 @@ export function UnmatchedCard({ item, teams }: { item: UnmatchedItem; teams: rea
           onClick={() => send({ ignore: true })}
           className="border-line min-h-11 rounded-md border px-4 text-sm"
         >
-          Ignore
+          Ignore (not an ESPN team)
         </button>
         <button
           type="button"
-          disabled={pending || !home || !away}
-          onClick={() => send({ team_id_home: home, team_id_away: away })}
+          disabled={pending || !ready}
+          onClick={() =>
+            send({
+              ...(needHome ? { team_id_home: home } : {}),
+              ...(needAway ? { team_id_away: away } : {}),
+            })
+          }
           className="bg-amber text-on-amber min-h-11 rounded-md px-4 text-sm font-semibold disabled:opacity-50"
         >
-          {pending ? "Saving" : "Confirm match"}
+          {pending ? "Saving" : "Save the alias"}
         </button>
       </div>
     </article>

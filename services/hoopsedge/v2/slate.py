@@ -32,7 +32,7 @@ from zoneinfo import ZoneInfo
 import polars as pl
 
 from hoopsedge.common.booking_mode import is_dry_run
-from hoopsedge.common.config_v2 import SportConfig, TierThresholds, V2Config, load_defaults
+from hoopsedge.common.config_v2 import SportConfig, TierThresholds, V2Config
 from hoopsedge.common.dynamo import connect, ensure_table, table_name
 from hoopsedge.common.http import PoliteClient
 from hoopsedge.common.ids import new_ulid
@@ -68,10 +68,11 @@ from hoopsedge.v2.booking import (
     read_index,
     record_run,
 )
+from hoopsedge.v2.config_store import load as load_config
 from hoopsedge.v2.legs import KINDS, Kind, Leg, game_legs, recheck, team_lines
 from hoopsedge.v2.lines import EventLines, LineShapeError, main_line, parse_event
 from hoopsedge.v2.names import Directory, EspnGame, EventMatch, Team, match_event, seed_aliases
-from hoopsedge.v2.store import add_alias, alert, owner_aliases, save_unmatched, settings_dry_run
+from hoopsedge.v2.store import add_alias, alert, owner_aliases, save_unmatched
 from hoopsedge.v2.tickets import Dropped, Ticket, build_tickets
 
 FRESH_FOR = timedelta(minutes=5)  # Invariant 3.
@@ -512,6 +513,7 @@ def run_slate(
     run_dir: Path,
     booker: Booker,
     trigger: str = "manual",
+    config_version: int = 0,
 ) -> dict[str, Any]:
     """The whole run after ESPN data is loaded. Writes into `run_dir` as it goes, then records
     its tickets in the slate's index (superseding earlier real codes when it books real ones)."""
@@ -528,6 +530,7 @@ def run_slate(
         "dry_run": not booker.live,
         "started_at": started.isoformat(),
         "config": config.model_dump(by_alias=True, mode="json"),
+        "config_version": config_version,
         "config_hash": _config_hash(config),
     }
     _write_json(run_dir / "run.json", document)
@@ -705,12 +708,12 @@ def main() -> int:
         print(f"{args.sport} alias {key!r} -> {args.team_id} {known[args.team_id]}")
         return 0
 
-    config = load_defaults()
+    config_version, config = load_config(table)  # What the dashboard last saved (D98).
     now = datetime.now(UTC)
     slate_dir = data_dir / f"v2/runs/{args.sport}/{args.date}"
     run_dir = slate_dir / new_ulid(now)
     runner = Runner(build_client(run_dir / "raw"), data_dir)
-    live = not is_dry_run(settings_dry_run(table))
+    live = not is_dry_run(config.dry_run)
 
     def raise_alert(severity: str, key: str, message: str) -> None:
         alert(table, datetime.now(UTC), severity, key, message, run_dir.name)
@@ -747,7 +750,7 @@ def main() -> int:
     try:
         document = run_slate(
             runner, args.sport, args.date, config, results, finals, levels, directory, run_dir,
-            booker, args.trigger,
+            booker, args.trigger, config_version,
         )  # fmt: skip
     except (SportyBetError, RunFailed, LineShapeError) as error:
         failed = json.loads((run_dir / "run.json").read_text("utf-8"))

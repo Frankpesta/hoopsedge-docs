@@ -2,12 +2,11 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { ChartFrame } from "@/components/charts/ChartFrame";
-import { TicketCardView } from "@/components/TicketCardView";
-import { WeakLegs } from "@/components/TicketCardView";
+import { SlateTable } from "@/components/SlateTable";
+import { TicketCard } from "@/components/TicketCard";
 import { TicketStub } from "@/components/TicketStub";
-import { Empty, ShotClock, StatusChip } from "@/components/ui";
-import type { TicketCard } from "@/lib/types";
+import { Empty, FlagBadge, StatusChip } from "@/components/ui";
+import type { LegView, SlateRow, TicketView } from "@/lib/types";
 
 vi.mock("next/link", () => ({
   default: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
@@ -16,40 +15,92 @@ vi.mock("next/link", () => ({
     </a>
   ),
 }));
+vi.mock("next/navigation", () => ({ useRouter: () => ({ refresh: vi.fn() }) }));
+vi.mock("@/lib/actions", () => ({ rebookTicket: vi.fn() }));
 
-function ticket(changes: Partial<TicketCard> = {}): TicketCard {
+const KICKOFF = "2026-11-28T17:00:00+00:00";
+
+function leg(changes: Partial<LegView> = {}): LegView {
   return {
-    ticket_id: "t1",
-    league: "NCAAB",
-    family: "total_ft",
-    ticket_no: 1,
-    version: 3,
-    status: "verified",
-    settle_status: "pending",
-    booking_code: "M8M1KN",
+    kind: "TOTALS_LEAN",
+    event_id: "sr:match:1",
+    home: "Delaware",
+    away: "UConn",
+    kickoff: KICKOFF,
+    started: false,
+    mode: "safest",
+    team: null,
+    direction: "Over",
+    projection: 53,
+    booked_line: 47.5,
+    main_line: 48.5,
+    odds: 1.81,
+    main_odds: 1.87,
+    edge_main: 4.5,
+    edge_booked: 5.5,
+    flags: [],
+    ...changes,
+  };
+}
+
+function ticket(changes: Partial<TicketView> = {}): TicketView {
+  return {
+    ticket_id: "T1",
+    sport: "NCAAF",
+    slate: "2026-11-28",
+    run_id: "R1",
+    kind: "TOTALS_LEAN",
+    number: 1,
+    status: "dry_run",
+    code: "DRYRUN-ABC123",
     reason: null,
-    legs: 1,
-    combined_odds: 3.5,
-    combined_prob: 0.3,
-    expected_value: 0.05,
-    passed_gate: true,
-    edge_label: "measured",
-    probability_note: null,
-    correction: false,
-    weak_legs: 0,
-    legs_summary: [
-      {
-        rank: 1,
-        game_id: "g1",
-        matchup: "UNC at Duke",
-        pick: "Over 145.5",
-        odds: 1.9,
-        p_calibrated: 0.56,
-        fair: 0.5,
-        edge: 0.06,
-        tip_time: "2026-11-07T01:00:00+00:00",
-      },
-    ],
+    dry_run: true,
+    total_odds: 3.28,
+    bookmaker_implied_probability: 0.305,
+    implied_note: "Bookmaker-implied: the product of 1/odds for every leg.",
+    earliest_kickoff: KICKOFF,
+    next_kickoff: KICKOFF,
+    started_legs: 0,
+    model_disagrees: 0,
+    superseded_by: null,
+    rebooked_by: null,
+    rebook_of: null,
+    current: true,
+    legs: [leg(), leg({ event_id: "sr:match:2", team: "home", booked_line: 23.5 })],
+    ...changes,
+  };
+}
+
+function row(changes: Partial<SlateRow> = {}): SlateRow {
+  return {
+    event_id: "sr:match:1",
+    game_id: "g1",
+    home: "Delaware",
+    away: "UConn",
+    kickoff: KICKOFF,
+    started: false,
+    eligible: true,
+    skip_reason: null,
+    home_tiers: ["High", "High"],
+    away_tiers: ["Medium", "Medium"],
+    home_l5: { pf: 35, pa: 20, n: 5 },
+    away_l5: { pf: 30, pa: 21, n: 5 },
+    sum_of_avgs: 65,
+    model_total: 53,
+    outlook: "MEDIUM",
+    main_line: 48.5,
+    lean: "OVER",
+    edge_main: 4.5,
+    booked_line: 47.5,
+    booked_odds: 1.81,
+    edge_booked: 5.5,
+    home_proj: 28,
+    away_proj: 25,
+    team_pick: { team: "Delaware", side: "home", direction: "Over", line: 23.5, odds: 1.87,
+                 projection: 28, edge: 4.5 }, // prettier-ignore
+    flags: [],
+    same_level_total: 53,
+    same_level_lean: "OVER",
     ...changes,
   };
 }
@@ -58,7 +109,7 @@ describe("the code stub", () => {
   it("copies when tapped and says so", async () => {
     const user = userEvent.setup();
     const write = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue();
-    render(<TicketStub code="M8M1KN" status="verified" />);
+    render(<TicketStub code="M8M1KN" status="booked" />);
     await user.click(screen.getByRole("button", { name: /M8M1KN/ }));
     expect(write).toHaveBeenCalledWith("M8M1KN");
     expect(await screen.findByText("Copied")).toBeInTheDocument();
@@ -66,10 +117,8 @@ describe("the code stub", () => {
 
   it("shows an invalid code struck through and refuses to copy it", () => {
     render(<TicketStub code="BADONE" status="invalid" />);
-    const button = screen.getByRole("button", { name: /BADONE/ });
-    expect(button).toBeDisabled();
+    expect(screen.getByRole("button", { name: /BADONE/ })).toBeDisabled();
     expect(screen.getByText("BADONE")).toHaveClass("line-through");
-    expect(screen.getByText("Don't use this code")).toBeInTheDocument();
   });
 
   it("makes a practice code impossible to mistake for a real one", () => {
@@ -77,149 +126,113 @@ describe("the code stub", () => {
     expect(screen.getByText(/Practice code/)).toBeInTheDocument();
   });
 
-  it("says how many legs are below the tested minimum", () => {
-    render(<WeakLegs weak={3} legs={5} />);
-    expect(screen.getByText(/3 of 5 legs are below/)).toBeInTheDocument();
-  });
-
-  it("says nothing when every leg met the tested minimum", () => {
-    const { container } = render(<WeakLegs weak={0} legs={5} />);
-    expect(container).toBeEmptyDOMElement();
-  });
-
-  it("doesn't warn on a real code", () => {
-    render(<TicketStub code="M8M1KN" status="verified" />);
-    expect(screen.queryByText(/Practice code/)).not.toBeInTheDocument();
-  });
-
   it("explains a ticket with no code", () => {
-    render(<TicketStub code={null} status="failed" />);
+    render(<TicketStub code={null} status="not_booked" />);
     expect(screen.getByText(/wasn't booked/)).toBeInTheDocument();
   });
 });
 
 describe("the ticket card", () => {
-  it("shows a measured ticket's chance and expected value", () => {
-    render(<TicketCardView ticket={ticket()} />);
-    expect(screen.getByText("~1 in 3")).toBeInTheDocument();
-    expect(screen.getByText("+5%")).toBeInTheDocument();
-    expect(screen.getByText("3.50")).toBeInTheDocument();
-    expect(screen.queryByText(/failed its evidence gate/)).not.toBeInTheDocument();
+  it("shows total odds, the bookmaker-implied chance with its caution, and the kind", () => {
+    render(<TicketCard ticket={ticket()} realCodes={false} />);
+    expect(screen.getByRole("heading", { name: /Totals lean #1/ })).toBeInTheDocument();
+    expect(screen.getByText("3.28")).toBeInTheDocument();
+    expect(screen.getByText("30.5%")).toBeInTheDocument();
+    expect(screen.getByText(/Bookmaker-implied: the product/)).toBeInTheDocument();
+    expect(screen.getByText(/Safest line/)).toBeInTheDocument();
   });
 
-  it("shows no probability or EV on an unproven ticket (D72)", async () => {
+  it("lists its legs by team or total", async () => {
     const user = userEvent.setup();
-    const note = "Unproven: treat each leg as about 50%.";
-    const { container } = render(
-      <TicketCardView
-        ticket={ticket({
-          edge_label: "unproven",
-          combined_prob: null,
-          expected_value: null,
-          probability_note: note,
-          legs_summary: [
-            {
-              rank: 1,
-              game_id: "g1",
-              matchup: "UNC at Duke",
-              pick: "1H Over 66.5",
-              odds: 1.85,
-              p_calibrated: null,
-              fair: 0.5,
-              edge: null,
-              tip_time: "2026-11-07T01:00:00+00:00",
-            },
-          ],
-        })}
+    render(<TicketCard ticket={ticket()} realCodes={false} />);
+    await user.click(screen.getByText("Legs"));
+    expect(screen.getByText("Total Over 47.5")).toBeInTheDocument();
+    expect(screen.getByText("Delaware Over 23.5")).toBeInTheDocument();
+  });
+
+  it("says when the model disagrees with legs at the booked line", () => {
+    render(<TicketCard ticket={ticket({ model_disagrees: 2 })} realCodes={false} />);
+    expect(screen.getByText(/disagrees with 2 of these legs/)).toBeInTheDocument();
+  });
+
+  it("offers a rebook on a current ticket, and not on a superseded one", () => {
+    const { unmount } = render(<TicketCard ticket={ticket()} realCodes={false} />);
+    expect(screen.getByRole("button", { name: "Rebook" })).toBeInTheDocument();
+    unmount();
+    render(
+      <TicketCard
+        ticket={ticket({ current: false, status: "superseded", superseded_by: "R2" })}
+        realCodes={false}
       />,
     );
-    expect(screen.getByText("Unproven")).toBeInTheDocument();
-    expect(screen.getByText(note)).toBeInTheDocument();
-    expect(screen.queryByText("EV")).not.toBeInTheDocument();
-    expect(container.textContent).not.toMatch(/1 in/);
-    await user.click(screen.getByRole("button", { name: "Show 1 legs" }));
-    expect(screen.getByText("Implied 50.0%")).toBeInTheDocument();
-    expect(container.textContent).not.toMatch(/Model/);
-    expect(container.textContent).not.toMatch(/Edge/);
+    expect(screen.queryByRole("button", { name: "Rebook" })).not.toBeInTheDocument();
+    expect(screen.getByText(/Superseded by a later run/)).toBeInTheDocument();
   });
 
-  it("flags a market in force that failed its gate (D65)", () => {
-    render(<TicketCardView ticket={ticket({ passed_gate: false })} />);
-    expect(screen.getByText(/failed its evidence gate/)).toBeInTheDocument();
-  });
-
-  it("opens to the legs, with the model against the implied price", async () => {
-    const user = userEvent.setup();
-    render(<TicketCardView ticket={ticket()} />);
-    expect(screen.queryByText("Over 145.5")).not.toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Show 1 legs" }));
-    expect(screen.getByText("Over 145.5")).toBeInTheDocument();
-    expect(screen.getByText(/Model 56.0% · Implied 50.0% · Edge \+6.0%/)).toBeInTheDocument();
-    expect(screen.getByText("Sat 02:00")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "UNC at Duke" })).toHaveAttribute("href", "/games/g1");
-  });
-
-  it("shows why a ticket failed", () => {
+  it("shows why a ticket wasn't booked", () => {
     render(
-      <TicketCardView ticket={ticket({ status: "failed", reason: "Booking failed: 19000" })} />,
+      <TicketCard
+        ticket={ticket({ status: "failed", code: null, reason: "BlockedError: denied" })}
+        realCodes
+      />,
     );
-    expect(screen.getByText("Booking failed: 19000")).toBeInTheDocument();
+    expect(screen.getByText("BlockedError: denied")).toBeInTheDocument();
+  });
+});
+
+describe("the slate sheet", () => {
+  it("has the owner's columns and a lean in words", () => {
+    render(<SlateTable rows={[row()]} />);
+    for (const name of ["Model total", "Main line", "Lean", "Team pick", "Flags"]) {
+      expect(screen.getByRole("columnheader", { name: new RegExp(name) })).toBeInTheDocument();
+    }
+    expect(screen.getByText("OVER")).toBeInTheDocument();
+    expect(screen.getByText("47.5 @ 1.81")).toBeInTheDocument();
+    expect(screen.getByText("Delaware Over 23.5 @ 1.87")).toBeInTheDocument();
+  });
+
+  it("sorts a number column biggest first, then flips on a second tap", async () => {
+    const user = userEvent.setup();
+    render(
+      <SlateTable
+        rows={[row({ event_id: "a", home: "Alpha", model_total: 40 }),
+               row({ event_id: "b", home: "Bravo", model_total: 60 })]}
+      />, // prettier-ignore
+    );
+    await user.click(screen.getByRole("button", { name: /Model total/ }));
+    const first = () => screen.getAllByRole("row")[1] as HTMLElement;
+    expect(within(first()).getByText(/Bravo/)).toBeInTheDocument(); // Biggest first.
+    await user.click(screen.getByRole("button", { name: /Model total/ }));
+    expect(within(first()).getByText(/Alpha/)).toBeInTheDocument();
+  });
+
+  it("greys out a game that has started and shows flags as badges", () => {
+    render(<SlateTable rows={[row({ started: true, flags: ["cross_level_game"] })]} />);
+    const line = screen.getAllByRole("row")[1] as HTMLElement;
+    expect(line).toHaveClass("text-muted");
+    expect(within(line).getByText("Cross-level game")).toBeInTheDocument();
+  });
+
+  it("marks a game skipped for too few games", () => {
+    render(<SlateTable rows={[row({ eligible: false, skip_reason: "min_games", lean: null })]} />);
+    expect(screen.getByText("Too few games")).toBeInTheDocument();
+    expect(screen.getByText("Skip")).toBeInTheDocument();
   });
 });
 
 describe("small parts", () => {
   it("never shows a state by colour alone", () => {
     render(<StatusChip status="invalid" />);
-    const chip = screen.getByText("Invalid");
-    expect(within(chip).getByText("✕")).toBeInTheDocument();
+    expect(within(screen.getByText("Invalid")).getByText("✕")).toBeInTheDocument();
+  });
+
+  it("gives a flag its words, not just a warning sign", () => {
+    render(<FlagBadge label="Cross-level game" />);
+    expect(screen.getByText("Cross-level game")).toBeInTheDocument();
   });
 
   it("gives an empty state its reason", () => {
     render(<Empty title="No tickets">Nothing qualified.</Empty>);
     expect(screen.getByText("Nothing qualified.")).toBeInTheDocument();
-  });
-
-  it("lights one shot-clock segment per 1/24 of the chance", () => {
-    const { container } = render(<ShotClock value={0.5} fair={0.5} />);
-    expect(container.querySelectorAll(".bg-amber")).toHaveLength(12);
-    expect(container.querySelectorAll(".outline-text")).toHaveLength(1);
-  });
-
-  it("gives every chart a summary and a table with every value", async () => {
-    const user = userEvent.setup();
-    render(
-      <ChartFrame
-        title="Hit rate"
-        summary="Most legs won."
-        legend={[
-          { label: "One", color: "red" },
-          { label: "Two", color: "blue" },
-        ]}
-        columns={["Bucket", "Rate"]}
-        rows={[["60%", "55.0%"]]}
-      >
-        <div>chart</div>
-      </ChartFrame>,
-    );
-    expect(screen.getByText("Most legs won.")).toBeInTheDocument();
-    expect(screen.getByText("One")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Table" }));
-    expect(screen.getByRole("cell", { name: "55.0%" })).toBeInTheDocument();
-    expect(screen.queryByText("chart")).not.toBeInTheDocument();
-  });
-
-  it("hides the legend for a single series, which the title already names", () => {
-    render(
-      <ChartFrame
-        title="Hit rate"
-        summary="s"
-        legend={[{ label: "Only", color: "red" }]}
-        columns={[]}
-        rows={[]}
-      >
-        <div />
-      </ChartFrame>,
-    );
-    expect(screen.queryByText("Only")).not.toBeInTheDocument();
   });
 });

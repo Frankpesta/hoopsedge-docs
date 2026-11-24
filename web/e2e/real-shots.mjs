@@ -5,10 +5,9 @@ import { chromium } from "@playwright/test";
 const BASE = process.env.DASHBOARD_URL ?? "http://web:3000";
 const PAGES = [
   ["real-today", "/"],
-  ["real-record", "/track-record"],
-  ["real-models", "/models"],
+  ["real-teams", "/unmatched"],
   ["real-runs", "/runs"],
-  ["real-settings", "/settings"],
+  ["real-config", "/settings"],
   ["real-system", "/system"],
 ];
 

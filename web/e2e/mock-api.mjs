@@ -1,4 +1,4 @@
-// A fake API for browser tests: the real one's shapes, with state, and no real data at risk.
+// A fake v2 API for browser tests: the real one's shapes, with state, and no real data at risk.
 import { createServer } from "node:http";
 
 const TODAY = new Intl.DateTimeFormat("en-CA", {
@@ -7,260 +7,122 @@ const TODAY = new Intl.DateTimeFormat("en-CA", {
   month: "2-digit",
   day: "2-digit",
 }).format(new Date());
-const TIP = "2026-11-07T01:00:00+00:00";
+const LATER = new Date(Date.now() + 5 * 3600 * 1000).toISOString();
+const EARLIER = new Date(Date.now() - 3600 * 1000).toISOString();
 const NOTE =
-  "Unproven: this market's probabilities haven't been tested at real bookmaker lines, and when they were tested on full-game totals, confident picks won about half the time. Treat each leg as about 50%.";
+  "Bookmaker-implied: the product of 1/odds for every leg, margin included. Each leg is close to a coin flip at main-line odds, so long tickets very rarely land (brief §13).";
 
-function leg(rank, pick, game, hidden, odds = 1.9) {
+function leg(event, home, away, team, booked, odds, started = false) {
   return {
-    rank,
-    game_id: game,
-    matchup: "UNC Tar Heels at Duke Blue Devils",
-    pick,
-    odds,
-    p_calibrated: hidden ? null : 0.57,
-    fair: 0.5,
-    edge: hidden ? null : 0.07,
-    tip_time: TIP,
-  };
+    kind: team ? "TEAM_TOTALS" : "TOTALS_LEAN", event_id: event, home, away,
+    kickoff: started ? EARLIER : LATER, started, mode: team ? "main" : "safest", team,
+    direction: "Over", projection: team ? 28 : 61.9, booked_line: booked, main_line: booked + 1,
+    odds, main_odds: 1.87, edge_main: 5.4, edge_booked: 6.4, flags: [],
+  }; // prettier-ignore
 }
 
-function ticket(id, family, number, code, status, hidden, picks) {
+function ticket(id, kind, code, status, legs, extra = {}) {
   return {
-    ticket_id: id,
-    league: "NCAAB",
-    family,
-    ticket_no: number,
-    version: 2,
-    status,
-    settle_status: "pending",
-    booking_code: code,
-    reason: status === "invalid" ? "1 selections missing, 0 unexpected" : null,
-    legs: picks.length,
-    combined_odds: 3.61,
-    combined_prob: hidden ? null : 0.32,
-    expected_value: hidden ? null : 0.16,
-    passed_gate: !hidden,
-    edge_label: hidden ? "unproven" : "measured",
-    probability_note: hidden ? NOTE : null,
-    correction: false,
-    legs_summary: picks.map((pick, index) => leg(index + 1, pick, `g${index + 1}`, hidden)),
-  };
+    ticket_id: id, sport: "NCAAB", slate: TODAY, run_id: "run-1", kind, number: 1, status, code,
+    reason: status === "invalid" ? "2 legs in the code, 3 intended" : null,
+    dry_run: status === "dry_run", total_odds: 3.03, bookmaker_implied_probability: 0.33,
+    implied_note: NOTE, earliest_kickoff: legs[0].kickoff,
+    next_kickoff: legs.find((item) => !item.started)?.kickoff ?? null,
+    started_legs: legs.filter((item) => item.started).length, model_disagrees: 0,
+    superseded_by: null, rebooked_by: null, rebook_of: null, current: true, legs, ...extra,
+  }; // prettier-ignore
 }
 
-const run = (league, status = "succeeded") => ({
-  run_id: `run-${league}`,
-  league,
-  slate_date: TODAY,
-  status,
-  trigger: "scheduled",
-  dry_run: false,
-  started_at: "2026-11-06T14:00:00+00:00",
-  ended_at: "2026-11-06T14:00:21+00:00",
-  error: null,
-  counts: {},
-});
+const LEAN = ticket("T-lean", "TOTALS_LEAN", "H4NDC4", "booked", [
+  leg("e1", "Duke", "UNC", null, 140.5, 1.74),
+  leg("e2", "Kansas", "Baylor", null, 150.5, 1.74, true),
+]);
+const TEAM = ticket("T-team", "TEAM_TOTALS", "DRYRUN-ABC123", "dry_run", [
+  leg("e1", "Duke", "UNC", "home", 75.5, 1.85),
+  leg("e2", "Kansas", "Baylor", "away", 70.5, 1.85),
+]);
+const OLD = ticket("T-old", "TOTALS_LEAN", "OLD123", "superseded", [leg("e1", "Duke", "UNC", null, 139.5, 1.7)], {
+  current: false, superseded_by: "run-1",
+}); // prettier-ignore
+
+function row(event, home, away, lean, flags = [], started = false) {
+  return {
+    event_id: event, game_id: `g-${event}`, home, away, kickoff: started ? EARLIER : LATER, started,
+    eligible: true, skip_reason: null, home_tiers: ["High", "Medium"], away_tiers: ["Medium", "Low"],
+    home_l5: { pf: 80.2, pa: 70.1, n: 5 }, away_l5: { pf: 75.4, pa: 72.8, n: 5 }, sum_of_avgs: 155.6,
+    model_total: 149.3, outlook: "MEDIUM", main_line: 143.5, lean, edge_main: 5.8,
+    booked_line: lean === "OVER" ? 140.5 : null, booked_odds: lean === "OVER" ? 1.74 : null,
+    edge_booked: lean === "OVER" ? 8.8 : null, home_proj: 76.5, away_proj: 72.8,
+    team_pick: { team: home, side: "home", direction: "Over", line: 75.5, odds: 1.85, projection: 79.6, edge: 4.1 },
+    flags, same_level_total: 149.3, same_level_lean: lean,
+  }; // prettier-ignore
+}
+
+const run = (sport, status = "succeeded") => ({
+  run_id: `run-${sport}`, sport, slate: TODAY, trigger: "scheduled", status, dry_run: false,
+  error: null, started_at: new Date(Date.now() - 60_000).toISOString(),
+  ended_at: status === "running" ? null : new Date().toISOString(), config_version: 0,
+  counts: { events_listed: 76, games: 2, eligible: 2, unmatched: 1, tickets: 2 }, tickets: 2,
+}); // prettier-ignore
 
 const state = {
-  ncaaRun: run("NCAAB"),
+  ncaabRun: run("NCAAB"),
   polls: 0,
+  started: false,
   unmatched: [
     {
-      league: "NCAAB",
-      event_id: "sr:match:99",
-      home_name: "Mystery Tech",
-      away_name: "UNC Tar Heels",
-      start: TIP,
-      reason: "team_not_resolved",
-      home_team_id: null,
-      away_team_id: "a",
-      home_suggestions: [{ team_id: "h", score: 80 }],
-      away_suggestions: [],
+      sport: "NCAAB", event_id: "sr:match:9", home_name: "Duke Blue Devils",
+      away_name: "Mystery Tech Owls", start: LATER, reason: "team_not_resolved",
+      home_team_id: "150", away_team_id: null, home_suggestions: [],
+      away_suggestions: [{ team_id: "2", name: "Auburn Tigers", score: 60 }],
     },
+  ], // prettier-ignore
+  aliases: [
+    { alias: "penn quakers", team_id: "219", team_name: "Pennsylvania Quakers", source: "seed" },
   ],
-  settingsVersion: 1,
-  settings: {
-    schedules: { ncaa_slate: "15:00", nba_slate: "22:00", nightly_learn: "11:00" },
-    leagues: { NBA: { enabled: true }, NCAAB: { enabled: true } },
-    markets: Object.fromEntries(
-      ["NBA", "NCAAB"].map((league) => [
-        league,
-        {
-          handicap: { enabled: true, min_prob: 0.52, min_edge: 0.025 },
-          total_ft: {
-            enabled: true,
-            min_prob: league === "NBA" ? null : 0.52,
-            min_edge: league === "NBA" ? null : 0.015,
-          },
-          total_1h: { enabled: true, min_prob: 0.52, min_edge: 0 },
-          team_total: { enabled: true, min_prob: 0.64, min_edge: 0 },
-        },
-      ]),
-    ),
-    min_legs: 2,
-    min_minutes_before_tip: 20,
-    allow_alt_lines: false,
-    sportybet_proxy_enabled: false,
-    dry_run: false,
-    pause_all: false,
-  },
-  rollbacks: [],
+  config: null,
+  version: 0,
+  versions: [],
 };
 
-const TICKETS = [
-  ticket("handicap-1", "handicap", 1, "H4NDC4", "verified", false, ["Duke -6.5", "Kansas +3"]),
-  ticket("total-1", "total_ft", 1, "T0TAL1", "invalid", false, ["Over 145.5", "Under 150.5"]),
-  ticket("half-1", "total_1h", 1, "DRYRUN-ABC123", "dry_run", true, [
-    "1H Under 75.5",
-    "1H Over 66.5",
-  ]),
-];
+const SCHEDULES = {
+  backup: "05:00", ncaaf_scores: "08:00", ncaab_scores: "08:00", nba_scores: "08:00",
+  ncaaf_slate: "18:00", ncaaf_saturday_slate: "14:00", ncaab_slate: "16:00",
+  ncaab_late_slate: "21:00", nba_slate: "16:00", nba_late_slate: "21:00",
+}; // prettier-ignore
 
-function slate(date) {
-  const empty = { handicap: [], total_ft: [], total_1h: [], team_total: [] };
-  const today = date === TODAY;
+function sportConfig(over, provisional) {
   return {
-    date,
-    leagues: [
-      {
-        league: "NBA",
-        run: null,
-        games: today ? 9 : 0,
-        first_tip: today ? TIP : null,
-        markets: empty,
-        excluded: {},
-        eligible_legs: 0,
-        unmatched_events: 0,
-      },
-      {
-        league: "NCAAB",
-        run: today ? state.ncaaRun : null,
-        games: today ? 60 : 0,
-        first_tip: today ? TIP : null,
-        markets: today
-          ? { ...empty, handicap: [TICKETS[0]], total_ft: [TICKETS[1]], total_1h: [TICKETS[2]] }
-          : empty,
-        excluded: today ? { LOW_PROB: 449, NO_BOOKABLE_LINE: 8 } : {},
-        eligible_legs: today ? 6 : 0,
-        unmatched_events: today ? state.unmatched.length : 0,
-      },
-    ],
-  };
+    enabled: true, sport_id: "sr:sport:2", tournament_ids: ["sr:tournament:648"],
+    espn: { path: "basketball/mens-college-basketball", groups: [50] }, l5_window: 5, min_games: 4,
+    l5_same_level_only: false, over_threshold: over, under_threshold: 5, team_total_threshold: 4,
+    tiers: provisional ? "provisional_percentiles" : { atk: [24, 33], def: [20, 28], provisional: false },
+    line_mode: { totals: "safest", team_totals: "main" }, min_cushion: 0,
+  }; // prettier-ignore
 }
 
-const models = (league) => ({
-  league,
-  champion: {
-    version: "20261106-1953-4d25ce0",
-    promoted_at: "2026-11-06T20:13:07+00:00",
-    reason: "First champion: the newest clean evidence model",
-  },
-  history: [],
-  learning_curve: [
-    {
-      at: "2026-11-06T20:13:07+00:00",
-      version: "20261106-1953-4d25ce0",
-      decision: "bootstrap",
-      log_likelihood_gain: null,
-      crps_gain: null,
-      games: null,
-      reasons: ["First champion"],
-    },
-    {
-      at: "2026-11-05T10:00:00+00:00",
-      version: "20261105-1000-older00",
-      decision: "rejected",
-      log_likelihood_gain: -0.0005,
-      crps_gain: -0.005,
-      games: 185,
-      reasons: ["Mean log-likelihood gain is -0.00050, not above zero"],
-    },
-  ],
-  drift: { flags: ["ft_margin bias is +2.40 points"] },
-  gates: {
-    handicap: {
-      passed: false,
-      edge: "measured",
-      reason: "does not beat baselines",
-      override: { decision: "D65" },
-    },
-    total_ft: {
-      passed: false,
-      edge: "measured",
-      reason: "does not beat baselines",
-      override: { decision: "D65" },
-    },
-    total_1h: { passed: true, edge: "unproven", reason: "beats baselines", override: null },
-    team_total: { passed: true, edge: "unproven", reason: "beats baselines", override: null },
-  },
-});
+state.config = {
+  sports: { NCAAF: sportConfig(4, false), NCAAB: sportConfig(5, true), NBA: sportConfig(5, true) },
+  outlook: { low_max: 2, medium_max: 5 },
+  tickets: {
+    max_legs: 20, min_legs: 2, max_games_per_kind: 100, booking_cutoff_minutes: 20,
+    kinds: { TOTALS_LEAN: true, TEAM_TOTALS: true, TOTALS_ALL_OVER: false, TOTALS_ALL_UNDER: false },
+  }, // prettier-ignore
+  timezone_display: "Africa/Lagos",
+  dry_run: true,
+  schedules: SCHEDULES,
+  pause_all: false,
+  sportybet_proxy_enabled: false,
+};
 
-const track = {
-  league: null, market: null, first: null, last: null,
-  legs: 40, won: 20, lost: 18, push: 2, void: 0,
-  hit_rate: 0.526, push_rate: 0.05, breakeven_hit_rate: 0.524,
-  flat_stake_profit: 0.3, flat_stake_roi: 0.008, calibration_error: 0.04,
-  tickets: { won: 1, lost: 6, pending: 1 }, missed_by: { 1: 3, 2: 3 },
-  legs_won_on_lost: 20, legs_on_lost: 34,
-  buckets: [
-    { bucket: 0.5, legs: 18, won: 9, hit_rate: 0.5, mean_probability: 0.53 },
-    { bucket: 0.55, legs: 12, won: 7, hit_rate: 0.58, mean_probability: 0.57 },
-    { bucket: 0.6, legs: 8, won: 4, hit_rate: 0.5, mean_probability: 0.62 },
-  ],
-  daily: [
-    { date: "2026-11-05", legs: 12, won: 6, lost: 6 },
-    { date: "2026-11-06", legs: 14, won: 8, lost: 5 },
-    { date: "2026-11-07", legs: 14, won: 6, lost: 7 },
-  ],
-}; // prettier-ignore
-
-const game = {
-  game_id: "g1",
-  league: "NCAAB",
-  game: { tip_utc: TIP, home_id: "h", away_id: "a", slate_date_et: TODAY },
-  home_name: "Duke Blue Devils",
-  away_name: "UNC Tar Heels",
-  final: null,
-  prediction: {
-    ft: { mu_home: 78, mu_away: 71, sd_margin: 11.5, sd_total: 15, sd_home: 9, sd_away: 9 },
-    h1: { mu_home: 38, mu_away: 34, sd_margin: 8, sd_total: 10, sd_home: 6, sd_away: 6 },
-  },
-  key_features: { adj_o_h: 112.4, adj_o_a: 108.1, adj_d_h: 97.2, adj_d_a: 101.5, adj_t_h: 34.1, adj_t_a: 33.2, elo_h: 1650, elo_a: 1580, form_h: 2.1, form_a: -0.4, rest_h: 2, rest_a: 3, games_h: 3, games_a: 3 },
-  injuries: [],
-  lines: [
-    { family: "handicap", line: -6.5, specifier: "hcp=-6.5" },
-    { family: "total_ft", line: 148.5, specifier: "total=148.5" },
-  ],
-  rejections: [{ family: "total_1h", side: "over", specifier: "total=70.5", reason: "LOW_PROB", probability_note: NOTE }],
-  legs: [{ family: "handicap", side: "home", specifier: "hcp=-6.5", p_calibrated: 0.57, edge: 0.07 }],
-  edge_labels: { handicap: "measured", total_ft: "measured", total_1h: "unproven", team_total: "unproven" },
-}; // prettier-ignore
-
-function ticketDetail(id) {
-  const card = TICKETS.find((item) => item.ticket_id === id);
-  if (!card) return null;
-  return {
-    ticket: card,
-    run_id: "run-NCAAB",
-    slate_date: TODAY,
-    selection_hash: "abc",
-    settled_combined_odds: null,
-    verification: { missing: [], extra: [], odds_differences: [] },
-    leg_details: card.legs_summary.map((item) => ({
-      ...item, event_id: "e", family: card.family, specifier: "x=1", line: 1, side: "over",
-      outcome_id: "12", status: item.rank === 1 ? "won" : "pending", actual_value: item.rank === 1 ? 150 : null,
-      model_error: item.rank === 1 ? 3 : null, correction: false,
-    })), // prettier-ignore
-    versions: [
-      {
-        ticket_id: id,
-        version: 2,
-        status: card.status,
-        booking_code: card.booking_code,
-        run_id: "run-NCAAB",
-      },
-    ],
-  };
+function slate() {
+  const ncaab = {
+    sport: "NCAAB", run: state.ncaabRun,
+    rows: [row("e1", "Duke", "UNC", "OVER", ["cross_level_l5"]), row("e2", "Kansas", "Baylor", "PASS", [], true)],
+    tickets: [LEAN, TEAM, OLD], unmatched: state.unmatched.length, csv: true,
+  }; // prettier-ignore
+  const empty = (sport) => ({ sport, run: null, rows: [], tickets: [], unmatched: 0, csv: false });
+  return { slate_date: TODAY, sports: [empty("NBA"), ncaab, empty("NCAAF")] };
 }
 
 function send(response, status, body) {
@@ -271,122 +133,117 @@ function send(response, status, body) {
 const server = createServer(async (request, response) => {
   const url = new URL(request.url, "http://x");
   const path = url.pathname;
-  if (request.headers["x-hoopsedge-key"] !== "e2e-key")
-    return send(response, 401, { detail: "Unauthorized" });
+  if (request.headers["x-hoopsedge-key"] !== "e2e-key") return send(response, 401, {});
   let raw = "";
   for await (const chunk of request) raw += chunk;
   const body = raw ? JSON.parse(raw) : null;
 
   if (request.method === "GET") {
+    if (path.endsWith("/csv")) {
+      response.writeHead(200, {
+        "content-type": "text/csv",
+        "content-disposition": `attachment; filename="ncaab_predictions_${TODAY.replaceAll("-", "")}.csv"`,
+      });
+      return response.end("Away,Home,Model Total\nUNC,Duke,149.3\n");
+    }
     if (path.startsWith("/slates/")) {
-      // A run in progress finishes after a couple of polls, as a real one would.
-      // Like a real one, it first takes a moment to record itself, then runs, then ends.
-      if (state.starting) {
+      if (state.started) {
         state.polls += 1;
-        if (state.polls === 2) state.ncaaRun = { ...run("NCAAB", "running"), run_id: "new-run" };
-        if (state.polls >= 4) {
-          state.ncaaRun = { ...run("NCAAB"), run_id: "new-run" };
-          state.starting = false;
-        }
+        // Running for a few polls, then done, as a real run would be.
+        state.ncaabRun = { ...run("NCAAB", state.polls < 3 ? "running" : "succeeded") };
+        if (state.polls >= 3) state.started = false;
       }
-      return send(response, 200, slate(path.split("/")[2]));
+      return send(response, 200, slate());
     }
     if (path.startsWith("/tickets/")) {
-      const detail = ticketDetail(path.split("/")[2]);
-      return detail
-        ? send(response, 200, detail)
+      const found = [LEAN, TEAM, OLD].find((item) => item.ticket_id === path.split("/")[2]);
+      return found
+        ? send(response, 200, found)
         : send(response, 404, { detail: "Ticket not found" });
     }
-    if (path.startsWith("/games/"))
-      return path === "/games/g1"
-        ? send(response, 200, game)
-        : send(response, 404, { detail: "Game not found" });
-    if (path === "/runs")
-      return send(response, 200, [
-        run("NCAAB"),
-        { ...run("NBA", "failed"), run_id: "run-bad", error: "BlockedError: 403" },
-      ]);
+    if (path === "/runs") return send(response, 200, [state.ncaabRun]);
     if (path.startsWith("/runs/")) {
       return send(response, 200, {
-        run: run("NCAAB"),
-        steps: [
-          {
-            name: "FetchOffers",
-            started: "2026-11-06T14:00:00+00:00",
-            ended: "2026-11-06T14:00:04+00:00",
-          },
-          {
-            name: "Predict",
-            started: "2026-11-06T14:00:04+00:00",
-            ended: "2026-11-06T14:00:21+00:00",
-          },
-        ],
-        log: [{ step: "RecheckOffers", event: "LEG_DROPPED", payload: { game_id: "g1" } }],
-      });
+        ...state.ncaabRun, tickets_detail: [LEAN, TEAM], unmatched_events: [], failures: [],
+        dropped: { inside_cutoff: 1, ticket_below_min_legs: 2 },
+      }); // prettier-ignore
     }
-    if (path === "/track-record")
-      return send(
-        response,
-        200,
-        url.searchParams.get("league") === "NBA" ? { ...track, legs: 0, won: 0, lost: 0 } : track,
-      );
-    if (path.startsWith("/models/")) return send(response, 200, models(path.split("/")[2]));
     if (path === "/unmatched") return send(response, 200, state.unmatched);
-    if (path.startsWith("/teams/"))
+    if (path.startsWith("/teams/")) {
       return send(response, 200, [
-        { team_id: "h", name: "Duke Blue Devils" },
-        { team_id: "a", name: "UNC Tar Heels" },
+        { team_id: "150", name: "Duke Blue Devils", short_name: "Duke", level: "D1" },
+        { team_id: "2", name: "Auburn Tigers", short_name: "Auburn", level: "D1" },
+        { team_id: "219", name: "Pennsylvania Quakers", short_name: "Penn", level: "D1" },
       ]);
+    }
+    if (path.startsWith("/aliases/")) return send(response, 200, state.aliases);
     if (path === "/config")
-      return send(response, 200, {
-        version: state.settingsVersion,
-        document: state.settings,
-        changed_at: TIP,
-        changed_by: "dashboard",
-        diff: [],
-      });
+      return send(response, 200, { version: state.version, document: state.config, diff: [] });
+    if (path === "/config/versions") return send(response, 200, state.versions);
     if (path === "/system") {
       return send(response, 200, {
-        cost: null,
-        budget_usd: [10, 25, 50],
-        alerts: [
-          { sk: `${TIP}#run-failed`, severity: "CRITICAL", message: "BlockedError: 403", ref: "r" },
-        ],
-        freshness: { last_ingest: TIP, last_odds_fetch: TIP, last_scheduled_job: null },
-        dry_run: state.settings.dry_run,
-        scheduled_dry_run: true,
-        pause_all: state.settings.pause_all,
-      });
+        cost: null, budget_usd: [10, 25, 50],
+        alerts: [{ sk: `${new Date().toISOString()}#run-failed`, severity: "CRITICAL", message: "NBA run failed", ref: "r" }],
+        freshness: { last_scheduled_job: null, ncaab_scores: new Date().toISOString(), ncaab_run: state.ncaabRun.started_at },
+        dry_run: state.config.dry_run, scheduled_dry_run: true, pause_all: state.config.pause_all,
+        relay: { mode: "proxy", reachable: true, checked_at: new Date().toISOString() },
+      }); // prettier-ignore
     }
+    return send(response, 404, { detail: "Not found" });
   }
-  if (!request.headers["idempotency-key"])
-    return send(response, 400, { detail: "Mutations need an idempotency-key header" });
   if (request.method === "POST" && path === "/runs") {
-    state.starting = true;
+    state.started = true;
     state.polls = 0;
     return send(response, 202, {
-      run_id: "new-run",
-      league: body.league,
+      sport: body.sport,
       slate_date: body.slate_date,
+      started_at: new Date().toISOString(),
+    });
+  }
+  if (request.method === "POST" && path.endsWith("/rebook")) {
+    return send(response, 202, {
+      ticket_id: path.split("/")[2],
+      sport: "NCAAB",
+      slate_date: TODAY,
     });
   }
   if (request.method === "POST" && path.endsWith("/resolve")) {
     state.unmatched = [];
-    return send(response, 200, { event_id: "sr:match:99", status: "resolved", aliases: {} });
+    return send(response, 200, { event_id: "sr:match:9", status: "resolved", aliases: {} });
+  }
+  if (request.method === "POST" && path === "/aliases") {
+    const added = {
+      alias: body.name.toLowerCase(),
+      team_id: body.team_id,
+      team_name: "Auburn Tigers",
+      source: "owner",
+    };
+    state.aliases = [...state.aliases, added];
+    return send(response, 200, added);
+  }
+  if (request.method === "DELETE" && path.startsWith("/aliases/")) {
+    state.aliases = state.aliases.filter((item) => item.source !== "owner");
+    response.writeHead(204);
+    return response.end();
   }
   if (request.method === "PUT" && path === "/config") {
-    if (body.version !== state.settingsVersion)
-      return send(response, 409, { detail: "Settings changed since you loaded them" });
-    state.settings = body.document;
-    state.settingsVersion += 1;
-    return send(response, 200, {
-      version: state.settingsVersion,
-      document: state.settings,
-      diff: [],
-    });
-  }
-  if (request.method === "POST" && path.endsWith("/rollback")) {
-    return send(response, 200, { league: "NCAAB", version: body.version, reason: body.reason });
+    if (body.version !== state.version)
+      return send(response, 409, { detail: "The config changed since you loaded it" });
+    if (body.document.tickets.booking_cutoff_minutes < 20) {
+      return send(response, 422, { detail: "tickets.booking_cutoff_minutes: must be at least 20" });
+    }
+    state.version += 1;
+    state.config = body.document;
+    state.versions = [
+      {
+        version: state.version,
+        changed_at: new Date().toISOString(),
+        changed_by: "dashboard",
+        diff: [],
+      },
+      ...state.versions,
+    ];
+    return send(response, 200, { version: state.version, document: state.config, diff: [] });
   }
   return send(response, 404, { detail: "Not found" });
 });

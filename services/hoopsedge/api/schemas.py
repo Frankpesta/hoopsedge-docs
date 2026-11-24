@@ -1,4 +1,4 @@
-"""Every response and request, typed, so the dashboard's TypeScript types can't drift (docs/09)."""
+"""Every v2 response and request, typed, so the dashboard's TypeScript types can't drift (D98)."""
 
 from enum import StrEnum
 from typing import Any
@@ -6,28 +6,20 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, Field
 
 CLOCK_PATTERN = r"^([01]\d|2[0-3]):[0-5]\d$"
-UNPROVEN_NOTE = (
-    "Unproven: this market's probabilities haven't been tested at real bookmaker lines, and when "
-    "they were tested on full-game totals, confident picks won about half the time. Treat each "
-    "leg as about 50%."
+IMPLIED_NOTE = (
+    "Bookmaker-implied: the product of 1/odds for every leg, margin included. Each leg is close "
+    "to a coin flip at main-line odds, so long tickets very rarely land (brief §13)."
 )
-
-
-class League(StrEnum):
-    NBA = "NBA"
-    NCAAB = "NCAAB"  # D87: was NCAA.
-    NCAAF = "NCAAF"
-
-
-class Family(StrEnum):
-    HANDICAP = "handicap"
-    TOTAL_FT = "total_ft"
-    TOTAL_1H = "total_1h"
-    TEAM_TOTAL = "team_total"
 
 
 class _Model(BaseModel):
     model_config = ConfigDict(extra="ignore")
+
+
+class Sport(StrEnum):
+    NBA = "NBA"
+    NCAAB = "NCAAB"
+    NCAAF = "NCAAF"
 
 
 class Health(_Model):
@@ -37,215 +29,161 @@ class Health(_Model):
 class HealthDetails(_Model):
     ok: bool
     env: str
-    champion_versions: dict[str, str | None]
-    last_runs: list["RunSummary"]
+    last_runs: dict[str, "RunSummary | None"]
 
 
-class LegSummary(_Model):
-    rank: int
-    game_id: str
-    matchup: str
-    pick: str
-    odds: float
-    p_calibrated: float | None  # Null on an unproven market (D72).
-    fair: float
-    edge: float | None
-    tip_time: str
+# Slates.
 
 
-class TicketCard(_Model):
-    ticket_id: str
-    league: League
-    family: Family
-    ticket_no: int
-    version: int
-    status: str
-    settle_status: str
-    booking_code: str | None
-    reason: str | None = None
-    legs: int
-    combined_odds: float
-    combined_prob: float | None  # Null on an unproven market (D72).
-    expected_value: float | None
-    passed_gate: bool  # False is a market in force that failed its gate (D65).
-    edge_label: str
-    probability_note: str | None
-    correction: bool = False
-    weak_legs: int = 0  # D78: legs below the minimum testing chose for this market.
-    legs_summary: list[LegSummary] = Field(default_factory=list)
+class L5(_Model):
+    pf: float
+    pa: float
+    n: int
 
 
-class SlateLeague(_Model):
-    league: League
-    run: "RunSummary | None"
-    games: int
-    first_tip: str | None
-    markets: dict[str, list[TicketCard]]
-    excluded: dict[str, int]
-    eligible_legs: int
-    unmatched_events: int
-
-
-class Slate(_Model):
-    date: str
-    leagues: list[SlateLeague]
-
-
-class LegDetail(_Model):
-    rank: int
-    game_id: str
-    event_id: str
-    matchup: str | None = None
-    pick: str | None = None
-    family: str
-    specifier: str
-    line: float
+class TeamPickView(_Model):
+    team: str
     side: str
-    team: str | None = None
-    outcome_id: str
-    odds: float
-    fair: float
-    tip_time: str
-    status: str
-    p_raw: float | None = None
-    p_calibrated: float | None = None
-    p_win: float | None = None
-    p_push: float | None = None
-    p_lose: float | None = None
-    edge: float | None = None
-    ev: float | None = None
-    actual_value: float | None = None
-    model_error: float | None = None
-    predicted_mean: float | None = None
-    correction: bool = False
+    direction: str
+    line: float
+    odds: float | None
+    projection: float
+    edge: float
 
 
-class TicketVersion(_Model):
-    ticket_id: str
-    version: int
-    status: str
-    booking_code: str | None
-    run_id: str
-
-
-class TicketDetail(_Model):
-    ticket: TicketCard
-    run_id: str
-    slate_date: str
-    selection_hash: str
-    settled_combined_odds: float | None = None
-    verification: dict[str, Any] | None = None
-    leg_details: list[LegDetail]
-    versions: list[TicketVersion]
-
-
-class GameDetail(_Model):
+class SlateRow(_Model):
+    event_id: str
     game_id: str
-    league: League
-    game: dict[str, Any]
-    home_name: str | None
-    away_name: str | None
-    final: dict[str, int] | None
-    prediction: dict[str, Any] | None
-    key_features: dict[str, float | None]
-    injuries: list[dict[str, Any]]
-    lines: list[dict[str, Any]]
-    rejections: list[dict[str, Any]]
-    legs: list[dict[str, Any]]
-    edge_labels: dict[str, str]
+    home: str
+    away: str
+    kickoff: str
+    started: bool
+    eligible: bool
+    skip_reason: str | None
+    home_tiers: list[str]
+    away_tiers: list[str]
+    home_l5: L5
+    away_l5: L5
+    sum_of_avgs: float
+    model_total: float
+    outlook: str
+    main_line: float | None
+    lean: str | None
+    edge_main: float | None
+    booked_line: float | None
+    booked_odds: float | None
+    edge_booked: float | None
+    home_proj: float
+    away_proj: float
+    team_pick: TeamPickView | None
+    flags: list[str]
+    same_level_total: float | None
+    same_level_lean: str | None
+
+
+class LegView(_Model):
+    kind: str
+    event_id: str
+    home: str
+    away: str
+    kickoff: str
+    started: bool
+    mode: str
+    team: str | None
+    direction: str
+    projection: float
+    booked_line: float
+    main_line: float
+    odds: float
+    main_odds: float
+    edge_main: float
+    edge_booked: float
+    flags: list[str]
+
+
+class TicketView(_Model):
+    ticket_id: str
+    sport: Sport
+    slate: str
+    run_id: str
+    kind: str
+    number: int
+    status: str
+    code: str | None
+    reason: str | None
+    dry_run: bool
+    total_odds: float
+    bookmaker_implied_probability: float
+    implied_note: str = IMPLIED_NOTE
+    earliest_kickoff: str
+    next_kickoff: str | None
+    started_legs: int
+    model_disagrees: int
+    superseded_by: str | None
+    rebooked_by: str | None
+    rebook_of: str | None
+    current: bool
+    legs: list[LegView]
 
 
 class RunSummary(_Model):
     run_id: str
-    league: str
-    slate_date: str
+    sport: Sport
+    slate: str
+    trigger: str
     status: str
-    trigger: str | None = None
-    dry_run: bool | None = None
-    started_at: str
-    ended_at: str | None = None
-    error: str | None = None
-    counts: dict[str, int] = Field(default_factory=dict)
+    dry_run: bool
+    error: str | None
+    started_at: str | None
+    ended_at: str | None
+    config_version: int | None
+    counts: dict[str, int]
+    tickets: int
 
 
-class RunDetail(_Model):
-    run: RunSummary
-    steps: list[dict[str, Any]]
-    log: list[dict[str, Any]]
+class SlateSport(_Model):
+    sport: Sport
+    run: RunSummary | None
+    rows: list[SlateRow]
+    tickets: list[TicketView]
+    unmatched: int
+    csv: bool
+
+
+class Slate(_Model):
+    slate_date: str
+    sports: list[SlateSport]
+
+
+class RunDetail(RunSummary):
+    tickets_detail: list[TicketView]
+    unmatched_events: list[dict[str, Any]]
+    failures: list[dict[str, Any]]
+    dropped: dict[str, int]
+
+
+class RunRequest(_Model):
+    sport: Sport
+    slate_date: str | None = None
 
 
 class RunStarted(_Model):
-    run_id: str
-    league: League
+    sport: Sport
+    slate_date: str
+    started_at: str
+
+
+class RebookStarted(_Model):
+    ticket_id: str
+    sport: Sport
     slate_date: str
 
 
-class Bucket(_Model):
-    bucket: float
-    legs: int
-    won: int
-    hit_rate: float | None
-    mean_probability: float | None
-
-
-class DailyPoint(_Model):
-    date: str
-    legs: int
-    won: int
-    lost: int
-
-
-class TrackRecord(_Model):
-    league: League | None
-    market: Family | None
-    first: str | None
-    last: str | None
-    legs: int
-    won: int
-    lost: int
-    push: int
-    void: int
-    hit_rate: float | None
-    push_rate: float | None
-    breakeven_hit_rate: float | None
-    flat_stake_profit: float
-    flat_stake_roi: float | None
-    calibration_error: float | None
-    tickets: dict[str, int]
-    missed_by: dict[str, int]
-    legs_won_on_lost: int
-    legs_on_lost: int
-    buckets: list[Bucket]
-    daily: list[DailyPoint]
-
-
-class LearningPoint(_Model):
-    at: str
-    version: str
-    decision: str
-    log_likelihood_gain: float | None
-    crps_gain: float | None
-    games: int | None
-    reasons: list[str]
-
-
-class ModelsView(_Model):
-    league: League
-    champion: dict[str, Any] | None
-    history: list[dict[str, Any]]
-    learning_curve: list[LearningPoint]
-    drift: dict[str, Any] | None
-    gates: dict[str, Any]
-
-
-class Evidence(_Model):
-    league: League
-    version: str | None
-    evidence: dict[str, Any] | None
+# The review queue and aliases.
 
 
 class UnmatchedItem(_Model):
-    league: League
+    sport: Sport
     event_id: str
     home_name: str
     away_name: str
@@ -258,6 +196,8 @@ class UnmatchedItem(_Model):
 
 
 class ResolveRequest(_Model):
+    """A team for each side that wasn't matched, or `ignore` (a Division II game, say)."""
+
     team_id_home: str | None = None
     team_id_away: str | None = None
     ignore: bool = False
@@ -272,50 +212,57 @@ class ResolveResult(_Model):
 class Team(_Model):
     team_id: str
     name: str
+    short_name: str
+    level: str
 
 
-class SettingsDocument(_Model):
-    """Cut down for v2 until B4 (D96). Thresholds live in the v2 config document."""
-
-    model_config = ConfigDict(extra="forbid")
-
-    schedules: dict[str, str]
-    sportybet_proxy_enabled: bool
-    dry_run: bool
-    pause_all: bool
+class AliasView(_Model):
+    alias: str
+    team_id: str
+    team_name: str | None
+    source: str  # seed or owner
 
 
-class SettingsView(_Model):
+class AliasRequest(_Model):
+    sport: Sport
+    name: str = Field(min_length=2, max_length=120)
+    team_id: str
+
+
+# Config.
+
+
+class ConfigView(_Model):
     version: int
-    document: SettingsDocument
+    document: dict[str, Any]  # The full v2 config document; validated on save (D98).
     changed_at: str | None = None
     changed_by: str | None = None
     diff: list[dict[str, Any]] = Field(default_factory=list)
 
 
-class SettingsUpdate(_Model):
+class ConfigUpdate(_Model):
     version: int  # The version these changes were based on.
-    document: SettingsDocument
+    document: dict[str, Any]
+
+
+class ConfigVersion(_Model):
+    version: int
+    changed_at: str | None
+    changed_by: str | None
+    diff: list[dict[str, Any]]
 
 
 class ScheduleUpdate(_Model):
     time: str = Field(pattern=CLOCK_PATTERN)
 
 
-class RunRequest(_Model):
-    league: League
-    slate_date: str | None = None
+# System.
 
 
-class RollbackRequest(_Model):
-    version: str
-    reason: str = "Rolled back from the dashboard"
-
-
-class RollbackResult(_Model):
-    league: League
-    version: str
-    reason: str
+class RelayView(_Model):
+    mode: str  # direct or proxy
+    reachable: bool | None  # None when there is no proxy to check.
+    checked_at: str
 
 
 class SystemView(_Model):
@@ -326,7 +273,7 @@ class SystemView(_Model):
     dry_run: bool  # Whether Run now makes practice codes.
     scheduled_dry_run: bool
     pause_all: bool
+    relay: RelayView
 
 
 HealthDetails.model_rebuild()
-SlateLeague.model_rebuild()

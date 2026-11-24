@@ -1,19 +1,22 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  DROP_REASONS,
+  FLAG_LABELS,
+  KIND_NAMES,
+  countdown,
   diffSettings,
   easternDate,
   formatOdds,
   isValidDate,
   lagosDateTime,
   lagosTime,
-  normalBelow,
+  legPick,
+  oneDecimal,
   oneInN,
-  outcomeLabel,
   percent,
+  points,
   reasonLabel,
-  REASONS,
-  rollingHitRate,
   secondsBetween,
   shiftDate,
   signedNumber,
@@ -90,94 +93,6 @@ describe("times", () => {
   });
 });
 
-describe("rolling hit rate", () => {
-  it("counts only the trailing 14 days and only settled legs", () => {
-    const series = rollingHitRate([
-      { date: "2026-11-01", won: 1, lost: 0 },
-      { date: "2026-11-14", won: 0, lost: 1 },
-      { date: "2026-11-15", won: 0, lost: 1 },
-    ]);
-    expect(series[1]).toEqual({ date: "2026-11-14", rate: 0.5, settled: 2 });
-    // The 1st is now out of the window.
-    expect(series[2]).toEqual({ date: "2026-11-15", rate: 0, settled: 2 });
-  });
-
-  it("skips days with nothing settled yet", () => {
-    expect(rollingHitRate([{ date: "2026-11-01", won: 0, lost: 0 }])).toEqual([]);
-  });
-});
-
-describe("the normal curve", () => {
-  it("is right at the landmarks", () => {
-    expect(normalBelow(0, 0, 1)).toBeCloseTo(0.5, 5);
-    expect(normalBelow(1.96, 0, 1)).toBeCloseTo(0.975, 3);
-    expect(normalBelow(-1.96, 0, 1)).toBeCloseTo(0.025, 3);
-    expect(normalBelow(110, 100, 10)).toBeCloseTo(0.8413, 3);
-  });
-});
-
-describe("outcome labels on the game page", () => {
-  const lines = [
-    { market_id: "223", specifier: "hcp=-20.5", line: -20.5, team: null },
-    { market_id: "227", specifier: "total=89.5", line: 89.5, team: "home" },
-    { market_id: "228", specifier: "total=68.5", line: 68.5, team: "away" },
-    { market_id: "225", specifier: "total=157.5", line: 157.5, team: null },
-    { market_id: "68", specifier: "total=75.5", line: 75.5, team: null },
-  ];
-  const label = (row: Record<string, unknown>) =>
-    outcomeLabel(row, lines, "Oregon St", "Cal Baptist");
-
-  it("gives each handicap side its own sign", () => {
-    const base = { family: "handicap", market_id: "223", specifier: "hcp=-20.5" };
-    expect(label({ ...base, side: "home" })).toBe("Oregon St -20.5");
-    expect(label({ ...base, side: "away" })).toBe("Cal Baptist +20.5");
-  });
-
-  it("trusts the canonical line, not SportyBet's specifier, on a swapped game", () => {
-    // SportyBet listed these the other way round, so its specifier has the opposite sign.
-    const swapped = [{ market_id: "223", specifier: "hcp=-3.5", line: 3.5, team: null }];
-    const row = { family: "handicap", market_id: "223", specifier: "hcp=-3.5", side: "home" };
-    expect(outcomeLabel(row, swapped, "Michigan", "UConn")).toBe("Michigan +3.5");
-  });
-
-  it("names the team on a team total, even when the row itself doesn't say", () => {
-    expect(
-      label({ family: "team_total", market_id: "227", specifier: "total=89.5", side: "under" }),
-    ).toBe("Oregon St Under 89.5");
-    expect(
-      label({ family: "team_total", market_id: "228", specifier: "total=68.5", side: "over" }),
-    ).toBe("Cal Baptist Over 68.5");
-  });
-
-  it("names totals plainly", () => {
-    expect(
-      label({ family: "total_ft", market_id: "225", specifier: "total=157.5", side: "over" }),
-    ).toBe("Full game Over 157.5");
-    expect(
-      label({ family: "total_1h", market_id: "68", specifier: "total=75.5", side: "under" }),
-    ).toBe("1H Under 75.5");
-  });
-
-  it("uses a leg's own line and team when it has them", () => {
-    expect(label({ family: "team_total", team: "away", line: 70.5, side: "over" })).toBe(
-      "Cal Baptist Over 70.5",
-    );
-  });
-
-  it("names a whole market rejected before any line was looked at", () => {
-    expect(label({ family: "handicap" })).toBe("Handicap");
-    expect(label({ family: "total_ft" })).toBe("Full game total");
-    expect(label({ family: "total_1h" })).toBe("1H total");
-    expect(label({ family: "team_total" })).toBe("Team total");
-  });
-
-  it("never prints a line it can't place", () => {
-    expect(label({ family: "handicap", side: "away", specifier: "hcp=-9.5" })).toBe(
-      "Cal Baptist handicap",
-    );
-  });
-});
-
 describe("settings preview", () => {
   it("names each change by its full path", () => {
     expect(diffSettings({ a: { b: 1, c: 2 } }, { a: { b: 1, c: 3 } })).toEqual([
@@ -193,35 +108,50 @@ describe("settings preview", () => {
   });
 });
 
-describe("labels", () => {
-  it("explains every reason code the engine can give", () => {
-    for (const code of [
-      "UNMATCHED",
-      "STARTED",
-      "TOO_CLOSE",
-      "MARKET_DISABLED",
-      "NO_THRESHOLD",
-      "NO_BOOKABLE_LINE",
-      "STALE_ODDS",
-      "MISSING_PRED",
-      "NBA_INJURY_UNCERTAIN",
-      "LOW_PROB",
-      "LOW_EDGE",
-      "LOW_CONFIDENCE",
-      "SAME_GAME",
-      "BELOW_CUTOFF",
-      "TICKET_TOO_SHORT",
-      "MODEL_DISAGREES",
-      "THIN_DATA_CUTOFF",
-    ]) {
-      // prettier-ignore
-      expect(REASONS[code], code).toBeTruthy();
-    }
+describe("v2 words", () => {
+  it("counts down to a kickoff, and says when it has started", () => {
+    const now = new Date("2026-11-28T12:00:00Z");
+    expect(countdown("2026-11-28T15:05:00Z", now)).toBe("in 3 h 05 m");
+    expect(countdown("2026-11-28T12:12:00Z", now)).toBe("in 12 m");
+    expect(countdown("2026-11-28T11:59:00Z", now)).toBe("started");
+    expect(countdown("2026-12-01T12:00:00Z", now)).toBe("in 3 days");
+    expect(countdown(null, now)).toBe("all started");
   });
 
-  it("shows an unknown code as itself rather than hiding it", () => {
-    expect(reasonLabel("NEW_CODE")).toBe("NEW_CODE");
-    expect(statusLabel("new_status")).toBe("new_status");
-    expect(statusLabel("dry_run")).toBe("Dry run");
+  it("writes points with a real minus sign and one decimal", () => {
+    expect(points(4.5)).toBe("+4.5");
+    expect(points(-6.75)).toBe("−6.8");
+    expect(points(null)).toBe("");
+    expect(oneDecimal(53)).toBe("53.0");
+  });
+
+  it("names a leg by team, or Total for a game total", () => {
+    const base = { home: "Delaware", away: "UConn", direction: "Over", booked_line: 23.5 };
+    expect(legPick({ ...base, team: "home" })).toBe("Delaware Over 23.5");
+    expect(legPick({ ...base, team: "away" })).toBe("UConn Over 23.5");
+    expect(legPick({ ...base, team: null, booked_line: 47.5 })).toBe("Total Over 47.5");
+  });
+
+  it("explains every drop reason the engine gives, and shows an unknown one as itself", () => {
+    for (const code of [
+      "started",
+      "inside_cutoff",
+      "lean_gone",
+      "team_edge_gone",
+      "no_open_line",
+      "no_line_for_mode",
+      "beyond_top_games",
+      "ticket_below_min_legs",
+    ]) {
+      expect(DROP_REASONS[code]).toBeTruthy();
+    }
+    expect(reasonLabel("something_new")).toBe("something_new");
+  });
+
+  it("names the ticket kinds, flags and statuses", () => {
+    expect(KIND_NAMES.TOTALS_LEAN).toBe("Totals lean");
+    expect(FLAG_LABELS.cross_level_game).toBe("Cross-level game");
+    expect(statusLabel("dry_run")).toBe("Practice");
+    expect(statusLabel("booked")).toBe("Booked");
   });
 });

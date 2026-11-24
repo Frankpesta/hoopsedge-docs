@@ -6,14 +6,15 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import useSWR from "swr";
 
 import { runNow } from "@/lib/actions";
-import { FAMILIES, FAMILY_NAMES, lagosTime, reasonLabel } from "@/lib/format";
-import type { Slate, SlateLeague } from "@/lib/types";
+import { lagosDateTime } from "@/lib/format";
+import type { Slate, SlateSport, Sport } from "@/lib/types";
 
-import { TicketCardView } from "./TicketCardView";
+import { SlateTable } from "./SlateTable";
+import { TicketCard } from "./TicketCard";
 import { Empty, StatusChip } from "./ui";
 
 const POLL_MS = 5000;
-const GIVE_UP_MS = 5 * 60 * 1000; // A run that never reports back shows on the Runs page instead.
+const GIVE_UP_MS = 10 * 60 * 1000; // A run that never reports back shows on the Runs page instead.
 
 async function fetchSlate(url: string): Promise<Slate> {
   const response = await fetch(url);
@@ -21,22 +22,18 @@ async function fetchSlate(url: string): Promise<Slate> {
   return (await response.json()) as Slate;
 }
 
-function isRunning(slate: Slate): boolean {
-  return slate.leagues.some((league) => league.run?.status === "running");
-}
-
 function RunNow({
-  league,
+  sport,
   date,
   disabled,
   realCodes,
   onStarted,
 }: {
-  league: string;
+  sport: Sport;
   date: string;
   disabled: boolean;
   realCodes: boolean;
-  onStarted: (runId: string) => void;
+  onStarted: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const key = useRef("");
@@ -44,18 +41,17 @@ function RunNow({
   const [pending, start] = useTransition();
 
   function open() {
-    // One key per confirmation sheet, so a double tap can't start two runs.
-    key.current = crypto.randomUUID();
+    key.current = crypto.randomUUID(); // One key per sheet, so a double tap can't start two runs.
     setMessage(null);
     dialog.current?.showModal();
   }
 
   function confirm() {
     start(async () => {
-      const result = await runNow(league, date, key.current);
+      const result = await runNow(sport, date, key.current);
       if (result.ok) {
         dialog.current?.close();
-        onStarted(result.data.run_id);
+        onStarted();
       } else {
         setMessage(result.message);
       }
@@ -70,22 +66,21 @@ function RunNow({
         disabled={disabled}
         className="bg-amber text-on-amber min-h-11 rounded-md px-4 text-sm font-semibold disabled:opacity-50"
       >
-        {disabled ? "Running" : `Run ${league} now`}
+        {disabled ? "Running" : `Run ${sport} now`}
       </button>
       <dialog
         ref={dialog}
-        aria-labelledby={`run-${league}`}
+        aria-labelledby={`run-${sport}`}
         className="bg-surface text-text border-line m-auto w-[min(92vw,26rem)] rounded-lg border p-5 backdrop:bg-black/60"
       >
-        <h2 id={`run-${league}`} className="font-display text-2xl font-extrabold uppercase">
-          Run {league} now?
+        <h2 id={`run-${sport}`} className="font-display text-2xl font-extrabold uppercase">
+          Run {sport} now?
         </h2>
         <p className="text-text-2 mt-2 text-sm">
           {realCodes
-            ? "This books real codes on SportyBet. It never places a bet. "
+            ? "This books real codes on SportyBet. It never places a bet. Earlier real tickets of the same kind become superseded. "
             : "This builds new tickets with practice codes. "}
-          It covers {date}. Any current {league} tickets for that date become superseded, so their
-          codes stop showing here.
+          It covers the {date} slate, with fresh ESPN results and SportyBet lines.
         </p>
         {message && (
           <p role="alert" className="text-loss mt-2 text-sm">
@@ -114,198 +109,172 @@ function RunNow({
   );
 }
 
-function emptyReason(league: SlateLeague): string {
-  if (!league.run) {
-    return league.games
-      ? `${league.games} games are scheduled, but this slate hasn't been run yet.`
-      : "No games are scheduled for this date.";
-  }
-  if (league.run.status === "failed")
-    return `The last run failed: ${league.run.error ?? "see Runs"}.`;
-  return "No market had enough strong legs, so nothing was booked. That's the system working: weak legs are dropped, not forced.";
+function emptyReason(view: SlateSport): string {
+  if (!view.run) return "This slate hasn't been run yet.";
+  if (view.run.status === "failed") return `The last run failed: ${view.run.error ?? "see Runs"}.`;
+  return "No game cleared its threshold, so nothing was booked. Weak legs are dropped, never forced.";
 }
 
-function LeagueBoard({
-  league,
+function SportBoard({
+  view,
   date,
   starting,
   realCodes,
   onStarted,
 }: {
-  league: SlateLeague;
+  view: SlateSport;
   date: string;
   starting: boolean;
   realCodes: boolean;
-  onStarted: (runId: string) => void;
+  onStarted: () => void;
 }) {
-  const [family, setFamily] = useState<string | null>(null);
-  const firstWithTickets = FAMILIES.find((name) => (league.markets[name]?.length ?? 0) > 0);
-  const chosen = family ?? firstWithTickets ?? FAMILIES[0];
-  const tickets = league.markets[chosen] ?? [];
-  const running = starting || league.run?.status === "running";
-  const excluded = Object.entries(league.excluded).sort((a, b) => b[1] - a[1]);
-  const anyTickets = FAMILIES.some((name) => (league.markets[name]?.length ?? 0) > 0);
-
+  const running = starting || view.run?.status === "running";
+  const current = view.tickets.filter((ticket) => ticket.current);
+  const earlier = view.tickets.filter((ticket) => !ticket.current);
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2 text-sm">
-          {league.run ? (
-            <StatusChip status={league.run.status} />
+          {view.run ? (
+            <>
+              <StatusChip status={view.run.status} />
+              <span className="text-text-2">
+                {lagosDateTime(view.run.started_at)} · {view.run.trigger}
+                {view.run.dry_run ? " · practice" : ""}
+              </span>
+            </>
           ) : (
             <StatusChip status="none" label="Not run yet" />
           )}
-          {league.first_tip && (
-            <span className="text-text-2">First tip {lagosTime(league.first_tip)} Lagos</span>
-          )}
         </div>
         <RunNow
-          league={league.league}
+          sport={view.sport}
           date={date}
           disabled={running}
           realCodes={realCodes}
           onStarted={onStarted}
         />
       </div>
+      {view.run?.error && <p className="text-loss mt-2 text-sm">{view.run.error}</p>}
 
-      <div
-        role="tablist"
-        aria-label="Market"
-        className="bg-surface-2 mt-4 grid grid-cols-4 gap-1 rounded-lg p-1"
-      >
-        {FAMILIES.map((name) => {
-          const count = league.markets[name]?.length ?? 0;
-          return (
-            <button
-              key={name}
-              type="button"
-              role="tab"
-              aria-selected={chosen === name}
-              onClick={() => setFamily(name)}
-              className={`min-h-11 rounded-md px-1 text-xs font-semibold sm:text-sm ${
-                chosen === name ? "bg-surface text-amber" : "text-text-2"
-              }`}
-            >
-              {FAMILY_NAMES[name]}
-              <span className="text-muted num ml-1 font-normal">{count}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="mt-4 space-y-4">
-        {tickets.map((ticket, index) => (
-          <TicketCardView key={ticket.ticket_id} ticket={ticket} index={index} />
+      <h2 className="font-display mt-5 mb-2 text-xl font-semibold uppercase">Tickets</h2>
+      <div className="space-y-4">
+        {current.map((ticket) => (
+          <TicketCard key={ticket.ticket_id} ticket={ticket} realCodes={realCodes} />
         ))}
-        {!tickets.length && (
-          <Empty
-            title={
-              anyTickets
-                ? `No ${FAMILY_NAMES[chosen]} tickets on this slate`
-                : "No tickets on this slate"
-            }
-          >
-            {anyTickets
-              ? "This market didn't have enough strong legs. Other markets did."
-              : emptyReason(league)}
-          </Empty>
-        )}
+        {!current.length && <Empty title="No tickets on this slate">{emptyReason(view)}</Empty>}
       </div>
-
-      {(excluded.length > 0 || league.unmatched_events > 0) && (
-        <details className="bg-surface border-line mt-4 rounded-lg border p-4">
-          <summary className="min-h-6 cursor-pointer font-semibold">
-            Excluded ({excluded.reduce((total, [, count]) => total + count, 0)})
+      {earlier.length > 0 && (
+        <details className="mt-4">
+          <summary className="text-text-2 min-h-11 cursor-pointer py-2 text-sm">
+            Earlier tickets ({earlier.length})
           </summary>
-          <ul className="mt-3 space-y-1 text-sm">
-            {excluded.map(([reason, count]) => (
-              <li key={reason} className="flex justify-between gap-4">
-                <span className="text-text-2">{reasonLabel(reason)}</span>
-                <span className="num">{count}</span>
-              </li>
+          <div className="mt-2 space-y-4">
+            {earlier.map((ticket) => (
+              <TicketCard key={ticket.ticket_id} ticket={ticket} realCodes={realCodes} />
             ))}
-          </ul>
-          {league.unmatched_events > 0 && (
-            <Link
-              href="/unmatched"
-              className="text-amber mt-3 block text-sm font-semibold underline"
-            >
-              {league.unmatched_events} events need a match
+          </div>
+        </details>
+      )}
+
+      <div className="mt-6 mb-2 flex flex-wrap items-center justify-between gap-2">
+        <h2 className="font-display text-xl font-semibold uppercase">
+          Slate <span className="text-muted num text-base">{view.rows.length} games</span>
+        </h2>
+        <div className="flex gap-3 text-sm">
+          {view.unmatched > 0 && (
+            <Link href="/unmatched" className="text-amber font-semibold underline">
+              {view.unmatched} unmatched
             </Link>
           )}
-        </details>
+          {view.csv && (
+            <a href={`/api/csv/${date}/${view.sport}`} className="text-text-2 underline">
+              Download CSV
+            </a>
+          )}
+        </div>
+      </div>
+      {view.rows.length ? (
+        <SlateTable rows={view.rows} />
+      ) : (
+        <Empty title="No games yet">
+          Run the slate to see its games and the model&apos;s leans.
+        </Empty>
       )}
     </div>
   );
 }
 
-export function SlateBoard({ initial, realCodes }: { initial: Slate; realCodes: boolean }) {
+export function SlateBoard({
+  initial,
+  sport,
+  realCodes,
+}: {
+  initial: Slate;
+  sport: Sport;
+  realCodes: boolean;
+}) {
   const router = useRouter();
   const [, startRefresh] = useTransition();
-  const serverRunning = isRunning(initial);
-  // A run takes seconds to record itself, so Run now follows its own ID until that run has ended.
-  const [awaited, setAwaited] = useState<{ league: string; runId: string; since: number } | null>(
-    null,
-  );
-  // Each spell of polling has its own SWR key, so an old answer can't end a new spell at once.
+  const [chosen, setChosen] = useState<Sport>(sport);
+  const serverRunning = initial.sports.some((item) => item.run?.status === "running");
+  // Run now's process takes a few seconds to record its run, so the board waits for it to end.
+  const [awaited, setAwaited] = useState<{ sport: Sport; since: number } | null>(null);
   const [spell, setSpell] = useState(serverRunning ? 1 : 0);
   const [polling, setPolling] = useState(serverRunning);
-  useEffect(() => {
-    if (serverRunning) setPolling(true);
-  }, [serverRunning]);
   const { data } = useSWR<Slate>(
-    polling ? `/api/slate/${initial.date}?poll=${spell}` : null,
+    polling ? `/api/slate/${initial.slate_date}?poll=${spell}` : null,
     fetchSlate,
     { refreshInterval: POLL_MS, revalidateOnFocus: false },
   );
   const slate = polling && data ? data : initial;
-  const leagues = slate.leagues;
-
-  function started(league: string, runId: string) {
-    setAwaited({ league, runId, since: Date.now() });
-    setSpell((value) => value + 1);
-    setPolling(true);
-  }
 
   useEffect(() => {
     if (!polling || !data) return;
+    const running = data.sports.some((item) => item.run?.status === "running");
     if (awaited) {
-      const run = data.leagues.find((item) => item.league === awaited.league)?.run;
-      const ended = run?.run_id === awaited.runId && run.status !== "running";
+      const run = data.sports.find((item) => item.sport === awaited.sport)?.run;
+      const ended =
+        run?.started_at &&
+        new Date(run.started_at).getTime() >= awaited.since - 60_000 &&
+        run.status !== "running";
       if (!ended && Date.now() - awaited.since < GIVE_UP_MS) return;
-    } else if (isRunning(data)) {
+    } else if (running) {
       return;
     }
-    // Finished, which changes more than this board shows, so reload the whole page.
     setAwaited(null);
     setPolling(false);
     startRefresh(() => router.refresh());
   }, [polling, data, awaited, router]);
 
-  const [chosen, setChosen] = useState<string | null>(null);
-  const withTickets = leagues.find((league) =>
-    Object.values(league.markets).some((tickets) => tickets.length > 0),
-  );
-  const current =
-    leagues.find((item) => item.league === (chosen ?? withTickets?.league)) ?? leagues[0];
+  function choose(next: Sport) {
+    setChosen(next);
+    const url = new URL(window.location.href);
+    url.searchParams.set("sport", next);
+    window.history.replaceState(null, "", url);
+  }
 
-  if (!current) return null;
+  const view = slate.sports.find((item) => item.sport === chosen) ?? slate.sports[0];
+  if (!view) return null;
   return (
     <>
       <div className="flex items-center gap-2">
-        <div role="tablist" aria-label="League" className="flex items-center gap-2">
-          {leagues.map((league) => (
+        <div role="tablist" aria-label="Sport" className="flex items-center gap-1">
+          {slate.sports.map((item) => (
             <button
-              key={league.league}
+              key={item.sport}
               type="button"
               role="tab"
-              aria-selected={league.league === current.league}
-              onClick={() => setChosen(league.league)}
-              className={`font-display min-h-11 rounded-md px-5 text-xl font-semibold tracking-wide uppercase ${
-                league.league === current.league ? "bg-surface-2 text-text" : "text-muted"
+              aria-selected={item.sport === view.sport}
+              onClick={() => choose(item.sport)}
+              className={`font-display min-h-11 rounded-md px-4 text-xl font-semibold tracking-wide uppercase ${
+                item.sport === view.sport ? "bg-surface-2 text-text" : "text-muted"
               }`}
             >
-              {league.league}
+              {item.sport}
+              <span className="num ml-1 text-xs font-normal">
+                {item.tickets.filter((ticket) => ticket.current).length || ""}
+              </span>
             </button>
           ))}
         </div>
@@ -318,13 +287,17 @@ export function SlateBoard({ initial, realCodes }: { initial: Slate; realCodes: 
         </button>
       </div>
       <div className="mt-3">
-        <LeagueBoard
-          key={current.league}
-          league={current}
-          date={slate.date}
-          starting={awaited?.league === current.league}
+        <SportBoard
+          key={view.sport}
+          view={view}
+          date={slate.slate_date}
+          starting={awaited?.sport === view.sport}
           realCodes={realCodes}
-          onStarted={(runId) => started(current.league, runId)}
+          onStarted={() => {
+            setAwaited({ sport: view.sport, since: Date.now() });
+            setSpell((value) => value + 1);
+            setPolling(true);
+          }}
         />
       </div>
     </>

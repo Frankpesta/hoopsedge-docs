@@ -1,184 +1,126 @@
 import { expect, test } from "@playwright/test";
 
+/** The owner's daily flows at 375 px, against the mock v2 API. */
+
 const PAGES = [
   "/",
-  "/tickets/handicap-1",
-  "/tickets/half-1",
-  "/games/g1",
-  "/track-record",
-  "/models",
   "/unmatched",
   "/runs",
   "/runs/run-NCAAB",
   "/settings",
   "/system",
+  "/tickets/T-lean",
 ];
 
-async function openNcaa(page: import("@playwright/test").Page) {
-  await page.goto("/");
-  await page.getByRole("tab", { name: "NCAAB" }).click();
+for (const path of PAGES) {
+  test(`${path} loads without errors and fits the phone`, async ({ page }) => {
+    const problems: string[] = [];
+    page.on("pageerror", (error) => problems.push(error.message));
+    await page.goto(path);
+    await page.waitForLoadState("networkidle");
+    const width = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect(width).toBeLessThanOrEqual(375);
+    expect(problems).toEqual([]);
+  });
 }
 
+test("the slate shows tickets and the sheet for the chosen sport", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("tab", { name: /NCAAB/ }).click();
+  await expect(page.getByRole("heading", { name: /Totals lean #1/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /H4NDC4/ })).toBeVisible();
+  await expect(page.getByText("Cross-level last 5")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Download CSV" })).toBeVisible();
+  await page.getByRole("tab", { name: /NBA/ }).click();
+  await expect(page.getByText("This slate hasn't been run yet.")).toBeVisible();
+});
+
 test("copying a code puts it on the clipboard", async ({ page }) => {
-  await openNcaa(page);
+  await page.goto("/?sport=NCAAB");
   await page.getByRole("button", { name: /H4NDC4/ }).click();
   await expect(page.getByText("Copied", { exact: true })).toBeVisible();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("H4NDC4");
 });
 
-test("switching markets shows that market's tickets", async ({ page }) => {
-  await openNcaa(page);
-  await expect(page.getByRole("button", { name: /H4NDC4/ })).toBeVisible();
-  await page.getByRole("tab", { name: /HT O\/U/ }).click();
-  await expect(page.getByRole("button", { name: /DRYRUN-ABC123/ })).toBeVisible();
-  await expect(page.getByRole("button", { name: /H4NDC4/ })).toBeHidden();
-  await page.getByRole("tab", { name: /Team O\/U/ }).click();
-  await expect(page.getByText("No Team O/U tickets on this slate")).toBeVisible();
+test("superseded tickets wait under Earlier tickets", async ({ page }) => {
+  await page.goto("/?sport=NCAAB");
+  await expect(page.getByRole("button", { name: /OLD123/ })).toBeHidden();
+  await page.getByText("Earlier tickets (1)").click();
+  await expect(page.getByRole("button", { name: /OLD123/ })).toBeVisible();
+  await expect(page.getByText("Superseded by a later run.")).toBeVisible();
 });
 
-test("an unproven ticket shows no probability anywhere (D72)", async ({ page }) => {
-  await openNcaa(page);
-  await page.getByRole("tab", { name: /HT O\/U/ }).click();
-  await page.getByRole("button", { name: "Show 2 legs" }).click();
-  const card = page.locator("article").first();
-  await expect(card.getByText(/Treat each leg as about 50%/)).toBeVisible();
-  await expect(card.getByText("Unproven", { exact: true })).toBeVisible();
-  await expect(card).not.toContainText("1 in");
-  await expect(card).not.toContainText("Model ");
-  await expect(card.getByText(/failed its evidence gate/)).toBeVisible();
-  await expect(card.getByText(/Practice code/)).toBeVisible();
-});
-
-test("an invalid code is struck through and can't be copied", async ({ page }) => {
-  await openNcaa(page);
-  await page.getByRole("tab", { name: /FT O\/U/ }).click();
-  await expect(page.getByRole("button", { name: /T0TAL1/ })).toBeDisabled();
-  await expect(page.getByText("1 selections missing, 0 unexpected")).toBeVisible();
-});
-
-test("a league with no run explains why it's empty", async ({ page }) => {
-  await page.goto("/");
-  await page.getByRole("tab", { name: "NBA" }).click();
-  await expect(
-    page.getByText(/9 games are scheduled, but this slate hasn't been run/),
-  ).toBeVisible();
-});
-
-test("excluded legs show their reasons, with a link to the queue", async ({ page }) => {
-  await openNcaa(page);
-  await page.getByText(/^Excluded/).click();
-  await expect(page.getByText("Probability below the threshold")).toBeVisible();
-  await expect(page.getByRole("link", { name: /need a match/ })).toHaveAttribute(
-    "href",
-    "/unmatched",
-  );
+test("the CSV downloads with the owner's file name", async ({ page }) => {
+  await page.goto("/?sport=NCAAB");
+  const download = page.waitForEvent("download");
+  await page.getByRole("link", { name: "Download CSV" }).click();
+  expect((await download).suggestedFilename()).toMatch(/^ncaab_predictions_\d{8}\.csv$/);
 });
 
 test("run now asks first, then follows the run to its end", async ({ page }) => {
-  await openNcaa(page);
+  await page.goto("/?sport=NCAAB");
   await page.getByRole("button", { name: "Run NCAAB now" }).click();
-  await expect(page.getByRole("dialog")).toContainText("superseded");
+  await expect(page.getByRole("dialog")).toContainText("practice codes");
   await page.getByRole("button", { name: "Cancel" }).click();
-  await expect(page.getByRole("dialog")).toBeHidden();
   await page.getByRole("button", { name: "Run NCAAB now" }).click();
   await page.getByRole("button", { name: "Start the run" }).click();
   await expect(page.getByRole("button", { name: "Running" })).toBeVisible();
-  // The fake finishes after a few polls, so this proves polling, not just the first response.
-  await expect(page.getByRole("button", { name: "Run NCAAB now" })).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole("button", { name: "Run NCAAB now" })).toBeVisible({
+    timeout: 30_000,
+  });
 });
 
-test("resolving an unmatched event clears it", async ({ page }) => {
+test("rebook says which legs will be dropped", async ({ page }) => {
+  await page.goto("/tickets/T-lean");
+  await page.getByRole("button", { name: "Rebook" }).click();
+  await expect(page.getByRole("dialog")).toContainText("1 leg has started");
+  await page.getByRole("dialog").getByRole("button", { name: "Rebook" }).click();
+  await expect(page.getByText(/Rebooking/)).toBeVisible();
+});
+
+test("resolving the unmatched side saves an alias and clears the queue", async ({ page }) => {
   await page.goto("/unmatched");
-  await expect(page.getByRole("heading", { name: /Mystery Tech/ })).toBeVisible();
-  const confirm = page.getByRole("button", { name: "Confirm match" });
-  await expect(confirm).toBeDisabled();
-  await page.getByRole("button", { name: "Duke Blue Devils" }).click();
-  await expect(confirm).toBeEnabled();
-  await confirm.click();
+  await expect(page.getByRole("heading", { name: /Mystery Tech Owls/ })).toBeVisible();
+  await expect(page.getByText(/Home matched/)).toBeVisible();
+  const save = page.getByRole("button", { name: "Save the alias" });
+  await expect(save).toBeDisabled();
+  await page.getByRole("button", { name: "Auburn Tigers" }).click();
+  await save.click();
   await expect(page.getByText("Nothing to match")).toBeVisible();
 });
 
-test("settings preview a change and save it", async ({ page }) => {
+test("an alias can be added and removed", async ({ page }) => {
+  await page.goto("/unmatched?sport=NCAAB");
+  await page.getByLabel(/SportyBet name/).fill("Auburn U Tigers");
+  await page.getByLabel("ESPN team").fill("Auburn Tigers");
+  await page.getByRole("button", { name: "Add alias" }).click();
+  await expect(page.getByText("auburn u tigers")).toBeVisible();
+  await page.getByRole("button", { name: "Remove" }).click();
+  await expect(page.getByText("auburn u tigers")).toBeHidden();
+});
+
+test("config refuses a cutoff under 20, previews a change and saves it", async ({ page }) => {
   await page.goto("/settings");
   await expect(page.getByText("No unsaved changes")).toBeVisible();
-  await page.getByLabel("Fewest legs on a ticket").fill("3");
-  await expect(page.getByText("1 unsaved changes")).toBeVisible();
-  await expect(page.getByText("min_legs: 2 → 3")).toBeVisible();
-  await page.getByRole("button", { name: "Save changes" }).click();
-  await expect(page.getByText(/Saved as version/)).toBeVisible();
+  const cutoff = page.getByLabel("Stop booking, minutes before kickoff");
+  await cutoff.fill("10");
+  await page.getByRole("button", { name: "Save as a new version" }).click();
+  // Under 20 never reaches the API: the field refuses it (invariant 2, D86).
+  expect(await cutoff.evaluate((field: HTMLInputElement) => field.validity.valid)).toBe(false);
+  await expect(page.getByText(/Saved as version/)).toBeHidden();
+  await cutoff.fill("25");
+  await expect(page.getByText("tickets.booking_cutoff_minutes: 20 → 25")).toBeVisible();
+  await page.getByRole("button", { name: "Save as a new version" }).click();
+  await expect(page.getByText(/Saved as version 1/)).toBeVisible();
 });
 
 test("the dry-run banner is loud while dry run is on", async ({ page }) => {
-  await page.goto("/settings");
-  await page.getByLabel(/^Dry run/).check();
-  await page.getByRole("button", { name: "Save changes" }).click();
-  await expect(page.getByText(/Saved as version/)).toBeVisible();
   await page.goto("/");
   await expect(page.getByText(/Dry run is on/)).toBeVisible();
-  await page.goto("/settings");
-  await page.getByLabel(/^Dry run/).uncheck();
-  await page.getByRole("button", { name: "Save changes" }).click();
-  await expect(page.getByText(/Saved as version/)).toBeVisible();
 });
 
-test("a ticket shows its leg results and history", async ({ page }) => {
-  await page.goto("/tickets/handicap-1");
-  await expect(page.getByText("Duke -6.5")).toBeVisible();
-  await expect(page.getByText(/Result 150/)).toBeVisible();
-  await expect(page.getByRole("link", { name: "Version 2" })).toBeVisible();
-});
-
-test("a game shows its forecast, charts and a table view of them", async ({ page }) => {
-  await page.goto("/games/g1");
-  await expect(page.getByText("Predicted score")).toBeVisible();
-  await expect(page.locator("svg.recharts-surface").first()).toBeVisible();
-  await page.getByRole("button", { name: "Table" }).first().click();
-  await expect(page.getByRole("cell", { name: "Duke Blue Devils covers" })).toBeVisible();
-});
-
-test("a filtered track record with nothing says so", async ({ page }) => {
-  await page.goto("/track-record");
-  await expect(page.getByText("52.6%", { exact: true })).toBeVisible();
-  await page.getByLabel("League").selectOption("NBA");
-  await page.getByRole("button", { name: "Apply" }).click();
-  await expect(page.getByText("No settled legs yet")).toBeVisible();
-});
-
-test("a rollback asks first and needs a reason box, not a typed command", async ({ page }) => {
-  await page.goto("/models");
-  await page.getByRole("button", { name: "Roll back to this" }).first().click();
-  await expect(page.getByRole("dialog").first()).toContainText("20261105-1000-older00");
-  await page.getByRole("button", { name: "Cancel" }).first().click();
-});
-
-test("what doesn't exist gets a friendly page", async ({ page }) => {
-  await page.goto("/tickets/nothing-here");
-  await expect(page.getByText("Not found")).toBeVisible();
-  await page.goto("/slate/not-a-date");
-  await expect(page.getByText("Not found")).toBeVisible();
-});
-
-for (const path of PAGES) {
-  test(`${path} fits a 375 px phone with no sideways scroll`, async ({ page }) => {
-    await page.goto(path);
-    await page.waitForLoadState("networkidle");
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-    );
-    expect(overflow).toBeLessThanOrEqual(0);
-  });
-}
-
-test("no request from the browser carries the key or names the API", async ({ page }) => {
-  const seen: string[] = [];
-  page.on("request", (request) => {
-    seen.push(request.url());
-    expect(JSON.stringify(request.headers())).not.toContain("e2e-key");
-  });
-  await openNcaa(page);
-  await page.goto("/settings");
-  expect(seen.some((url) => url.includes(":8100"))).toBe(false);
-  const html = await page.content();
-  expect(html).not.toContain("e2e-key");
-  expect(html).not.toContain("127.0.0.1:8100");
+test("the system page shows the relay and alerts", async ({ page }) => {
+  await page.goto("/system");
+  await expect(page.getByText("Relay up")).toBeVisible();
+  await expect(page.getByText("NBA run failed")).toBeVisible();
 });

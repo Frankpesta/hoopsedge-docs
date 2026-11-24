@@ -1,5 +1,5 @@
 import { Card, Empty, PageTitle, Section, StatTile, StatusChip } from "@/components/ui";
-import { apiGet } from "@/lib/api";
+import { apiGetFresh } from "@/lib/api";
 import { lagosDateTime } from "@/lib/format";
 import type { SystemView } from "@/lib/types";
 
@@ -7,13 +7,20 @@ type Alert = { sk?: string; severity?: string; message?: string; ref?: string };
 type Cost = { mtd?: number; forecast?: number };
 
 const FRESHNESS: Record<string, string> = {
-  last_ingest: "Last results ingest",
-  last_odds_fetch: "Last collector run",
   last_scheduled_job: "Last scheduled job",
+  ncaaf_scores: "NCAAF scores refreshed",
+  ncaab_scores: "NCAAB scores refreshed",
+  nba_scores: "NBA scores refreshed",
+  ncaaf_run: "Last NCAAF run",
+  ncaab_run: "Last NCAAB run",
+  nba_run: "Last NBA run",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function SystemPage() {
-  const system = await apiGet<SystemView>("/system");
+  const system = await apiGetFresh<SystemView>("/system");
+  const relay = system.relay;
   const cost = system.cost as Cost | null;
   const alerts = system.alerts as Alert[];
   return (
@@ -32,6 +39,23 @@ export default async function SystemPage() {
         <StatTile
           label="Budget alerts"
           value={system.budget_usd.map((amount) => `$${amount}`).join(" · ")}
+        />
+      </div>
+
+      <div className="mt-2 grid grid-cols-2 gap-2">
+        <StatTile
+          label="SportyBet route"
+          value={relay.mode === "direct" ? "Direct" : relay.reachable ? "Relay up" : "Relay down"}
+          note={
+            relay.mode === "direct"
+              ? "No proxy set: SportyBet is called directly"
+              : `Checked ${lagosDateTime(relay.checked_at)}`
+          }
+        />
+        <StatTile
+          label="Codes"
+          value={system.dry_run ? "Practice" : "Real"}
+          note={system.scheduled_dry_run ? "Scheduled runs: practice" : "Scheduled runs: real"}
         />
       </div>
 

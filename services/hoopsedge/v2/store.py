@@ -63,10 +63,10 @@ def save_unmatched(table: Any, sport: str, item: Mapping[str, Any], now: datetim
 
 
 def settings_dry_run(table: Any) -> bool:
-    """The dashboard's Dry run switch. Missing or unreadable settings mean dry run (C12)."""
-    item = table.get_item(Key={"pk": "CONFIG", "sk": "CURRENT"}).get("Item")
-    document = (item or {}).get("document") or {}
-    return document.get("dry_run") is not False
+    """The dashboard's Dry run switch, from the config document. No document means dry (C12)."""
+    from hoopsedge.v2.config_store import load  # noqa: PLC0415 - Avoids an import cycle.
+
+    return load(table)[1].dry_run
 
 
 def alert(table: Any, now: datetime, severity: str, key: str, message: str, ref: str) -> None:

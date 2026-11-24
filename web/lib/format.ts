@@ -1,37 +1,46 @@
 /** Display rules: times show in Lagos, slates are named by their US Eastern date. */
 
-export const FAMILY_NAMES: Record<string, string> = {
-  handicap: "Handicap",
-  total_ft: "FT O/U",
-  total_1h: "HT O/U",
-  team_total: "Team O/U",
+export const KIND_NAMES: Record<string, string> = {
+  TOTALS_LEAN: "Totals lean",
+  TEAM_TOTALS: "Team totals",
+  TOTALS_ALL_OVER: "All overs",
+  TOTALS_ALL_UNDER: "All unders",
 };
 
-export const FAMILIES = ["handicap", "total_ft", "total_1h", "team_total"] as const;
-
-export const REASONS: Record<string, string> = {
-  UNMATCHED: "Couldn't be matched to a game",
-  STARTED: "Game already started",
-  TOO_CLOSE: "Too close to tip-off",
-  MARKET_DISABLED: "Market switched off",
-  NO_THRESHOLD: "No threshold exists for this market",
-  NO_BOOKABLE_LINE: "SportyBet had no bookable line",
-  STALE_ODDS: "Odds went stale",
-  MISSING_PRED: "No prediction for this game",
-  NBA_INJURY_UNCERTAIN: "Questionable starter, and injury news too old",
-  LOW_PROB: "Probability below the threshold",
-  LOW_EDGE: "Edge below the threshold",
-  LOW_CONFIDENCE: "Too little data on a team this early",
-  SAME_GAME: "Another pick on this game was stronger",
-  BELOW_CUTOFF: "Past the top legs for this market",
-  TICKET_TOO_SHORT: "Too few legs to make a ticket",
-  MODEL_DISAGREES: "Model too far from the bookmaker's line to trust",
-  THIN_DATA_CUTOFF: "Past the early-season limit for this market",
+export const FLAG_LABELS: Record<string, string> = {
+  cross_level_game: "Cross-level game",
+  cross_level_l5: "Cross-level last 5",
+  provisional_tiers: "Provisional tiers",
+  min_games: "Too few games",
 };
+
+export const MODE_LABELS: Record<string, string> = {
+  main: "Main line",
+  safest: "Safest line",
+  safest_with_cushion: "Safest, with cushion",
+};
+
+/** Why a leg didn't make a ticket, in words (v2/legs.py, v2/tickets.py). */
+export const DROP_REASONS: Record<string, string> = {
+  started: "Game already started",
+  inside_cutoff: "Too close to kickoff",
+  lean_gone: "The line moved and the lean no longer holds",
+  team_edge_gone: "The line moved and the team edge no longer holds",
+  no_open_line: "No open line left",
+  no_line_for_mode: "No line fits the line mode",
+  beyond_top_games: "Past the top games by edge",
+  ticket_below_min_legs: "Too few legs left for a ticket",
+};
+
+export function reasonLabel(code: string): string {
+  return DROP_REASONS[code] ?? code;
+}
 
 const STATUS: Record<string, string> = {
+  booked: "Booked",
+  not_booked: "Not booked",
   verified: "Verified",
-  dry_run: "Dry run",
+  dry_run: "Practice",
   invalid: "Invalid",
   failed: "Failed",
   superseded: "Superseded",
@@ -47,10 +56,6 @@ const STATUS: Record<string, string> = {
 
 export function statusLabel(status: string): string {
   return STATUS[status] ?? status;
-}
-
-export function reasonLabel(code: string): string {
-  return REASONS[code] ?? code;
 }
 
 export function formatOdds(odds: number): string {
@@ -140,43 +145,6 @@ export function isValidDate(value: string): boolean {
   );
 }
 
-type OutcomeRow = Record<string, unknown>;
-
-/**
- * One scored outcome in words. It uses the canonical line, never SportyBet's specifier: that's on
- * SportyBet's home team, so on a swapped neutral game its sign would be backwards, and even on a
- * normal game it's the wrong sign for the away side.
- */
-export function outcomeLabel(
-  row: OutcomeRow,
-  lines: readonly OutcomeRow[],
-  home: string,
-  away: string,
-): string {
-  const family = String(row.family);
-  const market = lines.find(
-    (item) => item.market_id === row.market_id && item.specifier === row.specifier,
-  );
-  const line = typeof row.line === "number" ? row.line : market?.line;
-  const team = row.team ?? market?.team;
-  const side = row.side ? String(row.side) : null;
-  const direction = side ? side.charAt(0).toUpperCase() + side.slice(1) : "";
-  const known = typeof line === "number";
-  if (family === "handicap") {
-    if (!side) return "Handicap";
-    const name = side === "home" ? home : away;
-    if (!known) return `${name} handicap`;
-    return `${name} ${(side === "home" ? line : -line) >= 0 ? "+" : ""}${side === "home" ? line : -line}`;
-  }
-  const number = known ? ` ${line}` : "";
-  if (family === "team_total") {
-    const name = team === "home" ? `${home} ` : team === "away" ? `${away} ` : "Team ";
-    return side ? `${name}${direction}${number}` : `${name.trim()} total`;
-  }
-  const prefix = family === "total_1h" ? "1H" : "Full game";
-  return side ? `${prefix} ${direction}${number}` : `${prefix} total`;
-}
-
 /** Exact paths and values: docs/10 wants every setting change previewed before it's saved. */
 export function diffSettings(
   before: unknown,
@@ -200,37 +168,35 @@ export function secondsBetween(start: string, end: string | null | undefined): n
   return Number.isFinite(seconds) ? seconds : null;
 }
 
-/** A trailing hit rate per day, from settled legs only. */
-export function rollingHitRate(
-  daily: readonly { date: string; won: number; lost: number }[],
-  days = 14,
-): { date: string; rate: number; settled: number }[] {
-  const sorted = [...daily].sort((a, b) => a.date.localeCompare(b.date));
-  return sorted.flatMap((point) => {
-    const first = shiftDate(point.date, -(days - 1));
-    let won = 0;
-    let settled = 0;
-    for (const other of sorted) {
-      if (other.date >= first && other.date <= point.date) {
-        won += other.won;
-        settled += other.won + other.lost;
-      }
-    }
-    return settled ? [{ date: point.date, rate: won / settled, settled }] : [];
-  });
+/** "in 3 h 05 m", "in 12 m", or "started": for the earliest kickoff on a ticket. */
+export function countdown(iso: string | null | undefined, now: Date = new Date()): string {
+  if (!iso) return "all started";
+  const minutes = Math.floor((new Date(iso).getTime() - now.getTime()) / 60000);
+  if (!Number.isFinite(minutes)) return "n/a";
+  if (minutes <= 0) return "started";
+  const hours = Math.floor(minutes / 60);
+  if (hours >= 48) return `in ${Math.floor(hours / 24)} days`;
+  return hours ? `in ${hours} h ${String(minutes % 60).padStart(2, "0")} m` : `in ${minutes} m`;
 }
 
-/** The normal curve, and chances either side of a line, for the game page. */
-export function normalDensity(x: number, mean: number, sd: number): number {
-  const z = (x - mean) / sd;
-  return Math.exp(-0.5 * z * z) / (sd * Math.sqrt(2 * Math.PI));
+/** One decimal, with a real minus sign: edges and projections are in points. */
+export function points(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "";
+  return `${value >= 0 ? "+" : "−"}${Math.abs(value).toFixed(1)}`;
 }
 
-export function normalBelow(x: number, mean: number, sd: number): number {
-  const z = (x - mean) / sd;
-  const t = 1 / (1 + 0.2316419 * Math.abs(z));
-  const d = 0.3989423 * Math.exp((-z * z) / 2);
-  const tail =
-    d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
-  return z > 0 ? 1 - tail : tail;
+export function oneDecimal(value: number | null | undefined): string {
+  return value === null || value === undefined ? "" : value.toFixed(1);
+}
+
+/** "Delaware Over 23.5", or "Total Under 49.5" for a game total. */
+export function legPick(leg: {
+  team?: string | null;
+  home: string;
+  away: string;
+  direction: string;
+  booked_line: number;
+}): string {
+  const who = leg.team === "home" ? leg.home : leg.team === "away" ? leg.away : "Total";
+  return `${who} ${leg.direction} ${leg.booked_line}`;
 }

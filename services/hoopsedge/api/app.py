@@ -1,8 +1,8 @@
-"""The dashboard's API (docs/09). Reachable only with the shared secret (D8).
+"""The dashboard's API on v2 data (D98). Reachable only with the shared secret (D8).
 
-Nothing on this path may load LightGBM or polars, so it starts fast: the only exception is a
-rollback, which is rare and imports the registry when it's used. D72 is enforced here, rather than
-left to the dashboard: an `unproven` ticket never returns a combined probability or EV.
+Runs, tickets and the CSV are read from `data/v2/runs` (`v2.views`); the config document, aliases,
+the review queue and alerts are in DynamoDB. Every change is idempotent and rate-limited (C16 to
+C18), and the config document is versioned with its diff.
 """
 
 import hmac
@@ -10,74 +10,67 @@ import json
 import logging
 import os
 import re
+import socket
+import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
+from pathlib import Path
 from typing import Annotated, Any, Protocol
+from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException, Query, Request
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from fastapi.responses import JSONResponse, PlainTextResponse
+from pydantic import BaseModel, ValidationError
 
 from hoopsedge.api.schemas import (
-    CLOCK_PATTERN,
-    UNPROVEN_NOTE,
-    Evidence,
-    Family,
-    GameDetail,
+    AliasRequest,
+    AliasView,
+    ConfigUpdate,
+    ConfigVersion,
+    ConfigView,
     Health,
     HealthDetails,
-    League,
-    ModelsView,
+    RebookStarted,
     ResolveRequest,
     ResolveResult,
-    RollbackRequest,
-    RollbackResult,
     RunDetail,
     RunRequest,
     RunStarted,
     RunSummary,
     ScheduleUpdate,
-    SettingsUpdate,
-    SettingsView,
     Slate,
-    SlateLeague,
+    Sport,
     SystemView,
     Team,
-    TicketCard,
-    TicketDetail,
-    TrackRecord,
+    TicketView,
     UnmatchedItem,
 )
-from hoopsedge.api.settings import (
-    FAMILIES,
-    SCHEDULE_NAMES,
-    changes_between,
-    default_settings,
-    v2_document,
-)
 from hoopsedge.api.store import Artifacts, ConflictError, plain
-from hoopsedge.common.aggregates import merge_aggregates
 from hoopsedge.common.booking_mode import is_dry_run
 from hoopsedge.common.dynamo import LOCAL_ENV
-from hoopsedge.common.ids import new_ulid
-from hoopsedge.v2.names import normalize
+from hoopsedge.v2 import views
+from hoopsedge.v2.config_store import SCHEDULE_NAMES, ConfigDocument, document_from_stored
+from hoopsedge.v2.names import normalize, seed_aliases
 
 logger = logging.getLogger("hoopsedge.api")
 EASTERN = ZoneInfo("America/New_York")
 KEY_HEADER = "x-hoopsedge-key"
 MUTATIONS_PER_MINUTE = 10
 BUDGET_ALERTS_USD = [10, 25, 50]
-HIDDEN_ON_UNPROVEN = ("p_raw", "p_calibrated", "p_win", "p_lose", "edge", "ev")
-LEAGUES = (League.NBA, League.NCAAB, League.NCAAF)
+SPORTS = tuple(Sport)
 SAFE_ID = re.compile(r"^[\w:.\-]{1,128}$")
-CLOCK_TIME = re.compile(CLOCK_PATTERN)
+SAFE_ALIAS = re.compile(r"^[a-z0-9 ]{1,120}$")
 ALERT_LIMIT = 50
+RUN_GUARD = timedelta(minutes=10)  # A run started this recently and still running blocks Run now.
+RELAY_CACHE_SECONDS = 30.0
 
 
 class RunStarter(Protocol):
-    def start(self, league: str, slate: date, run_id: str) -> None: ...
+    def start(self, sport: str, slate: date) -> None: ...
+
+    def rebook(self, sport: str, slate: date, ticket_id: str) -> None: ...
 
 
 class ScheduleUpdater(Protocol):
@@ -85,10 +78,37 @@ class ScheduleUpdater(Protocol):
 
 
 class NoSchedules:
-    """Locally the scheduler reads the settings itself. EventBridge plugs in here (Phase 1)."""
+    """The scheduler reads the document itself; a managed scheduler would plug in here."""
 
     def update(self, name: str, time: str) -> None:
         logger.info("Schedule %s is now %s", name, time)
+
+
+def probe_relay() -> dict[str, Any]:
+    """D81: SportyBet goes through the laptop relay when a proxy is set. Can we reach it?"""
+    checked = datetime.now(UTC).isoformat()
+    value = os.environ.get("HOOPSEDGE_SPORTYBET_PROXY", "").strip()
+    if not value:
+        return {"mode": "direct", "reachable": None, "checked_at": checked}
+    parts = urlsplit(value)
+    try:
+        with socket.create_connection((parts.hostname or "", parts.port or 0), timeout=2):
+            reachable = True
+    except (OSError, ValueError):
+        reachable = False
+    return {"mode": "proxy", "reachable": reachable, "checked_at": checked}
+
+
+def registry_teams(data_dir: Path, sport: str, today: date) -> list[dict[str, str]]:
+    """ESPN teams for the alias picker. Polars loads only when this is asked for."""
+    from hoopsedge.ingest.scores import SOURCES, read_teams, season_for  # noqa: PLC0415
+
+    frame = read_teams(data_dir, sport, season_for(today, SOURCES[sport]))
+    return [
+        {"team_id": r["team_id"], "name": r["display_name"], "short_name": r["short_name"],
+         "level": r["level"]}
+        for r in frame.sort("display_name").iter_rows(named=True)
+    ]  # fmt: skip
 
 
 @dataclass
@@ -99,6 +119,8 @@ class Deps:
     schedules: ScheduleUpdater = field(default_factory=NoSchedules)
     secret: Callable[[], str | None] = lambda: os.environ.get("HOOPSEDGE_API_KEY")
     now: Callable[[], datetime] = lambda: datetime.now(UTC)
+    relay: Callable[[], dict[str, Any]] = probe_relay
+    teams: Callable[[str], list[dict[str, str]]] | None = None
 
 
 def _not_found(what: str) -> HTTPException:
@@ -106,7 +128,7 @@ def _not_found(what: str) -> HTTPException:
 
 
 def _checked_id(value: str) -> str:
-    """IDs reach DynamoDB keys, so anything odd is refused before it gets there."""
+    """IDs reach DynamoDB keys and file names, so anything odd is refused first."""
     if not SAFE_ID.match(value):
         raise HTTPException(422, "That ID isn't valid")
     return value
@@ -116,115 +138,32 @@ def _parse_date(value: str) -> date:
     try:
         return date.fromisoformat(value)
     except ValueError as error:
-        raise HTTPException(422, "Dates look like 2026-11-06") from error
+        raise HTTPException(422, "Dates look like 2026-11-24") from error
 
 
-def ticket_card(item: dict[str, Any]) -> dict[str, Any]:
-    """D72 lives here: an unproven ticket loses its probabilities, whatever the client asks."""
-    unproven = item.get("edge_label") == "unproven"
-    summaries = [dict(leg) for leg in item.get("legs_summary", [])]
-    if unproven:
-        for leg in summaries:
-            leg["p_calibrated"] = None
-            leg["edge"] = None
-    return {
-        **item,
-        "legs": len(summaries) or int(item.get("legs", 0)),
-        "legs_summary": summaries,
-        "expected_value": None if unproven else item.get("ev"),
-        "combined_prob": None if unproven else item.get("combined_prob"),
-        "probability_note": UNPROVEN_NOTE if unproven else None,
-        "correction": bool(item.get("correction")),
-        "weak_legs": int(item.get("weak_legs", 0)),
-    }
+def changes_between(old: Any, new: Any, path: str = "") -> list[dict[str, Any]]:
+    """Every value that differs, so the audit and the diff preview say exactly what changed."""
+    if isinstance(old, dict) and isinstance(new, dict):
+        found: list[dict[str, Any]] = []
+        for key in sorted(old.keys() | new.keys()):
+            found += changes_between(old.get(key), new.get(key), f"{path}.{key}" if path else key)
+        return found
+    return [] if old == new else [{"path": path, "from": old, "to": new}]
 
 
-def leg_detail(item: dict[str, Any], unproven: bool) -> dict[str, Any]:
-    leg = dict(item)
-    if unproven:
-        for name in HIDDEN_ON_UNPROVEN:
-            leg[name] = None
-    leg["correction"] = bool(leg.get("correction"))
-    return leg
-
-
-def _excluded(counts: dict[str, Any]) -> dict[str, int]:
-    """Reason codes are upper case. The run's other counts aren't exclusions."""
-    return {name: int(value) for name, value in counts.items() if name.isupper()}
-
-
-def _track_record(
-    days: list[dict[str, Any]], league: League | None, market: Family | None,
-    first: date | None, last: date | None,
-) -> TrackRecord:  # fmt: skip
-    merged = merge_aggregates(days)
-    settled = merged["won"] + merged["lost"]
-    buckets = []
-    weighted_gap = 0.0
-    weighted_legs = 0
-    for name, bucket in sorted(merged["buckets"].items()):
-        legs = bucket["legs"]
-        rate = bucket["won"] / legs if legs else None
-        mean = bucket["p_sum"] / legs if legs and bucket["p_sum"] else None
-        if rate is not None and mean is not None:
-            weighted_gap += abs(mean - rate) * legs
-            weighted_legs += legs
-        buckets.append(
-            {"bucket": float(name), "legs": legs, "won": bucket["won"],
-             "hit_rate": rate, "mean_probability": mean}
-        )  # fmt: skip
-    by_day: dict[str, dict[str, Any]] = {}
-    for item in days:
-        day = str(item["sk"]).removeprefix("D#")
-        point = by_day.setdefault(day, {"date": day, "legs": 0, "won": 0, "lost": 0})
-        for name in ("legs", "won", "lost"):
-            point[name] += int(item.get(name, 0))
-    return TrackRecord.model_validate(
-        {
-            "league": league,
-            "market": market,
-            "first": first.isoformat() if first else None,
-            "last": last.isoformat() if last else None,
-            **{name: merged[name] for name in ("legs", "won", "lost", "push", "void")},
-            "hit_rate": merged["won"] / settled if settled else None,
-            "push_rate": merged["push"] / merged["legs"] if merged["legs"] else None,
-            "breakeven_hit_rate": merged["breakeven_sum"] / settled if settled else None,
-            "flat_stake_profit": merged["profit"],
-            "flat_stake_roi": merged["profit"] / settled if settled else None,
-            "calibration_error": weighted_gap / weighted_legs if weighted_legs else None,
-            "tickets": merged["tickets"],
-            "missed_by": merged["missed_by"],
-            "legs_won_on_lost": merged["legs_won_on_lost"],
-            "legs_on_lost": merged["legs_on_lost"],
-            "buckets": buckets,
-            "daily": [by_day[day] for day in sorted(by_day)],
-        }
-    )
-
-
-def _learning_curve(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    points = []
-    for item in history:
-        metrics = item.get("metrics") or {}
-        points.append(
-            {
-                "at": str(item["sk"]).split("#", 1)[0],
-                "version": item.get("version", ""),
-                "decision": item.get("decision", ""),
-                "log_likelihood_gain": (metrics.get("log_likelihood_gain") or {}).get("mean"),
-                "crps_gain": (metrics.get("crps_gain") or {}).get("mean"),
-                "games": metrics.get("games"),
-                "reasons": item.get("reasons") or ([item["reason"]] if item.get("reason") else []),
-            }
-        )
-    return points
+def _validation_message(error: ValidationError) -> str:
+    first = error.errors()[0]
+    where = ".".join(str(part) for part in first["loc"])
+    return f"{where}: {first['msg']}" if where else str(first["msg"])
 
 
 def create_app(deps: Deps) -> FastAPI:
     app = FastAPI(
-        title="HoopsEdge API", version="1", docs_url=None, redoc_url=None, openapi_url=None
+        title="HoopsEdge API", version="2", docs_url=None, redoc_url=None, openapi_url=None
     )
     store = deps.store
+    data_dir = deps.artifacts.root
+    relay_cache: dict[str, Any] = {}
 
     @app.middleware("http")
     async def cache_headers(request: Request, call_next: Any) -> Any:
@@ -243,7 +182,7 @@ def create_app(deps: Deps) -> FastAPI:
             raise HTTPException(401, "Unauthorized")
 
     def mutation(request: Request, idempotency_key: Annotated[str | None, Header()] = None) -> str:
-        """C18: every mutating method, including PUT, needs a key and is rate-limited."""
+        """C18: every mutating method needs a key and is rate-limited."""
         if not idempotency_key or not SAFE_ID.match(idempotency_key):
             raise HTTPException(400, "Mutations need an idempotency-key header")
         return idempotency_key
@@ -268,23 +207,38 @@ def create_app(deps: Deps) -> FastAPI:
         store.finish_idempotency(key, scope, status, body)
         return JSONResponse(body, status)
 
-    def settings_view() -> dict[str, Any]:
+    def config_view() -> dict[str, Any]:
         stored: dict[str, Any] | None = store.settings()
         if stored is None:
-            return {"version": 0, "document": default_settings()}
-        return {**stored, "document": v2_document(stored["document"])}
+            document = document_from_stored(None)
+            return {"version": 0, "document": document.model_dump(by_alias=True, mode="json")}
+        document = document_from_stored(stored.get("document"))
+        return {**stored, "document": document.model_dump(by_alias=True, mode="json")}
 
-    def apply_settings(document: dict[str, Any], based_on: int) -> SettingsView:
-        current = settings_view()
+    def save_config(document: dict[str, Any], based_on: int) -> ConfigView:
+        current = config_view()
         if int(current["version"]) != based_on:
-            raise HTTPException(409, "Settings changed since you loaded them")
-        changes = changes_between(current["document"], document)
-        version = based_on + 1
+            raise HTTPException(409, "The config changed since you loaded it")
         try:
-            store.save_settings(document, version, changes, deps.now())
+            checked = ConfigDocument.model_validate(document)
+        except ValidationError as error:
+            raise HTTPException(422, _validation_message(error)) from error
+        saved = checked.model_dump(by_alias=True, mode="json")
+        changes = changes_between(current["document"], saved)
+        try:
+            store.save_settings(saved, based_on + 1, changes, deps.now())
         except ConflictError as error:
             raise HTTPException(409, str(error)) from error
-        return SettingsView.model_validate(settings_view())
+        for name, value in saved["schedules"].items():
+            if current["document"]["schedules"].get(name) != value:
+                deps.schedules.update(name, value)
+        return ConfigView.model_validate(config_view())
+
+    def team_list(sport: str) -> list[dict[str, str]]:
+        source = deps.teams or (
+            lambda name: registry_teams(data_dir, name, deps.now().astimezone(EASTERN).date())
+        )
+        return source(sport)
 
     @app.get("/health", response_model=Health)
     def health() -> dict[str, bool]:
@@ -297,164 +251,101 @@ def create_app(deps: Deps) -> FastAPI:
         return {
             "ok": True,
             "env": os.environ.get("HOOPSEDGE_ENV", LOCAL_ENV),
-            "champion_versions": {
-                league.value: (store.champion(league.value) or {}).get("version")
-                for league in LEAGUES
-            },
-            "last_runs": store.runs(5),
+            "last_runs": views.last_run_per_sport(data_dir),
         }
+
+    # Slates and tickets.
 
     @api.get("/slates/{slate_date}", response_model=Slate)
-    def slate(slate_date: str) -> dict[str, Any]:
+    def slate(slate_date: str, sport: Sport | None = None) -> dict[str, Any]:
         day = _parse_date(slate_date)
-        leagues: list[SlateLeague] = []
-        for league in LEAGUES:
-            tickets, games = store.slate_items(league.value, day)
-            latest = max((int(item["version"]) for item in tickets), default=0)
-            current = [
-                item
-                for item in tickets
-                if int(item["version"]) == latest and item["status"] != "superseded"
-            ]
-            markets: dict[str, list[TicketCard]] = {family: [] for family in FAMILIES}
-            for item in sorted(current, key=lambda ticket: int(ticket["ticket_no"])):
-                markets[str(item["family"])].append(TicketCard.model_validate(ticket_card(item)))
-            run = store.latest_run_for_slate(league.value, day)
-            counts = (run or {}).get("counts") or {}
-            leagues.append(
-                SlateLeague(
-                    league=league,
-                    run=RunSummary.model_validate(run) if run else None,
-                    games=len(games),
-                    first_tip=min((str(game["tip_utc"]) for game in games), default=None),
-                    markets=markets,
-                    excluded=_excluded(counts),
-                    eligible_legs=sum(
-                        len(card.legs_summary) for group in markets.values() for card in group
-                    ),
-                    unmatched_events=int(counts.get("unmatched_events", 0)),
-                )
-            )
-        return {"date": day.isoformat(), "leagues": leagues}
+        chosen = [sport] if sport else list(SPORTS)
+        return {
+            "slate_date": day.isoformat(),
+            "sports": [views.slate_view(data_dir, s.value, day, deps.now()) for s in chosen],
+        }
 
-    @api.get("/tickets/{ticket_id}", response_model=TicketDetail)
+    @api.get("/slates/{slate_date}/{sport}/csv", response_class=PlainTextResponse)
+    def slate_csv(slate_date: str, sport: Sport) -> PlainTextResponse:
+        """Brief §8.1: the owner's sheet, from the slate's newest full run."""
+        day = _parse_date(slate_date)
+        path = views.csv_file(data_dir, sport.value, day)
+        if path is None:
+            raise _not_found("CSV")
+        return PlainTextResponse(
+            path.read_text("utf-8"),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="{path.name}"'},
+        )
+
+    @api.get("/tickets/{ticket_id}", response_model=TicketView)
     def ticket(ticket_id: str) -> dict[str, Any]:
-        item = store.ticket(_checked_id(ticket_id))
-        if item is None:
+        found = views.find_ticket(data_dir, _checked_id(ticket_id), deps.now())
+        if found is None:
             raise _not_found("Ticket")
-        unproven = item.get("edge_label") == "unproven"
-        versions = sorted(store.ticket_versions(item), key=lambda row: int(row["version"]))
-        return {
-            **item,
-            "ticket": ticket_card(item),
-            "leg_details": [leg_detail(leg, unproven) for leg in store.ticket_legs(ticket_id)],
-            "versions": [row for row in versions if str(row.get("sk")) == "META"],
-        }
+        return found
 
-    @api.get("/games/{game_id}", response_model=GameDetail)
-    def game(game_id: str) -> dict[str, Any]:
-        _checked_id(game_id)
-        for league in LEAGUES:
-            meta = store.game(league.value, game_id)
-            if meta is not None:
-                return _game_view(league, game_id, meta)
-        raise _not_found("Game")
+    @api.post("/tickets/{ticket_id}/rebook", response_model=RebookStarted, status_code=202)
+    def rebook(ticket_id: str, key: Annotated[str, Depends(mutation)]) -> JSONResponse:
+        found = views.find_ticket(data_dir, _checked_id(ticket_id), deps.now())
+        if found is None:
+            raise _not_found("Ticket")
 
-    def _game_view(league: League, game_id: str, meta: dict[str, Any]) -> dict[str, Any]:
-        prediction = store.latest_under(league.value, game_id, "PRED#")
-        detail = store.latest_under(league.value, game_id, "DETAIL#") or {}
-        labels = detail.get("edge_labels") or {}
-        teams = store.teams(league.value)
+        def action() -> RebookStarted:
+            day = date.fromisoformat(found["slate"])
+            deps.starter.rebook(found["sport"], day, ticket_id)
+            return RebookStarted(
+                ticket_id=ticket_id, sport=found["sport"], slate_date=found["slate"]
+            )
 
-        def hide(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-            shown = []
-            for row in rows:
-                entry = dict(row)
-                if labels.get(str(entry.get("family"))) == "unproven":
-                    for name in (*HIDDEN_ON_UNPROVEN, "p_above", "p_push"):
-                        entry.pop(name, None)
-                    entry["probability_note"] = UNPROVEN_NOTE
-                shown.append(entry)
-            return shown
+        return once(key, f"rebook:{ticket_id}", action, 202)
 
-        final = None
-        if "home_pts" in meta and "away_pts" in meta:
-            final = {"home": int(meta["home_pts"]), "away": int(meta["away_pts"])}
-        injury = (prediction or {}).get("injury") or {}
-        return {
-            "game_id": game_id,
-            "league": league,
-            "game": meta,
-            "home_name": teams.get(str(meta.get("home_id"))),
-            "away_name": teams.get(str(meta.get("away_id"))),
-            "final": final,
-            "prediction": prediction,
-            "key_features": (prediction or {}).get("key_features") or {},
-            "injuries": injury.get("listed") or [],
-            "lines": hide(detail.get("lines") or []),
-            "rejections": hide(detail.get("rejections") or []),
-            "legs": hide(detail.get("legs") or []),
-            "edge_labels": labels,
-        }
+    # Runs.
 
     @api.get("/runs", response_model=list[RunSummary])
-    def runs(limit: Annotated[int, Query(ge=1, le=100)] = 20) -> list[dict[str, Any]]:
-        result: list[dict[str, Any]] = store.runs(limit)
-        return result
+    def runs(
+        limit: Annotated[int, Query(ge=1, le=200)] = 50, sport: Sport | None = None
+    ) -> list[dict[str, Any]]:
+        return views.list_runs(data_dir, limit, sport.value if sport else None)
 
     @api.get("/runs/{run_id}", response_model=RunDetail)
-    def run_detail(run_id: str) -> dict[str, Any]:
-        item = store.run(_checked_id(run_id))
-        if item is None:
+    def run(run_id: str) -> dict[str, Any]:
+        found = views.run_detail(data_dir, _checked_id(run_id), deps.now())
+        if found is None:
             raise _not_found("Run")
-        return {"run": item, "steps": item.get("steps") or [], "log": store.run_log(run_id)}
+        return found
 
-    @api.get("/track-record", response_model=TrackRecord)
-    def track_record(
-        league: League | None = None,
-        market: Family | None = None,
-        first: Annotated[str | None, Query(alias="from")] = None,
-        last: Annotated[str | None, Query(alias="to")] = None,
-    ) -> TrackRecord:
-        start = _parse_date(first) if first else None
-        end = _parse_date(last) if last else None
-        days: list[dict[str, Any]] = []
-        for one in [league] if league else LEAGUES:
-            for family in [market.value] if market else FAMILIES:
-                days += store.aggregates(one.value, family, start, end)
-        return _track_record(days, league, market, start, end)
+    @api.post("/runs", response_model=RunStarted, status_code=202)
+    def start_run(body: RunRequest, key: Annotated[str, Depends(mutation)]) -> JSONResponse:
+        now = deps.now()
+        day = _parse_date(body.slate_date) if body.slate_date else now.astimezone(EASTERN).date()
 
-    @api.get("/models/{league}", response_model=ModelsView)
-    def models(league: League) -> dict[str, Any]:
-        history = store.model_history(league.value)
-        return {
-            "league": league,
-            "champion": store.champion(league.value),
-            "history": history,
-            "learning_curve": _learning_curve(history),
-            "drift": (deps.artifacts.latest_json(f"reports/learning/{league.value}") or {}).get(
-                "drift"
-            ),
-            "gates": {},  # v1 market gates went to legacy/ with the model (D96).
-        }
+        def action() -> RunStarted:
+            latest = next(iter(views.list_runs(data_dir, 1, body.sport.value)), None)
+            if (
+                latest
+                and latest["status"] == "running"
+                and latest["slate"] == day.isoformat()
+                and latest["started_at"]
+                and now - datetime.fromisoformat(latest["started_at"]) < RUN_GUARD
+            ):
+                raise HTTPException(409, f"{body.sport.value} {day} already has a run going")
+            deps.starter.start(body.sport.value, day)
+            return RunStarted(
+                sport=body.sport, slate_date=day.isoformat(), started_at=now.isoformat()
+            )
 
-    @api.get("/evidence/{league}", response_model=Evidence)
-    def evidence(league: League) -> dict[str, Any]:
-        champion = store.champion(league.value)
-        version = (champion or {}).get("version")
-        content = (
-            deps.artifacts.read_json(f"models/{league.value}/{version}/evidence.json")
-            if version
-            else None
-        )
-        return {"league": league, "version": version, "evidence": content}
+        return once(key, f"run:{body.sport.value}:{day}:{now:%Y%m%d%H%M}", action, 202)
+
+    # The review queue, teams and aliases.
 
     @api.get("/unmatched", response_model=list[UnmatchedItem])
-    def unmatched() -> list[dict[str, Any]]:
+    def unmatched(sport: Sport | None = None) -> list[dict[str, Any]]:
+        chosen = [sport] if sport else list(SPORTS)
         return [
-            {**item, "league": league, "event_id": item["sk"]}
-            for league in LEAGUES
-            for item in store.unmatched(league.value)
+            {**item, "sport": s.value, "event_id": item["sk"]}
+            for s in chosen
+            for item in store.unmatched(s.value)
         ]
 
     @api.post("/unmatched/{event_id}/resolve", response_model=ResolveResult)
@@ -464,130 +355,154 @@ def create_app(deps: Deps) -> FastAPI:
         _checked_id(event_id)
 
         def action() -> ResolveResult:
-            for league in LEAGUES:
-                item = store.unmatched_item(league.value, event_id)
+            for sport in SPORTS:
+                item = store.unmatched_item(sport.value, event_id)
                 if item is not None:
-                    return _resolve(league, event_id, item, body)
+                    return _resolve(sport.value, event_id, item, body)
             raise _not_found("Unmatched event")
 
         return once(key, f"resolve:{event_id}", action)
 
     def _resolve(
-        league: League, event_id: str, item: dict[str, Any], body: ResolveRequest
+        sport: str, event_id: str, item: dict[str, Any], body: ResolveRequest
     ) -> ResolveResult:
         now = deps.now()
         if body.ignore:
-            store.close_unmatched(league.value, event_id, "ignored", now)
+            store.close_unmatched(sport, event_id, "ignored", now)
             return ResolveResult(event_id=event_id, status="ignored", aliases={})
-        if not body.team_id_home or not body.team_id_away:
-            raise HTTPException(422, "Give both teams, or ignore the event")
-        if body.team_id_home == body.team_id_away:
+        known = {team["team_id"] for team in team_list(sport)}
+        chosen = {"home": body.team_id_home, "away": body.team_id_away}
+        for side, team_id in chosen.items():
+            if item.get(f"{side}_team_id") is None and not team_id:
+                raise HTTPException(422, f"Choose the {side} team, or ignore the event")
+            if team_id and team_id not in known:
+                raise HTTPException(422, f"No {sport} team {team_id}")
+        home = chosen["home"] or item.get("home_team_id")
+        away = chosen["away"] or item.get("away_team_id")
+        if home == away:
             raise HTTPException(422, "Those are the same team")
-        teams = store.teams(league.value)
-        for team in (body.team_id_home, body.team_id_away):
-            if team not in teams:
-                raise HTTPException(422, f"No {league.value} team {team}")
-        # Invariant 5: from now on these names match, because the owner confirmed them.
+        # Invariant 5: the owner confirmed these, so from now on the names match exactly.
         aliases = {
-            normalize(str(item["home_name"])): body.team_id_home,
-            normalize(str(item["away_name"])): body.team_id_away,
+            normalize(str(item[f"{side}_name"])): team_id
+            for side, team_id in chosen.items()
+            if team_id
         }
-        for alias, team in aliases.items():
-            store.confirm_alias(league.value, alias, team, now)
-        store.close_unmatched(league.value, event_id, "resolved", now)
+        for alias, team_id in aliases.items():
+            store.confirm_alias(sport, alias, team_id, now)
+        store.close_unmatched(sport, event_id, "resolved", now)
         return ResolveResult(event_id=event_id, status="resolved", aliases=aliases)
 
-    @api.get("/teams/{league}", response_model=list[Team])
-    def teams(league: League) -> list[dict[str, str]]:
-        names = store.teams(league.value)
-        return [{"team_id": team, "name": names[team]} for team in sorted(names, key=names.get)]
+    @api.get("/teams/{sport}", response_model=list[Team])
+    def teams(sport: Sport) -> list[dict[str, str]]:
+        return team_list(sport.value)
 
-    @api.post("/runs", response_model=RunStarted, status_code=202)
-    def start_run(body: RunRequest, key: Annotated[str, Depends(mutation)]) -> JSONResponse:
-        now = deps.now()
-        day = _parse_date(body.slate_date) if body.slate_date else now.astimezone(EASTERN).date()
+    @api.get("/aliases/{sport}", response_model=list[AliasView])
+    def aliases(sport: Sport) -> list[dict[str, Any]]:
+        names = {team["team_id"]: team["name"] for team in team_list(sport.value)}
+        seeds = {normalize(name): team for name, team in seed_aliases(sport.value).items()}
+        owner = store.owner_aliases(sport.value)
+        rows = [{"alias": a, "team_id": t, "source": "seed"} for a, t in seeds.items()]
+        rows += [{"alias": a, "team_id": t, "source": "owner"} for a, t in owner.items()]
+        return sorted(
+            ({**row, "team_name": names.get(row["team_id"])} for row in rows),
+            key=lambda row: (row["source"], row["alias"]),
+        )
 
-        def action() -> RunStarted:
-            if store.lock_held(body.league.value, day, now):
-                raise HTTPException(409, f"{body.league.value} {day} already has a run going")
-            run_id = new_ulid(now)
-            deps.starter.start(body.league.value, day, run_id)
-            return RunStarted(run_id=run_id, league=body.league, slate_date=day.isoformat())
+    @api.post("/aliases", response_model=AliasView)
+    def add_alias(body: AliasRequest, key: Annotated[str, Depends(mutation)]) -> JSONResponse:
+        def action() -> AliasView:
+            names = {team["team_id"]: team["name"] for team in team_list(body.sport.value)}
+            if body.team_id not in names:
+                raise HTTPException(422, f"No {body.sport.value} team {body.team_id}")
+            alias = normalize(body.name)
+            if not alias:
+                raise HTTPException(422, "That name has no letters or digits")
+            store.confirm_alias(body.sport.value, alias, body.team_id, deps.now())
+            return AliasView(
+                alias=alias, team_id=body.team_id, team_name=names[body.team_id], source="owner"
+            )
 
-        return once(key, f"run:{body.league.value}:{day}", action, 202)
+        return once(key, f"alias:{body.sport.value}:{normalize(body.name)}", action)
 
-    @api.get("/config", response_model=SettingsView)
+    @api.delete("/aliases/{sport}/{alias}", status_code=204)
+    def delete_alias(sport: Sport, alias: str, key: Annotated[str, Depends(mutation)]) -> None:
+        if not SAFE_ALIAS.match(alias):
+            raise HTTPException(422, "That alias isn't valid")
+        if not store.delete_alias(sport.value, alias):
+            raise _not_found("Owner alias")  # Seeds live in code and can't be deleted here.
+
+    # Config (D98).
+
+    @api.get("/config", response_model=ConfigView)
     def get_config() -> dict[str, Any]:
-        return settings_view()
+        return config_view()
 
-    @api.put("/config", response_model=SettingsView)
-    def put_config(body: SettingsUpdate, key: Annotated[str, Depends(mutation)]) -> JSONResponse:
-        def action() -> SettingsView:
-            document = body.document.model_dump(mode="json")
-            bad = set(document["schedules"]) ^ set(SCHEDULE_NAMES)
-            if bad:
-                raise HTTPException(422, f"Schedules must be exactly {list(SCHEDULE_NAMES)}")
-            for value in document["schedules"].values():
-                if not CLOCK_TIME.match(value):
-                    raise HTTPException(422, f"{value} isn't a time like 22:00")
-            # Saved first: a refused change must not have moved any schedule.
-            before = settings_view()["document"]["schedules"]
-            result = apply_settings(document, body.version)
-            for name, value in document["schedules"].items():
-                if before.get(name) != value:
-                    deps.schedules.update(name, value)
-            return result
+    @api.put("/config", response_model=ConfigView)
+    def put_config(body: ConfigUpdate, key: Annotated[str, Depends(mutation)]) -> JSONResponse:
+        return once(key, "config", lambda: save_config(body.document, body.version))
 
-        return once(key, "config", action)
+    @api.get("/config/versions", response_model=list[ConfigVersion])
+    def config_versions(
+        limit: Annotated[int, Query(ge=1, le=100)] = 30,
+    ) -> list[dict[str, Any]]:
+        return [
+            {"version": int(item["version"]), "changed_at": item.get("changed_at"),
+             "changed_by": item.get("changed_by"), "diff": item.get("diff") or []}
+            for item in store.config_versions(limit)
+        ]  # fmt: skip
 
-    @api.put("/schedules/{name}", response_model=SettingsView)
+    @api.put("/schedules/{name}", response_model=ConfigView)
     def put_schedule(
         name: str, body: ScheduleUpdate, key: Annotated[str, Depends(mutation)]
     ) -> JSONResponse:
         if name not in SCHEDULE_NAMES:
             raise _not_found("Schedule")
 
-        def action() -> SettingsView:
-            current = settings_view()
+        def action() -> ConfigView:
+            current = config_view()
             document = {
                 **current["document"],
                 "schedules": {**current["document"]["schedules"], name: body.time},
             }
-            result = apply_settings(document, int(current["version"]))
-            deps.schedules.update(name, body.time)
-            return result
+            return save_config(document, int(current["version"]))
 
         return once(key, f"schedule:{name}", action)
 
-    @api.post("/models/{league}/rollback", response_model=RollbackResult)
-    def rollback(
-        league: League, body: RollbackRequest, key: Annotated[str, Depends(mutation)]
-    ) -> JSONResponse:
-        # v2 has no trained model to roll back: the learning code went to legacy/ (D96).
-        raise HTTPException(410, "Model rollback was retired with the v1 model (D96)")
+    # System.
 
     @api.get("/system", response_model=SystemView)
     def system() -> dict[str, Any]:
-        document = settings_view()["document"]
+        document = config_view()["document"]
+        if not relay_cache or time.monotonic() - relay_cache["at"] > RELAY_CACHE_SECONDS:
+            relay_cache.update(value=deps.relay(), at=time.monotonic())
 
         def at(name: str) -> str | None:
             line = deps.artifacts.last_line(name)
             return None if line is None else str(line.get("at"))
 
+        def scores(sport: str) -> str | None:
+            files = list((data_dir / "ingest" / "checkpoints").glob(f"{sport}-*.json"))
+            if not files:
+                return None
+            newest = max(path.stat().st_mtime for path in files)
+            return datetime.fromtimestamp(newest, UTC).isoformat()
+
+        last = views.last_run_per_sport(data_dir)
+        freshness: dict[str, str | None] = {"last_scheduled_job": at("scheduler/runs.jsonl")}
+        for sport in SPORTS:
+            freshness[f"{sport.value.lower()}_scores"] = scores(sport.value)
+            freshness[f"{sport.value.lower()}_run"] = (last[sport.value] or {}).get("started_at")
         return {
             "cost": store.latest_cost(),
             "budget_usd": BUDGET_ALERTS_USD,
-            "alerts": store.alerts(ALERT_LIMIT),
-            "freshness": {
-                "last_ingest": at("ingest/runs.jsonl"),
-                "last_odds_fetch": at("collector/runs.jsonl"),
-                "last_scheduled_job": at("scheduler/runs.jsonl"),
-            },
+            "alerts": [plain(item) for item in store.alerts(ALERT_LIMIT)],
+            "freshness": freshness,
             # What will really happen (D97): the switch and each container's DRY_RUN together.
             "dry_run": is_dry_run(bool(document["dry_run"])),
             "scheduled_dry_run": bool(document["dry_run"])
             or os.environ.get("HOOPSEDGE_SCHEDULER_DRY_RUN", "true").strip().lower() != "false",
             "pause_all": bool(document["pause_all"]),
+            "relay": relay_cache["value"],
         }
 
     app.include_router(api)
