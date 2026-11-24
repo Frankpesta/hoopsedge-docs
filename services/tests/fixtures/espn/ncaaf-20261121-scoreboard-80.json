@@ -1,0 +1,885 @@
+{
+ "groups": [
+  "80"
+ ],
+ "events": [
+  {
+   "id": "401856753",
+   "uid": "s:20~l:23~e:401856753",
+   "date": "2026-11-22T00:30Z",
+   "name": "Georgia Bulldogs at South Carolina Gamecocks",
+   "shortName": "UGA @ SC",
+   "season": {
+    "year": 2026,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "week": {
+    "number": 12
+   },
+   "competitions": [
+    {
+     "id": "401856753",
+     "uid": "s:20~l:23~e:401856753~c:401856753",
+     "date": "2026-11-22T00:30Z",
+     "attendance": 79105,
+     "type": {
+      "id": "1",
+      "abbreviation": "STD"
+     },
+     "timeValid": true,
+     "dateValid": true,
+     "neutralSite": false,
+     "conferenceCompetition": true,
+     "playByPlayAvailable": true,
+     "recent": false,
+     "venue": {
+      "id": "3994",
+      "fullName": "Williams-Brice Stadium",
+      "address": {
+       "city": "Columbia",
+       "state": "SC",
+       "country": "USA"
+      },
+      "indoor": false
+     },
+     "competitors": [
+      {
+       "id": "2579",
+       "uid": "s:20~l:23~t:2579",
+       "type": "team",
+       "order": 0,
+       "homeAway": "home",
+       "winner": false,
+       "team": {
+        "id": "2579",
+        "uid": "s:20~l:23~t:2579",
+        "location": "South Carolina",
+        "name": "Gamecocks",
+        "abbreviation": "SC",
+        "displayName": "South Carolina Gamecocks",
+        "shortDisplayName": "South Carolina",
+        "color": "73000a",
+        "alternateColor": "000000",
+        "isActive": true,
+        "venue": {
+         "id": "3994"
+        },
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png",
+        "conferenceId": "8"
+       },
+       "score": "6",
+       "linescores": [
+        {
+         "value": 3.0,
+         "displayValue": "3",
+         "period": 1
+        },
+        {
+         "value": 3.0,
+         "displayValue": "3",
+         "period": 2
+        },
+        {
+         "value": 0.0,
+         "displayValue": "0",
+         "period": 3
+        },
+        {
+         "value": 0.0,
+         "displayValue": "0",
+         "period": 4
+        }
+       ],
+       "statistics": [],
+       "curatedRank": {
+        "current": 21
+       },
+       "records": [
+        {
+         "name": "overall",
+         "abbreviation": "Game",
+         "type": "total",
+         "summary": "6-5"
+        },
+        {
+         "name": "Home",
+         "type": "home",
+         "summary": "4-3"
+        },
+        {
+         "name": "Road",
+         "type": "road",
+         "summary": "2-2"
+        },
+        {
+         "name": "vs. Conf.",
+         "type": "vsconf",
+         "summary": "4-5"
+        }
+       ]
+      },
+      {
+       "id": "61",
+       "uid": "s:20~l:23~t:61",
+       "type": "team",
+       "order": 1,
+       "homeAway": "away",
+       "winner": true,
+       "team": {
+        "id": "61",
+        "uid": "s:20~l:23~t:61",
+        "location": "Georgia",
+        "name": "Bulldogs",
+        "abbreviation": "UGA",
+        "displayName": "Georgia Bulldogs",
+        "shortDisplayName": "Georgia",
+        "color": "ba0c2f",
+        "alternateColor": "2c2a29",
+        "isActive": true,
+        "venue": {
+         "id": "3917"
+        },
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/61.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/61.png",
+        "conferenceId": "8"
+       },
+       "score": "34",
+       "linescores": [
+        {
+         "value": 3.0,
+         "displayValue": "3",
+         "period": 1
+        },
+        {
+         "value": 7.0,
+         "displayValue": "7",
+         "period": 2
+        },
+        {
+         "value": 10.0,
+         "displayValue": "10",
+         "period": 3
+        },
+        {
+         "value": 14.0,
+         "displayValue": "14",
+         "period": 4
+        }
+       ],
+       "statistics": [],
+       "curatedRank": {
+        "current": 1
+       },
+       "records": [
+        {
+         "name": "overall",
+         "abbreviation": "Game",
+         "type": "total",
+         "summary": "10-1"
+        },
+        {
+         "name": "Home",
+         "type": "home",
+         "summary": "5-1"
+        },
+        {
+         "name": "Road",
+         "type": "road",
+         "summary": "4-0"
+        },
+        {
+         "name": "vs. Conf.",
+         "type": "vsconf",
+         "summary": "8-1"
+        }
+       ]
+      }
+     ],
+     "notes": [],
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "ABC"
+       ]
+      }
+     ],
+     "groups": {
+      "id": "8",
+      "name": "Southeastern Conference",
+      "shortName": "SEC",
+      "isConference": true
+     },
+     "format": {
+      "regulation": {
+       "periods": 4
+      }
+     },
+     "startDate": "2026-11-22T00:30Z",
+     "broadcast": "ABC",
+     "geoBroadcasts": [
+      {
+       "type": {
+        "id": "1",
+        "shortName": "TV"
+       },
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "shortName": "ABC",
+        "logo": "https://a.espncdn.com/guid/2acff74d-269f-36ac-96eb-9c66f8ba52ff/logos/default.png",
+        "darkLogo": "https://a.espncdn.com/guid/2acff74d-269f-36ac-96eb-9c66f8ba52ff/logos/default-dark.png"
+       },
+       "lang": "en",
+       "region": "us"
+      }
+     ],
+     "highlights": [
+      {
+       "id": 50558528,
+       "cerebroId": "6b0266e539f82d580317e7cc",
+       "source": "espn",
+       "headline": "Georgia dominates South Carolina 34-6 to improve to 10-1",
+       "description": "Georgia dominates South Carolina 34-6 to improve to 10-1",
+       "lastModified": "2026-11-22T03:52:59Z",
+       "originalPublishDate": "2026-11-22T03:52:06Z",
+       "duration": 65,
+       "timeRestrictions": {
+        "embargoDate": "2026-11-22T03:52:04Z",
+        "expirationDate": "2038-01-01T04:59:59Z"
+       },
+       "deviceRestrictions": {
+        "devices": [
+         "settop",
+         "tablet",
+         "handset",
+         "ipad",
+         "desktop"
+        ],
+        "type": "whitelist"
+       },
+       "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b.jpg",
+       "links": {
+        "api": {
+         "artwork": {
+          "href": "https://artwork.api.espn.com/artwork/collections/media/cceb7411-689e-409b-a766-97e50b92403d"
+         },
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/50558528"
+         }
+        },
+        "mobile": {
+         "href": "https://watch.auth.api.espn.com/video/auth/brightcove/cceb7411-689e-409b-a766-97e50b92403d/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50558528/georgia-dominates-south-carolina-34-6-improve-10-1",
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=50558528"
+         },
+         "progressiveDownload": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/cceb7411-689e-409b-a766-97e50b92403d/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50558528/georgia-dominates-south-carolina-34-6-improve-10-1"
+         },
+         "source": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b.mp4"
+         },
+         "streaming": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/cceb7411-689e-409b-a766-97e50b92403d/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50558528/georgia-dominates-south-carolina-34-6-improve-10-1"
+         }
+        },
+        "source": {
+         "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b.mp4",
+         "HD": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b.mp4"
+         },
+         "HLS": {
+          "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/playlist.m3u8",
+          "9x16": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/9x16/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/playlist.m3u8"
+          },
+          "HD": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/playlist.m3u8",
+           "9x16": {
+            "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/9x16/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/playlist.m3u8"
+           },
+           "cmb": {
+            "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/cmb/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/playlist.m3u8"
+           }
+          },
+          "cmb": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/cmb/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/playlist.m3u8"
+          },
+          "shield": {
+           "href": "https://watch.auth.api.espn.com/video/auth/media/cceb7411-689e-409b-a766-97e50b92403d/asset"
+          }
+         },
+         "flash": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b.mp4"
+         },
+         "full": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b.mp4"
+         },
+         "mezzanine": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b/bef22027-bf7c-4e9e-af3f-ed0fa0f7275b.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=50558528&videoDSI=cfe27e3587fdf"
+        },
+        "web": {
+         "href": "https://www.espn.com/video/clip/_/id/50558528/georgia-dominates-south-carolina-34-6-improve-10-1",
+         "self": {
+          "href": "https://www.espn.com/video/clip/_/id/50558528/georgia-dominates-south-carolina-34-6-improve-10-1",
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=cfe27e3587fdf"
+          }
+         }
+        }
+       },
+       "ad": {
+        "bundle": "ncf_highlights",
+        "sport": "ncf"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "NCAA Football",
+        "program": "ABC",
+        "sportName": "football",
+        "trackingId": "dm_20261122_NCF_georgia_dominates_south_carolina_346_to_improve_to_101",
+        "trackingName": "NCF_One-Play (Georgia dominates South Carolina 34-6 to improve to 10-1) 2026/11/22 ESHEET"
+       }
+      },
+      {
+       "id": 50558598,
+       "cerebroId": "6b02685e7f6a5e2e3638de34",
+       "source": "espn",
+       "headline": "Georgia Bulldogs vs. South Carolina Gamecocks: Full Highlights",
+       "description": "Georgia Bulldogs vs. South Carolina Gamecocks: Full Highlights",
+       "lastModified": "2026-11-22T04:09:21Z",
+       "originalPublishDate": "2026-11-22T03:58:23Z",
+       "duration": 78,
+       "timeRestrictions": {
+        "embargoDate": "2026-11-22T03:58:21Z",
+        "expirationDate": "2038-01-01T04:59:59Z"
+       },
+       "deviceRestrictions": {
+        "devices": [
+         "settop",
+         "tablet",
+         "handset",
+         "ipad",
+         "desktop"
+        ],
+        "type": "whitelist"
+       },
+       "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d.jpg",
+       "links": {
+        "api": {
+         "artwork": {
+          "href": "https://artwork.api.espn.com/artwork/collections/media/bfeca5f4-e750-41b8-bdb2-341f0059e960"
+         },
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/50558598"
+         }
+        },
+        "mobile": {
+         "href": "https://watch.auth.api.espn.com/video/auth/brightcove/bfeca5f4-e750-41b8-bdb2-341f0059e960/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50558598/full-highlights",
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=50558598"
+         },
+         "progressiveDownload": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/bfeca5f4-e750-41b8-bdb2-341f0059e960/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50558598/full-highlights"
+         },
+         "source": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d.mp4"
+         },
+         "streaming": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/bfeca5f4-e750-41b8-bdb2-341f0059e960/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50558598/full-highlights"
+         }
+        },
+        "source": {
+         "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d.mp4",
+         "HD": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d.mp4"
+         },
+         "HLS": {
+          "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d/playlist.m3u8",
+          "9x16": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/9x16/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d/playlist.m3u8"
+          },
+          "HD": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d/playlist.m3u8",
+           "9x16": {
+            "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/9x16/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d/playlist.m3u8"
+           },
+           "cmb": {
+            "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/cmb/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d/playlist.m3u8"
+           }
+          },
+          "cmb": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/cmb/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d/playlist.m3u8"
+          },
+          "shield": {
+           "href": "https://watch.auth.api.espn.com/video/auth/media/bfeca5f4-e750-41b8-bdb2-341f0059e960/asset"
+          }
+         },
+         "flash": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d.mp4"
+         },
+         "full": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d.mp4"
+         },
+         "mezzanine": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1122/ef8d67bb-ef9c-4f62-8403-a534939aab8d/ef8d67bb-ef9c-4f62-8403-a534939aab8d.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=50558598&videoDSI=e9808b5597961"
+        },
+        "web": {
+         "href": "https://www.espn.com/video/clip/_/id/50558598/full-highlights",
+         "self": {
+          "href": "https://www.espn.com/video/clip/_/id/50558598/full-highlights",
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=e9808b5597961"
+          }
+         }
+        }
+       },
+       "ad": {
+        "bundle": "ncf_highlights",
+        "sport": "ncf"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "NCAA Football",
+        "program": "ABC",
+        "sportName": "football",
+        "trackingId": "dm_20261122_NCF_georgia_bulldogs_vs_south_carolina_gamecocks_full_highlights",
+        "trackingName": "NCF_One-Play (Georgia Bulldogs vs. South Carolina Gamecocks: Full Highlights) 2026/11/22 ESHEET"
+       }
+      }
+     ]
+    }
+   ],
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 4,
+    "type": {
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "state": "post",
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "shortDetail": "Final"
+    }
+   }
+  },
+  {
+   "id": "401856746",
+   "uid": "s:20~l:23~e:401856746",
+   "date": "2026-11-21T19:00Z",
+   "name": "Chattanooga Mocs at Alabama Crimson Tide",
+   "shortName": "UTC @ ALA",
+   "season": {
+    "year": 2026,
+    "type": 2,
+    "slug": "regular-season"
+   },
+   "week": {
+    "number": 12
+   },
+   "competitions": [
+    {
+     "id": "401856746",
+     "uid": "s:20~l:23~e:401856746~c:401856746",
+     "date": "2026-11-21T19:00Z",
+     "attendance": 98552,
+     "type": {
+      "id": "1",
+      "abbreviation": "STD"
+     },
+     "timeValid": true,
+     "dateValid": true,
+     "neutralSite": false,
+     "conferenceCompetition": false,
+     "playByPlayAvailable": true,
+     "recent": false,
+     "venue": {
+      "id": "3657",
+      "fullName": "Bryant-Denny Stadium",
+      "address": {
+       "city": "Tuscaloosa",
+       "state": "AL",
+       "country": "USA"
+      },
+      "indoor": false
+     },
+     "competitors": [
+      {
+       "id": "333",
+       "uid": "s:20~l:23~t:333",
+       "type": "team",
+       "order": 0,
+       "homeAway": "home",
+       "winner": true,
+       "team": {
+        "id": "333",
+        "uid": "s:20~l:23~t:333",
+        "location": "Alabama",
+        "name": "Crimson Tide",
+        "abbreviation": "ALA",
+        "displayName": "Alabama Crimson Tide",
+        "shortDisplayName": "Alabama",
+        "color": "9e1b32",
+        "alternateColor": "ffffff",
+        "isActive": true,
+        "venue": {
+         "id": "3657"
+        },
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/333.png",
+        "conferenceId": "8"
+       },
+       "score": "47",
+       "linescores": [
+        {
+         "value": 9.0,
+         "displayValue": "9",
+         "period": 1
+        },
+        {
+         "value": 24.0,
+         "displayValue": "24",
+         "period": 2
+        },
+        {
+         "value": 7.0,
+         "displayValue": "7",
+         "period": 3
+        },
+        {
+         "value": 7.0,
+         "displayValue": "7",
+         "period": 4
+        }
+       ],
+       "statistics": [],
+       "curatedRank": {
+        "current": 3
+       },
+       "records": [
+        {
+         "name": "overall",
+         "abbreviation": "Game",
+         "type": "total",
+         "summary": "9-2"
+        },
+        {
+         "name": "Home",
+         "type": "home",
+         "summary": "5-1"
+        },
+        {
+         "name": "Road",
+         "type": "road",
+         "summary": "4-1"
+        },
+        {
+         "name": "vs. Conf.",
+         "type": "vsconf",
+         "summary": "6-2"
+        }
+       ]
+      },
+      {
+       "id": "236",
+       "uid": "s:20~l:23~t:236",
+       "type": "team",
+       "order": 1,
+       "homeAway": "away",
+       "winner": false,
+       "team": {
+        "id": "236",
+        "uid": "s:20~l:23~t:236",
+        "location": "Chattanooga",
+        "name": "Mocs",
+        "abbreviation": "UTC",
+        "displayName": "Chattanooga Mocs",
+        "shortDisplayName": "Chattanooga",
+        "color": "00386b",
+        "alternateColor": "dca71d",
+        "isActive": true,
+        "venue": {
+         "id": "3720"
+        },
+        "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/236.png",
+        "logoDark": "https://a.espncdn.com/i/teamlogos/ncaa/500-dark/236.png",
+        "conferenceId": "29"
+       },
+       "score": "0",
+       "linescores": [
+        {
+         "value": 0.0,
+         "displayValue": "0",
+         "period": 1
+        },
+        {
+         "value": 0.0,
+         "displayValue": "0",
+         "period": 2
+        },
+        {
+         "value": 0.0,
+         "displayValue": "0",
+         "period": 3
+        },
+        {
+         "value": 0.0,
+         "displayValue": "0",
+         "period": 4
+        }
+       ],
+       "statistics": [],
+       "curatedRank": {
+        "current": 99
+       },
+       "records": [
+        {
+         "name": "overall",
+         "abbreviation": "Game",
+         "type": "total",
+         "summary": "7-5"
+        },
+        {
+         "name": "Home",
+         "type": "home",
+         "summary": "3-2"
+        },
+        {
+         "name": "Road",
+         "type": "road",
+         "summary": "4-3"
+        },
+        {
+         "name": "vs. Conf.",
+         "type": "vsconf",
+         "summary": "6-2"
+        }
+       ]
+      }
+     ],
+     "notes": [],
+     "status": {
+      "clock": 0.0,
+      "displayClock": "0:00",
+      "period": 4,
+      "type": {
+       "id": "3",
+       "name": "STATUS_FINAL",
+       "state": "post",
+       "completed": true,
+       "description": "Final",
+       "detail": "Final",
+       "shortDetail": "Final"
+      }
+     },
+     "broadcasts": [
+      {
+       "market": "national",
+       "names": [
+        "SECN+"
+       ]
+      }
+     ],
+     "format": {
+      "regulation": {
+       "periods": 4
+      }
+     },
+     "startDate": "2026-11-21T19:00Z",
+     "broadcast": "SECN+",
+     "geoBroadcasts": [
+      {
+       "type": {
+        "id": "4",
+        "shortName": "Streaming"
+       },
+       "market": {
+        "id": "1",
+        "type": "National"
+       },
+       "media": {
+        "shortName": "SECN+",
+        "logo": "https://a.espncdn.com/guid/d1e3d7c4-8e72-37f3-b9b9-515573fd5526/logos/default.png",
+        "darkLogo": ""
+       },
+       "lang": "en",
+       "region": "us"
+      }
+     ],
+     "highlights": [
+      {
+       "id": 50554412,
+       "cerebroId": "6b0214bce0b9b66f46f4c607",
+       "source": "espn",
+       "headline": "Chattanooga Mocs vs. Alabama Crimson Tide: Full Highlights",
+       "description": "Chattanooga Mocs vs. Alabama Crimson Tide: Full Highlights",
+       "lastModified": "2026-11-21T22:20:01Z",
+       "originalPublishDate": "2026-11-21T22:01:33Z",
+       "duration": 75,
+       "timeRestrictions": {
+        "embargoDate": "2026-11-21T22:01:31Z",
+        "expirationDate": "2038-01-01T04:59:59Z"
+       },
+       "deviceRestrictions": {
+        "devices": [
+         "settop",
+         "tablet",
+         "handset",
+         "ipad",
+         "desktop"
+        ],
+        "type": "whitelist"
+       },
+       "thumbnail": "https://espnmedia-cdn.akamaized.net/espn/media/common/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7.jpg",
+       "links": {
+        "api": {
+         "artwork": {
+          "href": "https://artwork.api.espn.com/artwork/collections/media/4c5a7a2f-28fa-43e3-8997-3d87758ee7f4"
+         },
+         "self": {
+          "href": "https://content.core.api.espn.com/v1/video/clips/50554412"
+         }
+        },
+        "mobile": {
+         "href": "https://watch.auth.api.espn.com/video/auth/brightcove/4c5a7a2f-28fa-43e3-8997-3d87758ee7f4/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50554412/full-highlights",
+         "alert": {
+          "href": "https://m.espn.com/general/video/videoAlert?vid=50554412"
+         },
+         "progressiveDownload": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/4c5a7a2f-28fa-43e3-8997-3d87758ee7f4/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50554412/full-highlights"
+         },
+         "source": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7.mp4"
+         },
+         "streaming": {
+          "href": "https://watch.auth.api.espn.com/video/auth/brightcove/4c5a7a2f-28fa-43e3-8997-3d87758ee7f4/asset?UMADPARAMreferer=https://www.espn.com/video/clip/_/id/50554412/full-highlights"
+         }
+        },
+        "source": {
+         "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7.mp4",
+         "HD": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7.mp4"
+         },
+         "HLS": {
+          "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/playlist.m3u8",
+          "9x16": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/9x16/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/playlist.m3u8"
+          },
+          "HD": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/playlist.m3u8"
+          },
+          "cmaf": {
+           "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/playlist.m3u8",
+           "9x16": {
+            "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/9x16/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/playlist.m3u8"
+           },
+           "cmb": {
+            "href": "https://cmp-espn.media.dssott.com/opp/cmaf/espn/cmb/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/playlist.m3u8"
+           }
+          },
+          "cmb": {
+           "href": "https://cmp-espn.media.dssott.com/opp/hls/espn/cmb/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/playlist.m3u8"
+          },
+          "shield": {
+           "href": "https://watch.auth.api.espn.com/video/auth/media/4c5a7a2f-28fa-43e3-8997-3d87758ee7f4/asset"
+          }
+         },
+         "flash": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7.mp4"
+         },
+         "full": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7.mp4"
+         },
+         "mezzanine": {
+          "href": "https://espnmedia-cdn.akamaized.net/espn/media/16x9/wsc/2026/1121/0cab971a-60f4-42ab-b1af-c434e8dc2aa7/0cab971a-60f4-42ab-b1af-c434e8dc2aa7.mp4"
+         }
+        },
+        "sportscenter": {
+         "href": "sportscenter://x-callback-url/showVideo?videoID=50554412&videoDSI=182c44964d9c7"
+        },
+        "web": {
+         "href": "https://www.espn.com/video/clip/_/id/50554412/full-highlights",
+         "self": {
+          "href": "https://www.espn.com/video/clip/_/id/50554412/full-highlights",
+          "dsi": {
+           "href": "https://www.espn.com/video/clip?id=182c44964d9c7"
+          }
+         }
+        }
+       },
+       "ad": {
+        "bundle": "ncf_highlights",
+        "sport": "ncf"
+       },
+       "tracking": {
+        "coverageType": "Final Game Highlight",
+        "leagueName": "NCAA Football",
+        "program": "NCAA Football",
+        "sportName": "football",
+        "trackingId": "dm_20261121_NCF_chattanooga_mocs_vs_alabama_crimson_tide_full_highlights",
+        "trackingName": "NCF_One-Play (Chattanooga Mocs vs. Alabama Crimson Tide: Full Highlights) 2026/11/21 ESHEET"
+       }
+      }
+     ]
+    }
+   ],
+   "status": {
+    "clock": 0.0,
+    "displayClock": "0:00",
+    "period": 4,
+    "type": {
+     "id": "3",
+     "name": "STATUS_FINAL",
+     "state": "post",
+     "completed": true,
+     "description": "Final",
+     "detail": "Final",
+     "shortDetail": "Final"
+    }
+   }
+  }
+ ],
+ "provider": {
+  "id": "100",
+  "name": "Draft Kings",
+  "displayName": "Draft Kings",
+  "priority": 1
+ },
+ "week": {
+  "number": 12
+ }
+}

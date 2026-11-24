@@ -25,6 +25,9 @@ READ_ALLOWED = {
     "hoopsedge/ratings/history.py",
     "hoopsedge/ingest/curated.py",
     "hoopsedge/ingest/live.py",  # Compares a game's own delta when checking for corrections.
+    # v2 results and registry: the tables' own writer and reader. Whole seasons, no as_of: the L5
+    # inputs (A2) cut them at kickoff, and are tested for that.
+    "hoopsedge/ingest/scores.py",
     "hoopsedge/features/training.py",  # Reads its own output, to append new games only.
     # Point-in-time features, season flags, and market lines that only score predictions.
     "hoopsedge/backtest/data.py",
