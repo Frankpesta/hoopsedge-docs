@@ -880,7 +880,8 @@ def _names(now: datetime, done: dict[str, str] | None = None) -> set[str]:
 
 def test_learning_starts_at_eleven_lagos_one_league_at_a_time() -> None:
     assert _names(LAGOS_11) == {"learn-NBA", "learn-NCAA"}
-    assert _names(LAGOS_11 - timedelta(minutes=1)) == set()
+    # Other jobs may be inside their own window then (the 08:00 scores refresh); learning isn't.
+    assert not {"learn-NBA", "learn-NCAA"} & _names(LAGOS_11 - timedelta(minutes=1))
 
 
 def test_each_slate_runs_at_its_own_time() -> None:
