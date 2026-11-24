@@ -4,6 +4,7 @@
 sports:
   NCAAF:
     enabled: true
+    sport_id: "sr:sport:16"
     tournament_ids: ["sr:tournament:27653"]
     espn: { path: "football/college-football", groups: [80, 81] }
     l5_window: 5
@@ -17,6 +18,7 @@ sports:
     min_cushion: 0.0
   NCAAB:
     enabled: true
+    sport_id: "sr:sport:2"
     tournament_ids: ["sr:tournament:648"]
     espn: { path: "basketball/mens-college-basketball", groups: [50] }
     l5_window: 5
@@ -30,6 +32,7 @@ sports:
     min_cushion: 0.0
   NBA:
     enabled: true
+    sport_id: "sr:sport:2"
     tournament_ids: ["sr:tournament:132"]
     espn: { path: "basketball/nba", groups: [] }
     l5_window: 5
@@ -44,6 +47,7 @@ sports:
 outlook: { low_max: 2, medium_max: 5 }
 tickets:
   max_legs: 20
+  min_legs: 2 # D4 (CLAUDE.md): never book a one-leg ticket, never pad one.
   max_games_per_kind: 100
   booking_cutoff_minutes: 20
   kinds: { TOTALS_LEAN: true, TEAM_TOTALS: true, TOTALS_ALL_OVER: false, TOTALS_ALL_UNDER: false }

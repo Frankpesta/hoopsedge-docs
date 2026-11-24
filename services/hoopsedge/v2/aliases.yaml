@@ -1,0 +1,14 @@
+# Seed aliases per sport: SportyBet name -> ESPN team ID (brief §5.3, D89). IDs were looked up in
+# the ESPN registry, never guessed. The owner's own aliases live in DynamoDB as ALIAS#{sport} and
+# win over these. The brief's basketball seeds come with the v2 NCAAB registry (B2).
+NCAAF:
+  Connecticut Huskies: "41" # UConn Huskies (brief seed, football)
+  Delaware Fightin´ Blue Hens: "48" # Delaware Blue Hens (brief seed; also found by location+mascot)
+  Middle Tennessee State Blue Raiders: "2393" # Middle Tennessee Blue Raiders (brief seed)
+  # Seen on SportyBet's NCAAF list on 2026-11-23 (D92 spike), matched by hand to ESPN.
+  Miami Ohio RedHawks: "193" # Miami (OH) RedHawks
+  Appalachian State Mountaineers: "2026" # App State Mountaineers
+  Louisiana-Monroe Warhawks: "2433" # UL Monroe Warhawks
+  Marshall Herd: "276" # Marshall Thundering Herd
+  FIU Panthers: "2229" # Florida International Panthers
+  UMASS Minutemen: "113" # Massachusetts Minutemen

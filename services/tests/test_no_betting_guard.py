@@ -7,6 +7,7 @@ SERVICES = Path(__file__).resolve().parent.parent
 GUARDED = [
     *sorted((SERVICES / "hoopsedge" / "sportybet").rglob("*.*")),
     *sorted((SERVICES / "hoopsedge" / "pipeline").rglob("*.*")),
+    *sorted((SERVICES / "hoopsedge" / "v2").rglob("*.*")),
     SERVICES / "hoopsedge" / "ingest" / "collector.py",
     SERVICES.parent / "scripts" / "sportybet_discovery.py",
 ]
