@@ -141,6 +141,7 @@ def test_run_now_launches_the_v2_slate(monkeypatch: pytest.MonkeyPatch) -> None:
     LocalRunStarter().start("NCAAB", SLATE, "ignored")
     assert launched[0][1:] == [
         "-m", "hoopsedge.v2.slate", "run", "--sport", "NCAAB", "--date", "2026-11-24",
+        "--trigger", "dashboard",
     ]  # fmt: skip
 
 
@@ -242,8 +243,9 @@ def test_ncaaf_runs_at_18_daily_and_also_14_on_saturdays() -> None:
 def test_a_slate_job_runs_the_v2_slate_for_the_eastern_date() -> None:
     late = datetime(2026, 11, 25, 3, 30, tzinfo=UTC)  # 04:30 Lagos, still the 24th in the US.
     [job] = due_jobs(late, {}, {"nba_late_slate": "04:00"})
-    assert job.command[-6:] == (
-        "hoopsedge.v2.slate", "run", "--sport", "NBA", "--date", "2026-11-24",
+    assert job.command[-8:] == (
+        "hoopsedge.v2.slate", "run", "--sport", "NBA", "--date", "2026-11-24", "--trigger",
+        "scheduled",
     )  # fmt: skip
 
 

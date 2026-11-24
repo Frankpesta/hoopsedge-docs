@@ -1,14 +1,18 @@
-"""v2 slate run (A3): ESPN refresh, SportyBet lines, L5 predictions, legs, dry-run tickets, CSV.
+"""v2 slate run: ESPN refresh, SportyBet lines, L5 predictions, legs, tickets, codes, CSV.
 
-    docker compose run --rm dev python -m hoopsedge.v2.slate run --sport NCAAF --date 2026-11-28
+    docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.slate \
+        run --sport NCAAB --date 2026-11-24
+    ... rebook --sport NCAAB --date 2026-11-24 --ticket-id <id>
 
 Every run gets its own folder, `data/v2/runs/{sport}/{date}/{run_id}/`, holding the CSV in the
 owner's format (brief §8.1), `run.json` with every row, leg, ticket, drop and failure, and the raw
-SportyBet responses. Nothing is overwritten: a re-run is a new folder (invariant 6).
+SportyBet responses. Nothing is overwritten: a re-run is a new folder (invariant 6), and the
+slate's `index.json` records what superseded or rebooked what (`v2.booking`).
 
-Booking is dry-run only in A3: each ticket gets a `DRYRUN-` code and its exact booking payload.
-Lines are re-checked from responses no more than 5 minutes old just before the codes are made
-(invariant 3), and started or soon-starting games are dropped (invariant 2, D86).
+Lines are re-checked from responses no more than 5 minutes old just before each code is made
+(invariant 3), and started or soon-starting games are dropped (invariant 2, D86). Codes are
+practice `DRYRUN-` codes unless both switches allow real ones (D97, `common.booking_mode`); real
+codes are read back and verified (invariant 4).
 """
 
 import argparse
@@ -18,7 +22,7 @@ import io
 import json
 import os
 import sys
-from collections.abc import Callable, Iterable, Mapping
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
@@ -27,6 +31,7 @@ from zoneinfo import ZoneInfo
 
 import polars as pl
 
+from hoopsedge.common.booking_mode import is_dry_run
 from hoopsedge.common.config_v2 import SportConfig, TierThresholds, V2Config, load_defaults
 from hoopsedge.common.dynamo import connect, ensure_table, table_name
 from hoopsedge.common.http import PoliteClient
@@ -52,11 +57,22 @@ from hoopsedge.l5.model import (
 )
 from hoopsedge.l5.model import team_input as l5_team_input
 from hoopsedge.sportybet.client import BlockedError, SportyBetClient, SportyBetError, build_client
+from hoopsedge.v2.booking import (
+    DRY_RUN,
+    Booked,
+    Booker,
+    Recheck,
+    book_ticket,
+    leg_document,
+    leg_from_document,
+    read_index,
+    record_run,
+)
 from hoopsedge.v2.legs import KINDS, Kind, Leg, game_legs, recheck, team_lines
 from hoopsedge.v2.lines import EventLines, LineShapeError, main_line, parse_event
 from hoopsedge.v2.names import Directory, EspnGame, EventMatch, Team, match_event, seed_aliases
-from hoopsedge.v2.store import add_alias, owner_aliases, save_unmatched
-from hoopsedge.v2.tickets import Dropped, Ticket, build_tickets, dry_run_code
+from hoopsedge.v2.store import add_alias, alert, owner_aliases, save_unmatched, settings_dry_run
+from hoopsedge.v2.tickets import Dropped, Ticket, build_tickets
 
 FRESH_FOR = timedelta(minutes=5)  # Invariant 3.
 SLATE_MARGIN = timedelta(hours=6)  # SportyBet's start can differ from ESPN's.
@@ -377,22 +393,38 @@ def _jsonable(value: Any) -> Any:
     raise TypeError(f"Can't write {type(value).__name__}")
 
 
-def ticket_document(ticket: Ticket, ticket_id: str, code: str, zone: ZoneInfo) -> dict[str, Any]:
+def ticket_document(
+    ticket: Ticket,
+    ticket_id: str,
+    booked: Booked,
+    zone: ZoneInfo,
+    rebook_of: str | None = None,
+) -> dict[str, Any]:
+    """The ticket as booked (after its final re-check), or as built if nothing was left."""
+    final = booked.ticket or ticket
     return {
         "ticket_id": ticket_id,
-        "kind": ticket.kind,
-        "number": ticket.number,
-        "code": code,
-        "dry_run": code.startswith("DRYRUN-"),
-        "legs": len(ticket.legs),
-        "total_odds": ticket.total_odds,
-        "bookmaker_implied_probability": ticket.bookmaker_implied,
-        "earliest_kickoff": ticket.earliest_kickoff.isoformat(),
-        "earliest_kickoff_wat": ticket.earliest_kickoff.astimezone(zone).strftime("%Y-%m-%d %H:%M"),
-        "model_disagrees": ticket.model_disagrees,
-        "selections": ticket.selections(),
-        "leg_details": [asdict(leg) for leg in ticket.legs],
-    }
+        "kind": final.kind,
+        "number": final.number,
+        "status": booked.status,
+        "code": booked.code,
+        "reason": booked.reason,
+        "dry_run": booked.status == DRY_RUN,
+        "rebook_of": rebook_of,
+        "legs": len(final.legs),
+        "total_odds": final.total_odds,
+        "bookmaker_implied_probability": final.bookmaker_implied,
+        "earliest_kickoff": final.earliest_kickoff.isoformat(),
+        "earliest_kickoff_wat": final.earliest_kickoff.astimezone(zone).strftime("%Y-%m-%d %H:%M"),
+        "model_disagrees": final.model_disagrees,
+        "selections": final.selections(),
+        "leg_details": [leg_document(leg) for leg in final.legs],
+        "dropped_at_booking": [
+            {"reason": item.reason, "leg": leg_document(item.leg)} for item in booked.dropped
+        ],
+        "verification": {"missing": [list(k) for k in booked.missing],
+                         "extra": [list(k) for k in booked.extra]},
+    }  # fmt: skip
 
 
 def _row_document(row: GameRow) -> dict[str, Any]:
@@ -478,8 +510,11 @@ def run_slate(
     levels: dict[str, str],
     directory: Directory,
     run_dir: Path,
+    booker: Booker,
+    trigger: str = "manual",
 ) -> dict[str, Any]:
-    """The whole run after ESPN data is loaded. Writes into `run_dir` as it goes."""
+    """The whole run after ESPN data is loaded. Writes into `run_dir` as it goes, then records
+    its tickets in the slate's index (superseding earlier real codes when it books real ones)."""
     sport_config = config.sports[sport]  # type: ignore[index]
     zone = ZoneInfo(config.timezone_display)
     cutoff = timedelta(minutes=config.tickets.booking_cutoff_minutes)
@@ -489,7 +524,8 @@ def run_slate(
         "sport": sport,
         "slate": slate.isoformat(),
         "status": "running",
-        "dry_run": True,
+        "trigger": trigger,
+        "dry_run": not booker.live,
         "started_at": started.isoformat(),
         "config": config.model_dump(by_alias=True, mode="json"),
         "config_hash": _config_hash(config),
@@ -514,13 +550,18 @@ def run_slate(
         )
         tickets, more = build_tickets(kind, checked, config.tickets, runner.clock())
         for item in dropped + more:
-            dropped_out.append({"kind": kind, "reason": item.reason, "leg": asdict(item.leg)})
+            dropped_out.append({"kind": kind, "reason": item.reason, "leg": leg_document(item.leg)})
         for ticket in tickets:
             ticket_id = new_ulid(runner.clock())
-            tickets_out.append(ticket_document(ticket, ticket_id, dry_run_code(ticket_id), zone))
+            booked = book_ticket(
+                booker, ticket, ticket_id, final_recheck(runner, sport_config, cutoff),
+                config.tickets.min_legs,
+            )  # fmt: skip
+            tickets_out.append(ticket_document(ticket, ticket_id, booked, zone))
     document.update(
         {
-            "status": "succeeded",
+            "status": "failed" if booker.stopped else "succeeded",
+            "error": booker.stopped,
             "ended_at": runner.clock().isoformat(),
             "counts": {
                 "events_listed": len(events),
@@ -539,6 +580,60 @@ def run_slate(
         }
     )
     _write_json(run_dir / "run.json", document)
+    record_run(run_dir.parent, run_dir.name, trigger, tickets_out)
+    return document
+
+
+def final_recheck(runner: "Runner", config: SportConfig, cutoff: timedelta) -> Recheck:
+    """The last look before a code is made: lines no more than 5 minutes old (invariant 3)."""
+
+    def check(legs: Sequence[Leg]) -> tuple[list[Leg], list[Dropped]]:
+        return recheck_legs(legs, runner.fresh, config, runner.clock(), cutoff)
+
+    return check
+
+
+def rebook(
+    runner: "Runner",
+    slate_dir: Path,
+    ticket_id: str,
+    config: V2Config,
+    sport: str,
+    booker: Booker,
+    run_dir: Path,
+) -> dict[str, Any]:
+    """Brief §7: drop started legs, re-check the rest against fresh lines, book a new code, and
+    link the two tickets. The old ticket and its run stay as they were."""
+    entry = read_index(slate_dir)["tickets"].get(ticket_id)
+    if entry is None:
+        raise RunFailed(f"No ticket {ticket_id} on this slate")
+    old_run = json.loads((slate_dir / entry["run_id"] / "run.json").read_text("utf-8"))
+    old = next(t for t in old_run["tickets"] if t["ticket_id"] == ticket_id)
+    legs = tuple(leg_from_document(item) for item in old["leg_details"])
+    ticket = Ticket(old["kind"], old["number"], legs)
+    sport_config = config.sports[sport]  # type: ignore[index]
+    cutoff = timedelta(minutes=config.tickets.booking_cutoff_minutes)
+    new_id = new_ulid(runner.clock())
+    booked = book_ticket(
+        booker, ticket, new_id, final_recheck(runner, sport_config, cutoff),
+        config.tickets.min_legs,
+    )  # fmt: skip
+    zone = ZoneInfo(config.timezone_display)
+    document: dict[str, Any] = {
+        "run_id": run_dir.name,
+        "sport": sport,
+        "slate": slate_dir.name,
+        "trigger": "rebook",
+        "dry_run": not booker.live,
+        "status": "failed" if booker.stopped else "succeeded",
+        "error": booker.stopped,
+        "started_at": runner.clock().isoformat(),
+        "config_hash": _config_hash(config),
+        "rebook_of": ticket_id,
+        "tickets": [ticket_document(ticket, new_id, booked, zone, rebook_of=ticket_id)],
+    }
+    _write_json(run_dir / "run.json", document)
+    record_run(slate_dir, run_dir.name, "rebook", document["tickets"], rebook_of=ticket_id)
     return document
 
 
@@ -565,7 +660,8 @@ def summary_text(document: Mapping[str, Any]) -> str:
             f"  {ticket['kind']} #{ticket['number']}: {ticket['legs']} legs, odds "
             f"{ticket['total_odds']}, bookmaker-implied "
             f"{100 * ticket['bookmaker_implied_probability']:.2g}%, "
-            f"first kickoff {ticket['earliest_kickoff_wat']} WAT, code {ticket['code']}"
+            f"first kickoff {ticket['earliest_kickoff_wat']} WAT, {ticket['status']} "
+            f"{ticket['code'] or ''} {ticket.get('reason') or ''}".rstrip()
         )
     for item in document.get("unmatched", []):
         lines.append(
@@ -579,10 +675,15 @@ def summary_text(document: Mapping[str, Any]) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    run = commands.add_parser("run", help="Predict a slate and make dry-run tickets")
+    run = commands.add_parser("run", help="Predict a slate and book its tickets")
     run.add_argument("--sport", choices=["NCAAF", "NCAAB", "NBA"], required=True)
     run.add_argument("--date", type=date.fromisoformat, required=True, help="Eastern slate date")
     run.add_argument("--no-refresh", action="store_true", help="Skip the ESPN refresh")
+    run.add_argument("--trigger", default="manual", choices=["manual", "scheduled", "dashboard"])
+    again = commands.add_parser("rebook", help="Rebook one ticket without its started legs")
+    again.add_argument("--sport", choices=["NCAAF", "NCAAB", "NBA"], required=True)
+    again.add_argument("--date", type=date.fromisoformat, required=True, help="Eastern slate date")
+    again.add_argument("--ticket-id", required=True)
     alias = commands.add_parser("alias", help="Add an owner alias: SportyBet name to ESPN team")
     alias.add_argument("--sport", choices=["NCAAF", "NCAAB", "NBA"], required=True)
     alias.add_argument("--name", required=True, help="The SportyBet name, as SportyBet writes it")
@@ -605,6 +706,28 @@ def main() -> int:
         return 0
 
     config = load_defaults()
+    now = datetime.now(UTC)
+    slate_dir = data_dir / f"v2/runs/{args.sport}/{args.date}"
+    run_dir = slate_dir / new_ulid(now)
+    runner = Runner(build_client(run_dir / "raw"), data_dir)
+    live = not is_dry_run(settings_dry_run(table))
+
+    def raise_alert(severity: str, key: str, message: str) -> None:
+        alert(table, datetime.now(UTC), severity, key, message, run_dir.name)
+
+    booker = Booker(runner.client if live else None, live, raise_alert)
+    if args.command == "rebook":
+        try:
+            document = rebook(
+                runner, slate_dir, args.ticket_id, config, args.sport, booker, run_dir
+            )
+        except (SportyBetError, RunFailed, LineShapeError) as error:
+            raise_alert("CRITICAL", "rebook-failed", f"{type(error).__name__}: {error}")
+            print(f"FAILED: {type(error).__name__}: {error}", file=sys.stderr)
+            return 1
+        print(summary_text(document))
+        return 1 if document["status"] == "failed" else 0
+
     season = season_for(args.date, SOURCES[args.sport])
     if not args.no_refresh:
         http = PoliteClient(USER_AGENT, rate_per_second=2.0)
@@ -613,19 +736,19 @@ def main() -> int:
         finally:
             http.close()
         if outcome["failures"]:
-            print(f"ESPN refresh failed for {sorted(outcome['failures'])}", file=sys.stderr)
+            message = f"ESPN refresh failed for {sorted(outcome['failures'])}"
+            raise_alert("CRITICAL", "run-failed", f"{args.sport} {args.date}: {message}")
+            print(message, file=sys.stderr)
             return 1
         write_season(data_dir, SOURCES[args.sport], season)
     results, finals, levels = season_inputs(data_dir, args.sport, season)
     aliases = {**seed_aliases(args.sport), **owner_aliases(table, args.sport)}
     directory = directory_for(read_teams(data_dir, args.sport, season), aliases)
-    now = datetime.now(UTC)
-    run_dir = data_dir / f"v2/runs/{args.sport}/{args.date}/{new_ulid(now)}"
-    runner = Runner(build_client(run_dir / "raw"), data_dir)
     try:
         document = run_slate(
-            runner, args.sport, args.date, config, results, finals, levels, directory, run_dir
-        )
+            runner, args.sport, args.date, config, results, finals, levels, directory, run_dir,
+            booker, args.trigger,
+        )  # fmt: skip
     except (SportyBetError, RunFailed, LineShapeError) as error:
         failed = json.loads((run_dir / "run.json").read_text("utf-8"))
         failed.update(
@@ -633,6 +756,7 @@ def main() -> int:
              "ended_at": datetime.now(UTC).isoformat()}
         )  # fmt: skip
         _write_json(run_dir / "run.json", failed)
+        raise_alert("CRITICAL", "run-failed", f"{args.sport} {args.date}: {failed['error']}")
         print(f"FAILED: {failed['error']}", file=sys.stderr)
         print(f"Partial run kept in {run_dir}", file=sys.stderr)
         return 1
@@ -640,7 +764,7 @@ def main() -> int:
         save_unmatched(table, args.sport, item, now)
     print(summary_text(document))
     print(f"Run folder: {run_dir}")
-    return 0
+    return 1 if document["status"] == "failed" else 0
 
 
 if __name__ == "__main__":

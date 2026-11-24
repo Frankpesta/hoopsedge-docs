@@ -59,7 +59,9 @@ services:
       - ./data:/workspace/data
     environment:
       HOOPSEDGE_ENV: local
-      DRY_RUN: "true"
+      # D83, D97: scheduled runs book real codes only when this is "false" in .env AND the
+      # dashboard's Dry run switch is off. It stays true until go-live sign-off (brief Phase 8).
+      DRY_RUN: ${HOOPSEDGE_SCHEDULED_DRY_RUN:-true}
       HOOPSEDGE_GIT_SHA: ${HOOPSEDGE_GIT_SHA:-}
       AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
       AWS_ACCESS_KEY_ID: local
@@ -90,9 +92,10 @@ services:
       - ./data:/workspace/data
     environment:
       HOOPSEDGE_ENV: local
-      # D78: Run now books real codes, and no other service can. Settings' dry-run switch still wins.
+      # D97: Run now books real codes only when the dashboard's Dry run switch is off.
       DRY_RUN: "false"
-      HOOPSEDGE_LOCAL_BOOKING: dashboard
+      # So the System page can say what scheduled runs will do: the scheduler's own DRY_RUN.
+      HOOPSEDGE_SCHEDULER_DRY_RUN: ${HOOPSEDGE_SCHEDULED_DRY_RUN:-true}
       HOOPSEDGE_API_KEY: ${HOOPSEDGE_API_KEY:-}
       AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
       AWS_ACCESS_KEY_ID: local

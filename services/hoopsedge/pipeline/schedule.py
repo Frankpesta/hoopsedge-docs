@@ -9,7 +9,8 @@ Lagos times, each one overridable from the settings document's `schedules`:
 - NCAAF slates at 18:00 every day (weeknight games) and also 14:00 on Saturdays.
 - NCAAB and NBA slates at 16:00 and 21:00; the second catches late lines.
 
-A slate run refreshes ESPN itself before predicting, and is dry-run only for now (D95). The slate
+A slate run refreshes ESPN itself before predicting. It books real codes only when both D97
+switches allow it. The slate
 date is the US Eastern date when the job starts. Each job is its own process, so memory goes back
 between jobs and one failure can't stop the others. A file at `data/scheduler/PAUSED` pauses
 everything, like the `pause_all` flag. The v1 jobs (learning, v1 slates, v1 grading) went to
@@ -93,7 +94,9 @@ def due_jobs(
     for name, (sport, at, saturdays) in SLATES.items():
         if saturdays and local.weekday() != SATURDAY:
             continue
-        run = _module("hoopsedge.v2.slate", "run", "--sport", sport, "--date", slate)
+        run = _module(
+            "hoopsedge.v2.slate", "run", "--sport", sport, "--date", slate, "--trigger", "scheduled"
+        )
         daily(name, _clock(times.get(name), at), run)
     return jobs
 

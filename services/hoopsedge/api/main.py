@@ -39,6 +39,8 @@ class LocalRunStarter:
                 league,
                 "--date",
                 slate.isoformat(),
+                "--trigger",
+                "dashboard",
             ],  # fmt: skip
             env=os.environ.copy(),
         )

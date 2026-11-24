@@ -6,7 +6,7 @@ then `python -m hoopsedge.v2.slate alias` adds one.
 """
 
 from collections.abc import Mapping
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from boto3.dynamodb.conditions import Key
@@ -59,4 +59,24 @@ def save_unmatched(table: Any, sport: str, item: Mapping[str, Any], now: datetim
                 "ttl": int((now + timedelta(days=QUEUE_DAYS)).timestamp()),
             }
         )
+    )
+
+
+def settings_dry_run(table: Any) -> bool:
+    """The dashboard's Dry run switch. Missing or unreadable settings mean dry run (C12)."""
+    item = table.get_item(Key={"pk": "CONFIG", "sk": "CURRENT"}).get("Item")
+    document = (item or {}).get("document") or {}
+    return document.get("dry_run") is not False
+
+
+def alert(table: Any, now: datetime, severity: str, key: str, message: str, ref: str) -> None:
+    """Same item shape as v1's alerts, so the System page lists them."""
+    table.put_item(
+        Item={
+            "pk": "ALERT",
+            "sk": f"{now.astimezone(UTC).isoformat()}#{key}",
+            "severity": severity,
+            "message": message,
+            "ref": ref,
+        }
     )
