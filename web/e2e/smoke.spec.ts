@@ -152,3 +152,10 @@ test("the system page shows the relay and alerts", async ({ page }) => {
   await expect(page.getByText("Relay up")).toBeVisible();
   await expect(page.getByText("NBA run failed")).toBeVisible();
 });
+
+test("the system page says where go-live stands", async ({ page }) => {
+  await page.goto("/system");
+  await expect(page.getByText("3 clean practice days")).toBeVisible();
+  await expect(page.getByText(/^NBA123 · /)).toBeVisible();
+  await expect(page.getByText("HOOPSEDGE_SCHEDULED_DRY_RUN=false", { exact: false })).toBeVisible();
+});

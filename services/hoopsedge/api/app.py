@@ -52,7 +52,7 @@ from hoopsedge.api.schemas import (
 from hoopsedge.api.store import Artifacts, ConflictError, plain
 from hoopsedge.common.booking_mode import is_dry_run
 from hoopsedge.common.dynamo import LOCAL_ENV
-from hoopsedge.v2 import grading, views
+from hoopsedge.v2 import golive, grading, views
 from hoopsedge.v2.config_store import SCHEDULE_NAMES, ConfigDocument, document_from_stored
 from hoopsedge.v2.names import normalize, seed_aliases
 
@@ -524,6 +524,13 @@ def create_app(deps: Deps) -> FastAPI:
             return datetime.fromtimestamp(newest, UTC).isoformat()
 
         last = views.last_run_per_sport(data_dir)
+        now = deps.now()
+        readiness = golive.readiness(
+            golive.read_runs(data_dir),
+            golive.read_jobs(data_dir),
+            golive.alerts_since(store.table, golive.since_for(now)),
+            now,
+        )
         freshness: dict[str, str | None] = {"last_scheduled_job": at("scheduler/runs.jsonl")}
         for sport in SPORTS:
             freshness[f"{sport.value.lower()}_scores"] = scores(sport.value)
@@ -539,6 +546,7 @@ def create_app(deps: Deps) -> FastAPI:
             or os.environ.get("HOOPSEDGE_SCHEDULER_DRY_RUN", "true").strip().lower() != "false",
             "pause_all": bool(document["pause_all"]),
             "relay": relay_cache["value"],
+            "golive": readiness,
         }
 
     app.include_router(api)

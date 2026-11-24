@@ -119,8 +119,9 @@ dc run --rm pipeline python -m hoopsedge.common.backup restore /workspace/data/b
 dc up -d --no-deps scheduler api
 ```
 
-**Moving from `aws-mock` (once, when this lands on `main`).** `aws-mock` held everything in memory,
-so keep what it has before removing it. The still-running `aws-mock` is exported with the new code:
+**Moving from `aws-mock` (done 2026-11-24, at d31b0de).** The old state was exported to
+`data/aws-mock-final/backups/dynamodb/` and the `aws-mock`, `collector` and `live-ingest` containers
+were removed. Kept for the record, the steps were:
 
 ```sh
 git pull --ff-only
@@ -143,6 +144,7 @@ it has to carry over; the file stays for reference.
 dc ps
 dc logs --tail 50 scheduler
 tail -5 data/scheduler/runs.jsonl
+dc run --rm pipeline python -m hoopsedge.v2.golive   # go-live steps (B7, D100); also on the System page
 curl -s https://13-48-245-26.sslip.io/health
 free -h; df -h /
 ```
@@ -152,6 +154,9 @@ free -h; df -h /
 - SportyBet depends on the laptop relay (above).
 - Backups (D91) stay on the server: `data/backups/dynamodb/`, the newest 14 nightly exports.
   Losing the instance's disk loses them too.
-- Real codes come only from the dashboard's Run now (D78). Scheduled and command-line runs stay
-  practice.
+- Real codes need the dashboard's Dry run off and the container's `DRY_RUN=false` (D83, D97).
+  The `api` container has it, so Run now can book. Scheduled runs stay practice until
+  `HOOPSEDGE_SCHEDULED_DRY_RUN=false`, the last go-live step (D100).
+- The NCAAB Unmatched queue fills with Division II games every day. They are left out on purpose
+  (D88), so leave them unresolved.
 - The dashboard has no login (D8): anyone with the Vercel address can use it.
