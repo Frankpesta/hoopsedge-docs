@@ -89,7 +89,7 @@ def check_scoreboard_event(event: dict[str, Any], league: str) -> GameCheck:
         season_type=event.get("season", {}).get("type"),
         et_date=et_date(event["date"]),
         is_final=competition.get("status", {}).get("type", {}).get("name") == "STATUS_FINAL",
-        is_exhibition=_is_exhibition(competition),
+        is_exhibition=is_exhibition(competition),
         periods_present=complete,
         periods_match_score=complete
         and all(
@@ -149,7 +149,8 @@ def check_core_odds(document: dict[str, Any]) -> OddsCheck:
     )
 
 
-def _is_exhibition(competition: dict[str, Any]) -> bool:
+def is_exhibition(competition: dict[str, Any]) -> bool:
+    """All-Star games and the like, which ESPN sometimes files as standard games."""
     if competition.get("type", {}).get("abbreviation") == EXHIBITION_COMPETITION_TYPE:
         return True
     headlines = [str(note.get("headline", "")).lower() for note in competition.get("notes") or []]

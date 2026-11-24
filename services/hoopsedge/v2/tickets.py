@@ -12,6 +12,13 @@ from datetime import datetime, timedelta
 from hoopsedge.common.config_v2 import TicketConfig
 from hoopsedge.v2.legs import Kind, Leg
 
+DRY_RUN_PREFIX = "DRYRUN-"
+
+
+def dry_run_code(ticket_id: str) -> str:
+    """The end of the ID, not its start: a ULID starts with its time, so all would look alike."""
+    return f"{DRY_RUN_PREFIX}{ticket_id[-6:]}"
+
 
 @dataclass(frozen=True)
 class Ticket:

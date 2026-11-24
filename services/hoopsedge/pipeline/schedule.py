@@ -1,11 +1,19 @@
-"""The daily cycle for local soak testing, until EventBridge takes over in Phase 1.
+"""The v2 daily cycle (brief §12), run on the server until a managed scheduler takes over.
 
     docker compose --profile manual up -d scheduler
 
-Dry-run slates at D71's times, grading every 30 minutes, learning at 11:00 Lagos (docs/00), a
-database export at 05:00 Lagos (D84) and the v2 scoreboard refresh at 08:00 Lagos. Each job is
-its own process, so memory goes back between jobs, and one failure can't stop the others. A file
-at `data/scheduler/PAUSED` pauses everything, like the `pause_all` flag.
+Lagos times, each one overridable from the settings document's `schedules`:
+
+- 05:00 database export (D84, D91).
+- 08:00 ESPN scores refresh for every sport, after nearly all US games have ended.
+- NCAAF slates at 18:00 every day (weeknight games) and also 14:00 on Saturdays.
+- NCAAB and NBA slates at 16:00 and 21:00; the second catches late lines.
+
+A slate run refreshes ESPN itself before predicting, and is dry-run only for now (D95). The slate
+date is the US Eastern date when the job starts. Each job is its own process, so memory goes back
+between jobs and one failure can't stop the others. A file at `data/scheduler/PAUSED` pauses
+everything, like the `pause_all` flag. The v1 jobs (learning, v1 slates, v1 grading) went to
+`legacy/` with D96.
 """
 
 import json
@@ -26,15 +34,19 @@ from hoopsedge.common.dynamo import connect, table_name
 from hoopsedge.ingest.espn_coverage import EASTERN
 
 LAGOS = ZoneInfo("Africa/Lagos")
-RUN_TIMES = {"NCAA": clock(15, 0), "NBA": clock(22, 0)}  # D71.
-NBA_LATE_TIME = clock(0, 30)  # D78: later tips get an injury report inside the 3-hour window.
-LEARN_TIME = clock(11, 0)
-BACKUP_TIME = clock(5, 0)  # D84: after the late NBA run, before the day's jobs.
-# v2 A1: 02:00 Eastern, after nearly every game has ended. A later one stays unsettled and is
-# read again on the next refresh, which A3's NCAAF slate also runs before predicting.
+SPORTS = ("NCAAF", "NCAAB", "NBA")
+SATURDAY = 5
+BACKUP_TIME = clock(5, 0)
 SCORES_TIME = clock(8, 0)
-SCORE_SPORTS = ("NCAAF",)
-GRADE_EVERY = timedelta(minutes=30)
+# Name: (sport, default Lagos time, Saturdays only).
+SLATES: dict[str, tuple[str, clock, bool]] = {
+    "ncaaf_slate": ("NCAAF", clock(18, 0), False),
+    "ncaaf_saturday_slate": ("NCAAF", clock(14, 0), True),
+    "ncaab_slate": ("NCAAB", clock(16, 0), False),
+    "ncaab_late_slate": ("NCAAB", clock(21, 0), False),
+    "nba_slate": ("NBA", clock(16, 0), False),
+    "nba_late_slate": ("NBA", clock(21, 0), False),
+}
 TOO_LATE_AFTER = timedelta(hours=3)  # A machine that wakes much later skips that day's job.
 POLL_SECONDS = 30
 DEFAULT_DATA_DIR = "/workspace/data"
@@ -69,27 +81,20 @@ def due_jobs(
         if start <= now < start + TOO_LATE_AFTER and done.get(name) != day:
             jobs.append(Job(name, day, command))
 
-    backup = _module("hoopsedge.common.backup", "export")
-    daily("backup", _clock(times.get("backup"), BACKUP_TIME), backup)
-    for sport in SCORE_SPORTS:
+    daily(
+        "backup",
+        _clock(times.get("backup"), BACKUP_TIME),
+        _module("hoopsedge.common.backup", "export"),
+    )
+    for sport in SPORTS:
         scores = _module("hoopsedge.ingest.scores", "refresh", "--sport", sport)
         daily(f"scores-{sport}", _clock(times.get(f"{sport.lower()}_scores"), SCORES_TIME), scores)
-    learn_at = _clock(times.get("nightly_learn"), LEARN_TIME)
-    for league in ("NBA", "NCAA"):  # C6: one league at a time.
-        learn = _module("hoopsedge.learning.run", "learn", "--league", league)
-        daily(f"learn-{league}", learn_at, learn)
     slate = now.astimezone(EASTERN).date().isoformat()
-    for league, at in RUN_TIMES.items():
-        run = _module(
-            "hoopsedge.pipeline.slate", "run", "--league", league, "--date", slate,
-            "--trigger", "scheduled",
-        )  # fmt: skip
-        daily(f"slate-{league}", _clock(times.get(f"{league.lower()}_slate"), at), run)
-        if league == "NBA":
-            daily("slate-NBA-late", _clock(times.get("nba_late_slate"), NBA_LATE_TIME), run)
-    last = done.get("grade")
-    if last is None or now - datetime.fromisoformat(last) >= GRADE_EVERY:
-        jobs.append(Job("grade", now.isoformat(), _module("hoopsedge.grading.run")))
+    for name, (sport, at, saturdays) in SLATES.items():
+        if saturdays and local.weekday() != SATURDAY:
+            continue
+        run = _module("hoopsedge.v2.slate", "run", "--sport", sport, "--date", slate)
+        daily(name, _clock(times.get(name), at), run)
     return jobs
 
 

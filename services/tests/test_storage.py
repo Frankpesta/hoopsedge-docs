@@ -57,7 +57,7 @@ def test_every_database_user_points_at_the_local_database_and_waits_for_it() -> 
         for name, service in services.items()
         if "AWS_ENDPOINT_URL_DYNAMODB" in (service.get("environment") or {})
     }
-    assert set(users) == {"pipeline", "scheduler", "api", "live-ingest"}
+    assert set(users) == {"pipeline", "scheduler", "api"}  # live-ingest left with D96.
     for name, service in users.items():
         assert service["environment"]["AWS_ENDPOINT_URL_DYNAMODB"] == "http://dynamodb:8000", name
         assert service["depends_on"] == {"dynamodb": {"condition": "service_healthy"}}, name

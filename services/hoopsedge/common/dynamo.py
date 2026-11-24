@@ -1,6 +1,8 @@
 """The DynamoDB single table (docs/12-data-model.md section 1). GAME# items only, so far."""
 
+import json
 import os
+from decimal import Decimal
 from typing import Any
 
 import boto3
@@ -77,3 +79,9 @@ class GameTable:
             return False
         self.table.put_item(Item=item)
         return True
+
+
+def to_item(value: dict[str, Any]) -> dict[str, Any]:
+    """DynamoDB takes Decimals, not floats, so go through JSON once."""
+    item: dict[str, Any] = json.loads(json.dumps(value, default=str), parse_float=Decimal)
+    return item

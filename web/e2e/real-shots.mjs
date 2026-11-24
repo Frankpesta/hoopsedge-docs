@@ -40,7 +40,7 @@ for (const [name, path] of PAGES) {
 
 // A real ticket and game, reached the way the owner would.
 await page.goto(`${BASE}/`);
-const tab = page.getByRole("tab", { name: "NCAA" });
+const tab = page.getByRole("tab", { name: "NCAAB" });
 await tab.click();
 const full = page.getByRole("link", { name: "Full ticket" }).first();
 if (await full.count()) {

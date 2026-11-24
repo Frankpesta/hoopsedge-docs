@@ -8,7 +8,7 @@ type Params = { league?: string; market?: string; from?: string; to?: string };
 
 function query(params: Params): string {
   const search = new URLSearchParams();
-  if (params.league === "NBA" || params.league === "NCAA") search.set("league", params.league);
+  if (["NBA", "NCAAB", "NCAAF"].includes(params.league ?? "")) search.set("league", params.league as string);
   if (params.market && (FAMILIES as readonly string[]).includes(params.market)) {
     search.set("market", params.market);
   }
@@ -45,7 +45,8 @@ export default async function TrackRecordPage({ searchParams }: { searchParams: 
           <select name="league" defaultValue={params.league ?? ""} className={INPUT}>
             <option value="">All</option>
             <option>NBA</option>
-            <option>NCAA</option>
+            <option>NCAAB</option>
+            <option>NCAAF</option>
           </select>
         </Field>
         <Field label="Market">

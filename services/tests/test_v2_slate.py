@@ -9,12 +9,14 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
+import numpy as np
 import polars as pl
 import pytest
 
 from hoopsedge.common.config_v2 import load_defaults
 from hoopsedge.ingest.scores import RESULT_SCHEMA
 from hoopsedge.l5.data import completed_results
+from hoopsedge.l5.model import Result
 from hoopsedge.sportybet.client import BlockedError
 from hoopsedge.v2.legs import Leg, recheck
 from hoopsedge.v2.lines import (
@@ -37,7 +39,7 @@ from hoopsedge.v2.names import (
     normalize,
     seed_aliases,
 )
-from hoopsedge.v2.slate import CSV_COLUMNS, Snapshot, build_slate, csv_rows, csv_text
+from hoopsedge.v2.slate import CSV_COLUMNS, Snapshot, build_slate, csv_rows, csv_text, tiers_for
 from hoopsedge.v2.tickets import build_tickets
 from hoopsedge.v2.verify import check_code
 
@@ -552,3 +554,52 @@ def test_csv_has_the_owner_columns_and_values() -> None:
     )  # fmt: skip
     assert (row["Team Pick"], row["Team Line"]) == ("Delaware Over", "23.5")
     assert row["Away Atk/Def"] == "Medium/Medium" and row["Home Atk/Def"] == "High/High"
+
+
+# Basketball (B2)
+
+
+def ncaab_registry() -> list[Team]:
+    rows = json.loads((FIXTURES / "espn" / "ncaab-registry-sample.json").read_text("utf-8"))
+    return [
+        Team(r["team_id"], r["display_name"], r["short_name"], r["location"], r["mascot"],
+             r["level"])
+        for r in rows
+    ]  # fmt: skip
+
+
+NCAAB_DIRECTORY = Directory(ncaab_registry(), seed_aliases("NCAAB"))
+
+
+@pytest.mark.parametrize(("name", "team_id"), sorted(seed_aliases("NCAAB").items()))
+def test_every_ncaab_seed_alias_resolves(name: str, team_id: str) -> None:
+    resolved = NCAAB_DIRECTORY.resolve(name)
+    assert (resolved.team_id, resolved.method) == (team_id, "alias")
+
+
+def test_a_high_fuzzy_score_alone_never_matches() -> None:
+    """Without its alias, 'Alabama AM Bulldogs' scores 97 against Alabama A&M: queue only."""
+    bare = Directory(ncaab_registry(), {})
+    resolved = bare.resolve("Alabama AM Bulldogs")
+    assert resolved.team_id is None
+    assert resolved.suggestions[0][0] == "2010" and resolved.suggestions[0][1] > 95
+
+
+def test_basketball_tiers_are_provisional_percentiles_of_the_main_level() -> None:
+    finals = []
+    for index in range(1, 11):  # D1 teams 1..10 score 60 + 3i and allow 80 - 2i.
+        for week in range(1, 6):
+            kickoff = KICKOFF - timedelta(days=week)
+            finals.append(Result(2027, f"{index}-{week}", kickoff, str(index), f"o{index}",
+                                 60 + 3 * index, 80 - 2 * index))  # fmt: skip
+    levels = {str(index): "D1" for index in range(1, 11)}
+    levels |= {f"o{index}": "OTHER" for index in range(1, 11)}
+    config = CONFIG.sports["NCAAB"]
+    tiers = tiers_for("NCAAB", date(2026, 11, 28), config, finals, 2027, levels)
+    assert tiers.provisional
+    pf = sorted(60 + 3 * i for i in range(1, 11))
+    assert tiers.atk == pytest.approx((float(np.percentile(pf, 100 / 3)),
+                                       float(np.percentile(pf, 200 / 3))))  # fmt: skip
+    # Only games before the slate's Eastern day count: on the 25th each team has just two.
+    with pytest.raises(ValueError, match="no tiers yet"):
+        tiers_for("NCAAB", date(2026, 11, 25), config, finals, 2027, levels)

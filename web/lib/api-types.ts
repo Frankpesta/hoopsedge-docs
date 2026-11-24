@@ -411,12 +411,7 @@ export interface components {
          * League
          * @enum {string}
          */
-        League: "NBA" | "NCAA";
-        /** LeagueSetting */
-        LeagueSetting: {
-            /** Enabled */
-            enabled: boolean;
-        };
+        League: "NBA" | "NCAAB" | "NCAAF";
         /** LearningPoint */
         LearningPoint: {
             /** At */
@@ -512,15 +507,6 @@ export interface components {
             rank: number;
             /** Tip Time */
             tip_time: string;
-        };
-        /** MarketSetting */
-        MarketSetting: {
-            /** Enabled */
-            enabled: boolean;
-            /** Min Edge */
-            min_edge?: number | null;
-            /** Min Prob */
-            min_prob?: number | null;
         };
         /** ModelsView */
         ModelsView: {
@@ -641,26 +627,13 @@ export interface components {
             /** Time */
             time: string;
         };
-        /** SettingsDocument */
+        /**
+         * SettingsDocument
+         * @description Cut down for v2 until B4 (D96). Thresholds live in the v2 config document.
+         */
         SettingsDocument: {
-            /** Allow Alt Lines */
-            allow_alt_lines: boolean;
             /** Dry Run */
             dry_run: boolean;
-            /** Leagues */
-            leagues: {
-                [key: string]: components["schemas"]["LeagueSetting"];
-            };
-            /** Markets */
-            markets: {
-                [key: string]: {
-                    [key: string]: components["schemas"]["MarketSetting"];
-                };
-            };
-            /** Min Legs */
-            min_legs: number;
-            /** Min Minutes Before Tip */
-            min_minutes_before_tip: number;
             /** Pause All */
             pause_all: boolean;
             /** Schedules */

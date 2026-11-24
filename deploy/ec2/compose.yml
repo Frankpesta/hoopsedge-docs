@@ -37,7 +37,6 @@ services:
     environment:
       HOOPSEDGE_SPORTYBET_PROXY: ${HOOPSEDGE_SPORTYBET_PROXY:-}
   scheduler: *sportybet-proxy
-  collector: *sportybet-proxy
   pipeline: *sportybet-proxy
 
 volumes:

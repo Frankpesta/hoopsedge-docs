@@ -13,7 +13,6 @@ import pytest
 import respx
 
 from hoopsedge.common.http import HttpFetchError, PoliteClient
-from hoopsedge.ingest import collector
 from hoopsedge.sportybet import client as sportybet
 from hoopsedge.sportybet.client import BlockedError, build_client, proxy_url
 
@@ -68,15 +67,6 @@ def test_the_booking_client_uses_the_proxy(
     assert [call.get("proxy") for call in captured.calls] == [PROXY]
 
 
-def test_only_the_collectors_sportybet_client_uses_the_proxy(
-    monkeypatch: pytest.MonkeyPatch, captured: Captured, tmp_path: Path
-) -> None:
-    monkeypatch.setenv("HOOPSEDGE_SPORTYBET_PROXY", PROXY)
-    monkeypatch.setenv("HOOPSEDGE_DATA_DIR", str(tmp_path))
-    collector._context()  # noqa: SLF001
-    assert [call.get("proxy") for call in captured.calls] == [PROXY, None]  # SportyBet, ESPN.
-
-
 def test_without_a_proxy_nothing_changes(
     monkeypatch: pytest.MonkeyPatch, captured: Captured, tmp_path: Path
 ) -> None:
@@ -116,7 +106,3 @@ def test_a_waf_challenge_is_bot_protection() -> None:
     client = sportybet.SportyBetClient(PoliteClient("test/1.0", max_retries=0))
     with pytest.raises(BlockedError):
         client.events_page("sr:tournament:132", 1)
-
-
-def test_the_collector_halts_sportybet_on_a_waf_challenge() -> None:
-    assert collector._is_block(HttpFetchError("request rejected", EVENTS, 202))  # noqa: SLF001

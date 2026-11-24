@@ -8,7 +8,8 @@ GUARDED = [
     *sorted((SERVICES / "hoopsedge" / "sportybet").rglob("*.*")),
     *sorted((SERVICES / "hoopsedge" / "pipeline").rglob("*.*")),
     *sorted((SERVICES / "hoopsedge" / "v2").rglob("*.*")),
-    SERVICES / "hoopsedge" / "ingest" / "collector.py",
+    *sorted((SERVICES / "hoopsedge" / "ingest").rglob("*.*")),
+    *sorted((SERVICES / "hoopsedge" / "api").rglob("*.*")),
     SERVICES.parent / "scripts" / "sportybet_discovery.py",
 ]
 FORBIDDEN = re.compile(r"login|password|wallet|deposit|placeBet|/orders/(?!share)", re.IGNORECASE)

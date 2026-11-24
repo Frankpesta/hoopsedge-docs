@@ -12,6 +12,13 @@ from typing import Any
 import boto3
 import pytest
 from fastapi.testclient import TestClient
+from hoopsedge.engine import Leg, Ticket
+from hoopsedge.engine.config import apply_settings
+from hoopsedge.engine.schemas import Rejection
+from hoopsedge.features.registry import FEATURE_SET_VERSION
+from hoopsedge.grading.run import Finals, grade_pass
+from hoopsedge.pipeline.labels import leg_summary, pick_label
+from hoopsedge.pipeline.store import DRY_RUN, PipelineStore
 from moto import mock_aws
 
 from hoopsedge.api.app import Deps, create_app, openapi_document
@@ -20,15 +27,8 @@ from hoopsedge.api.schemas import UNPROVEN_NOTE
 from hoopsedge.api.settings import changes_between, default_settings
 from hoopsedge.api.store import ApiStore, Artifacts
 from hoopsedge.common.dynamo import ensure_table
-from hoopsedge.engine import Leg, Ticket
-from hoopsedge.engine.config import apply_settings
-from hoopsedge.engine.schemas import Rejection
-from hoopsedge.features.registry import FEATURE_SET_VERSION
-from hoopsedge.grading.run import Finals, grade_pass
 from hoopsedge.grading.settle import Final
-from hoopsedge.pipeline.labels import leg_summary, pick_label
 from hoopsedge.pipeline.schedule import due_jobs, run_due
-from hoopsedge.pipeline.store import DRY_RUN, PipelineStore
 from tests.engine_data import config, prediction
 
 KEY = "test-secret-value"

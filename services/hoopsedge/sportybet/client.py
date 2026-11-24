@@ -13,7 +13,7 @@ from urllib.parse import urlsplit
 import yaml
 
 from hoopsedge.common.http import HttpFetchError, NotJsonError, PoliteClient
-from hoopsedge.ingest.backfill import write_gz
+from hoopsedge.ingest.espn_files import write_gz
 
 PACKAGE = Path(__file__).parent
 ENDPOINTS: dict[str, Any] = yaml.safe_load((PACKAGE / "endpoints.yaml").read_text("utf-8"))

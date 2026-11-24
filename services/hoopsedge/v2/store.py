@@ -11,7 +11,7 @@ from typing import Any
 
 from boto3.dynamodb.conditions import Key
 
-from hoopsedge.pipeline.store import to_item
+from hoopsedge.common.dynamo import to_item
 from hoopsedge.v2.names import normalize
 
 QUEUE_DAYS = 14  # An open queue item expires after this, like other ephemeral items.

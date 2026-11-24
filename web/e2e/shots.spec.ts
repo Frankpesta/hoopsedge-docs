@@ -4,7 +4,7 @@ import { test } from "@playwright/test";
 test.skip(!process.env.SHOTS, "Only when asked for");
 
 const SHOTS: readonly [string, string, string?][] = [
-  ["today-handicap", "/", "NCAA"],
+  ["today-handicap", "/", "NCAAB"],
   ["ticket", "/tickets/handicap-1"],
   ["game", "/games/g1"],
   ["record", "/track-record"],
@@ -26,7 +26,7 @@ for (const [name, path, league] of SHOTS) {
 
 test("shot unproven ticket, open", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("tab", { name: "NCAA" }).click();
+  await page.getByRole("tab", { name: "NCAAB" }).click();
   await page.getByRole("tab", { name: /HT O\/U/ }).click();
   await page.getByRole("button", { name: "Show 2 legs" }).click();
   await page.waitForTimeout(500);
@@ -36,7 +36,7 @@ test("shot unproven ticket, open", async ({ page }) => {
 test("shot light theme", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Light", exact: true }).click();
-  await page.getByRole("tab", { name: "NCAA" }).click();
+  await page.getByRole("tab", { name: "NCAAB" }).click();
   await page.waitForTimeout(500);
   await page.screenshot({ path: "test-results/shots/today-light.png", fullPage: true });
 });
