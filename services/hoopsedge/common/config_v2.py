@@ -52,6 +52,7 @@ class LineModes(_Strict):
 
 class SportConfig(_Strict):
     enabled: bool
+    sport_id: str  # SportyBet's, e.g. sr:sport:16 (brief §3).
     tournament_ids: list[str]
     espn: EspnSource
     l5_window: int = Field(ge=1)
@@ -86,6 +87,7 @@ class OutlookBands(_Strict):
 
 class TicketConfig(_Strict):
     max_legs: int = Field(ge=1)
+    min_legs: int = Field(ge=1)  # D4: a shorter ticket isn't booked.
     max_games_per_kind: int = Field(ge=1)
     booking_cutoff_minutes: int = Field(ge=20)  # Invariant 2 and D86: never below 20.
     kinds: dict[Literal["TOTALS_LEAN", "TEAM_TOTALS", "TOTALS_ALL_OVER", "TOTALS_ALL_UNDER"], bool]

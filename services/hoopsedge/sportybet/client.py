@@ -89,17 +89,33 @@ class SportyBetClient:
             raise SportyBetError(f"{call}: {error}") from error
         return self._checked(call, document)
 
-    def events_page(self, tournament_id: str, page: int) -> dict[str, Any]:
+    def events_page(
+        self,
+        tournament_id: str,
+        page: int,
+        sport_id: str | None = None,
+        market_ids: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """v1 basketball by default; v2 passes its own sport and markets (NCAAF is sr:sport:16)."""
         return self._get(
             "events",
             ENDPOINTS["events"]["path"],
             {
-                "sportId": ENDPOINTS["sport_id"],
-                "marketId": ",".join(all_market_ids()),
+                "sportId": sport_id or ENDPOINTS["sport_id"],
+                "marketId": ",".join(market_ids or all_market_ids()),
                 "tournamentId": tournament_id,
                 "pageSize": str(PAGE_SIZE),
                 "pageNum": str(page),
             },
+        )
+
+    def event_detail(self, event_id: str) -> dict[str, Any]:
+        """One event with every market and line it has (brief §5.1). Pre-match product only."""
+        detail = ENDPOINTS["event_detail"]
+        return self._get(
+            "event",
+            detail["path"],
+            {"eventId": event_id, "productId": str(detail["product_id_prematch"])},
         )
 
     def lookup(self, code: str) -> dict[str, Any]:
