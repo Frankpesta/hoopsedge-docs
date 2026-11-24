@@ -11,6 +11,7 @@ import {
   oneInN,
   percent,
   points,
+  statusLabel,
 } from "@/lib/format";
 import type { LegView, TicketView } from "@/lib/types";
 
@@ -32,7 +33,9 @@ function LegLine({ leg }: { leg: LegView }) {
       <span className="num text-right text-xs">
         {formatOdds(leg.odds)}
         <span className="text-text-2 block">
-          {points(leg.direction === "Over" ? leg.edge_booked : -leg.edge_booked)} cushion
+          {leg.result && leg.result !== "pending"
+            ? `${statusLabel(leg.result)}${leg.actual === null || leg.actual === undefined ? "" : `, ${leg.actual}`}`
+            : `${points(leg.direction === "Over" ? leg.edge_booked : -leg.edge_booked)} cushion`}
         </span>
       </span>
     </li>
@@ -41,6 +44,7 @@ function LegLine({ leg }: { leg: LegView }) {
 
 export function TicketCard({ ticket, realCodes }: { ticket: TicketView; realCodes: boolean }) {
   const modes = [...new Set(ticket.legs.map((leg) => MODE_LABELS[leg.mode] ?? leg.mode))];
+  const settled = ticket.result === "won" || ticket.result === "lost" || ticket.result === "void";
   return (
     <article
       className={`bg-surface border-line rounded-lg border p-4 ${ticket.current ? "" : "opacity-70"}`}
@@ -54,7 +58,10 @@ export function TicketCard({ ticket, realCodes }: { ticket: TicketView; realCode
             {ticket.legs.length} legs · {modes.join(", ")}
           </p>
         </div>
-        <StatusChip status={ticket.status} />
+        <div className="flex flex-col items-end gap-1">
+          <StatusChip status={ticket.status} />
+          {settled && <StatusChip status={ticket.result ?? ""} />}
+        </div>
       </header>
       <TicketStub code={ticket.code ?? null} status={ticket.status} />
       {ticket.reason && <p className="text-loss mt-2 text-sm">{ticket.reason}</p>}
@@ -101,7 +108,7 @@ export function TicketCard({ ticket, realCodes }: { ticket: TicketView; realCode
         <Link href={`/tickets/${ticket.ticket_id}`} className="text-text-2 text-sm underline">
           Details
         </Link>
-        {ticket.current && ticket.status !== "invalid" && (
+        {ticket.current && ticket.status !== "invalid" && !settled && (
           <RebookButton
             ticketId={ticket.ticket_id}
             startedLegs={ticket.started_legs}

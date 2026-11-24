@@ -200,3 +200,21 @@ export function legPick(leg: {
   const who = leg.team === "home" ? leg.home : leg.team === "away" ? leg.away : "Total";
   return `${who} ${leg.direction} ${leg.booked_line}`;
 }
+
+export const MARKET_NAMES: Record<string, string> = {
+  totals: "Game totals",
+  team_total: "Team totals",
+};
+
+const THRESHOLD_NAMES: Record<string, string> = {
+  over_threshold: "Over",
+  under_threshold: "Under",
+  team_total_threshold: "Team",
+};
+
+/** "Over 4 · Under 5.5": thresholds in the owner's words. */
+export function thresholdText(thresholds: Record<string, number>): string {
+  return Object.entries(thresholds)
+    .map(([name, value]) => `${THRESHOLD_NAMES[name] ?? name} ${value}`)
+    .join(" · ");
+}

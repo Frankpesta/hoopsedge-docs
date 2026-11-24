@@ -55,6 +55,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/calibration/{sport}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Calibration */
+        get: operations["calibration_calibration__sport__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/calibration/{sport}/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply Suggestion */
+        post: operations["apply_suggestion_calibration__sport__apply_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/config": {
         parameters: {
             query?: never;
@@ -338,6 +372,89 @@ export interface components {
             /** Team Name */
             team_name: string | null;
         };
+        /** ApplySuggestion */
+        ApplySuggestion: {
+            /** Market */
+            market: string;
+            /** Mode */
+            mode: string;
+            /** Thresholds */
+            thresholds: {
+                [key: string]: number;
+            };
+            /** Version */
+            version: number;
+        };
+        /** Calibration */
+        Calibration: {
+            /** Graded Legs */
+            graded_legs: number;
+            /** Min Graded */
+            min_graded: number;
+            /** Pending Legs */
+            pending_legs: number;
+            /** Slates */
+            slates: number;
+            sport: components["schemas"]["Sport"];
+            /** Suggestions */
+            suggestions: components["schemas"]["Suggestion"][];
+            /** Tables */
+            tables: components["schemas"]["CalibrationRow"][];
+            /** Tickets */
+            tickets: {
+                [key: string]: number;
+            };
+        };
+        /** CalibrationRow */
+        CalibrationRow: {
+            /** Above Implied */
+            above_implied: number | null;
+            /** Bucket */
+            bucket: string;
+            /** Cross Level */
+            cross_level: boolean;
+            /** Hit Rate */
+            hit_rate: number | null;
+            /** Implied */
+            implied: number | null;
+            /** Legs */
+            legs: number;
+            /** Lost */
+            lost: number;
+            /** Market */
+            market: string;
+            /** Mode */
+            mode: string;
+            /** Push */
+            push: number;
+            /** Roi */
+            roi: number | null;
+            /** Same Level */
+            same_level: boolean;
+            /** Won */
+            won: number;
+        };
+        /** ChoiceStats */
+        ChoiceStats: {
+            /** Above Implied */
+            above_implied: number | null;
+            /** Hit Rate */
+            hit_rate: number | null;
+            /** Implied */
+            implied: number | null;
+            /** Legs */
+            legs: number;
+            /** Lost */
+            lost: number;
+            /** Per Slate */
+            per_slate: number;
+            /** Push */
+            push: number;
+            /** Roi */
+            roi: number | null;
+            /** Won */
+            won: number;
+        };
         /** ConfigUpdate */
         ConfigUpdate: {
             /** Document */
@@ -409,6 +526,8 @@ export interface components {
         };
         /** LegView */
         LegView: {
+            /** Actual */
+            actual?: number | null;
             /** Away */
             away: string;
             /** Booked Line */
@@ -439,6 +558,8 @@ export interface components {
             odds: number;
             /** Projection */
             projection: number;
+            /** Result */
+            result?: string | null;
             /** Started */
             started: boolean;
             /** Team */
@@ -655,6 +776,21 @@ export interface components {
          * @enum {string}
          */
         Sport: "NBA" | "NCAAB" | "NCAAF";
+        /** Suggestion */
+        Suggestion: {
+            current: components["schemas"]["ThresholdChoice"];
+            /** Graded */
+            graded: number;
+            /** Market */
+            market: string;
+            /** Mode */
+            mode: string;
+            /** Same Level */
+            same_level: boolean;
+            /** Slates */
+            slates: number;
+            suggested: components["schemas"]["ThresholdChoice"] | null;
+        };
         /** SystemView */
         SystemView: {
             /** Alerts */
@@ -707,6 +843,14 @@ export interface components {
             /** Team */
             team: string;
         };
+        /** ThresholdChoice */
+        ThresholdChoice: {
+            numbers: components["schemas"]["ChoiceStats"];
+            /** Thresholds */
+            thresholds: {
+                [key: string]: number;
+            };
+        };
         /** TicketView */
         TicketView: {
             /** Bookmaker Implied Probability */
@@ -740,6 +884,8 @@ export interface components {
             rebook_of: string | null;
             /** Rebooked By */
             rebooked_by: string | null;
+            /** Result */
+            result?: string | null;
             /** Run Id */
             run_id: string;
             /** Slate */
@@ -890,6 +1036,74 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    calibration_calibration__sport__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sport: components["schemas"]["Sport"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Calibration"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    apply_suggestion_calibration__sport__apply_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "idempotency-key"?: string | null;
+            };
+            path: {
+                sport: components["schemas"]["Sport"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApplySuggestion"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConfigView"];
+                };
             };
             /** @description Validation Error */
             422: {

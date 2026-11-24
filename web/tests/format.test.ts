@@ -22,6 +22,7 @@ import {
   signedNumber,
   signedPercent,
   statusLabel,
+  thresholdText,
 } from "@/lib/format";
 
 describe("oneInN", () => {
@@ -153,5 +154,12 @@ describe("v2 words", () => {
     expect(FLAG_LABELS.cross_level_game).toBe("Cross-level game");
     expect(statusLabel("dry_run")).toBe("Practice");
     expect(statusLabel("booked")).toBe("Booked");
+  });
+});
+
+describe("thresholdText", () => {
+  it("names thresholds in the owner's words", () => {
+    expect(thresholdText({ over_threshold: 4, under_threshold: 5.5 })).toBe("Over 4 · Under 5.5");
+    expect(thresholdText({ team_total_threshold: 3 })).toBe("Team 3");
   });
 });

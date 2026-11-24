@@ -28,8 +28,10 @@ from hoopsedge.v2.config_store import (
     document_from_stored,
     load,
 )
+from hoopsedge.v2.grading import FINAL, Outcome, grade_slate
 from hoopsedge.v2.slate import _row_document, csv_rows, csv_text, ticket_document
 from hoopsedge.v2.tickets import build_tickets
+from tests.test_v2_grading import season, write_grades
 from tests.test_v2_slate import CONFIG, KICKOFF, ladder_event, slate_build
 
 KEY = "test-secret-value"
@@ -129,6 +131,7 @@ def write_run(
     document = {
         "run_id": run_id, "sport": "NCAAF", "slate": SLATE.isoformat(), "trigger": "scheduled",
         "status": status, "dry_run": not booked, "started_at": NOW.isoformat(),
+        "config": CONFIG.model_dump(by_alias=True, mode="json"),
         "config_version": 0, "counts": {"games": len(build.rows)},
         "rows": [_row_document(row) for row in build.rows], "tickets": tickets,
         "dropped": [{"kind": "TEAM_TOTALS", "reason": "inside_cutoff", "leg": {}}],
@@ -142,12 +145,12 @@ def write_run(
 
 ALL_GETS = [
     "/health/details", f"/slates/{SLATE}", "/runs", "/unmatched", "/config", "/config/versions",
-    "/system", "/teams/NCAAF", "/aliases/NCAAF",
+    "/system", "/teams/NCAAF", "/aliases/NCAAF", "/calibration/NCAAB",
 ]  # fmt: skip
 ALL_MUTATIONS = [
     ("POST", "/runs"), ("PUT", "/config"), ("PUT", "/schedules/nba_slate"),
     ("POST", "/tickets/x/rebook"), ("POST", "/aliases"), ("DELETE", "/aliases/NCAAF/x"),
-    ("POST", "/unmatched/x/resolve"),
+    ("POST", "/unmatched/x/resolve"), ("POST", "/calibration/NCAAB/apply"),
 ]  # fmt: skip
 
 
@@ -455,6 +458,44 @@ def test_changes_between_finds_nested_differences() -> None:
     assert changes_between({"a": {"b": 1}}, {"a": {"b": 2}}) == [
         {"path": "a.b", "from": 1, "to": 2}
     ]
+
+
+# Grading and calibration (brief §9, D90).
+
+
+def test_a_graded_ticket_shows_its_result(api: Api) -> None:
+    write_run(api.root, "01AAAA")
+    grade_slate(api.root, "NCAAF", SLATE, {"slate": Outcome(FINAL, 30, 20)}, NOW)
+    [ticket] = api.get(f"/slates/{SLATE}", sport="NCAAF").json()["sports"][0]["tickets"]
+    assert ticket["result"] == "won"
+    assert [leg["result"] for leg in ticket["legs"]] == ["won", "won"]
+
+
+def test_calibration_suggests_and_the_owner_applies(api: Api) -> None:
+    write_grades(api.root, season())
+    body = api.get("/calibration/NCAAB").json()
+    main = next(s for s in body["suggestions"] if (s["market"], s["mode"]) == ("totals", "main"))
+    thresholds = main["suggested"]["thresholds"]
+    assert thresholds == {"over_threshold": 4.0, "under_threshold": 0.0}
+    request = {"market": "totals", "mode": "main", "version": 0, "thresholds": thresholds}
+
+    stale = api.send("POST", "/calibration/NCAAB/apply", {**request, "thresholds": {}})
+    assert stale.status_code == 409  # Not what the owner saw: nothing changes.
+    assert api.get("/config").json()["version"] == 0
+
+    applied = api.send("POST", "/calibration/NCAAB/apply", request)
+    assert applied.status_code == 200
+    sport = applied.json()["document"]["sports"]["NCAAB"]
+    assert (sport["over_threshold"], sport["under_threshold"]) == (4.0, 0.0)
+    assert sport["line_mode"]["totals"] == "main"
+    [version] = api.get("/config/versions").json()
+    assert version["changed_by"] == "calibration"
+    assert api.send("POST", "/calibration/NCAAB/apply", request).status_code == 409  # Old version.
+
+
+def test_no_suggestion_yet_cant_be_applied(api: Api) -> None:
+    request = {"market": "totals", "mode": "safest", "version": 0, "thresholds": {}}
+    assert api.send("POST", "/calibration/NCAAB/apply", request).status_code == 404
 
 
 # System.

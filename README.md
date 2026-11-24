@@ -59,9 +59,21 @@ docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.slate r
 
 Each run writes `data/v2/runs/{sport}/{date}/{run_id}/`: the CSV in the owner's sheet format, `run.json` with every row, leg, ticket, drop and failure, and the raw SportyBet responses. Unmatched teams go to the review queue in DynamoDB with suggestions; add an alias, then re-run. The slate's `index.json` records which tickets a later run's real codes superseded and which were rebooked.
 
+## Grading and calibration
+
+Every finished game is graded from the last run that started before its kickoff, for both `l5_same_level_only` settings: totals at the main and the `safest` line, team totals at the main line, whether or not the game cleared a threshold. Every ticket leg is graded on its booked line, and each ticket gets a result (D99). Grades are files in `data/v2/grades/{sport}/{date}.json`, re-graded daily until nothing is pending. The dashboard's Results page shows hit rate against the bookmaker-implied rate and flat-stake ROI, by line mode, edge bucket and cross-level, and threshold suggestions once 100 graded legs clear them (D90). A suggestion changes nothing until you apply it, which saves a new config version.
+
+```sh
+docker compose run --rm dev python -m hoopsedge.v2.grading grade                       # every sport, finished slates
+docker compose run --rm dev python -m hoopsedge.v2.grading grade --sport NCAAB --date 2026-11-24
+docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.grading report --sport NCAAB
+```
+
+The weekly report is `docs/reports/v2-evidence-{sport}-{week ending}.md`, with a `.json` beside it.
+
 ## Scheduler
 
-Lagos times (brief §12): database export 05:00, ESPN refresh 08:00, NCAAB and NBA slates 16:00 and 21:00, NCAAF 18:00 daily and 14:00 on Saturdays. Create `data/scheduler/PAUSED` to pause it, and read `data/scheduler/runs.jsonl` to see what it did. Its code is copied into the image, so rebuild to pick up changes.
+Lagos times (brief §12): database export 05:00, ESPN refresh 08:00, grading 09:00, the weekly evidence report Mondays 09:30, NCAAB and NBA slates 16:00 and 21:00, NCAAF 18:00 daily and 14:00 on Saturdays. Create `data/scheduler/PAUSED` to pause it, and read `data/scheduler/runs.jsonl` to see what it did. Its code is copied into the image, so rebuild to pick up changes.
 
 ```sh
 docker compose --profile manual up -d --build --no-deps scheduler

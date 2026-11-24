@@ -16,7 +16,14 @@ from typing import Any
 from pydantic import ConfigDict, field_validator
 
 from hoopsedge.common.config_v2 import V2Config, load_defaults
-from hoopsedge.pipeline.schedule import BACKUP_TIME, SCORES_TIME, SLATES, SPORTS
+from hoopsedge.pipeline.schedule import (
+    BACKUP_TIME,
+    GRADING_TIME,
+    REPORT_TIME,
+    SCORES_TIME,
+    SLATES,
+    SPORTS,
+)
 
 CLOCK = r"^([01]\d|2[0-3]):[0-5]\d$"
 
@@ -24,6 +31,7 @@ CLOCK = r"^([01]\d|2[0-3]):[0-5]\d$"
 def default_schedules() -> dict[str, str]:
     times = {"backup": BACKUP_TIME, **{f"{s.lower()}_scores": SCORES_TIME for s in SPORTS}}
     times |= {name: at for name, (_, at, _) in SLATES.items()}
+    times |= {"grading": GRADING_TIME, "weekly_report": REPORT_TIME}
     return {name: at.strftime("%H:%M") for name, at in times.items()}
 
 
@@ -65,7 +73,9 @@ def document_from_stored(stored: dict[str, Any] | None) -> ConfigDocument:
     if not stored:
         return default_document()
     if "sports" in stored:
-        return ConfigDocument.model_validate(stored)
+        # A job added since the document was saved starts at its default time.
+        schedules = {**default_schedules(), **(stored.get("schedules") or {})}
+        return ConfigDocument.model_validate({**stored, "schedules": schedules})
     defaults = default_document().model_dump(by_alias=True)
     saved_times = stored.get("schedules") or {}
     defaults["schedules"] = {

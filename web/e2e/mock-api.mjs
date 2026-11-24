@@ -42,7 +42,7 @@ const TEAM = ticket("T-team", "TEAM_TOTALS", "DRYRUN-ABC123", "dry_run", [
   leg("e2", "Kansas", "Baylor", "away", 70.5, 1.85),
 ]);
 const OLD = ticket("T-old", "TOTALS_LEAN", "OLD123", "superseded", [leg("e1", "Duke", "UNC", null, 139.5, 1.7)], {
-  current: false, superseded_by: "run-1",
+  current: false, superseded_by: "run-1", result: "lost",
 }); // prettier-ignore
 
 function row(event, home, away, lean, flags = [], started = false) {
@@ -115,6 +115,43 @@ state.config = {
   sportybet_proxy_enabled: false,
 };
 
+function numbers(legs, hit, implied, roi, perSlate) {
+  const won = Math.round(legs * hit);
+  return {
+    legs, won, lost: legs - won, push: 0, hit_rate: hit, implied, above_implied: hit - implied,
+    roi, per_slate: perSlate,
+  }; // prettier-ignore
+}
+
+function calibration(sport) {
+  const config = state.config.sports[sport];
+  const current = {
+    over_threshold: config.over_threshold,
+    under_threshold: config.under_threshold,
+  };
+  return {
+    sport, graded_legs: 640, pending_legs: 12, slates: 9, min_graded: 100,
+    tickets: { won: 1, lost: 6, pending: 2 },
+    suggestions: [
+      { market: "totals", mode: "main", same_level: false, graded: 320, slates: 9,
+        current: { thresholds: current, numbers: numbers(90, 0.53, 0.53, -0.02, 10) },
+        suggested: { thresholds: { over_threshold: 4, under_threshold: 6.5 },
+                     numbers: numbers(140, 0.56, 0.53, 0.04, 15.6) } },
+      { market: "totals", mode: "safest", same_level: false, graded: 320, slates: 9,
+        current: { thresholds: current, numbers: numbers(90, 0.7, 0.71, -0.03, 10) }, suggested: null },
+      { market: "team_total", mode: "main", same_level: false, graded: 300, slates: 9,
+        current: { thresholds: { team_total_threshold: 4 }, numbers: numbers(120, 0.55, 0.53, 0.02, 13) },
+        suggested: { thresholds: { team_total_threshold: 4 }, numbers: numbers(120, 0.55, 0.53, 0.02, 13) } },
+    ],
+    tables: [
+      { market: "totals", mode: "main", same_level: false, bucket: "0–2", cross_level: false,
+        ...numbers(80, 0.5, 0.53, -0.06, 9) },
+      { market: "totals", mode: "main", same_level: false, bucket: "4–6", cross_level: true,
+        ...numbers(40, 0.6, 0.53, 0.11, 4) },
+    ],
+  }; // prettier-ignore
+}
+
 function slate() {
   const ncaab = {
     sport: "NCAAB", run: state.ncaabRun,
@@ -180,6 +217,8 @@ const server = createServer(async (request, response) => {
     if (path === "/config")
       return send(response, 200, { version: state.version, document: state.config, diff: [] });
     if (path === "/config/versions") return send(response, 200, state.versions);
+    if (path.startsWith("/calibration/"))
+      return send(response, 200, calibration(path.split("/")[2]));
     if (path === "/system") {
       return send(response, 200, {
         cost: null, budget_usd: [10, 25, 50],
@@ -225,6 +264,24 @@ const server = createServer(async (request, response) => {
     state.aliases = state.aliases.filter((item) => item.source !== "owner");
     response.writeHead(204);
     return response.end();
+  }
+  if (request.method === "POST" && path.endsWith("/apply")) {
+    if (body.version !== state.version)
+      return send(response, 409, { detail: "The config changed since you loaded it" });
+    const sport = path.split("/")[2];
+    state.version += 1;
+    state.config = {
+      ...state.config,
+      sports: {
+        ...state.config.sports,
+        [sport]: {
+          ...state.config.sports[sport],
+          ...body.thresholds,
+          line_mode: { ...state.config.sports[sport].line_mode, totals: body.mode },
+        },
+      },
+    };
+    return send(response, 200, { version: state.version, document: state.config, diff: [] });
   }
   if (request.method === "PUT" && path === "/config") {
     if (body.version !== state.version)

@@ -60,6 +60,277 @@
     "title": "AliasView",
     "type": "object"
    },
+   "ApplySuggestion": {
+    "properties": {
+     "market": {
+      "pattern": "^(totals|team_total)$",
+      "title": "Market",
+      "type": "string"
+     },
+     "mode": {
+      "pattern": "^(main|safest)$",
+      "title": "Mode",
+      "type": "string"
+     },
+     "thresholds": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "title": "Thresholds",
+      "type": "object"
+     },
+     "version": {
+      "title": "Version",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "market",
+     "mode",
+     "version",
+     "thresholds"
+    ],
+    "title": "ApplySuggestion",
+    "type": "object"
+   },
+   "Calibration": {
+    "properties": {
+     "graded_legs": {
+      "title": "Graded Legs",
+      "type": "integer"
+     },
+     "min_graded": {
+      "title": "Min Graded",
+      "type": "integer"
+     },
+     "pending_legs": {
+      "title": "Pending Legs",
+      "type": "integer"
+     },
+     "slates": {
+      "title": "Slates",
+      "type": "integer"
+     },
+     "sport": {
+      "$ref": "#/components/schemas/Sport"
+     },
+     "suggestions": {
+      "items": {
+       "$ref": "#/components/schemas/Suggestion"
+      },
+      "title": "Suggestions",
+      "type": "array"
+     },
+     "tables": {
+      "items": {
+       "$ref": "#/components/schemas/CalibrationRow"
+      },
+      "title": "Tables",
+      "type": "array"
+     },
+     "tickets": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "title": "Tickets",
+      "type": "object"
+     }
+    },
+    "required": [
+     "sport",
+     "graded_legs",
+     "pending_legs",
+     "slates",
+     "min_graded",
+     "tickets",
+     "suggestions",
+     "tables"
+    ],
+    "title": "Calibration",
+    "type": "object"
+   },
+   "CalibrationRow": {
+    "properties": {
+     "above_implied": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Above Implied"
+     },
+     "bucket": {
+      "title": "Bucket",
+      "type": "string"
+     },
+     "cross_level": {
+      "title": "Cross Level",
+      "type": "boolean"
+     },
+     "hit_rate": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Hit Rate"
+     },
+     "implied": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Implied"
+     },
+     "legs": {
+      "title": "Legs",
+      "type": "integer"
+     },
+     "lost": {
+      "title": "Lost",
+      "type": "integer"
+     },
+     "market": {
+      "title": "Market",
+      "type": "string"
+     },
+     "mode": {
+      "title": "Mode",
+      "type": "string"
+     },
+     "push": {
+      "title": "Push",
+      "type": "integer"
+     },
+     "roi": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Roi"
+     },
+     "same_level": {
+      "title": "Same Level",
+      "type": "boolean"
+     },
+     "won": {
+      "title": "Won",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "legs",
+     "won",
+     "lost",
+     "push",
+     "hit_rate",
+     "implied",
+     "above_implied",
+     "roi",
+     "market",
+     "mode",
+     "same_level",
+     "bucket",
+     "cross_level"
+    ],
+    "title": "CalibrationRow",
+    "type": "object"
+   },
+   "ChoiceStats": {
+    "properties": {
+     "above_implied": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Above Implied"
+     },
+     "hit_rate": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Hit Rate"
+     },
+     "implied": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Implied"
+     },
+     "legs": {
+      "title": "Legs",
+      "type": "integer"
+     },
+     "lost": {
+      "title": "Lost",
+      "type": "integer"
+     },
+     "per_slate": {
+      "title": "Per Slate",
+      "type": "number"
+     },
+     "push": {
+      "title": "Push",
+      "type": "integer"
+     },
+     "roi": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Roi"
+     },
+     "won": {
+      "title": "Won",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "legs",
+     "won",
+     "lost",
+     "push",
+     "hit_rate",
+     "implied",
+     "above_implied",
+     "roi",
+     "per_slate"
+    ],
+    "title": "ChoiceStats",
+    "type": "object"
+   },
    "ConfigUpdate": {
     "properties": {
      "document": {
@@ -258,6 +529,17 @@
    },
    "LegView": {
     "properties": {
+     "actual": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Actual"
+     },
      "away": {
       "title": "Away",
       "type": "string"
@@ -320,6 +602,17 @@
      "projection": {
       "title": "Projection",
       "type": "number"
+     },
+     "result": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Result"
      },
      "started": {
       "title": "Started",
@@ -1058,6 +1351,54 @@
     "title": "Sport",
     "type": "string"
    },
+   "Suggestion": {
+    "properties": {
+     "current": {
+      "$ref": "#/components/schemas/ThresholdChoice"
+     },
+     "graded": {
+      "title": "Graded",
+      "type": "integer"
+     },
+     "market": {
+      "title": "Market",
+      "type": "string"
+     },
+     "mode": {
+      "title": "Mode",
+      "type": "string"
+     },
+     "same_level": {
+      "title": "Same Level",
+      "type": "boolean"
+     },
+     "slates": {
+      "title": "Slates",
+      "type": "integer"
+     },
+     "suggested": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/ThresholdChoice"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "required": [
+     "market",
+     "mode",
+     "same_level",
+     "graded",
+     "slates",
+     "current",
+     "suggested"
+    ],
+    "title": "Suggestion",
+    "type": "object"
+   },
    "SystemView": {
     "properties": {
      "alerts": {
@@ -1208,6 +1549,26 @@
     "title": "TeamPickView",
     "type": "object"
    },
+   "ThresholdChoice": {
+    "properties": {
+     "numbers": {
+      "$ref": "#/components/schemas/ChoiceStats"
+     },
+     "thresholds": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "title": "Thresholds",
+      "type": "object"
+     }
+    },
+    "required": [
+     "thresholds",
+     "numbers"
+    ],
+    "title": "ThresholdChoice",
+    "type": "object"
+   },
    "TicketView": {
     "properties": {
      "bookmaker_implied_probability": {
@@ -1304,6 +1665,17 @@
        }
       ],
       "title": "Rebooked By"
+     },
+     "result": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Result"
      },
      "run_id": {
       "title": "Run Id",
@@ -1652,6 +2024,108 @@
      }
     },
     "summary": "Delete Alias"
+   }
+  },
+  "/calibration/{sport}": {
+   "get": {
+    "operationId": "calibration_calibration__sport__get",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "sport",
+      "required": true,
+      "schema": {
+       "$ref": "#/components/schemas/Sport"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Calibration"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Calibration"
+   }
+  },
+  "/calibration/{sport}/apply": {
+   "post": {
+    "operationId": "apply_suggestion_calibration__sport__apply_post",
+    "parameters": [
+     {
+      "in": "path",
+      "name": "sport",
+      "required": true,
+      "schema": {
+       "$ref": "#/components/schemas/Sport"
+      }
+     },
+     {
+      "in": "header",
+      "name": "idempotency-key",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Idempotency-Key"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ApplySuggestion"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ConfigView"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     }
+    },
+    "summary": "Apply Suggestion"
    }
   },
   "/config": {

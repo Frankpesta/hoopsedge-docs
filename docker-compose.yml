@@ -57,6 +57,8 @@ services:
         condition: service_healthy
     volumes:
       - ./data:/workspace/data
+      # The Monday evidence report goes where v1's did (brief §9).
+      - ./docs/reports:/workspace/docs/reports
     environment:
       HOOPSEDGE_ENV: local
       # D83, D97: scheduled runs book real codes only when this is "false" in .env AND the

@@ -19,6 +19,8 @@ const SCHEDULE_LABELS: Record<string, string> = {
   ncaab_scores: "NCAAB scores",
   nba_scores: "NBA scores",
   backup: "Database backup",
+  grading: "Grading",
+  weekly_report: "Weekly report (Mondays)",
 };
 
 function Toggle({

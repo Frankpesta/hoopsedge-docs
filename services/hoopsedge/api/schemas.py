@@ -99,6 +99,8 @@ class LegView(_Model):
     edge_main: float
     edge_booked: float
     flags: list[str]
+    result: str | None = None  # won, lost, push, void or pending, once graded (B6).
+    actual: int | None = None  # The total (or team score) the leg settled on.
 
 
 class TicketView(_Model):
@@ -123,6 +125,7 @@ class TicketView(_Model):
     rebooked_by: str | None
     rebook_of: str | None
     current: bool
+    result: str | None = None  # Graded result: won, lost, void or pending (B6).
     legs: list[LegView]
 
 
@@ -277,3 +280,62 @@ class SystemView(_Model):
 
 
 HealthDetails.model_rebuild()
+
+
+# Grading and calibration (brief §9, D90).
+
+
+class Stats(_Model):
+    legs: int
+    won: int
+    lost: int
+    push: int
+    hit_rate: float | None
+    implied: float | None
+    above_implied: float | None
+    roi: float | None
+
+
+class ChoiceStats(Stats):
+    per_slate: float
+
+
+class ThresholdChoice(_Model):
+    thresholds: dict[str, float]
+    numbers: ChoiceStats
+
+
+class Suggestion(_Model):
+    market: str
+    mode: str
+    same_level: bool
+    graded: int
+    slates: int
+    current: ThresholdChoice
+    suggested: ThresholdChoice | None
+
+
+class CalibrationRow(Stats):
+    market: str
+    mode: str
+    same_level: bool
+    bucket: str
+    cross_level: bool
+
+
+class Calibration(_Model):
+    sport: Sport
+    graded_legs: int
+    pending_legs: int
+    slates: int
+    min_graded: int
+    tickets: dict[str, int]
+    suggestions: list[Suggestion]
+    tables: list[CalibrationRow]
+
+
+class ApplySuggestion(_Model):
+    market: str = Field(pattern=r"^(totals|team_total)$")
+    mode: str = Field(pattern=r"^(main|safest)$")
+    version: int  # The config version the owner saw the suggestion against.
+    thresholds: dict[str, float]  # What the owner saw, so a changed suggestion isn't applied.
