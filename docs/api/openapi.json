@@ -68,7 +68,7 @@
       "type": "string"
      },
      "mode": {
-      "pattern": "^(main|safest)$",
+      "pattern": "^safest$",
       "title": "Mode",
       "type": "string"
      },

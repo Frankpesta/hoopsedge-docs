@@ -156,13 +156,12 @@ def booked_line(
     projection: float,
     min_cushion: float,
 ) -> Line | None:
-    """Brief §6. `safest` books the lowest line for an Over and the highest for an Under.
+    """Brief §6, D101. `safest` books the lowest line for an Over and the highest for an Under,
+    which is the lowest-odds line on the ladder. The main line is never booked (owner, D101).
     `safest_with_cushion` books that line only if the projection clears it by `min_cushion`;
     the safest line has the largest cushion, so if it fails, every line does."""
     if not ladder:
         return None
-    if mode == "main":
-        return main_line(ladder)
     chosen = ladder[0] if direction == "Over" else ladder[-1]
     if mode == "safest":
         return chosen

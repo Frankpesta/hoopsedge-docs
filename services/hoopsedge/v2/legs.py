@@ -76,6 +76,14 @@ def team_lines(lines: EventLines, orientation: str) -> tuple[Line | None, Line |
     )
 
 
+def team_ladders(lines: EventLines, orientation: str) -> tuple[tuple[Line, ...], tuple[Line, ...]]:
+    """ESPN's home and away teams' team-total ladders, sorted by line."""
+    return (
+        _team_ladder(lines, "home", orientation)[1],
+        _team_ladder(lines, "away", orientation)[1],
+    )
+
+
 def _leg(
     kind: Kind,
     prediction: GamePrediction,

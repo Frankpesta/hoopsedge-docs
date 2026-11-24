@@ -16,9 +16,12 @@ export const FLAG_LABELS: Record<string, string> = {
 
 export const MODE_LABELS: Record<string, string> = {
   main: "Main line",
-  safest: "Safest line",
-  safest_with_cushion: "Safest, with cushion",
+  safest: "Lowest-odds line",
+  safest_with_cushion: "Lowest-odds, with cushion",
 };
+
+/** D101: only the lowest-odds line is ever booked. Old tickets may still say main. */
+export const BOOKING_MODES = ["safest", "safest_with_cushion"] as const;
 
 /** Why a leg didn't make a ticket, in words (v2/legs.py, v2/tickets.py). */
 export const DROP_REASONS: Record<string, string> = {

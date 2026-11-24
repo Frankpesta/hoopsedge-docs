@@ -3,7 +3,7 @@
 import { type ReactNode, useMemo, useRef, useState, useTransition } from "react";
 
 import { saveConfig } from "@/lib/actions";
-import { KIND_NAMES, MODE_LABELS, diffSettings } from "@/lib/format";
+import { BOOKING_MODES, KIND_NAMES, MODE_LABELS, diffSettings } from "@/lib/format";
 import { SPORTS } from "@/lib/types";
 import type { ConfigDocument, SportConfig } from "@/lib/types";
 
@@ -153,9 +153,9 @@ function SportFields({
               onChange={(event) => edit((c) => void (c.line_mode[market] = event.target.value))}
               className={`${INPUT} mt-1`}
             >
-              {Object.entries(MODE_LABELS).map(([mode, label]) => (
+              {BOOKING_MODES.map((mode) => (
                 <option key={mode} value={mode}>
-                  {label}
+                  {MODE_LABELS[mode]}
                 </option>
               ))}
             </select>

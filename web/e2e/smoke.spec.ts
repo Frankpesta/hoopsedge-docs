@@ -118,11 +118,10 @@ test("config refuses a cutoff under 20, previews a change and saves it", async (
 test("results suggest thresholds and the owner applies one", async ({ page }) => {
   await page.goto("/results?sport=NCAAB");
   await expect(page.getByText("640")).toBeVisible();
-  const card = page.getByRole("article").filter({ hasText: "Game totals, main line" });
+  // D101: only the lowest-odds line is booked, so it's the only one suggested.
+  await expect(page.getByRole("article").filter({ hasText: "main line" })).toHaveCount(0);
+  const card = page.getByRole("article").filter({ hasText: "Game totals, lowest-odds line" });
   await expect(card.getByText("Suggested: Over 4 · Under 6.5")).toBeVisible();
-  await expect(
-    page.getByRole("article").filter({ hasText: "Game totals, safest line" }),
-  ).toContainText("Not enough yet");
   await expect(
     page.getByRole("article").filter({ hasText: "Team totals" }).getByText("Already in use."),
   ).toBeVisible();

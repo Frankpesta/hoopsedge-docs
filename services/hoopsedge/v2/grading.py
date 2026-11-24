@@ -9,7 +9,10 @@ kickoff, so the lines are the last ones seen before the game. Each game gives gr
 
 - totals, in the direction of the model's edge against the main line, at the main line and at the
   `safest` line (lowest for an Over, highest for an Under), whatever the thresholds said;
-- team totals, on the side with the larger edge, at the team's main line.
+- team totals, on the side with the larger edge, at the team's main line and at its `safest`
+  line (runs from 2026-11-25 on keep the team ladders' ends).
+
+Only `safest` is ever booked (owner, D101): the main line is graded as evidence, never suggested.
 
 Legs are graded whether or not they cleared a threshold, so any threshold can be judged
 afterwards. Every ticket leg is graded on its booked line too, and each ticket gets a result.
@@ -46,7 +49,8 @@ VOID_STATUSES = frozenset({"STATUS_CANCELED", "STATUS_POSTPONED"})
 TOTALS = "totals"
 TEAM_TOTAL = "team_total"
 MARKETS = (TOTALS, TEAM_TOTAL)
-MODES = {TOTALS: ("main", "safest"), TEAM_TOTAL: ("main",)}
+MODES = {TOTALS: ("main", "safest"), TEAM_TOTAL: ("main", "safest")}
+BOOKABLE = ("safest",)  # D101: suggestions only for a line mode that can be booked.
 REGRADE_DAYS = 14  # A slate still pending after this long is left as it is.
 DEFAULT_DATA_DIR = "/workspace/data"
 DEFAULT_REPORT_DIR = "/workspace/docs/reports"  # Where v1 wrote its evidence (brief §9).
@@ -178,6 +182,11 @@ def row_legs(run: Mapping[str, Any], row: Mapping[str, Any], outcome: Outcome) -
                 odds = chosen["over_odds"] if pick.direction == "Over" else chosen["under_odds"]
                 add(prediction, active, TEAM_TOTAL, "main", pick.side, pick.direction,
                     pick.team_line, odds, pick.edge)  # fmt: skip
+                end = chosen.get("lowest" if pick.direction == "Over" else "highest")
+                if end:
+                    end_odds = end["over_odds"] if pick.direction == "Over" else end["under_odds"]
+                    add(prediction, active, TEAM_TOTAL, "safest", pick.side, pick.direction,
+                        end["line"], end_odds, pick.edge)  # fmt: skip
         elif active and legs.get("TEAM_TOTALS"):  # Runs before B6 kept only the picked side.
             leg = legs["TEAM_TOTALS"]
             add(prediction, True, TEAM_TOTAL, "main", leg["team"], leg["direction"],
@@ -443,7 +452,7 @@ def suggestions(
     mine = [leg for leg in legs if leg.same_level == same_level]
     out = []
     for market in MARKETS:
-        for mode in MODES[market]:
+        for mode in (m for m in MODES[market] if m in BOOKABLE):
             pool = [leg for leg in mine if leg.market == market and leg.mode == mode]
             slates = len({leg.slate for leg in pool})
             current, grid = _grid(market, sport_config)

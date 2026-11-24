@@ -7,10 +7,16 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 import pytest
+from pydantic import ValidationError
 
 from hoopsedge.pipeline.schedule import due_jobs
 from hoopsedge.v2.booking import Booker, book_ticket, record_run
-from hoopsedge.v2.config_store import SCHEDULE_NAMES, default_document, document_from_stored
+from hoopsedge.v2.config_store import (
+    SCHEDULE_NAMES,
+    ConfigDocument,
+    default_document,
+    document_from_stored,
+)
 from hoopsedge.v2.grading import (
     FINAL,
     MIN_GRADED,
@@ -30,6 +36,7 @@ from hoopsedge.v2.grading import (
     ticket_result,
     write_report,
 )
+from hoopsedge.v2.lines import HOME_TOTAL_ID
 from hoopsedge.v2.slate import _jsonable, _row_document, ticket_document
 from hoopsedge.v2.tickets import build_tickets
 from hoopsedge.v2.views import find_ticket, grades_path
@@ -109,7 +116,8 @@ def test_each_game_is_graded_for_both_variants_at_main_and_safest_lines() -> Non
     assert seen == {
         (same, market, mode)
         for same in (False, True)
-        for market, mode in (("totals", "main"), ("totals", "safest"), ("team_total", "main"))
+        for market in ("totals", "team_total")
+        for mode in ("main", "safest")
     }
     active = {(leg.market, leg.mode): leg for leg in legs if leg.active}
     assert all(not leg.same_level for leg in active.values())  # The default is off.
@@ -121,6 +129,36 @@ def test_each_game_is_graded_for_both_variants_at_main_and_safest_lines() -> Non
     assert (team.team, team.direction, team.line, team.result, team.actual) == (
         "home", "Over", 23.5, "won", 30,
     )  # fmt: skip
+    assert active[("team_total", "safest")].line == 23.5  # A one-line ladder: its only line.
+
+
+def test_team_totals_book_and_grade_the_lowest_odds_line() -> None:
+    """D101: SportyBet lists about five team-total lines. The Over books the lowest line (the
+    lowest odds), and grading grades the same line."""
+    event = ladder_event([47.5, 48.5, 49.5], main=48.5, team_totals=(23.5, 24.5))
+    for line, gap in ((21.5, -2), (22.5, -1), (24.5, 1), (25.5, 2)):
+        # As on SportyBet: the further below the main line, the cheaper the Over.
+        prices = {"Over": round(1.87 + 0.12 * gap, 2), "Under": round(1.87 - 0.12 * gap, 2)}
+        outcomes = [
+            {"id": key, "odds": f"{prices[word]:.2f}", "isActive": 1, "desc": f"{word} {line}"}
+            for key, word in (("12", "Over"), ("13", "Under"))
+        ]
+        event["markets"].append(
+            {"id": HOME_TOTAL_ID, "specifier": f"total={line}", "status": 0, "outcomes": outcomes}
+        )
+    [row] = slate_build([event]).rows
+    leg = row.legs["TEAM_TOTALS"]
+    assert (leg.team, leg.direction, leg.mode) == ("home", "Over", "safest")
+    assert (leg.booked_line, leg.odds) == (21.5, 1.63)  # Not the main 23.5 at 1.87.
+    assert (leg.main_line, leg.main_odds) == (23.5, 1.87)  # Kept as evidence only.
+    stored = _row_document(row)["team_lines"]["home"]
+    assert stored["line"] == 23.5
+    assert stored["lowest"] == {"line": 21.5, "over_odds": 1.63, "under_odds": 2.11}
+    assert stored["highest"]["line"] == 25.5
+    document = run_document("01A", rows=[_row_document(row)])
+    legs = row_legs(document, document["rows"][0], Outcome(FINAL, 22, 20))
+    safest = next(g for g in legs if g.active and (g.market, g.mode) == ("team_total", "safest"))
+    assert (safest.line, safest.odds, safest.result) == (21.5, 1.63, "won")
 
 
 def test_a_game_below_threshold_is_still_graded_so_any_threshold_can_be_judged() -> None:
@@ -218,7 +256,7 @@ def leg(edge: float, result: str, odds: float = 1.9, slate: int = 1, **changes: 
     values: dict[str, Any] = {
         "sport": "NCAAB", "slate": f"2026-11-{slate:02d}", "run_id": "r", "game_id": "g",
         "event_id": "e", "market": "totals", "same_level": False, "active": True,
-        "mode": "main", "team": None, "direction": "Over" if edge > 0 else "Under",
+        "mode": "safest", "team": None, "direction": "Over" if edge > 0 else "Under",
         "line": 140.5, "odds": odds, "edge": edge, "cross_level": False, "result": result,
         "actual": 150,
     }  # fmt: skip
@@ -254,12 +292,16 @@ def season(per_slate: int = 20, slates: int = 10) -> list[GradedLeg]:
 def test_a_suggestion_needs_100_graded_legs_and_maximises_roi() -> None:
     config = DOCUMENT["sports"]["NCAAB"]
     found = {(s["market"], s["mode"]): s for s in suggestions(season(), config, 2)}
-    main = found[("totals", "main")]
+    # D101: only the lowest-odds line is booked, so it is the only line mode suggested.
+    assert set(found) == {("totals", "safest"), ("team_total", "safest")}
+    main = found[("totals", "safest")]
     assert main["suggested"]["thresholds"]["over_threshold"] == 4.0  # Ties go to more legs.
     assert main["suggested"]["numbers"]["legs"] == 130 >= MIN_GRADED
     assert main["suggested"]["numbers"]["roi"] == pytest.approx(0.9)
     assert main["current"]["thresholds"]["over_threshold"] == 5.0
-    assert found[("totals", "safest")]["suggested"] is None  # No legs at that line mode.
+    assert found[("team_total", "safest")]["suggested"] is None  # No legs in that market.
+    main_legs = [replace_leg(item, mode="main") for item in season()]
+    assert all(s["graded"] == 0 for s in suggestions(main_legs, config, 2))  # Evidence only.
     few = suggestions(season(slates=4), config, 2)
     assert few[0]["suggested"] is None  # 80 legs in all: not enough to suggest anything.
 
@@ -282,11 +324,11 @@ def replace_leg(item: GradedLeg, **changes: Any) -> GradedLeg:
 
 
 def test_applying_a_suggestion_changes_thresholds_and_line_mode_only() -> None:
-    changed = apply_suggestion(DOCUMENT, "NCAAB", "totals", "main",
+    changed = apply_suggestion(DOCUMENT, "NCAAB", "totals", "safest_with_cushion",
                                {"over_threshold": 4.0, "under_threshold": 6.5})  # fmt: skip
     sport = changed["sports"]["NCAAB"]
     assert (sport["over_threshold"], sport["under_threshold"]) == (4.0, 6.5)
-    assert sport["line_mode"]["totals"] == "main"
+    assert sport["line_mode"]["totals"] == "safest_with_cushion"
     assert DOCUMENT["sports"]["NCAAB"]["line_mode"]["totals"] == "safest"  # Not touched.
     sport_before = {k: v for k, v in DOCUMENT["sports"]["NCAAB"].items()
                     if k not in ("over_threshold", "under_threshold", "line_mode")}  # fmt: skip
@@ -338,3 +380,28 @@ def test_a_saved_document_from_before_b6_gets_the_new_jobs_at_default_times() ->
     loaded = document_from_stored(stored)
     assert set(loaded.schedules) == set(SCHEDULE_NAMES)
     assert (loaded.schedules["grading"], loaded.schedules["weekly_report"]) == ("09:00", "09:30")
+
+
+# D101: only the lowest-odds line is ever booked.
+
+
+def test_the_defaults_book_the_lowest_odds_line_for_every_market() -> None:
+    for sport in default_document().sports.values():
+        assert (sport.line_mode.totals, sport.line_mode.team_totals) == ("safest", "safest")
+
+
+def test_main_is_not_a_booking_mode() -> None:
+    document = json.loads(json.dumps(DOCUMENT))
+    document["sports"]["NBA"]["line_mode"]["team_totals"] = "main"
+    with pytest.raises(ValidationError, match="line_mode"):
+        ConfigDocument.model_validate(document)
+
+
+def test_a_document_saved_with_main_reads_as_the_lowest_odds_line(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stored = json.loads(json.dumps(DOCUMENT))
+    stored["sports"]["NCAAB"]["line_mode"]["team_totals"] = "main"
+    loaded = document_from_stored(stored)
+    assert loaded.sports["NCAAB"].line_mode.team_totals == "safest"
+    assert "NCAAB team_totals: stored line mode main reads as safest" in capsys.readouterr().out

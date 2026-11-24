@@ -140,7 +140,7 @@ describe("the ticket card", () => {
     expect(screen.getByText("3.28")).toBeInTheDocument();
     expect(screen.getByText("30.5%")).toBeInTheDocument();
     expect(screen.getByText(/Bookmaker-implied: the product/)).toBeInTheDocument();
-    expect(screen.getByText(/Safest line/)).toBeInTheDocument();
+    expect(screen.getByText(/Lowest-odds line/)).toBeInTheDocument();
   });
 
   it("lists its legs by team or total", async () => {

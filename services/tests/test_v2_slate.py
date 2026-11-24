@@ -222,7 +222,8 @@ def test_main_and_safest_lines(depth: int) -> None:
     assert under is not None and under.line == max(lines)
     assert over.outcome("Over")[0] == "12"
     assert under.outcome("Under")[0] == "13"
-    assert booked_line(event.totals, "main", "Over", 60.0, 0.0) == main
+    with pytest.raises(ValueError, match="Unknown line mode 'main'"):
+        booked_line(event.totals, "main", "Over", 60.0, 0.0)  # D101: never booked.
 
 
 def test_the_real_ncaaf_event_parses() -> None:

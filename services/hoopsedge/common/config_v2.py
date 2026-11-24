@@ -15,7 +15,9 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 DEFAULTS = Path(__file__).with_name("config_v2_defaults.yaml")
 PROVISIONAL = "provisional_percentiles"
 Sport = Literal["NCAAF", "NCAAB", "NBA"]
-LineMode = Literal["main", "safest", "safest_with_cushion"]
+# Owner, 2026-11-24 (D101): book only the lowest-odds line. `main` decides the lean and is graded
+# as evidence, but it is never booked, so it isn't a mode.
+LineMode = Literal["safest", "safest_with_cushion"]
 
 
 class _Strict(BaseModel):
