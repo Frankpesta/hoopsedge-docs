@@ -22,6 +22,15 @@ def slate_dir(data_dir: Path, sport: str, day: date) -> Path:
     return runs_root(data_dir) / sport / day.isoformat()
 
 
+def grades_root(data_dir: Path) -> Path:
+    return data_dir / "v2" / "grades"
+
+
+def grades_path(data_dir: Path, sport: str, slate: date) -> Path:
+    """Written by `v2.grading`: each ticket's result and its legs' results (B6)."""
+    return grades_root(data_dir) / sport / f"{slate.isoformat()}.json"
+
+
 def _read(path: Path) -> dict[str, Any] | None:
     if not path.exists():
         return None
@@ -136,10 +145,16 @@ def ticket_view(
     entry: dict[str, Any] | None,
     run: dict[str, Any],
     now: datetime,
+    graded: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """A ticket with what has happened to it since (from the index) and its legs' state now."""
+    """A ticket with what has happened to it since (from the index), its legs' state now and,
+    once graded, its result."""
     entry = entry or {}
+    graded = graded or {}
     legs = [leg_view(leg, now) for leg in ticket.get("leg_details") or []]
+    for leg, result in zip(legs, graded.get("legs") or [{}] * len(legs), strict=False):
+        leg["result"] = result.get("result")
+        leg["actual"] = result.get("actual")
     upcoming = sorted(leg["kickoff"] for leg in legs if not leg["started"])
     status = entry.get("status", ticket["status"])
     return {
@@ -163,12 +178,22 @@ def ticket_view(
         "rebooked_by": entry.get("rebooked_by"),
         "rebook_of": ticket.get("rebook_of") or entry.get("rebook_of"),
         "current": status != "superseded" and not entry.get("rebooked_by"),
+        "result": graded.get("result"),
         "legs": legs,
     }
 
 
+def _grades(slate_folder: Path) -> dict[str, Any]:
+    """The slate's ticket results, from `data/v2/grades` beside `data/v2/runs`."""
+    data_dir = slate_folder.parents[3]
+    path = grades_path(data_dir, slate_folder.parent.name, date.fromisoformat(slate_folder.name))
+    tickets: dict[str, Any] = (_read(path) or {}).get("tickets") or {}
+    return tickets
+
+
 def _tickets(folder: Path, latest: dict[str, Any] | None, now: datetime) -> list[dict[str, Any]]:
     index = _read(folder / "index.json")
+    grades = _grades(folder)
     runs: dict[str, dict[str, Any] | None] = {}
 
     def run(run_id: str) -> dict[str, Any] | None:
@@ -185,9 +210,12 @@ def _tickets(folder: Path, latest: dict[str, Any] | None, now: datetime) -> list
                 None,
             )
             if document and found:
-                views.append(ticket_view(found, entry, document, now))
+                views.append(ticket_view(found, entry, document, now, grades.get(ticket_id)))
     elif latest:  # A slate run before B3 had no index.
-        views = [ticket_view(t, None, latest, now) for t in latest.get("tickets", [])]
+        views = [
+            ticket_view(t, None, latest, now, grades.get(t["ticket_id"]))
+            for t in latest.get("tickets", [])
+        ]
     views.sort(key=lambda t: (not t["current"], t["kind"], t["number"], t["run_id"]))
     return views
 
@@ -223,7 +251,8 @@ def find_ticket(data_dir: Path, ticket_id: str, now: datetime) -> dict[str, Any]
         document = _read(index_file.parent / entry["run_id"] / "run.json")
         for ticket in (document or {}).get("tickets", []):
             if ticket["ticket_id"] == ticket_id and document:
-                return ticket_view(ticket, entry, document, now)
+                graded = _grades(index_file.parent).get(ticket_id)
+                return ticket_view(ticket, entry, document, now, graded)
     return None
 
 
@@ -250,13 +279,14 @@ def run_detail(data_dir: Path, run_id: str, now: datetime) -> dict[str, Any] | N
         if not document:
             continue
         index = (_read(run_dir.parent / "index.json") or {}).get("tickets", {})
+        grades = _grades(run_dir.parent)
         reasons: dict[str, int] = {}
         for item in document.get("dropped", []):
             reasons[item["reason"]] = reasons.get(item["reason"], 0) + 1
         return {
             **run_summary(document),
             "tickets_detail": [
-                ticket_view(t, index.get(t["ticket_id"]), document, now)
+                ticket_view(t, index.get(t["ticket_id"]), document, now, grades.get(t["ticket_id"]))
                 for t in document.get("tickets", [])
             ],
             "unmatched_events": document.get("unmatched", []),

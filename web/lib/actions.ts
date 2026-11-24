@@ -96,3 +96,22 @@ export async function saveConfig(
     ["/settings", "/system", "/"],
   );
 }
+
+/** Brief §9: a threshold suggestion becomes a new config version only when the owner says so. */
+export async function applySuggestion(
+  sport: string,
+  suggestion: { market: string; mode: string; thresholds: Record<string, number> },
+  version: number,
+  key: string,
+): Promise<ActionResult<ConfigView>> {
+  return attempt(
+    () =>
+      apiSend<ConfigView>(
+        "POST",
+        `/calibration/${checkSport(sport)}/apply`,
+        { ...suggestion, version },
+        key,
+      ),
+    ["/results", "/settings", "/"],
+  );
+}

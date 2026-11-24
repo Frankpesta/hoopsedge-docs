@@ -16,6 +16,7 @@ import {
   oneInN,
   percent,
   points,
+  statusLabel,
 } from "@/lib/format";
 import type { SystemView, TicketView } from "@/lib/types";
 
@@ -28,6 +29,7 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
     apiGetFresh<SystemView>("/system"),
   ]);
   if (!ticket) notFound();
+  const settled = ticket.result === "won" || ticket.result === "lost" || ticket.result === "void";
   return (
     <>
       <PageTitle
@@ -46,8 +48,11 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
         }
       />
       <div className="mb-3 flex items-center justify-between gap-2">
-        <StatusChip status={ticket.status} />
-        {ticket.current && ticket.status !== "invalid" && (
+        <span className="flex gap-1">
+          <StatusChip status={ticket.status} />
+          {settled && <StatusChip status={ticket.result ?? ""} />}
+        </span>
+        {ticket.current && ticket.status !== "invalid" && !settled && (
           <RebookButton
             ticketId={ticket.ticket_id}
             startedLegs={ticket.started_legs}
@@ -147,6 +152,15 @@ export default async function TicketPage({ params }: { params: Promise<{ id: str
                 <dd className="text-right">{points(leg.edge_main)}</dd>
                 <dt>Edge vs booked</dt>
                 <dd className="text-right">{points(leg.edge_booked)}</dd>
+                {leg.result && leg.result !== "pending" && (
+                  <>
+                    <dt>Result</dt>
+                    <dd className="text-text text-right font-semibold">
+                      {statusLabel(leg.result)}
+                      {leg.actual === null || leg.actual === undefined ? "" : `, ${leg.actual}`}
+                    </dd>
+                  </>
+                )}
               </dl>
               {leg.flags.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1">

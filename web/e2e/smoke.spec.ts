@@ -10,6 +10,7 @@ const PAGES = [
   "/settings",
   "/system",
   "/tickets/T-lean",
+  "/results",
 ];
 
 for (const path of PAGES) {
@@ -112,6 +113,33 @@ test("config refuses a cutoff under 20, previews a change and saves it", async (
   await expect(page.getByText("tickets.booking_cutoff_minutes: 20 → 25")).toBeVisible();
   await page.getByRole("button", { name: "Save as a new version" }).click();
   await expect(page.getByText(/Saved as version 1/)).toBeVisible();
+});
+
+test("results suggest thresholds and the owner applies one", async ({ page }) => {
+  await page.goto("/results?sport=NCAAB");
+  await expect(page.getByText("640")).toBeVisible();
+  const card = page.getByRole("article").filter({ hasText: "Game totals, main line" });
+  await expect(card.getByText("Suggested: Over 4 · Under 6.5")).toBeVisible();
+  await expect(
+    page.getByRole("article").filter({ hasText: "Game totals, safest line" }),
+  ).toContainText("Not enough yet");
+  await expect(
+    page.getByRole("article").filter({ hasText: "Team totals" }).getByText("Already in use."),
+  ).toBeVisible();
+  await card.getByRole("button", { name: "Apply" }).click();
+  await expect(page.getByRole("dialog")).toContainText("new config version");
+  await page.getByRole("dialog").getByRole("button", { name: "Apply" }).click();
+  await expect(page.getByRole("dialog").getByText(/Applied as config version/)).toBeVisible();
+  await page.getByRole("dialog").getByRole("button", { name: "Close" }).click();
+  // The page reloads with the new version, so the suggestion is now the one in use.
+  await expect(card.getByText("Already in use.")).toBeVisible();
+  await expect(card.getByText("Now: Over 4 · Under 6.5")).toBeVisible();
+});
+
+test("a graded ticket shows its result and can't be rebooked", async ({ page }) => {
+  await page.goto("/tickets/T-old");
+  await expect(page.getByText(/^✕\s*Lost$/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Rebook" })).toBeHidden();
 });
 
 test("the dry-run banner is loud while dry run is on", async ({ page }) => {

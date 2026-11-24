@@ -121,13 +121,14 @@ class ApiStore:
         version: int,
         changes: list[dict[str, Any]],
         now: datetime,
+        changed_by: str = "dashboard",
     ) -> None:
         """Version-checked, so two tabs can't silently overwrite each other."""
         fields = to_item(
             {
                 "document": document,
                 "version": version,
-                "changed_by": "dashboard",
+                "changed_by": changed_by,
                 "changed_at": now.isoformat(),
                 "diff": changes,
             }

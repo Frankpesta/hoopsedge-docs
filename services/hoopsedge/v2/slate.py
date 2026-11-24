@@ -444,7 +444,16 @@ def _row_document(row: GameRow) -> dict[str, Any]:
         "prediction": prediction(row.prediction),
         "other_variant": prediction(row.other_variant),
         "legs": {kind: asdict(leg) for kind, leg in row.legs.items()},
-    }
+        # Both teams' main team-total lines, so grading can pick for either variant (brief §9).
+        "team_lines": {"home": _line_document(row.home_team_line),
+                       "away": _line_document(row.away_team_line)},
+    }  # fmt: skip
+
+
+def _line_document(line: Any) -> dict[str, float] | None:
+    if line is None:
+        return None
+    return {"line": line.line, "over_odds": line.over_odds, "under_odds": line.under_odds}
 
 
 # Running against the real services

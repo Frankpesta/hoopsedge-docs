@@ -8,6 +8,8 @@ Lagos times, each one overridable from the settings document's `schedules`:
 - 08:00 ESPN scores refresh for every sport, after nearly all US games have ended.
 - NCAAF slates at 18:00 every day (weeknight games) and also 14:00 on Saturdays.
 - NCAAB and NBA slates at 16:00 and 21:00; the second catches late lines.
+- 09:00 grading of finished slates, after the scores refresh (brief §9, B6).
+- Mondays 09:30 the weekly evidence report, for the week to Sunday.
 
 A slate run refreshes ESPN itself before predicting. It books real codes only when both D97
 switches allow it. The slate
@@ -39,6 +41,9 @@ SPORTS = ("NCAAF", "NCAAB", "NBA")
 SATURDAY = 5
 BACKUP_TIME = clock(5, 0)
 SCORES_TIME = clock(8, 0)
+GRADING_TIME = clock(9, 0)
+REPORT_TIME = clock(9, 30)
+MONDAY = 0
 # Name: (sport, default Lagos time, Saturdays only).
 SLATES: dict[str, tuple[str, clock, bool]] = {
     "ncaaf_slate": ("NCAAF", clock(18, 0), False),
@@ -90,6 +95,17 @@ def due_jobs(
     for sport in SPORTS:
         scores = _module("hoopsedge.ingest.scores", "refresh", "--sport", sport)
         daily(f"scores-{sport}", _clock(times.get(f"{sport.lower()}_scores"), SCORES_TIME), scores)
+    daily(
+        "grading",
+        _clock(times.get("grading"), GRADING_TIME),
+        _module("hoopsedge.v2.grading", "grade"),
+    )
+    if local.weekday() == MONDAY:
+        daily(
+            "weekly_report",
+            _clock(times.get("weekly_report"), REPORT_TIME),
+            _module("hoopsedge.v2.grading", "report"),
+        )
     slate = now.astimezone(EASTERN).date().isoformat()
     for name, (sport, at, saturdays) in SLATES.items():
         if saturdays and local.weekday() != SATURDAY:

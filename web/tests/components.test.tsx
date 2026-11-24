@@ -169,6 +169,23 @@ describe("the ticket card", () => {
     expect(screen.getByText(/Superseded by a later run/)).toBeInTheDocument();
   });
 
+  it("shows a graded result, each leg's outcome, and no rebook once settled", async () => {
+    const user = userEvent.setup();
+    const graded = ticket({
+      result: "lost",
+      legs: [
+        leg({ result: "won", actual: 52 }),
+        leg({ event_id: "sr:match:2", result: "lost", actual: 40 }),
+      ],
+    });
+    render(<TicketCard ticket={graded} realCodes={false} />);
+    expect(screen.getByText("Lost", { selector: "span" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Rebook" })).not.toBeInTheDocument();
+    await user.click(screen.getByText("Legs"));
+    expect(screen.getByText("Won, 52")).toBeInTheDocument();
+    expect(screen.getByText("Lost, 40")).toBeInTheDocument();
+  });
+
   it("shows why a ticket wasn't booked", () => {
     render(
       <TicketCard

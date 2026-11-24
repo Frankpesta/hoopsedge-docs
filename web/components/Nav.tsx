@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/", label: "Today" },
   { href: "/unmatched", label: "Teams" },
   { href: "/runs", label: "Runs" },
+  { href: "/results", label: "Results" },
   { href: "/settings", label: "Config" },
   { href: "/system", label: "System" },
 ];

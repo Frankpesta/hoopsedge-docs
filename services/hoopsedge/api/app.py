@@ -27,6 +27,8 @@ from pydantic import BaseModel, ValidationError
 from hoopsedge.api.schemas import (
     AliasRequest,
     AliasView,
+    ApplySuggestion,
+    Calibration,
     ConfigUpdate,
     ConfigVersion,
     ConfigView,
@@ -50,7 +52,7 @@ from hoopsedge.api.schemas import (
 from hoopsedge.api.store import Artifacts, ConflictError, plain
 from hoopsedge.common.booking_mode import is_dry_run
 from hoopsedge.common.dynamo import LOCAL_ENV
-from hoopsedge.v2 import views
+from hoopsedge.v2 import grading, views
 from hoopsedge.v2.config_store import SCHEDULE_NAMES, ConfigDocument, document_from_stored
 from hoopsedge.v2.names import normalize, seed_aliases
 
@@ -215,7 +217,9 @@ def create_app(deps: Deps) -> FastAPI:
         document = document_from_stored(stored.get("document"))
         return {**stored, "document": document.model_dump(by_alias=True, mode="json")}
 
-    def save_config(document: dict[str, Any], based_on: int) -> ConfigView:
+    def save_config(
+        document: dict[str, Any], based_on: int, changed_by: str = "dashboard"
+    ) -> ConfigView:
         current = config_view()
         if int(current["version"]) != based_on:
             raise HTTPException(409, "The config changed since you loaded it")
@@ -226,7 +230,7 @@ def create_app(deps: Deps) -> FastAPI:
         saved = checked.model_dump(by_alias=True, mode="json")
         changes = changes_between(current["document"], saved)
         try:
-            store.save_settings(saved, based_on + 1, changes, deps.now())
+            store.save_settings(saved, based_on + 1, changes, deps.now(), changed_by)
         except ConflictError as error:
             raise HTTPException(409, str(error)) from error
         for name, value in saved["schedules"].items():
@@ -467,6 +471,38 @@ def create_app(deps: Deps) -> FastAPI:
             return save_config(document, int(current["version"]))
 
         return once(key, f"schedule:{name}", action)
+
+    # Grading and calibration (brief §9, D90). Suggestions only: the owner applies them.
+
+    @api.get("/calibration/{sport}", response_model=Calibration)
+    def calibration(sport: Sport) -> dict[str, Any]:
+        return grading.calibration(data_dir, sport.value, config_view()["document"])
+
+    @api.post("/calibration/{sport}/apply", response_model=ConfigView)
+    def apply_suggestion(
+        sport: Sport, body: ApplySuggestion, key: Annotated[str, Depends(mutation)]
+    ) -> JSONResponse:
+        def action() -> ConfigView:
+            current = config_view()
+            if int(current["version"]) != body.version:
+                raise HTTPException(409, "The config changed since you loaded it")
+            found = grading.calibration(data_dir, sport.value, current["document"])
+            match = next(
+                (s for s in found["suggestions"]
+                 if s["market"] == body.market and s["mode"] == body.mode),
+                None,
+            )  # fmt: skip
+            if match is None or match["suggested"] is None:
+                raise _not_found("Suggestion")
+            thresholds = match["suggested"]["thresholds"]
+            if thresholds != body.thresholds:
+                raise HTTPException(409, "The suggestion changed since you loaded it")
+            document = grading.apply_suggestion(
+                current["document"], sport.value, body.market, body.mode, thresholds
+            )
+            return save_config(document, body.version, "calibration")
+
+        return once(key, f"calibration:{sport.value}", action)
 
     # System.
 
