@@ -44,14 +44,20 @@ docker compose run --rm dev python /workspace/scripts/grade_sheet.py /workspace/
 
 ## Slates
 
-One sport and US Eastern date: refresh ESPN, list SportyBet's events, match teams (aliases, exact name, location plus mascot; never fuzzy), predict, choose lines, re-check them, and build tickets. **Booking is dry-run only for now (D95):** tickets get `DRYRUN-` codes. It needs the local database, so it runs in the `pipeline` service:
+One sport and US Eastern date: refresh ESPN, list SportyBet's events, match teams (aliases, exact name, location plus mascot; never fuzzy), predict, choose lines, re-check them, and build tickets. Codes are practice `DRYRUN-` codes unless both switches allow real ones (D97): the dashboard's Dry run switch off, and `DRY_RUN=false` on the container. Only the `api` container (Run now) has that locally; scheduled runs follow `HOOPSEDGE_SCHEDULED_DRY_RUN` in `.env`, and command-line runs in `pipeline` always stay dry. A real code is read back and checked selection by selection; a mismatch marks it invalid, alerts, and stops the run's other real bookings. It needs the local database, so it runs in the `pipeline` service:
 
 ```sh
 docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.slate run --sport NCAAB --date 2026-11-24
 docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.slate alias --sport NCAAB --name "SportyBet Name" --team-id 2010
 ```
 
-Each run writes `data/v2/runs/{sport}/{date}/{run_id}/`: the CSV in the owner's sheet format, `run.json` with every row, leg, ticket, drop and failure, and the raw SportyBet responses. Unmatched teams go to the review queue in DynamoDB with suggestions; add an alias, then re-run.
+To rebook a ticket after some of its games have started (drops those legs, re-checks the rest, books a new code, links the two):
+
+```sh
+docker compose --profile manual run --rm pipeline python -m hoopsedge.v2.slate rebook --sport NCAAB --date 2026-11-24 --ticket-id <id>
+```
+
+Each run writes `data/v2/runs/{sport}/{date}/{run_id}/`: the CSV in the owner's sheet format, `run.json` with every row, leg, ticket, drop and failure, and the raw SportyBet responses. Unmatched teams go to the review queue in DynamoDB with suggestions; add an alias, then re-run. The slate's `index.json` records which tickets a later run's real codes superseded and which were rebooked.
 
 ## Scheduler
 
@@ -90,7 +96,7 @@ The phone-first dashboard, in `web/`. To run it locally with the API, put `HOOPS
 docker compose --profile manual up -d --build --no-deps api web
 ```
 
-**Run now starts a v2 slate run, which is dry-run only for now (D95, D96).** The dashboard pages are still built around v1 tickets until B4 and B5 rebuild them on v2 data. Nothing here can log in or place a bet.
+**Run now starts a v2 slate run, which books real codes only when Settings' Dry run is off (D97).** The dashboard pages are still built around v1 tickets until B4 and B5 rebuild them on v2 data. Nothing here can log in or place a bet.
 
 The key stays on the server: the browser only ever talks to the dashboard. Checks, all inside Docker so they don't depend on this machine's Node:
 

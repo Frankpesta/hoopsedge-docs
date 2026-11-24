@@ -59,7 +59,7 @@ from hoopsedge.api.settings import (
 )
 from hoopsedge.api.store import Artifacts, ConflictError, plain
 from hoopsedge.common.aggregates import merge_aggregates
-from hoopsedge.common.booking_mode import DASHBOARD_TRIGGER, is_dry_run
+from hoopsedge.common.booking_mode import is_dry_run
 from hoopsedge.common.dynamo import LOCAL_ENV
 from hoopsedge.common.ids import new_ulid
 from hoopsedge.v2.names import normalize
@@ -583,9 +583,10 @@ def create_app(deps: Deps) -> FastAPI:
                 "last_odds_fetch": at("collector/runs.jsonl"),
                 "last_scheduled_job": at("scheduler/runs.jsonl"),
             },
-            # What will really happen (D78), since the environment can overrule the switch.
-            "dry_run": is_dry_run(bool(document["dry_run"]), DASHBOARD_TRIGGER),
-            "scheduled_dry_run": is_dry_run(bool(document["dry_run"]), "scheduled"),
+            # What will really happen (D97): the switch and each container's DRY_RUN together.
+            "dry_run": is_dry_run(bool(document["dry_run"])),
+            "scheduled_dry_run": bool(document["dry_run"])
+            or os.environ.get("HOOPSEDGE_SCHEDULER_DRY_RUN", "true").strip().lower() != "false",
             "pause_all": bool(document["pause_all"]),
         }
 

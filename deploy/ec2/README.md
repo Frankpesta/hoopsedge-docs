@@ -38,7 +38,13 @@ HOOPSEDGE_API_KEY=<the same long random value as Vercel's>
 HOOPSEDGE_GIT_SHA=<short commit the images were built from>
 HOOPSEDGE_API_HOST=13-48-245-26.sslip.io
 HOOPSEDGE_SPORTYBET_PROXY=socks5h://host.docker.internal:1080
+HOOPSEDGE_SCHEDULED_DRY_RUN=true
 ```
+
+Real codes (D83, D97) need the dashboard's Dry run switch off. Run now can then book, because the
+`api` container has `DRY_RUN=false`. Scheduled runs also need `HOOPSEDGE_SCHEDULED_DRY_RUN=false`,
+which stays `true` until the owner signs off go-live (brief Phase 8). Recreate `scheduler api`
+after changing it.
 
 ## SportyBet through the laptop (D81)
 

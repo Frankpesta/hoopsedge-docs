@@ -1,19 +1,15 @@
-"""Whether a run may book, on its own so the API can ask without loading the model libraries."""
+"""Whether a run may create real booking codes. On its own, so the API can ask cheaply.
+
+D83 replaced D78: Run now, scheduled runs and the command line follow the same rule. Real codes
+need both switches off (D97): the settings document's `dry_run` (the dashboard's switch, true by
+default) and the container's `DRY_RUN` environment variable (anything but "false" keeps it dry).
+Either one alone keeps every code a practice `DRYRUN-` code (invariant 8).
+"""
 
 import os
 
-from hoopsedge.common.dynamo import LOCAL_ENV
 
-LOCAL_BOOKING_ENV = "HOOPSEDGE_LOCAL_BOOKING"
-DASHBOARD_TRIGGER = "dashboard"
-
-
-def is_dry_run(config_dry_run: bool = False, trigger: str | None = None) -> bool:
-    """D78: on the owner's machine only Run now can book, and only where the API allows it."""
-    if config_dry_run:
-        return True
-    if os.environ.get("HOOPSEDGE_ENV", LOCAL_ENV) == LOCAL_ENV and not (
-        trigger == DASHBOARD_TRIGGER and os.environ.get(LOCAL_BOOKING_ENV) == DASHBOARD_TRIGGER
-    ):
+def is_dry_run(settings_dry_run: bool = True) -> bool:
+    if settings_dry_run:
         return True
     return os.environ.get("DRY_RUN", "true").strip().lower() != "false"
