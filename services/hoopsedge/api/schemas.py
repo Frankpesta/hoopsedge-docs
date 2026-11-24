@@ -15,7 +15,8 @@ UNPROVEN_NOTE = (
 
 class League(StrEnum):
     NBA = "NBA"
-    NCAA = "NCAA"
+    NCAAB = "NCAAB"  # D87: was NCAA.
+    NCAAF = "NCAAF"
 
 
 class Family(StrEnum):
@@ -273,29 +274,12 @@ class Team(_Model):
     name: str
 
 
-class MarketSetting(_Model):
-    model_config = ConfigDict(extra="forbid")
-
-    enabled: bool
-    min_prob: float | None = Field(default=None, ge=0.0, le=1.0)
-    min_edge: float | None = Field(default=None, ge=-1.0, le=1.0)
-
-
-class LeagueSetting(_Model):
-    model_config = ConfigDict(extra="forbid")
-
-    enabled: bool
-
-
 class SettingsDocument(_Model):
+    """Cut down for v2 until B4 (D96). Thresholds live in the v2 config document."""
+
     model_config = ConfigDict(extra="forbid")
 
     schedules: dict[str, str]
-    leagues: dict[League, LeagueSetting]
-    markets: dict[League, dict[Family, MarketSetting]]
-    min_legs: int = Field(ge=2)  # D4: a ticket needs at least two legs.
-    min_minutes_before_tip: int = Field(ge=20)  # Invariant 2 can be tightened, never loosened.
-    allow_alt_lines: bool
     sportybet_proxy_enabled: bool
     dry_run: bool
     pause_all: bool

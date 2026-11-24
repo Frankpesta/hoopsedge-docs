@@ -1,47 +1,35 @@
-"""The settings document (docs/00 section 6), seeded from what Phase 4 decided.
+"""The settings document, cut down for v2 until B4 replaces it with the v2 config document (D96).
 
-Thresholds are per league, unlike docs/00's single set, because Phase 4 chose them per league (D60).
-`passed_gate` and `edge_label` aren't settings: the evidence decides those, so they can't be edited.
+What's left is what the v2 jobs still read: schedule times (the scheduler's job names), the dry-run
+switch, `pause_all` and the proxy flag. The v1 market thresholds went to `legacy/` with the model
+that produced them; v2 thresholds live in `common/config_v2`. A settings document saved before v2
+still loads: only its v2 fields are kept, and missing ones take their defaults.
 """
 
-from pathlib import Path
 from typing import Any
 
-import yaml
+from hoopsedge.pipeline.schedule import BACKUP_TIME, SCORES_TIME, SLATES, SPORTS
 
-from hoopsedge.common.thresholds import thresholds_in_force
+FAMILIES = (
+    "handicap",
+    "total_ft",
+    "total_1h",
+    "team_total",
+)  # v1 ticket families, for old tickets.
 
-PARAMS_DIR = Path(__file__).parent.parent / "models" / "params"
-FAMILIES = ("handicap", "total_ft", "total_1h", "team_total")
-LEAGUES = ("NBA", "NCAA")
-SCHEDULE_NAMES = ("ncaa_slate", "nba_slate", "nba_late_slate", "nightly_learn")
+
+def default_schedules() -> dict[str, str]:
+    times = {"backup": BACKUP_TIME, **{f"{s.lower()}_scores": SCORES_TIME for s in SPORTS}}
+    times |= {name: at for name, (_, at, _) in SLATES.items()}
+    return {name: at.strftime("%H:%M") for name, at in times.items()}
 
 
-def default_settings(params_dir: Path = PARAMS_DIR) -> dict[str, Any]:
-    gates = yaml.safe_load((params_dir / "market_gates.yaml").read_text("utf-8"))
-    thresholds = thresholds_in_force(params_dir)
-    markets: dict[str, dict[str, Any]] = {}
-    for league in LEAGUES:
-        markets[league] = {}
-        for family in FAMILIES:
-            chosen = thresholds[league][family]
-            markets[league][family] = {
-                "enabled": gates[league][family]["enabled"],
-                "min_prob": chosen["min_prob"],
-                "min_edge": chosen["min_edge"],
-            }
+SCHEDULE_NAMES = tuple(default_schedules())
+
+
+def default_settings() -> dict[str, Any]:
     return {
-        "schedules": {
-            "ncaa_slate": "15:00",
-            "nba_slate": "22:00",
-            "nba_late_slate": "00:30",
-            "nightly_learn": "11:00",
-        },
-        "leagues": {league: {"enabled": True} for league in LEAGUES},
-        "markets": markets,
-        "min_legs": 2,
-        "min_minutes_before_tip": 20,
-        "allow_alt_lines": False,
+        "schedules": default_schedules(),
         "sportybet_proxy_enabled": False,
         # C12: true until someone turns it off on purpose. The environment can still force it on.
         "dry_run": True,
@@ -49,20 +37,15 @@ def default_settings(params_dir: Path = PARAMS_DIR) -> dict[str, Any]:
     }
 
 
-def gate_verdicts(params_dir: Path = PARAMS_DIR) -> dict[str, Any]:
-    gates: dict[str, Any] = yaml.safe_load((params_dir / "market_gates.yaml").read_text("utf-8"))
-    return {
-        league: {
-            family: {
-                "passed": gate["passed"],
-                "edge": gate["edge"],
-                "reason": gate["reason"],
-                "override": gate.get("override"),
-            }
-            for family, gate in group.items()
-        }
-        for league, group in gates.items()
+def v2_document(stored: dict[str, Any]) -> dict[str, Any]:
+    """A saved document in today's shape: v2 fields kept, v1-only ones dropped."""
+    defaults = default_settings()
+    document = {key: stored[key] for key in defaults if key in stored}
+    saved_times = stored.get("schedules") or {}
+    document["schedules"] = {
+        name: saved_times.get(name, default) for name, default in defaults["schedules"].items()
     }
+    return {**defaults, **document}
 
 
 def changes_between(old: Any, new: Any, path: str = "") -> list[dict[str, Any]]:

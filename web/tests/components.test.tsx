@@ -20,7 +20,7 @@ vi.mock("next/link", () => ({
 function ticket(changes: Partial<TicketCard> = {}): TicketCard {
   return {
     ticket_id: "t1",
-    league: "NCAA",
+    league: "NCAAB",
     family: "total_ft",
     ticket_no: 1,
     version: 3,

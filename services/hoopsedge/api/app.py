@@ -55,14 +55,14 @@ from hoopsedge.api.settings import (
     SCHEDULE_NAMES,
     changes_between,
     default_settings,
-    gate_verdicts,
+    v2_document,
 )
 from hoopsedge.api.store import Artifacts, ConflictError, plain
 from hoopsedge.common.aggregates import merge_aggregates
 from hoopsedge.common.booking_mode import DASHBOARD_TRIGGER, is_dry_run
 from hoopsedge.common.dynamo import LOCAL_ENV
 from hoopsedge.common.ids import new_ulid
-from hoopsedge.teams.normalize import normalize_name
+from hoopsedge.v2.names import normalize
 
 logger = logging.getLogger("hoopsedge.api")
 EASTERN = ZoneInfo("America/New_York")
@@ -70,7 +70,7 @@ KEY_HEADER = "x-hoopsedge-key"
 MUTATIONS_PER_MINUTE = 10
 BUDGET_ALERTS_USD = [10, 25, 50]
 HIDDEN_ON_UNPROVEN = ("p_raw", "p_calibrated", "p_win", "p_lose", "edge", "ev")
-LEAGUES = (League.NBA, League.NCAA)
+LEAGUES = (League.NBA, League.NCAAB, League.NCAAF)
 SAFE_ID = re.compile(r"^[\w:.\-]{1,128}$")
 CLOCK_TIME = re.compile(CLOCK_PATTERN)
 ALERT_LIMIT = 50
@@ -272,7 +272,7 @@ def create_app(deps: Deps) -> FastAPI:
         stored: dict[str, Any] | None = store.settings()
         if stored is None:
             return {"version": 0, "document": default_settings()}
-        return stored
+        return {**stored, "document": v2_document(stored["document"])}
 
     def apply_settings(document: dict[str, Any], based_on: int) -> SettingsView:
         current = settings_view()
@@ -284,7 +284,7 @@ def create_app(deps: Deps) -> FastAPI:
             store.save_settings(document, version, changes, deps.now())
         except ConflictError as error:
             raise HTTPException(409, str(error)) from error
-        return SettingsView.model_validate(store.settings())
+        return SettingsView.model_validate(settings_view())
 
     @app.get("/health", response_model=Health)
     def health() -> dict[str, bool]:
@@ -435,7 +435,7 @@ def create_app(deps: Deps) -> FastAPI:
             "drift": (deps.artifacts.latest_json(f"reports/learning/{league.value}") or {}).get(
                 "drift"
             ),
-            "gates": gate_verdicts().get(league.value, {}),
+            "gates": {},  # v1 market gates went to legacy/ with the model (D96).
         }
 
     @api.get("/evidence/{league}", response_model=Evidence)
@@ -489,8 +489,8 @@ def create_app(deps: Deps) -> FastAPI:
                 raise HTTPException(422, f"No {league.value} team {team}")
         # Invariant 5: from now on these names match, because the owner confirmed them.
         aliases = {
-            normalize_name(str(item["home_name"])): body.team_id_home,
-            normalize_name(str(item["away_name"])): body.team_id_away,
+            normalize(str(item["home_name"])): body.team_id_home,
+            normalize(str(item["away_name"])): body.team_id_away,
         }
         for alias, team in aliases.items():
             store.confirm_alias(league.value, alias, team, now)
@@ -563,18 +563,8 @@ def create_app(deps: Deps) -> FastAPI:
     def rollback(
         league: League, body: RollbackRequest, key: Annotated[str, Depends(mutation)]
     ) -> JSONResponse:
-        def action() -> RollbackResult:
-            # Rare, and the one path that needs the model code, so it's imported only when used.
-            from hoopsedge.learning.registry import ModelRegistry, RegistryError  # noqa: PLC0415
-
-            registry = ModelRegistry(store.table, deps.artifacts.root / "models")
-            try:
-                champion = registry.rollback(league.value, body.version, deps.now(), body.reason)
-            except RegistryError as error:
-                raise HTTPException(422, str(error)) from error
-            return RollbackResult(league=league, version=champion.version, reason=champion.reason)
-
-        return once(key, f"rollback:{league.value}:{body.version}", action)
+        # v2 has no trained model to roll back: the learning code went to legacy/ (D96).
+        raise HTTPException(410, "Model rollback was retired with the v1 model (D96)")
 
     @api.get("/system", response_model=SystemView)
     def system() -> dict[str, Any]:

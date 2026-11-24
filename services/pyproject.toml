@@ -46,6 +46,8 @@ addopts = "-ra --strict-markers"
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+# v1 model code, kept but never imported or run (D96).
+extend-exclude = ["legacy"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "S", "BLE"]

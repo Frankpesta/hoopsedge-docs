@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { ApiError, apiSend } from "./api";
 import type { ActionResult, League, SettingsDocument, SettingsView } from "./types";
 
-const LEAGUES = new Set<string>(["NBA", "NCAA"]);
+const LEAGUES = new Set<string>(["NBA", "NCAAB", "NCAAF"]);
 
 async function attempt<T>(work: () => Promise<T>, paths: string[]): Promise<ActionResult<T>> {
   try {

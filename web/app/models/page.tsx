@@ -133,7 +133,7 @@ function LeagueModels({ view }: { view: ModelsView }) {
 export default async function ModelsPage() {
   const [nba, ncaa] = await Promise.all([
     apiGet<ModelsView>("/models/NBA"),
-    apiGet<ModelsView>("/models/NCAA"),
+    apiGet<ModelsView>("/models/NCAAB"),
   ]);
   return (
     <>

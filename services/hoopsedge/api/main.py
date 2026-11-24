@@ -33,16 +33,12 @@ class LocalRunStarter:
             [
                 sys.executable,
                 "-m",
-                "hoopsedge.pipeline.slate",
+                "hoopsedge.v2.slate",
                 "run",
-                "--league",
+                "--sport",
                 league,
                 "--date",
                 slate.isoformat(),
-                "--run-id",
-                run_id,
-                "--trigger",
-                "dashboard",
             ],  # fmt: skip
             env=os.environ.copy(),
         )

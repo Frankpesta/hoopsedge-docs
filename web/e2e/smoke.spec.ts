@@ -9,14 +9,14 @@ const PAGES = [
   "/models",
   "/unmatched",
   "/runs",
-  "/runs/run-NCAA",
+  "/runs/run-NCAAB",
   "/settings",
   "/system",
 ];
 
 async function openNcaa(page: import("@playwright/test").Page) {
   await page.goto("/");
-  await page.getByRole("tab", { name: "NCAA" }).click();
+  await page.getByRole("tab", { name: "NCAAB" }).click();
 }
 
 test("copying a code puts it on the clipboard", async ({ page }) => {
@@ -76,15 +76,15 @@ test("excluded legs show their reasons, with a link to the queue", async ({ page
 
 test("run now asks first, then follows the run to its end", async ({ page }) => {
   await openNcaa(page);
-  await page.getByRole("button", { name: "Run NCAA now" }).click();
+  await page.getByRole("button", { name: "Run NCAAB now" }).click();
   await expect(page.getByRole("dialog")).toContainText("superseded");
   await page.getByRole("button", { name: "Cancel" }).click();
   await expect(page.getByRole("dialog")).toBeHidden();
-  await page.getByRole("button", { name: "Run NCAA now" }).click();
+  await page.getByRole("button", { name: "Run NCAAB now" }).click();
   await page.getByRole("button", { name: "Start the run" }).click();
   await expect(page.getByRole("button", { name: "Running" })).toBeVisible();
   // The fake finishes after a few polls, so this proves polling, not just the first response.
-  await expect(page.getByRole("button", { name: "Run NCAA now" })).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole("button", { name: "Run NCAAB now" })).toBeVisible({ timeout: 30_000 });
 });
 
 test("resolving an unmatched event clears it", async ({ page }) => {

@@ -13,7 +13,7 @@ import pytest
 import respx
 
 from hoopsedge.common.http import PoliteClient
-from hoopsedge.ingest.backfill import Backfill, BlockedError, halt_path, write_gz
+from hoopsedge.ingest.espn_files import BlockedError, Fetcher, halt_path, write_gz
 from hoopsedge.ingest.scores import (
     CORE_ROOT,
     OTHER,
@@ -29,6 +29,7 @@ from hoopsedge.ingest.scores import (
     read_teams,
     refresh,
     season_for,
+    season_window,
     write_season,
 )
 from hoopsedge.pipeline.schedule import due_jobs
@@ -57,9 +58,9 @@ def boards() -> dict[str, dict[str, Any]]:
 
 
 @pytest.fixture
-def backfill(tmp_path: Path) -> Backfill:
+def backfill(tmp_path: Path) -> Fetcher:
     client = PoliteClient("t", rate_per_second=1000.0, max_retries=0, sleep=lambda _: None)
-    return Backfill(tmp_path, client, today_et=TODAY, log=lambda _: None)
+    return Fetcher(tmp_path, client, today_et=TODAY, log=lambda _: None)
 
 
 def mock_level_lists() -> None:
@@ -98,11 +99,20 @@ def fetched_dates(route: respx.Route, since: int = 0) -> list[str]:
     return sorted({call.request.url.params["dates"] for call in list(route.calls)[since:]})
 
 
-def test_season_is_named_by_its_starting_year() -> None:
-    assert season_for(date(2026, 8, 29)) == 2026
-    assert season_for(date(2026, 11, 28)) == 2026
-    assert season_for(date(2027, 1, 12)) == 2026  # The bowls.
-    assert season_for(date(2027, 8, 20)) == 2027
+def test_football_seasons_are_named_by_their_first_year() -> None:
+    assert season_for(date(2026, 8, 29), NCAAF) == 2026
+    assert season_for(date(2026, 11, 28), NCAAF) == 2026
+    assert season_for(date(2027, 1, 12), NCAAF) == 2026  # The bowls.
+    assert season_for(date(2027, 8, 20), NCAAF) == 2027
+
+
+def test_basketball_seasons_are_named_by_their_last_year() -> None:
+    for sport in ("NCAAB", "NBA"):
+        source = SOURCES[sport]
+        assert season_for(date(2026, 11, 24), source) == 2027
+        assert season_for(date(2027, 3, 20), source) == 2027
+    assert season_window(SOURCES["NCAAB"], 2027) == (date(2026, 11, 1), date(2027, 4, 15))
+    assert season_window(SOURCES["NBA"], 2027) == (date(2026, 10, 1), date(2027, 6, 30))
 
 
 def test_dates_run_from_season_start_to_the_lookahead() -> None:
@@ -113,7 +123,7 @@ def test_dates_run_from_season_start_to_the_lookahead() -> None:
 
 
 @respx.mock
-def test_first_refresh_backfills_and_a_rerun_fetches_only_recent_days(backfill: Backfill) -> None:
+def test_first_refresh_backfills_and_a_rerun_fetches_only_recent_days(backfill: Fetcher) -> None:
     route = mock_espn()
     first = refresh(backfill, SHORT, 2026)
     assert not first["failures"]
@@ -134,7 +144,7 @@ def test_first_refresh_backfills_and_a_rerun_fetches_only_recent_days(backfill: 
 
 
 @respx.mock
-def test_an_old_date_with_an_unfinished_game_is_fetched_again(backfill: Backfill) -> None:
+def test_an_old_date_with_an_unfinished_game_is_fetched_again(backfill: Fetcher) -> None:
     game_boards = boards()
     game_boards["81"]["events"][1]["competitions"][0]["status"]["type"]["state"] = "pre"
     route = mock_espn(game_boards)
@@ -146,7 +156,7 @@ def test_an_old_date_with_an_unfinished_game_is_fetched_again(backfill: Backfill
 
 
 @respx.mock
-def test_a_failed_date_is_reported_and_retried(backfill: Backfill) -> None:
+def test_a_failed_date_is_reported_and_retried(backfill: Fetcher) -> None:
     respx.get(BOARD_URL, params={"dates": "20261120", "groups": "81"}).mock(
         return_value=httpx.Response(500)
     )
@@ -159,7 +169,7 @@ def test_a_failed_date_is_reported_and_retried(backfill: Backfill) -> None:
 
 
 @respx.mock
-def test_a_block_halts_every_espn_job(backfill: Backfill) -> None:
+def test_a_block_halts_every_espn_job(backfill: Fetcher) -> None:
     mock_level_lists()
     respx.get(BOARD_URL).mock(return_value=httpx.Response(403))
     with pytest.raises(BlockedError):
@@ -267,11 +277,65 @@ def test_a_scheduled_game_has_no_score(tmp_path: Path) -> None:
     assert (row["home_pts"], row["away_pts"]) == (None, None)
 
 
-def test_scheduler_refreshes_ncaaf_scores_each_morning() -> None:
+def test_scheduler_refreshes_every_sport_each_morning() -> None:
     eight_in_lagos = datetime(2026, 11, 24, 7, 0, tzinfo=UTC)
-    graded = {"grade": eight_in_lagos.isoformat()}
-    jobs = {job.name: job for job in due_jobs(eight_in_lagos, graded)}
-    assert set(jobs) == {"scores-NCAAF"}
+    jobs = {job.name: job for job in due_jobs(eight_in_lagos, {})}
+    assert set(jobs) == {"scores-NCAAF", "scores-NCAAB", "scores-NBA"}
     command = ("hoopsedge.ingest.scores", "refresh", "--sport", "NCAAF")
     assert jobs["scores-NCAAF"].command[-4:] == command
-    assert not due_jobs(eight_in_lagos, {**graded, "scores-NCAAF": "2026-11-24"})
+    done = {name: "2026-11-24" for name in jobs}
+    assert not due_jobs(eight_in_lagos, done)
+
+
+# Basketball (B2)
+
+NBA = SOURCES["NBA"]
+NCAAB = SOURCES["NCAAB"]
+NBA_DAY = date(2026, 11, 4)
+
+
+def nba_board() -> dict[str, Any]:
+    return load("nba-20261104-scoreboard.json")
+
+
+def test_nba_has_one_feed_and_every_team_is_nba_level(tmp_path: Path) -> None:
+    assert NBA.feeds == (None,)
+    write_gz(board_path(tmp_path, "NBA", NBA_DAY, None), nba_board())
+    build = build_season(tmp_path, NBA, 2027)
+    assert len(build.results) == 3 and build.rejects == []
+    assert {row["level"] for row in build.teams} == {"NBA"}
+
+
+def test_preseason_and_all_star_games_are_left_out(tmp_path: Path) -> None:
+    board = nba_board()
+    board["events"][0]["season"]["type"] = 1
+    board["events"][1]["competitions"][0]["type"] = {"abbreviation": "ALLSTAR"}
+    write_gz(board_path(tmp_path, "NBA", NBA_DAY, None), board)
+    build = build_season(tmp_path, NBA, 2027)
+    assert [row["game_id"] for row in build.results] == [board["events"][2]["id"]]
+    assert build.skipped == 2
+    playing = {c["id"] for c in board["events"][2]["competitions"][0]["competitors"]}
+    assert {row["team_id"] for row in build.teams} == playing
+
+
+@respx.mock
+def test_nba_scoreboard_is_fetched_without_groups(tmp_path: Path) -> None:
+    client = PoliteClient("t", rate_per_second=1000.0, max_retries=0, sleep=lambda _: None)
+    fetcher = Fetcher(tmp_path, client, today_et=date(2026, 10, 2), log=lambda _: None)
+    route = respx.get(f"{SITE_ROOT}/basketball/nba/scoreboard").mock(
+        return_value=httpx.Response(200, json={"events": []})
+    )
+    refresh(fetcher, NBA, 2027)
+    assert route.call_count == 9  # 1 to 9 October: the season start to the lookahead.
+    assert all("groups" not in call.request.url.params for call in route.calls)
+
+
+def test_ncaab_level_comes_from_the_d1_list(tmp_path: Path) -> None:
+    day = date(2025, 1, 18)
+    write_gz(board_path(tmp_path, "NCAAB", day, "50"), load("ncaa-20250118-scoreboard.json"))
+    d1 = load("d1-teams-2027.json")
+    d1["items"] = [item for item in d1["items"] if "/teams/2?" not in item["$ref"]]
+    write_gz(level_list_path(tmp_path, "NCAAB", 2025, "50"), d1)
+    teams = {row["team_id"]: row["level"] for row in build_season(tmp_path, NCAAB, 2025).teams}
+    assert teams["61"] == "D1"
+    assert teams["2"] == OTHER  # Taken off the list above.

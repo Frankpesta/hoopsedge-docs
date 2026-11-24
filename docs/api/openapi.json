@@ -327,24 +327,11 @@
    "League": {
     "enum": [
      "NBA",
-     "NCAA"
+     "NCAAB",
+     "NCAAF"
     ],
     "title": "League",
     "type": "string"
-   },
-   "LeagueSetting": {
-    "additionalProperties": false,
-    "properties": {
-     "enabled": {
-      "title": "Enabled",
-      "type": "boolean"
-     }
-    },
-    "required": [
-     "enabled"
-    ],
-    "title": "LeagueSetting",
-    "type": "object"
    },
    "LearningPoint": {
     "properties": {
@@ -696,46 +683,6 @@
     "title": "LegSummary",
     "type": "object"
    },
-   "MarketSetting": {
-    "additionalProperties": false,
-    "properties": {
-     "enabled": {
-      "title": "Enabled",
-      "type": "boolean"
-     },
-     "min_edge": {
-      "anyOf": [
-       {
-        "maximum": 1.0,
-        "minimum": -1.0,
-        "type": "number"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "title": "Min Edge"
-     },
-     "min_prob": {
-      "anyOf": [
-       {
-        "maximum": 1.0,
-        "minimum": 0.0,
-        "type": "number"
-       },
-       {
-        "type": "null"
-       }
-      ],
-      "title": "Min Prob"
-     }
-    },
-    "required": [
-     "enabled"
-    ],
-    "title": "MarketSetting",
-    "type": "object"
-   },
    "ModelsView": {
     "properties": {
      "champion": {
@@ -1071,50 +1018,11 @@
    },
    "SettingsDocument": {
     "additionalProperties": false,
+    "description": "Cut down for v2 until B4 (D96). Thresholds live in the v2 config document.",
     "properties": {
-     "allow_alt_lines": {
-      "title": "Allow Alt Lines",
-      "type": "boolean"
-     },
      "dry_run": {
       "title": "Dry Run",
       "type": "boolean"
-     },
-     "leagues": {
-      "additionalProperties": {
-       "$ref": "#/components/schemas/LeagueSetting"
-      },
-      "propertyNames": {
-       "$ref": "#/components/schemas/League"
-      },
-      "title": "Leagues",
-      "type": "object"
-     },
-     "markets": {
-      "additionalProperties": {
-       "additionalProperties": {
-        "$ref": "#/components/schemas/MarketSetting"
-       },
-       "propertyNames": {
-        "$ref": "#/components/schemas/Family"
-       },
-       "type": "object"
-      },
-      "propertyNames": {
-       "$ref": "#/components/schemas/League"
-      },
-      "title": "Markets",
-      "type": "object"
-     },
-     "min_legs": {
-      "minimum": 2.0,
-      "title": "Min Legs",
-      "type": "integer"
-     },
-     "min_minutes_before_tip": {
-      "minimum": 20.0,
-      "title": "Min Minutes Before Tip",
-      "type": "integer"
      },
      "pause_all": {
       "title": "Pause All",
@@ -1134,11 +1042,6 @@
     },
     "required": [
      "schedules",
-     "leagues",
-     "markets",
-     "min_legs",
-     "min_minutes_before_tip",
-     "allow_alt_lines",
      "sportybet_proxy_enabled",
      "dry_run",
      "pause_all"

@@ -27,12 +27,12 @@ from zoneinfo import ZoneInfo
 
 import polars as pl
 
-from hoopsedge.common.config_v2 import SportConfig, V2Config, load_defaults
+from hoopsedge.common.config_v2 import SportConfig, TierThresholds, V2Config, load_defaults
 from hoopsedge.common.dynamo import connect, ensure_table, table_name
 from hoopsedge.common.http import PoliteClient
 from hoopsedge.common.ids import new_ulid
-from hoopsedge.ingest.backfill import Backfill, today_eastern
 from hoopsedge.ingest.espn_coverage import EASTERN
+from hoopsedge.ingest.espn_files import Fetcher, today_eastern
 from hoopsedge.ingest.scores import (
     SOURCES,
     USER_AGENT,
@@ -42,15 +42,21 @@ from hoopsedge.ingest.scores import (
     write_season,
 )
 from hoopsedge.l5.data import season_inputs
-from hoopsedge.l5.model import GamePrediction, Result, TeamInput, fixed_tiers, predict_game
+from hoopsedge.l5.model import (
+    GamePrediction,
+    Result,
+    TeamInput,
+    fixed_tiers,
+    predict_game,
+    provisional_tiers,
+)
 from hoopsedge.l5.model import team_input as l5_team_input
-from hoopsedge.sportybet.booking import dry_run_code
 from hoopsedge.sportybet.client import BlockedError, SportyBetClient, SportyBetError, build_client
 from hoopsedge.v2.legs import KINDS, Kind, Leg, game_legs, recheck, team_lines
 from hoopsedge.v2.lines import EventLines, LineShapeError, main_line, parse_event
 from hoopsedge.v2.names import Directory, EspnGame, EventMatch, Team, match_event, seed_aliases
 from hoopsedge.v2.store import add_alias, owner_aliases, save_unmatched
-from hoopsedge.v2.tickets import Dropped, Ticket, build_tickets
+from hoopsedge.v2.tickets import Dropped, Ticket, build_tickets, dry_run_code
 
 FRESH_FOR = timedelta(minutes=5)  # Invariant 3.
 SLATE_MARGIN = timedelta(hours=6)  # SportyBet's start can differ from ESPN's.
@@ -144,6 +150,31 @@ def _inputs(
     return one(game.home_id), one(game.away_id)
 
 
+def tiers_for(
+    sport: str,
+    slate: date,
+    config: SportConfig,
+    finals: list[Result],
+    season: int,
+    levels: dict[str, str],
+) -> TierThresholds:
+    """Fixed tiers from config, or this slate's provisional ones: percentiles over the main
+    level's teams, from games before the slate's Eastern day began (brief §4.4)."""
+    if not isinstance(config.tiers, str):
+        return fixed_tiers(config)
+    before = datetime(slate.year, slate.month, slate.day, tzinfo=EASTERN)
+    main = SOURCES[sport].main_level
+    inputs = [
+        l5_team_input(
+            team_id, finals, season=season, before=before, window=config.l5_window,
+            levels=levels, same_level_only=config.l5_same_level_only,
+        )
+        for team_id, level in sorted(levels.items())
+        if level == main
+    ]  # fmt: skip
+    return provisional_tiers(inputs, config.min_games)
+
+
 def build_slate(
     sport: str,
     slate: date,
@@ -158,10 +189,10 @@ def build_slate(
     """Match the list's events, then predict each matched game of the slate. `detail` fetches
     an event's lines; a BlockedError from it stops everything, any other failure skips the game."""
     sport_config = config.sports[sport]  # type: ignore[index]
-    tiers = fixed_tiers(sport_config)
+    season = int(results["season"][0])
+    tiers = tiers_for(sport, slate, sport_config, finals, season, levels)
     games = espn_games(results)
     slate_dates = dict(zip(results["game_id"], results["slate_date_et"], strict=True))
-    season = int(results["season"][0])
     low, high = slate_bounds(slate)
     build = SlateBuild()
     for event in events:
@@ -549,11 +580,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     run = commands.add_parser("run", help="Predict a slate and make dry-run tickets")
-    run.add_argument("--sport", choices=["NCAAF"], required=True)
+    run.add_argument("--sport", choices=["NCAAF", "NCAAB", "NBA"], required=True)
     run.add_argument("--date", type=date.fromisoformat, required=True, help="Eastern slate date")
     run.add_argument("--no-refresh", action="store_true", help="Skip the ESPN refresh")
     alias = commands.add_parser("alias", help="Add an owner alias: SportyBet name to ESPN team")
-    alias.add_argument("--sport", choices=["NCAAF"], required=True)
+    alias.add_argument("--sport", choices=["NCAAF", "NCAAB", "NBA"], required=True)
     alias.add_argument("--name", required=True, help="The SportyBet name, as SportyBet writes it")
     alias.add_argument("--team-id", required=True, help="The ESPN team ID")
     args = parser.parse_args()
@@ -564,7 +595,7 @@ def main() -> int:
     table = resource.Table(table_name())
     today = today_eastern()
     if args.command == "alias":
-        teams = read_teams(data_dir, args.sport, season_for(today))
+        teams = read_teams(data_dir, args.sport, season_for(today, SOURCES[args.sport]))
         known = dict(zip(teams["team_id"], teams["display_name"], strict=True))
         if args.team_id not in known:
             print(f"ESPN team {args.team_id} isn't in the {args.sport} registry", file=sys.stderr)
@@ -574,11 +605,11 @@ def main() -> int:
         return 0
 
     config = load_defaults()
-    season = season_for(args.date)
+    season = season_for(args.date, SOURCES[args.sport])
     if not args.no_refresh:
         http = PoliteClient(USER_AGENT, rate_per_second=2.0)
         try:
-            outcome = refresh(Backfill(data_dir, http, today), SOURCES[args.sport], season)
+            outcome = refresh(Fetcher(data_dir, http, today), SOURCES[args.sport], season)
         finally:
             http.close()
         if outcome["failures"]:

@@ -135,46 +135,6 @@ services:
     environment:
       NEXT_TELEMETRY_DISABLED: "1"
 
-  # Early data collector (D13). Runs until AWS ingest takes over.
-  collector:
-    build:
-      context: ./services
-      target: collector
-    image: hoopsedge-collector
-    restart: unless-stopped
-    mem_limit: 256m
-    volumes:
-      - ./data:/workspace/data
-    environment:
-      HOOPSEDGE_ENV: local
-      DRY_RUN: "true"
-    logging:
-      driver: json-file
-      options:
-        max-size: 5m
-        max-file: "2"
-
-  # One-time historical download (docs/03 section 2.2). Safe to stop and start again.
-  # Not restarted automatically: a block must stay stopped until the owner has reviewed it.
-  backfill:
-    build:
-      context: ./services
-      target: collector
-    image: hoopsedge-backfill
-    command: ["python", "-m", "hoopsedge.ingest.backfill", "fetch"]
-    restart: "no"
-    mem_limit: 512m
-    volumes:
-      - ./data:/workspace/data
-    environment:
-      HOOPSEDGE_ENV: local
-      DRY_RUN: "true"
-    logging:
-      driver: json-file
-      options:
-        max-size: 5m
-        max-file: "2"
-
   # DynamoDB Local (D84), standing in for DynamoDB. Its database file lives in data/dynamodb, so
   # tickets, runs, aliases and settings survive restarts. Create that folder as your own user
   # before the first start (`mkdir -p data/dynamodb`): the container runs as uid 1000 and can't
@@ -191,33 +151,6 @@ services:
       interval: 5s
       timeout: 3s
       retries: 12
-    logging:
-      driver: json-file
-      options:
-        max-size: 5m
-        max-file: "2"
-
-  # Live ingest every 30 minutes (docs/03 section 2.4), against the local database only.
-  live-ingest:
-    build:
-      context: ./services
-      target: collector
-    image: hoopsedge-live-ingest
-    command: ["python", "-m", "hoopsedge.ingest.live", "run"]
-    restart: unless-stopped
-    mem_limit: 384m
-    depends_on:
-      dynamodb:
-        condition: service_healthy
-    volumes:
-      - ./data:/workspace/data
-    environment:
-      HOOPSEDGE_ENV: local
-      DRY_RUN: "true"
-      AWS_ENDPOINT_URL_DYNAMODB: http://dynamodb:8000
-      # Dummy values the client insists on. They aren't credentials for anything.
-      AWS_ACCESS_KEY_ID: local
-      AWS_SECRET_ACCESS_KEY: local
     logging:
       driver: json-file
       options:

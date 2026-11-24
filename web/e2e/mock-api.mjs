@@ -28,7 +28,7 @@ function leg(rank, pick, game, hidden, odds = 1.9) {
 function ticket(id, family, number, code, status, hidden, picks) {
   return {
     ticket_id: id,
-    league: "NCAA",
+    league: "NCAAB",
     family,
     ticket_no: number,
     version: 2,
@@ -62,11 +62,11 @@ const run = (league, status = "succeeded") => ({
 });
 
 const state = {
-  ncaaRun: run("NCAA"),
+  ncaaRun: run("NCAAB"),
   polls: 0,
   unmatched: [
     {
-      league: "NCAA",
+      league: "NCAAB",
       event_id: "sr:match:99",
       home_name: "Mystery Tech",
       away_name: "UNC Tar Heels",
@@ -81,9 +81,9 @@ const state = {
   settingsVersion: 1,
   settings: {
     schedules: { ncaa_slate: "15:00", nba_slate: "22:00", nightly_learn: "11:00" },
-    leagues: { NBA: { enabled: true }, NCAA: { enabled: true } },
+    leagues: { NBA: { enabled: true }, NCAAB: { enabled: true } },
     markets: Object.fromEntries(
-      ["NBA", "NCAA"].map((league) => [
+      ["NBA", "NCAAB"].map((league) => [
         league,
         {
           handicap: { enabled: true, min_prob: 0.52, min_edge: 0.025 },
@@ -133,7 +133,7 @@ function slate(date) {
         unmatched_events: 0,
       },
       {
-        league: "NCAA",
+        league: "NCAAB",
         run: today ? state.ncaaRun : null,
         games: today ? 60 : 0,
         first_tip: today ? TIP : null,
@@ -216,7 +216,7 @@ const track = {
 
 const game = {
   game_id: "g1",
-  league: "NCAA",
+  league: "NCAAB",
   game: { tip_utc: TIP, home_id: "h", away_id: "a", slate_date_et: TODAY },
   home_name: "Duke Blue Devils",
   away_name: "UNC Tar Heels",
@@ -241,7 +241,7 @@ function ticketDetail(id) {
   if (!card) return null;
   return {
     ticket: card,
-    run_id: "run-NCAA",
+    run_id: "run-NCAAB",
     slate_date: TODAY,
     selection_hash: "abc",
     settled_combined_odds: null,
@@ -257,7 +257,7 @@ function ticketDetail(id) {
         version: 2,
         status: card.status,
         booking_code: card.booking_code,
-        run_id: "run-NCAA",
+        run_id: "run-NCAAB",
       },
     ],
   };
@@ -283,9 +283,9 @@ const server = createServer(async (request, response) => {
       // Like a real one, it first takes a moment to record itself, then runs, then ends.
       if (state.starting) {
         state.polls += 1;
-        if (state.polls === 2) state.ncaaRun = { ...run("NCAA", "running"), run_id: "new-run" };
+        if (state.polls === 2) state.ncaaRun = { ...run("NCAAB", "running"), run_id: "new-run" };
         if (state.polls >= 4) {
-          state.ncaaRun = { ...run("NCAA"), run_id: "new-run" };
+          state.ncaaRun = { ...run("NCAAB"), run_id: "new-run" };
           state.starting = false;
         }
       }
@@ -303,12 +303,12 @@ const server = createServer(async (request, response) => {
         : send(response, 404, { detail: "Game not found" });
     if (path === "/runs")
       return send(response, 200, [
-        run("NCAA"),
+        run("NCAAB"),
         { ...run("NBA", "failed"), run_id: "run-bad", error: "BlockedError: 403" },
       ]);
     if (path.startsWith("/runs/")) {
       return send(response, 200, {
-        run: run("NCAA"),
+        run: run("NCAAB"),
         steps: [
           {
             name: "FetchOffers",
@@ -386,7 +386,7 @@ const server = createServer(async (request, response) => {
     });
   }
   if (request.method === "POST" && path.endsWith("/rollback")) {
-    return send(response, 200, { league: "NCAA", version: body.version, reason: body.reason });
+    return send(response, 200, { league: "NCAAB", version: body.version, reason: body.reason });
   }
   return send(response, 404, { detail: "Not found" });
 });

@@ -1,22 +1,24 @@
 """v2 scoreboard ingest: final scores, schedules and team levels for the L5 model (brief §3).
 
-    docker compose run --rm dev python -m hoopsedge.ingest.scores refresh --sport NCAAF
-    docker compose run --rm dev python -m hoopsedge.ingest.scores status --sport NCAAF
+    docker compose run --rm dev python -m hoopsedge.ingest.scores refresh --sport NCAAB
+    docker compose run --rm dev python -m hoopsedge.ingest.scores status --sport NCAAB
+    docker compose run --rm dev python -m hoopsedge.ingest.scores resume   # after a halt
 
 The L5 model needs only who played whom, when, and the final score, so this reads ESPN's
 scoreboard and nothing else: no summaries, boxes or odds. The first `refresh` of a season is its
-backfill. After that, a date is fetched again only while it is unsettled: younger than
+fetcher. After that, a date is fetched again only while it is unsettled: younger than
 `SETTLED_AFTER_DAYS`, or holding a game that hasn't ended. The next `LOOKAHEAD_DAYS` are always
 fetched, so upcoming kickoffs are known for matching (brief §5.3 step 6).
 
-Level comes from ESPN's per-season group lists (FBS is group 80, FCS 81). A team on neither list
-is `OTHER`. A team on two lists, or a missing list, stops the build: a guessed level would hide
-the cross-level games the brief flags (§4.3).
+Level comes from ESPN's per-season group lists (NCAAF: FBS is group 80, FCS 81; NCAAB: D1 is
+group 50). A team on no list is `OTHER`. A team on two lists, or a missing list, stops the build:
+a guessed level would hide the cross-level games the brief flags (§4.3). NBA has no groups, so
+every NBA team is level `NBA`. Preseason games and exhibitions (All-Star) are left out.
 
 Raw responses go to `raw/espn/v2/{sport}/`, and `build` rewrites the curated tables from them:
 `curated/results/sport={sport}/season={season}/part-0.parquet` and
 `curated/registry/sport={sport}/season={season}/teams.parquet`. A 401, 403, 451 or non-JSON
-response halts every ESPN job until the owner runs `python -m hoopsedge.ingest.backfill resume`.
+response halts every ESPN job until the owner runs `resume` (see `espn_files`).
 """
 
 import argparse
@@ -33,24 +35,25 @@ from typing import Any
 import polars as pl
 
 from hoopsedge.common.http import HttpFetchError, PoliteClient
-from hoopsedge.ingest.backfill import (
-    Backfill,
+from hoopsedge.ingest.espn_coverage import et_date, is_exhibition, parse_time, to_number
+from hoopsedge.ingest.espn_files import (
     BlockedError,
+    Fetcher,
     assert_not_halted,
     fetch_json,
     halt_path,
     read_gz,
     today_eastern,
     write_gz,
+    write_parquet,
 )
-from hoopsedge.ingest.curated import write_parquet
-from hoopsedge.ingest.espn_coverage import et_date, parse_time, to_number
 
 SITE_ROOT = "https://site.api.espn.com/apis/site/v2/sports"
 CORE_ROOT = "https://sports.core.api.espn.com/v2/sports"
 USER_AGENT = "HoopsEdge-scores/0.2 (private research client)"
 SETTLED_AFTER_DAYS = 3  # Brief §3: each run re-reads the last 2 to 3 days.
 LOOKAHEAD_DAYS = 7
+PRESEASON = 1
 REGULAR_SEASON = 2
 OTHER = "OTHER"
 DEFAULT_DATA_DIR = "/workspace/data"
@@ -61,10 +64,24 @@ class SportSource:
     sport: str
     espn_sport: str  # e.g. football
     espn_league: str  # e.g. college-football
-    levels: dict[str, str]  # ESPN group to level. Each group is one scoreboard feed.
-    season_starts: tuple[int, int]  # (month, day) in the season's own year.
-    season_ends: tuple[int, int]  # (month, day) in the following year.
+    # ESPN group to level. Each group is one scoreboard feed; none means one feed, no groups.
+    levels: dict[str, str]
+    season_starts: tuple[int, int]  # (month, day) in the season's first calendar year.
+    season_ends: tuple[int, int]  # (month, day) in the following calendar year.
+    # ESPN names football seasons by their first year and basketball by their last: the
+    # 2026-27 NBA season is 2027.
+    named_by_first_year: bool
+    default_level: str = OTHER  # For a team on no list; every team when there are no groups.
     limit: str = "500"
+
+    @property
+    def feeds(self) -> tuple[str | None, ...]:
+        return tuple(self.levels) or (None,)
+
+    @property
+    def main_level(self) -> str:
+        """FBS, D1 or NBA: the level provisional tiers are measured on (audit item 15)."""
+        return next(iter(self.levels.values()), self.default_level)
 
     @property
     def scoreboard_url(self) -> str:
@@ -86,6 +103,26 @@ SOURCES: dict[str, SportSource] = {
         levels={"80": "FBS", "81": "FCS"},
         season_starts=(8, 15),
         season_ends=(1, 31),
+        named_by_first_year=True,
+    ),
+    "NCAAB": SportSource(
+        sport="NCAAB",
+        espn_sport="basketball",
+        espn_league="mens-college-basketball",
+        levels={"50": "D1"},
+        season_starts=(11, 1),
+        season_ends=(4, 15),
+        named_by_first_year=False,
+    ),
+    "NBA": SportSource(
+        sport="NBA",
+        espn_sport="basketball",
+        espn_league="nba",
+        levels={},
+        season_starts=(10, 1),
+        season_ends=(6, 30),
+        named_by_first_year=False,
+        default_level="NBA",
     ),
 }
 
@@ -125,22 +162,24 @@ class IngestError(RuntimeError):
     """The data can't be trusted as it is. The build stops instead of guessing."""
 
 
-def season_for(day: date) -> int:
-    """College football seasons are named by the year they start: January bowls belong to the
-    season before."""
-    return day.year if day.month >= 7 else day.year - 1
+def season_for(day: date, source: SportSource) -> int:
+    """The season a date belongs to. Every season here starts after July and ends before it."""
+    first_year = day.year if day.month >= 7 else day.year - 1
+    return first_year if source.named_by_first_year else first_year + 1
 
 
 def season_window(source: SportSource, season: int) -> tuple[date, date]:
-    return date(season, *source.season_starts), date(season + 1, *source.season_ends)
+    first_year = season if source.named_by_first_year else season - 1
+    return date(first_year, *source.season_starts), date(first_year + 1, *source.season_ends)
 
 
 def raw_dir(data_dir: Path, sport: str) -> Path:
     return data_dir / "raw/espn/v2" / sport
 
 
-def board_path(data_dir: Path, sport: str, day: date, group: str) -> Path:
-    return raw_dir(data_dir, sport) / f"{day:%Y/%m/%d}/scoreboard-{group}.json.gz"
+def board_path(data_dir: Path, sport: str, day: date, group: str | None) -> Path:
+    name = f"scoreboard-{group}" if group else "scoreboard"
+    return raw_dir(data_dir, sport) / f"{day:%Y/%m/%d}/{name}.json.gz"
 
 
 def level_list_path(data_dir: Path, sport: str, season: int, group: str) -> Path:
@@ -186,47 +225,46 @@ def dates_to_fetch(source: SportSource, season: int, today: date, settled: set[s
     return [day for day in days if day.isoformat() not in settled]
 
 
-def fetch_level_lists(backfill: Backfill, source: SportSource, season: int) -> None:
+def fetch_level_lists(fetcher: Fetcher, source: SportSource, season: int) -> None:
     """ESPN's per-season team list for each level, fetched once per season."""
     for group in source.levels:
-        path = level_list_path(backfill.data_dir, source.sport, season, group)
+        path = level_list_path(fetcher.data_dir, source.sport, season, group)
         if path.exists():
             continue
         url = source.level_list_url(season, group)
-        document = fetch_json(backfill, url, {"limit": "1000"})
+        document = fetch_json(fetcher, url, {"limit": "1000"})
         if document.get("pageCount", 1) != 1:
             raise IngestError(f"Group {group} team list has more than one page: {url}")
         write_gz(path, document)
 
 
-def refresh(backfill: Backfill, source: SportSource, season: int) -> dict[str, Any]:
+def refresh(fetcher: Fetcher, source: SportSource, season: int) -> dict[str, Any]:
     """Fetch every unsettled date of the season. Returns what was fetched and what failed."""
-    assert_not_halted(backfill.data_dir)
-    fetch_level_lists(backfill, source, season)
-    checkpoint = read_checkpoint(backfill.data_dir, source.sport, season)
+    assert_not_halted(fetcher.data_dir)
+    fetch_level_lists(fetcher, source, season)
+    checkpoint = read_checkpoint(fetcher.data_dir, source.sport, season)
     settled = set(checkpoint["settled_dates"])
     failures: dict[str, str] = {}
     fetched: list[str] = []
-    for day in dates_to_fetch(source, season, backfill.today_et, settled):
+    for day in dates_to_fetch(source, season, fetcher.today_et, settled):
         boards: list[dict[str, Any]] = []
         try:
-            for group in source.levels:
-                board = fetch_json(
-                    backfill,
-                    source.scoreboard_url,
-                    {"dates": f"{day:%Y%m%d}", "groups": group, "limit": source.limit},
-                )
-                write_gz(board_path(backfill.data_dir, source.sport, day, group), board)
+            for group in source.feeds:
+                params = {"dates": f"{day:%Y%m%d}", "limit": source.limit}
+                if group:
+                    params["groups"] = group
+                board = fetch_json(fetcher, source.scoreboard_url, params)
+                write_gz(board_path(fetcher.data_dir, source.sport, day, group), board)
                 boards.append(board)
         except HttpFetchError as error:
             failures[day.isoformat()] = str(error)
             continue
         fetched.append(day.isoformat())
-        if is_settled(day, boards, backfill.today_et):
+        if is_settled(day, boards, fetcher.today_et):
             settled.add(day.isoformat())
     checkpoint = {"settled_dates": sorted(settled), "failures": failures}
-    _write_checkpoint(backfill.data_dir, source.sport, season, checkpoint)
-    backfill.log(
+    _write_checkpoint(fetcher.data_dir, source.sport, season, checkpoint)
+    fetcher.log(
         f"{source.sport} {season}: fetched {len(fetched)} dates, {len(settled)} settled, "
         f"{len(failures)} failed"
     )
@@ -238,6 +276,7 @@ class SeasonBuild:
     results: list[dict[str, Any]] = field(default_factory=list)
     teams: list[dict[str, Any]] = field(default_factory=list)
     rejects: list[dict[str, str]] = field(default_factory=list)
+    skipped: int = 0  # Preseason and exhibition games.
 
 
 def read_levels(data_dir: Path, source: SportSource, season: int) -> dict[str, str]:
@@ -329,18 +368,23 @@ def build_season(data_dir: Path, source: SportSource, season: int) -> SeasonBuil
     rows: dict[str, dict[str, Any]] = {}
     rejected: dict[str, str] = {}
     teams: dict[str, dict[str, Any]] = {}
+    skipped: set[str] = set()
     day = start
     while day <= end:
-        for group in source.levels:
+        for group in source.feeds:
             path = board_path(data_dir, source.sport, day, group)
             if not path.exists():
                 continue
             for event in read_gz(path).get("events", []):
                 game_id = str(event["id"])
+                season_type = int(event.get("season", {}).get("type", 0))
+                if season_type == PRESEASON or is_exhibition(event["competitions"][0]):
+                    skipped.add(game_id)  # Not part of any team's form (All-Star teams too).
+                    continue
                 for competitor in event["competitions"][0].get("competitors") or []:
                     team = competitor.get("team") or {}
                     if team.get("id"):
-                        level = levels.get(str(team["id"]), OTHER)
+                        level = levels.get(str(team["id"]), source.default_level)
                         teams[str(team["id"])] = _team_row(source.sport, season, team, level)
                 row, reason = parse_event(source.sport, event)
                 if reason is not None:
@@ -358,6 +402,7 @@ def build_season(data_dir: Path, source: SportSource, season: int) -> SeasonBuil
         results=sorted(rows.values(), key=lambda r: (r["kickoff_utc"], r["game_id"])),
         teams=sorted(teams.values(), key=lambda r: r["team_id"]),
         rejects=[{"game_id": g, "reason": r} for g, r in sorted(rejected.items())],
+        skipped=len(skipped),
     )
 
 
@@ -431,12 +476,17 @@ def main() -> int:
         command = commands.add_parser(name)
         command.add_argument("--sport", choices=sorted(SOURCES), required=True)
         command.add_argument("--season", type=int, help="Defaults to the current season.")
+    commands.add_parser("resume", help="Clear an ESPN halt, after the owner has looked at it")
     args = parser.parse_args()
 
     data_dir = Path(os.environ.get("HOOPSEDGE_DATA_DIR", DEFAULT_DATA_DIR))
+    if args.command == "resume":
+        halt_path(data_dir).unlink(missing_ok=True)
+        print("ESPN halt cleared.")
+        return 0
     today = today_eastern()
     source = SOURCES[args.sport]
-    season = args.season or season_for(today)
+    season = args.season or season_for(today, source)
     outcome: dict[str, Any] = {"failures": {}}
     if args.command == "status":
         print(summary_text(data_dir, source.sport, season, today))
@@ -444,7 +494,7 @@ def main() -> int:
     if args.command == "refresh":
         client = PoliteClient(USER_AGENT, rate_per_second=2.0)
         try:
-            outcome = refresh(Backfill(data_dir, client, today), source, season)
+            outcome = refresh(Fetcher(data_dir, client, today), source, season)
         except BlockedError as error:
             print(f"HALTED: {error}", file=sys.stderr)
             return 2

@@ -55,33 +55,33 @@ EC2 containers -> socks5h://host.docker.internal:1080 -> SSH tunnel -> laptop ->
 - **Server:** `deploy/ec2/sshd-relay.conf` is installed as
   `/etc/ssh/sshd_config.d/60-hoopsedge-relay.conf`, so the tunnel listens on the Docker bridge
   address `172.17.0.1:1080` and nowhere else. Check it with `sudo ss -ltn | grep 1080`.
-- **The laptop must be on, awake and online** for the slate runs (15:00, 22:00 and 00:30 Lagos),
-  for Run now and for odds snapshots. Without it, SportyBet steps fail and the run alerts.
-  Everything else keeps running.
+- **The laptop must be on, awake and online** for the slate runs (NCAAB and NBA 16:00 and
+  21:00, NCAAF 18:00 and Saturdays 14:00 Lagos) and for Run now. Without it, SportyBet steps fail
+  and the run is marked failed. Everything else keeps running.
 - **A paid proxy instead:** set `HOOPSEDGE_SPORTYBET_PROXY=http://user:pass@host:port` and
-  recreate `api scheduler collector`. The laptop relay can then be stopped.
+  recreate `api scheduler`. The laptop relay can then be stopped.
 
 ## Start, update and stop
 
 ```sh
 mkdir -p data/dynamodb                           # once, as ec2-user (the database runs as uid 1000)
-dc up -d dynamodb collector live-ingest          # data first
-dc run --rm pipeline python -m hoopsedge.learning.run bootstrap --league NBA
-dc run --rm pipeline python -m hoopsedge.learning.run bootstrap --league NCAA
+dc up -d dynamodb
+for sport in NCAAF NCAAB NBA; do dc run --rm pipeline python -m hoopsedge.ingest.scores refresh --sport $sport; done
 dc up -d --no-deps scheduler api caddy
 dc ps
 ```
 
-Bootstrap returns the existing champion when there is one: champions are files in
-`data/models`, so they survive restarts. It is only needed on a fresh `data/` folder.
+The first `refresh` of each sport backfills its current season; later ones only fetch recent days.
+Since D96 the v1 `collector` and `live-ingest` services and the model bootstrap are gone: after
+pulling that change, remove their containers with `dc rm -sf collector live-ingest`.
 
 To deploy a new commit from `main`:
 
 ```sh
 git pull --ff-only
 sed -i "s/^HOOPSEDGE_GIT_SHA=.*/HOOPSEDGE_GIT_SHA=$(git rev-parse --short HEAD)/" .env
-dc build scheduler api collector live-ingest pipeline
-dc up -d --no-deps scheduler api collector live-ingest
+dc build scheduler api pipeline
+dc up -d --no-deps scheduler api
 ```
 
 Use `--no-deps`, so the database isn't restarted for nothing. Since D84 a restart or recreate of
@@ -106,11 +106,11 @@ scripts/check_storage_restart.sh                     # with COMPOSE set to the d
 To restore, stop the services that write, empty the database, then load an export:
 
 ```sh
-dc stop scheduler api live-ingest
+dc stop scheduler api
 dc rm -sf dynamodb && mv data/dynamodb data/dynamodb.broken && mkdir data/dynamodb
 dc up -d dynamodb
 dc run --rm pipeline python -m hoopsedge.common.backup restore /workspace/data/backups/dynamodb/<file>.jsonl.gz
-dc up -d --no-deps scheduler api live-ingest
+dc up -d --no-deps scheduler api
 ```
 
 **Moving from `aws-mock` (once, when this lands on `main`).** `aws-mock` held everything in memory,
@@ -120,11 +120,11 @@ so keep what it has before removing it. The still-running `aws-mock` is exported
 git pull --ff-only
 sed -i "s/^HOOPSEDGE_GIT_SHA=.*/HOOPSEDGE_GIT_SHA=$(git rev-parse --short HEAD)/" .env
 mkdir -p data/dynamodb
-dc build scheduler api collector live-ingest pipeline
+dc build scheduler api pipeline
 dc run --rm --no-deps -e AWS_ENDPOINT_URL_DYNAMODB=http://aws-mock:5000 \
   -e HOOPSEDGE_DATA_DIR=/workspace/data/aws-mock-final pipeline python -m hoopsedge.common.backup export
 ls data/aws-mock-final/backups/dynamodb/                 # check the export is there first
-dc up -d dynamodb && dc up -d --no-deps scheduler api collector live-ingest
+dc up -d dynamodb && dc up -d --no-deps scheduler api
 docker rm -f hoopsedge-aws-mock-1
 ```
 

@@ -1,6 +1,6 @@
 # Seed aliases per sport: SportyBet name -> ESPN team ID (brief §5.3, D89). IDs were looked up in
 # the ESPN registry, never guessed. The owner's own aliases live in DynamoDB as ALIAS#{sport} and
-# win over these. The brief's basketball seeds come with the v2 NCAAB registry (B2).
+# win over these.
 NCAAF:
   Connecticut Huskies: "41" # UConn Huskies (brief seed, football)
   Delaware Fightin´ Blue Hens: "48" # Delaware Blue Hens (brief seed; also found by location+mascot)
@@ -12,3 +12,26 @@ NCAAF:
   Marshall Herd: "276" # Marshall Thundering Herd
   FIU Panthers: "2229" # Florida International Panthers
   UMASS Minutemen: "113" # Massachusetts Minutemen
+NCAAB:
+  # The brief's §5.3 seeds, by ESPN team ID.
+  Texas Rio Grande Valley Vaqueros: "292" # UT Rio Grande Valley Vaqueros
+  University At Albany Great Danes: "399" # UAlbany Great Danes
+  Penn Quakers: "219" # Pennsylvania Quakers
+  New Orleans Privateers: "2443" # ESPN shows "LSU New Orleans Privateers"
+  Lafayette College Leopards: "322" # Lafayette Leopards
+  Middle Tennessee State Blue Raiders: "2393" # Middle Tennessee Blue Raiders
+  St. Thomas (MN) Tommies: "2900" # St. Thomas Tommies
+  Wisconsin Milwaukee Panthers: "270" # Milwaukee Panthers
+  Nicholls State Colonels: "2447" # Nicholls Colonels
+  Morehead St Eagles: "2413" # Morehead State Eagles
+  Connecticut Huskies: "41" # UConn Huskies
+  Delaware Fightin´ Blue Hens: "48" # Delaware Blue Hens
+  # Seen on SportyBet's NCAAB list on 2026-11-24, matched by hand to ESPN.
+  Queens (NC) Royals: "2511" # Queens University Royals
+  Louisiana Monroe Warhawks: "2433" # UL Monroe Warhawks
+  North Carolina Greensboro Spartans: "2430" # UNC Greensboro Spartans
+  Illinois Chicago Flames: "82" # UIC Flames
+  Alabama AM Bulldogs: "2010" # Alabama A&M Bulldogs (fuzzy scored 97; never auto-matched)
+  Appalachian State Mountaineers: "2026" # App State Mountaineers
+  FIU Panthers: "2229" # Florida International Panthers
+NBA: {}
