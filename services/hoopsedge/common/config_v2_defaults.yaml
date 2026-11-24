@@ -1,0 +1,51 @@
+# v2 config defaults: brief §10, with D86 (20-minute cutoff) and D88 (team totals, NBA cap).
+# Sports are keyed NCAAF / NCAAB / NBA (D87), as everywhere else in the code. This is version 0;
+# the owner's edits become later versions (B4).
+sports:
+  NCAAF:
+    enabled: true
+    tournament_ids: ["sr:tournament:27653"]
+    espn: { path: "football/college-football", groups: [80, 81] }
+    l5_window: 5
+    min_games: 4
+    l5_same_level_only: false
+    over_threshold: 4.0
+    under_threshold: 5.0
+    team_total_threshold: 3.0
+    tiers: { atk: [24.0, 33.0], def: [20.0, 28.0] }
+    line_mode: { totals: safest, team_totals: main }
+    min_cushion: 0.0
+  NCAAB:
+    enabled: true
+    tournament_ids: ["sr:tournament:648"]
+    espn: { path: "basketball/mens-college-basketball", groups: [50] }
+    l5_window: 5
+    min_games: 4
+    l5_same_level_only: false
+    over_threshold: 5.0
+    under_threshold: 5.0
+    team_total_threshold: 4.0
+    tiers: provisional_percentiles
+    line_mode: { totals: safest, team_totals: main }
+    min_cushion: 0.0
+  NBA:
+    enabled: true
+    tournament_ids: ["sr:tournament:132"]
+    espn: { path: "basketball/nba", groups: [] }
+    l5_window: 5
+    min_games: 4
+    l5_same_level_only: false
+    over_threshold: 5.0
+    under_threshold: 5.0
+    team_total_threshold: 4.0
+    tiers: provisional_percentiles
+    line_mode: { totals: safest, team_totals: main }
+    min_cushion: 0.0
+outlook: { low_max: 2, medium_max: 5 }
+tickets:
+  max_legs: 20
+  max_games_per_kind: 100
+  booking_cutoff_minutes: 20
+  kinds: { TOTALS_LEAN: true, TEAM_TOTALS: true, TOTALS_ALL_OVER: false, TOTALS_ALL_UNDER: false }
+timezone_display: Africa/Lagos
+dry_run: true
